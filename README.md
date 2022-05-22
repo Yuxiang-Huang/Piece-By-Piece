@@ -22,7 +22,7 @@ By shooting enemies you can gain coins, which you can then spend to buy upgrades
 
 Once we are done with the MVP (~1 week) we can start working on the actual project. The main focus of the actual project is to convert the arbitrary, but simple, shop menu into a ‘module’ shop. You will be able to buy modules for your ship, which you physically attach to it through nodes, and act as upgrades. E.g. a ‘booster module’ would act the same as a Movement Speed upgrade in the MVP. We would also want to add some more enemy variety and replace the random spawning mechanics with waves of enemies".
 
-<img src="./ref/GunShip2.png" width="250" height="200"> <img src="./ref/Shop2.png" width="250" height="200"> <img src="./ref/WavesOfEnemy.png" width="750" height="200">
+<img src="./ref/GunShip2.png" width="250" height="200"> <img src="./ref/Shop2.png" width="250" height="200"> <img src="./ref/Enemy2.png" width="250" height="200"> <img src="./ref/WavesOfEnemy.png" width="750" height="200">
 ---
 ### Made by the "We Piece Together" team:
 * #### Yuxiang Huang (co-founder)

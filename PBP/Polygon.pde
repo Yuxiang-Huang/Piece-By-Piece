@@ -1,17 +1,16 @@
-class Polygon extends UMO{
+class Polygon extends UMO {
   int heldExp;
   String shape;
-  
-  Polygon(){
+
+  Polygon() {
   }
-  
-  void die(){
-  
+
+  void die() {
   }
-  
-  void display(){
-  
+
+  void display() {
   }
-  
-  
+
+  void update() {
+  }
 }

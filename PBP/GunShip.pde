@@ -19,28 +19,30 @@ public class Gunship extends UMO {
 
     // LEFT
     if (keysPressed[0]) {
-      if (player.getDX() > -3) {
+      if (player.getDX() > -5) {
         player.setDX(player.getDX()-getDDX());
       }
     } 
     // UP
     if (keysPressed[1]) {
-      if (player.getDY() > -3) {
+      if (player.getDY() > -5) {
         player.setDY(player.getDY()-getDDY());
       }
     }
     // RIGHT
     if (keysPressed[2]) {
-      if (player.getDX() < 3) {
+      if (player.getDX() < 5) {
         player.setDX(player.getDX()+getDDX());
       }
     }
     // DOWN
     if (keysPressed[3]) {
-      if (player.getDY() < 3) {
+      if (player.getDY() < 5) {
         player.setDY(player.getDY()+getDDY());
       }
     }
+
+    //if (exactly two trues in keysPressed) {multiply dx and dy by sqrt(2)/2}
 
     // apply velocity
     setX(getX() + getDX());

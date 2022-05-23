@@ -8,7 +8,6 @@ void setup() {
 }
 
 void keyPressed() {
-
   if (key == 'a' || keyCode == LEFT) {
     keysPressed[0] = true;
   }

@@ -1,8 +1,21 @@
 abstract class UMO implements Processable {
+  private float radius;
   private float x, y;
   private float dx, dy;
   private float ddx, ddy;
-  private float friction;
+  private final float friction = .95;
+
+  void update() {
+  }
+  void display() {
+  }
+
+  float getRadius() {
+    return radius;
+  }
+  void setRadius(float radius) {
+    this.radius = radius;
+  }
 
   float getX() {
     return x;
@@ -48,8 +61,5 @@ abstract class UMO implements Processable {
 
   float getFriction() {
     return friction;
-  }
-  void setFriction(float friction) {
-    this.friction = friction;
   }
 }

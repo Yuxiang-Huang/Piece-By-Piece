@@ -1,39 +1,44 @@
 Gunship player;
+boolean[] keysPressed; 
 
 void setup() {
   size(900, 900);
-  player = new Gunship ();
-}
-
-void draw() {
-  circle(height / 2, width / 2, 50);
+  player = new Gunship(width/2, height/2);
+  keysPressed = new boolean[4];
 }
 
 void keyPressed() {
-  switch (key) {
-  case 'w':
-    player.setDDY(player.getDDY() + 2.55); 
-    break;
-  case UP:
-    player.setDDY(player.getDDY() + 2.55); 
-    break;
-  case 's':
-    player.setDDY(player.getDDY() - 2.55); 
-    break;
-  case DOWN:
-    player.setDDY(player.getDDY() - 2.55); 
-    break;
-  case 'a':
-    player.setDDX(player.getDDX() - 2.55); 
-    break;
-  case LEFT:
-    player.setDDX(player.getDDX() - 2.55); 
-    break;
-  case 'd':
-    player.setDDX(player.getDDX() + 2.55); 
-    break;
-  case RIGHT:
-    player.setDDX(player.getDDX() + 2.55); 
-    break;
+  if (key == 'a' || keyCode == LEFT) {
+    keysPressed[0] = true;
   }
+  if (key == 'w' || keyCode == UP) {
+    keysPressed[1] = true;
+  } 
+  if (key == 'd' || keyCode == RIGHT) {
+    keysPressed[2] = true;
+  }
+  if (key == 's' || keyCode == DOWN) {
+    keysPressed[3] = true;
+  }
+}
+
+void keyReleased() {
+  if (key == 'a' || keyCode == LEFT) {
+    keysPressed[0] = false;
+  }
+  if (key == 'w' || keyCode == UP) {
+    keysPressed[1] = false;
+  }   
+  if (key == 'd' || keyCode == RIGHT) {
+    keysPressed[2] = false;
+  }
+  if (key == 's' || keyCode == DOWN) {
+    keysPressed[3] = false;
+  }
+}
+
+void draw() {
+  background(255);
+  player.update();
+  player.display();
 }

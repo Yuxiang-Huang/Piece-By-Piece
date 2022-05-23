@@ -1,4 +1,4 @@
 interface Processable {
-    void display();
-    void update();
+  void display();
+  void update();
 }

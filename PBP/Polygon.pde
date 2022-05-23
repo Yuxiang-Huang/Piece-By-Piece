@@ -38,10 +38,9 @@ class Polygon extends UMO{
     if (shape.equals("square")){
       square(getX(), getY(), 10);
     } else if (shape.equals("triangle")){
-      triangle(getX(), getY() + radius, 
-      getX() - radius * sqrt(3) / 2, getY() - radius / 2, 
-      
-      radius * sqrt(3) / 2);
+      triangle(getX(), getY() - radius, 
+      getX() - radius * sqrt(3) / 2, getY() + radius / 2, 
+      getX() + radius * sqrt(3) / 2, getY() + radius / 2);
     }
   }
   

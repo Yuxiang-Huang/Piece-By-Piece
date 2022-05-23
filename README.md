@@ -16,7 +16,7 @@
 ### Brief Summary:
 We will attempt to recreate the shooter game Diep.io (an Agar.io clone) with no multiplayer, but bot enemies that you need to defeat. The MVP will focus on the movement1, stat upgrades2, and level up mechanics (including polygons), and the Final Project will focus on adding tank upgrades and bot enemies.
 
-<img src="./ref/GunShip1.png" width="250" height="200"> <img src="./ref/Shop1.png" width="250" height="200"> <img src="./ref/Enemy1.png" width="250" height="200"> 
+<img src="./ref/GunShip.png" width="250" height="200"> <img src="./ref/Shop.png" width="250" height="200"> <img src="./ref/Pentagon.png" width="250" height="200"> 
 
 By shooting enemies you can gain experience points, which once you acquire enough off to level up, you gain a skill point that lets you upgrade a stat of your player. The playable map will be bigger than the entire screen, meaning the camera won't just be a static overhead view, but one that moves along with your ship, always keeping it in focus (orthographic camera). 
 

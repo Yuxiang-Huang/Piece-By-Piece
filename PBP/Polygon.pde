@@ -4,9 +4,19 @@ class Polygon extends UMO{
   
   Polygon(String name){
     setX(Math.random() * width);
-    setY(Math.random() * width);
+    setY(Math.random() * height);
+    while (Math.abs(getX() - player.getX()) < player.getRadius()){
+      setX(Math.random() * width);
+    }
+    while (Math.abs(getY() - player.getY()) < player.getRadius()){
+      setY(Math.random() * height);
+    }
+    polygon.add(this);
     if (name.equals("square")){
       heldExp = 10;
+      setMaxHealth(10);
+      setCurrentHealth(10);
+      setCollisionDamage(8);
     }
   }
   

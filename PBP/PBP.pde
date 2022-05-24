@@ -2,7 +2,7 @@ Gunship player;
 boolean[] keysPressed; 
 
 void setup() {
-  size(900, 900);
+  size(800, 800);
   player = new Gunship(width/2, height/2);
   keysPressed = new boolean[4];
 }

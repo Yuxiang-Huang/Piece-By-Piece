@@ -4,13 +4,13 @@ class Polygon extends UMO {
   private int radius;
 
   Polygon(String name) {
-    setX((float)Math.random() * width);
-    setY((float)Math.random() * height);
+    setX(random(width));
+    setY((random(height));
     while (Math.abs(getX() - player.getX()) < player.getRadius()) {
-      setX((float)Math.random() * width);
+      setX(random(width));
     }
     while (Math.abs(getY() - player.getY()) < player.getRadius()) {
-      setY((float)Math.random() * height);
+      setY((random(height));
     }
     //polygons.add(this);
     if (name.equals("square")) {
@@ -41,6 +41,8 @@ class Polygon extends UMO {
       triangle(getX(), getY() - radius, 
         getX() - radius * sqrt(3) / 2, getY() + radius / 2, 
         getX() + radius * sqrt(3) / 2, getY() + radius / 2);
+    } else if (shape.equals("pentagon")) {
+      polygon(getX(), getY(), radius, );
     }
   }
 

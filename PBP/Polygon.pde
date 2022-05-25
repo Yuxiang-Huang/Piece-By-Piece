@@ -5,12 +5,12 @@ class Polygon extends UMO {
 
   Polygon(String name) {
     setX(random(width));
-    setY((random(height));
+    setY(random(height));
     while (Math.abs(getX() - player.getX()) < player.getRadius()) {
       setX(random(width));
     }
     while (Math.abs(getY() - player.getY()) < player.getRadius()) {
-      setY((random(height));
+      setY(random(height));
     }
     //polygons.add(this);
     if (name.equals("square")) {
@@ -42,7 +42,7 @@ class Polygon extends UMO {
         getX() - radius * sqrt(3) / 2, getY() + radius / 2, 
         getX() + radius * sqrt(3) / 2, getY() + radius / 2);
     } else if (shape.equals("pentagon")) {
-      polygon(getX(), getY(), radius, );
+      //polygon(getX(), getY(), radius, );
     }
   }
 

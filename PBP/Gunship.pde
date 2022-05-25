@@ -58,18 +58,16 @@ public class Gunship extends UMO {
     // apply velocity
     position.add(velocity);
     //apply friction
-<<<<<<< HEAD
     setDX(getDX()*getFriction());
     setDY(getDY()*getFriction());
     
    //check for collisions
    collisionWithBorder();
    collisionWithUMO();
-=======
+
     if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
       velocity.mult(getFriction());
     }
->>>>>>> main
   }
 
   float getMaxSpeed() {

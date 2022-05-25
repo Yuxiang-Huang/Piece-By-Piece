@@ -8,7 +8,7 @@ void setup() {
   keysPressed = new boolean[4];
   //creating polygons
   polygons = new ArrayList<Polygon> ();
-  for (int x = 0; x < 9; x++){
+  for (int x = 0; x < 1; x++){
     int rand = (int) random(3);
     if (rand == 0){
       Polygon now = new Polygon("square");

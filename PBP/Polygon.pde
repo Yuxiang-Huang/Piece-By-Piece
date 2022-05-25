@@ -1,11 +1,9 @@
 class Polygon extends UMO {
   private int heldExp;
   private String shape;
-  private int radius;
 
   Polygon(String name) {
-    setX(random(width));
-    setY(random(height));
+    position = new PVector(random(width), random(height));
     //Not to collide with player ship
     while (Math.abs(getX() - player.getX()) < player.getRadius()) {
       setX(random(width));

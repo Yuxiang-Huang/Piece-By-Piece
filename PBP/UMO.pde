@@ -1,11 +1,11 @@
 abstract class UMO implements Processable {
   PShape umo;
   private float radius;
-  private float x, y;
-  private float dx, dy;
-  private float ddx, ddy;
+  PVector position;
+  PVector velocity;
+  PVector acceleration;
   private color Color;
-  private final float friction = .95;
+  private final float friction = .98; // for smoother stop
 
   void update() {
   }
@@ -28,6 +28,7 @@ abstract class UMO implements Processable {
     }
   }
 
+<<<<<<< HEAD
 float getRadius() {
   return radius;
 }
@@ -87,4 +88,58 @@ color getColor() {
 void setColor(color Color) {
   this.Color = Color;
 }
+=======
+  float getX() {
+    return position.x;
+  }
+  void setX(float x) {
+    this.position.x = x;
+  }
+
+  float getY() {
+    return position.y;
+  }
+  void setY(float y) {
+    this.position.y = y;
+  }
+
+  float getDX() {
+    return velocity.x;
+  }
+  void setDX(float dx) {
+    this.velocity.x = dx;
+  }
+
+  float getDY() {
+    return velocity.y;
+  }
+  void setDY(float dy) {
+    this.velocity.y = dy;
+  }
+
+  float getDDX() {
+    return acceleration.x;
+  }
+  void setDDX(float ddx) {
+    this.acceleration.x = ddx;
+  }
+
+  float getDDY() {
+    return acceleration.y;
+  }
+  void setDDY(float ddy) {
+    this.acceleration.x = ddy;
+  }
+  
+  float getFriction() {
+    return friction;
+  }
+  
+  color getColor() {
+    return Color;
+  }
+  void setColor(color Color) {
+    this.Color = Color;
+  }
+>>>>>>> main
 }

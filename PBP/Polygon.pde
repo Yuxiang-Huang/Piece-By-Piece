@@ -6,13 +6,14 @@ class Polygon extends UMO {
   Polygon(String name) {
     setX(random(width));
     setY(random(height));
+    //Not to collide with player ship
     while (Math.abs(getX() - player.getX()) < player.getRadius()) {
       setX(random(width));
     }
     while (Math.abs(getY() - player.getY()) < player.getRadius()) {
       setY(random(height));
     }
-    //polygons.add(this);
+    polygons.add(this);
     if (name.equals("square")) {
       setHeldExp(10);
       setShape("square");
@@ -32,12 +33,12 @@ class Polygon extends UMO {
       setShape("pentagon");
       //setMaxHealth(130);
       //setCurrentHealth(130);
-      //setCollisionDamage(8);
+      //setCollisionDamage(12);
     }
   }
 
   void die() {
-    //polygons.remove(this);
+    polygons.remove(this);
     //player.setExp(player.getExp() + getHeldExp());
   }
 

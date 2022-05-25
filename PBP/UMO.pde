@@ -1,4 +1,5 @@
 abstract class UMO implements Processable {
+  PShape umo;
   private float radius;
   private float x, y;
   private float dx, dy;
@@ -8,6 +9,7 @@ abstract class UMO implements Processable {
   void update() {
   }
   void display() {
+    shape(umo, getX(), getY());
   }
 
   float getRadius() {

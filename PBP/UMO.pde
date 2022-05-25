@@ -4,6 +4,7 @@ abstract class UMO implements Processable {
   private float x, y;
   private float dx, dy;
   private float ddx, ddy;
+  private color Color;
   private final float friction = .95;
 
   void update() {
@@ -63,5 +64,12 @@ abstract class UMO implements Processable {
 
   float getFriction() {
     return friction;
+  }
+  
+  color getColor() {
+    return Color;
+  }
+  void setColor(color Color) {
+    this.Color = Color;
   }
 }

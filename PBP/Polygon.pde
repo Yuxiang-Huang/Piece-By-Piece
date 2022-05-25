@@ -50,8 +50,8 @@ class Polygon extends UMO {
       square(getX(), getY(), getRadius());
     } else if (shape.equals("triangle")) {
       triangle(getX(), getY() - getRadius(), 
-        getX() - radius * sqrt(3) / 2, getY() + getRadius() / 2, 
-        getX() + radius * sqrt(3) / 2, getY() + getRadius() / 2);
+        getX() - getRadius() * sqrt(3) / 2, getY() + getRadius() / 2, 
+        getX() + getRadius() * sqrt(3) / 2, getY() + getRadius() / 2);
     } else if (shape.equals("pentagon")) {
       pentagon();
     }

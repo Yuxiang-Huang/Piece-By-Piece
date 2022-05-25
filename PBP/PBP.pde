@@ -5,6 +5,7 @@ void setup() {
   size(800, 800);
   player = new Gunship(width/2, height/2);
   keysPressed = new boolean[4];
+  
 }
 
 void keyPressed() {
@@ -41,4 +42,5 @@ void draw() {
   background(255);
   player.update();
   player.display();
+  
 }

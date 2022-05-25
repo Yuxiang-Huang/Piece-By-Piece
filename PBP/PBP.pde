@@ -57,16 +57,6 @@ void keyReleased() {
 void draw() {
   background(255);
 
-  for (Polygon polygon : polygons) {
-    if (DEBUG) {
-      fill(0);
-      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+10, polygon.getY()-10);
-    }
-    polygon.display();
-  }
-  // display & update player last so that it always appears on top 
-  // all colisions processed through player
-
   //draw lines
   for (int row = 0; row < height; row+=20){
     stroke(100);
@@ -77,6 +67,16 @@ void draw() {
     line(col, 0, col, height);
   }
 
+  for (Polygon polygon : polygons) {
+    if (DEBUG) {
+      fill(0);
+      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+10, polygon.getY()-10);
+    }
+    polygon.display();
+  }
+
+  // display & update player last so that it always appears on top 
+  // all colisions processed through player
   player.update();
   player.display();
   if (DEBUG) {
@@ -87,6 +87,6 @@ void draw() {
     if (player.velocity.mag() > 0.01) {
       mag = player.velocity.mag();
     }
-    //text(""+mag, player.getX()+40, player.getY()-20);
+    text("mag: "+mag, player.getX()+40, player.getY());
   }
 }

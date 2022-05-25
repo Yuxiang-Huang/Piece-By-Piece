@@ -3,12 +3,9 @@ public class Gunship extends UMO {
   private float angle;
 
   public Gunship(float x, float y) {
-    setX(x);
-    setY(y);
-    setDX(0);
-    setDY(0);
-    setDDX(.2);
-    setDDY(.2);
+    position = new PVector(x,y);
+    velocity = new PVector(0,0);
+    acceleration = new PVector(.2,.2);
     setMaxSpeed(10);
     setAngle(0);
 
@@ -25,7 +22,7 @@ public class Gunship extends UMO {
   }
 
   void display() {
-     //rotate
+    //rotate
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
@@ -62,7 +59,8 @@ public class Gunship extends UMO {
       }
     }
 
-    //if (exactly two trues in keysPressed) {multiply dx and dy by sqrt(2)/2}
+    velocity.normalize();
+    velocity.mult(maxSpeed);
 
     // apply velocity
     setX(getX() + getDX());
@@ -70,8 +68,6 @@ public class Gunship extends UMO {
     //apply friction
     setDX(getDX()*getFriction());
     setDY(getDY()*getFriction());
-    
-   
   }
 
   float getMaxSpeed() {

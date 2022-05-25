@@ -8,7 +8,7 @@ void setup() {
   // for multi-key presses
   keysPressed = new boolean[4];
   // creating polygons
-  polygons = new ArrayList<Polygon> ();
+  polygons = new ArrayList<Polygon>();
   for (int x = 0; x < 9; x++){
     int rand = (int) random(3);
     if (rand == 0){

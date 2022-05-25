@@ -71,7 +71,19 @@ public class Gunship extends UMO {
     setDX(getDX()*getFriction());
     setDY(getDY()*getFriction());
     
-   
+   //check for collision with border
+   if (getX() < 0){
+     setX(0); 
+   }
+   if (getX() > width){
+     setX(width); 
+   }
+   if (getY() < 0){
+     setY(0); 
+   }
+   if (getY() > height){
+     setY(height); 
+   }
   }
 
   float getMaxSpeed() {

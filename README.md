@@ -8,6 +8,7 @@
 ### Dev Log: (MM-DD-YYYY: "LOG")
 * #### Yuxiang Huang:
     *  (05-23-2022): "Today I created the backbone of the project with Daniel in class, so I put it in main.(Totally not because I forgot to checkout into the branch I am working in). After class, to minimize merge conflict, I decided to work on the Polygon class and finished the constructors and displays for Square and Triangle, leaving the pentagon for tomorrow."
+    *  (05-24-2022): "Today I finished pentagon, the last one of the polygons. Then, I tested their constructor and displays by creating 9 polygons randomly and resolve all the issues I encountered. Lastly, I colored them."
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."
 ---

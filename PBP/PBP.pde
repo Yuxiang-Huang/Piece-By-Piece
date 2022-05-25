@@ -10,7 +10,7 @@ void setup() {
   keysPressed = new boolean[4];
   // creating polygons
   polygons = new ArrayList<Polygon>();
-  for (int x = 0; x < 9; x++) {
+  for (int x = 0; x < 1; x++) {
     int rand = (int) random(3);
     if (rand == 0) {
       Polygon now = new Polygon("square");
@@ -58,11 +58,11 @@ void draw() {
   background(255);
 
   //draw lines
-  for (int row = 0; row < height; row+=20){
+  for (int row = 0; row < height; row+=height/35) {
     stroke(100);
     line(0, row, width, row);
   }
-  for (int col = 0; col < width; col+=20){
+  for (int col = 0; col < width; col+=width/70) {
     stroke(200);
     line(col, 0, col, height);
   }

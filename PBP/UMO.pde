@@ -13,6 +13,21 @@ abstract class UMO implements Processable {
     shape(umo, getX(), getY());
   }
 
+  void collisionWithBorder() {
+    if (getX() < 0 + getRadius()) {
+      setX(getRadius());
+    }
+    if (getX() > width- getRadius()) {
+      setX(width - getRadius());
+    }
+    if (getY() < 0 + getRadius()) {
+      setY(getRadius());
+    }
+    if (getY() > height - getRadius()) {
+      setY(height - getRadius());
+    }
+  }
+
   float getRadius() {
     return radius;
   }
@@ -61,11 +76,11 @@ abstract class UMO implements Processable {
   void setDDY(float ddy) {
     this.acceleration.x = ddy;
   }
-  
+
   float getFriction() {
     return friction;
   }
-  
+
   color getColor() {
     return Color;
   }

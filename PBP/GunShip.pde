@@ -11,22 +11,27 @@ public class Gunship extends UMO {
     setDDY(.2);
     setMaxSpeed(10);
     setAngle(0);
-    
+
     umo = createShape(GROUP);
-    
+
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, 30, 30);
     body.setFill(color(165, 42, 42));
     PShape gun = createShape(RECT, -10, 20/2, 20, 40);
     gun.setFill(color(0));
-    
+
     umo.addChild(body);
     umo.addChild(gun);
   }
 
-  //void display() {
-  //  shape(umo, getX(), getY());
-  //}
+  void display() {
+     //rotate
+    setAngle(getAngleToMouse());
+    pushMatrix();
+    translate(getX(), getY());
+    rotate(getAngle());
+    popMatrix();
+  }
 
   void update() {
     // check for what directions are being pressed and apply acceleration if max speed has not been reached yet
@@ -64,6 +69,8 @@ public class Gunship extends UMO {
     //apply friction
     setDX(getDX()*getFriction());
     setDY(getDY()*getFriction());
+    
+   
   }
 
   float getMaxSpeed() {
@@ -78,5 +85,13 @@ public class Gunship extends UMO {
   }
   void setAngle(float angle) {
     this.angle = angle;
+  }
+
+  float getAngleToMouse() {
+    float angle = atan2(mouseY-getY(), mouseX-getX());
+    if (angle < 0) {
+      angle = TWO_PI + angle;
+    }
+    return angle;
   }
 }

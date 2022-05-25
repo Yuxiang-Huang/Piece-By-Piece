@@ -5,12 +5,12 @@ class Polygon extends UMO {
 
   Polygon(String name) {
     setX(random(width));
-    setY((random(height));
+    setY(random(height));
     while (Math.abs(getX() - player.getX()) < player.getRadius()) {
       setX(random(width));
     }
     while (Math.abs(getY() - player.getY()) < player.getRadius()) {
-      setY((random(height));
+      setY(random(height));
     }
     //polygons.add(this);
     if (name.equals("square")) {
@@ -25,6 +25,13 @@ class Polygon extends UMO {
       setShape("triangle");
       //setMaxHealth(25);
       //setCurrentHealth(25);
+      //setCollisionDamage(8);
+    }
+    if (name.equals("pentagon")) {
+      setHeldExp(130);
+      setShape("pentagon");
+      //setMaxHealth(130);
+      //setCurrentHealth(130);
       //setCollisionDamage(8);
     }
   }
@@ -42,8 +49,20 @@ class Polygon extends UMO {
         getX() - radius * sqrt(3) / 2, getY() + radius / 2, 
         getX() + radius * sqrt(3) / 2, getY() + radius / 2);
     } else if (shape.equals("pentagon")) {
-      polygon(getX(), getY(), radius, );
+      pentagon();
     }
+  }
+
+  void pentagon() {
+    //From Processsing
+    float angle = TWO_PI / 5;
+    beginShape();
+    for (float a = 0; a < TWO_PI; a += angle) {
+      float sx = getX() + cos(a) * getRadius();
+      float sy = getY() + sin(a) * getRadius();
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
   }
 
   int getHeldExp() {

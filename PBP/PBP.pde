@@ -3,7 +3,7 @@ boolean[] keysPressed;
 ArrayList<Polygon> polygons;
 
 void setup() {
-  size(800, 800);
+  size(1600, 800);
   player = new Gunship(width/2, height/2);
   keysPressed = new boolean[4];
   //creating polygons
@@ -54,6 +54,15 @@ void keyReleased() {
 
 void draw() {
   background(255);
+  //draw lines
+  for (int row = 0; row < height; row+=20){
+    stroke(100);
+    line(0, row, width, row);
+  }
+  for (int col = 0; col < width; col+=20){
+    stroke(200);
+    line(col, 0, col, height);
+  }
   player.update();
   player.display();
   for (int i = 0; i < polygons.size(); i++){

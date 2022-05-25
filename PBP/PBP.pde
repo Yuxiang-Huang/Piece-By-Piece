@@ -8,12 +8,9 @@ void setup() {
   player = new Gunship(width/2, height/2);
   // for multi-key presses
   keysPressed = new boolean[4];
-<<<<<<< HEAD
-=======
   // creating polygons
   polygons = new ArrayList<Polygon>();
   for (int x = 0; x < 9; x++) {
->>>>>>> main
     int rand = (int) random(3);
     if (rand == 0) {
       Polygon now = new Polygon("square");

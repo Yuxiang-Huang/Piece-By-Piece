@@ -30,6 +30,7 @@ public class Gunship extends UMO {
     pushMatrix();
     translate(getX(), getY());
     rotate(getAngle());
+    shape(umo, 0, 0);
     popMatrix();
   }
 
@@ -92,6 +93,6 @@ public class Gunship extends UMO {
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
-    return angle;
+    return angle-HALF_PI;
   }
 }

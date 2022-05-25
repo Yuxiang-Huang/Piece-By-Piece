@@ -71,8 +71,9 @@ public class Gunship extends UMO {
     setDX(getDX()*getFriction());
     setDY(getDY()*getFriction());
     
-   //check for collision with border
+   //check for collisions
    collisionWithBorder();
+   collisionWithUMO();
   }
 
   float getMaxSpeed() {
@@ -95,5 +96,14 @@ public class Gunship extends UMO {
       angle = TWO_PI + angle;
     }
     return angle-HALF_PI;
+  }
+  
+  void collisionWithUMO(){
+    for (Polygon now: polygons){
+      //distance formula
+      if (pow((getX() - now.getX()), 2) + pow((getY() - now.getY()), 2) < now.getRadius() ) {
+        println("collision!!!");
+      }
+    }
   }
 }

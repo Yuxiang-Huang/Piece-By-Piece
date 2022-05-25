@@ -5,8 +5,9 @@ ArrayList<Polygon> polygons;
 void setup() {
   size(800, 800);
   player = new Gunship(width/2, height/2);
+  // for multi-key presses
   keysPressed = new boolean[4];
-  //creating polygons
+  // creating polygons
   polygons = new ArrayList<Polygon> ();
   for (int x = 0; x < 9; x++){
     int rand = (int) random(3);
@@ -54,9 +55,11 @@ void keyReleased() {
 
 void draw() {
   background(255);
-  player.update();
-  player.display();
   for (int i = 0; i < polygons.size(); i++){
     polygons.get(i).display();
   }
+  // display & update player last so that it always appears on top 
+  // all colisions processed through player
+  player.update();
+  player.display();
 }

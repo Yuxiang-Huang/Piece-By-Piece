@@ -13,63 +13,79 @@ abstract class UMO implements Processable {
     shape(umo, getX(), getY());
   }
 
-  float getRadius() {
-    return radius;
-  }
-  void setRadius(float radius) {
-    this.radius = radius;
-  }
-
-  float getX() {
-    return x;
-  }
-  void setX(float x) {
-    this.x = x;
-  }
-
-  float getY() {
-    return y;
-  }
-  void setY(float y) {
-    this.y = y;
+  void collisionWithBorder(){
+    println(radius);
+    if (getX() < 0 + getRadius()) {
+      setX(getRadius());
+    }
+    if (getX() > width- getRadius()) {
+      setX(width - getRadius());
+    }
+    if (getY() < 0 + getRadius()) {
+      setY(getRadius());
+    }
+    if (getY() > height - getRadius()) {
+      setY(height - getRadius());
+    }
   }
 
-  float getDX() {
-    return dx;
-  }
-  void setDX(float dx) {
-    this.dx = dx;
-  }
+float getRadius() {
+  return radius;
+}
+void setRadius(float radius) {
+  this.radius = radius;
+}
 
-  float getDY() {
-    return dy;
-  }
-  void setDY(float dy) {
-    this.dy = dy;
-  }
+float getX() {
+  return x;
+}
+void setX(float x) {
+  this.x = x;
+}
 
-  float getDDX() {
-    return ddx;
-  }
-  void setDDX(float ddx) {
-    this.ddx = ddx;
-  }
+float getY() {
+  return y;
+}
+void setY(float y) {
+  this.y = y;
+}
 
-  float getDDY() {
-    return ddy;
-  }
-  void setDDY(float ddy) {
-    this.ddy = ddy;
-  }
+float getDX() {
+  return dx;
+}
+void setDX(float dx) {
+  this.dx = dx;
+}
 
-  float getFriction() {
-    return friction;
-  }
-  
-  color getColor() {
-    return Color;
-  }
-  void setColor(color Color) {
-    this.Color = Color;
-  }
+float getDY() {
+  return dy;
+}
+void setDY(float dy) {
+  this.dy = dy;
+}
+
+float getDDX() {
+  return ddx;
+}
+void setDDX(float ddx) {
+  this.ddx = ddx;
+}
+
+float getDDY() {
+  return ddy;
+}
+void setDDY(float ddy) {
+  this.ddy = ddy;
+}
+
+float getFriction() {
+  return friction;
+}
+
+color getColor() {
+  return Color;
+}
+void setColor(color Color) {
+  this.Color = Color;
+}
 }

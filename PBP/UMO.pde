@@ -1,7 +1,7 @@
 abstract class UMO implements Processable {
   PShape umo;
   private float radius;
-  PVector position = new PVector(0,0);
+  PVector position;
   PVector velocity;
   PVector acceleration;
   private color Color;

@@ -3,16 +3,17 @@ public class Gunship extends UMO {
   private float angle;
 
   public Gunship(float x, float y) {
-    position = new PVector(x,y);
-    velocity = new PVector(0,0);
-    acceleration = new PVector(.2,.2);
-    setMaxSpeed(10);
+    setRadius(30);
+    position = new PVector(x, y);
+    velocity = new PVector(0, 0);
+    acceleration = new PVector(.2, .2);
+    setMaxSpeed(5);
     setAngle(0);
 
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, 30, 30);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
     body.setFill(color(165, 42, 42));
     PShape gun = createShape(RECT, -10, 20/2, 20, 40);
     gun.setFill(color(0));
@@ -34,40 +35,32 @@ public class Gunship extends UMO {
   void update() {
     // check for what directions are being pressed and apply acceleration if max speed has not been reached yet
 
-    // LEFT
-    if (keysPressed[0]) {
-      if (player.getDX() > -maxSpeed) {
-        player.setDX(player.getDX()-getDDX());
-      }
+
+    float xdir = 0; 
+    float ydir = 0;
+    if (keysPressed[0]) { // LEFT
+      xdir = -1;
     } 
-    // UP
-    if (keysPressed[1]) {
-      if (player.getDY() > -maxSpeed) {
-        player.setDY(player.getDY()-getDDY());
-      }
+    if (keysPressed[1]) { // UP
+      ydir = -1;
+    } 
+    if (keysPressed[2]) { // RIGHT
+      xdir = 1;
+    } 
+    if (keysPressed[3]) { // DOWN
+      ydir = 1;
+    } 
+    //apply acceleration
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    if (velocity.mag() > getMaxSpeed()) {
+      velocity.setMag(getMaxSpeed());
     }
-    // RIGHT
-    if (keysPressed[2]) {
-      if (player.getDX() < maxSpeed) {
-        player.setDX(player.getDX()+getDDX());
-      }
-    }
-    // DOWN
-    if (keysPressed[3]) {
-      if (player.getDY() < maxSpeed) {
-        player.setDY(player.getDY()+getDDY());
-      }
-    }
-
-    velocity.normalize();
-    velocity.mult(maxSpeed);
-
     // apply velocity
-    setX(getX() + getDX());
-    setY(getY() + getDY());
+    position.add(velocity);
     //apply friction
-    setDX(getDX()*getFriction());
-    setDY(getDY()*getFriction());
+    if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
+      velocity.mult(getFriction());
+    }
   }
 
   float getMaxSpeed() {

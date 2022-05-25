@@ -10,7 +10,7 @@ void setup() {
   keysPressed = new boolean[4];
   // creating polygons
   polygons = new ArrayList<Polygon>();
-  for (int x = 0; x < 1; x++) {
+  for (int x = 0; x < 5; x++) {
     int rand = (int) random(3);
     if (rand == 0) {
       Polygon now = new Polygon("square");
@@ -68,17 +68,19 @@ void draw() {
   }
 
   for (Polygon polygon : polygons) {
+    polygon.display();
+    
     if (DEBUG) {
       fill(0);
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+10, polygon.getY()-10);
     }
-    polygon.display();
   }
 
   // display & update player last so that it always appears on top 
   // all colisions processed through player
   player.update();
   player.display();
+
   if (DEBUG) {
     fill(0);
     text("x: "+round(player.getX()) + "; y: "+round(player.getY()), player.getX()+40, player.getY()-40);

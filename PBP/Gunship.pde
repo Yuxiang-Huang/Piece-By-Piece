@@ -1,15 +1,18 @@
-public class Gunship extends UMO {
+class Gunship extends UMO {
   private float maxSpeed;
   private float angle;
+  private ArrayList<Bullet> bullets;
 
-  public Gunship(float x, float y) {
+  Gunship(float x, float y) {
     setRadius(30);
     position = new PVector(x, y);
     velocity = new PVector(0, 0);
     acceleration = new PVector(.2, .2);
     setMaxSpeed(5);
     setAngle(0);
+    bullets = new ArrayList<Bullet>;
 
+    // make shape of gunship
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
@@ -57,12 +60,12 @@ public class Gunship extends UMO {
     }
     // apply velocity
     position.add(velocity);
-    
+
     //apply friction
     if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
       velocity.mult(getFriction());
     }
-    
+
     //check for collisions
     collisionWithBorder();
     collisionWithUMO();
@@ -89,15 +92,18 @@ public class Gunship extends UMO {
     }
     return angle-HALF_PI;
   }
-
+  
   void collisionWithUMO() {
     for (Polygon now : polygons) {
       //distance formula
       if (sqrt(pow((getX() - now.getX()), 2) + pow((getY() - now.getY()), 2)) 
         < getRadius() + now.getRadius() ) {
         //trust physics
-        
       }
     }
+  }
+  
+  void shoot() {
+      
   }
 }

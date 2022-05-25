@@ -17,6 +17,7 @@ class Polygon extends UMO {
     if (name.equals("square")) {
       setHeldExp(10);
       setShape("square");
+      setRadius(10);
       //setMaxHealth(10);
       //setCurrentHealth(10);
       //setCollisionDamage(8);
@@ -24,6 +25,7 @@ class Polygon extends UMO {
     if (name.equals("triangle")) {
       setHeldExp(25);
       setShape("triangle");
+      setRadius(10);
       //setMaxHealth(25);
       //setCurrentHealth(25);
       //setCollisionDamage(8);
@@ -31,6 +33,7 @@ class Polygon extends UMO {
     if (name.equals("pentagon")) {
       setHeldExp(130);
       setShape("pentagon");
+      setRadius(10);
       //setMaxHealth(130);
       //setCurrentHealth(130);
       //setCollisionDamage(12);
@@ -44,11 +47,11 @@ class Polygon extends UMO {
 
   void display() {
     if (shape.equals("square")) {
-      square(getX(), getY(), 10);
+      square(getX(), getY(), getRadius());
     } else if (shape.equals("triangle")) {
-      triangle(getX(), getY() - radius, 
-        getX() - radius * sqrt(3) / 2, getY() + radius / 2, 
-        getX() + radius * sqrt(3) / 2, getY() + radius / 2);
+      triangle(getX(), getY() - getRadius(), 
+        getX() - radius * sqrt(3) / 2, getY() + getRadius() / 2, 
+        getX() + radius * sqrt(3) / 2, getY() + getRadius() / 2);
     } else if (shape.equals("pentagon")) {
       pentagon();
     }

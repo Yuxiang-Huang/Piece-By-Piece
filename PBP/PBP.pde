@@ -60,7 +60,7 @@ void draw() {
   for (Polygon polygon : polygons) {
     if (DEBUG) {
       fill(0);
-      text("x: "+polygon.getX() + "; y: "+polygon.getY(), polygon.getX()+10, polygon.getY()-10);
+      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+10, polygon.getY()-10);
     }
     polygon.display();
   }
@@ -70,11 +70,12 @@ void draw() {
   player.display();
   if (DEBUG) {
     fill(0);
-    text("x: "+player.getX() + "; y: "+player.getY(), player.getX()+10, player.getY()-10);
+    text("x: "+round(player.getX()) + "; y: "+round(player.getY()), player.getX()+40, player.getY()-40);
+    text("dx: "+player.getDX() + "; dy: "+player.getDY(), player.getX()+40, player.getY()-20);
     float mag = 0;
     if (player.velocity.mag() > 0.01) {
       mag = player.velocity.mag();
     }
-    text(""+mag, player.getX()+40, player.getY()-40);
+    //text(""+mag, player.getX()+40, player.getY()-20);
   }
 }

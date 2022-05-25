@@ -33,9 +33,8 @@ public class Gunship extends UMO {
   }
 
   void update() {
-    // check for what directions are being pressed and apply acceleration if max speed has not been reached yet
 
-
+    // check for what directions are being pressed
     float xdir = 0; 
     float ydir = 0;
     if (keysPressed[0]) { // LEFT
@@ -50,6 +49,7 @@ public class Gunship extends UMO {
     if (keysPressed[3]) { // DOWN
       ydir = 1;
     } 
+
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
     if (velocity.mag() > getMaxSpeed()) {

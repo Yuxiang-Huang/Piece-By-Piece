@@ -60,10 +60,10 @@ public class Gunship extends UMO {
     //apply friction
     setDX(getDX()*getFriction());
     setDY(getDY()*getFriction());
-    
-   //check for collisions
-   collisionWithBorder();
-   collisionWithUMO();
+
+    //check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
 
     if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
       velocity.mult(getFriction());
@@ -91,14 +91,14 @@ public class Gunship extends UMO {
     }
     return angle-HALF_PI;
   }
-  
-  void collisionWithUMO(){
-    for (Polygon now: polygons){
+
+  void collisionWithUMO() {
+    for (Polygon now : polygons) {
       //distance formula
       println(sqrt(pow((getX() - now.getX()), 2) + pow((getY() - now.getY()), 2)));
       println(getRadius() + now.getRadius());
       if (sqrt(pow((getX() - now.getX()), 2) + pow((getY() - now.getY()), 2)) 
-      < getRadius() + now.getRadius() ) {
+        < getRadius() + now.getRadius() ) {
         println("collision!!!");
       }
     }

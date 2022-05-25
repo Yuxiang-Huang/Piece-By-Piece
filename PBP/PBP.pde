@@ -66,6 +66,17 @@ void draw() {
   }
   // display & update player last so that it always appears on top 
   // all colisions processed through player
+
+  //draw lines
+  for (int row = 0; row < height; row+=20){
+    stroke(100);
+    line(0, row, width, row);
+  }
+  for (int col = 0; col < width; col+=20){
+    stroke(200);
+    line(col, 0, col, height);
+  }
+
   player.update();
   player.display();
   if (DEBUG) {

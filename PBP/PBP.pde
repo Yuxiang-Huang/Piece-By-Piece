@@ -13,7 +13,7 @@ void setup() {
   
   // creating polygons
   polygons = new ArrayList<Polygon>();
-  for (int x = 0; x < 5; x++) {
+  for (int i = 0; i < 5; i++) {
     float rand = random(1);
     if (rand < .5) { // 50%
       Polygon now = new Polygon("square");

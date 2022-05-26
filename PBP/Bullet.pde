@@ -1,6 +1,6 @@
 class Bullet extends UMO {
   Gunship gunship;
-  float baseSpeed = 4.5;
+  float baseSpeed = 10;
   int countdown;
 
   Bullet(Gunship gunship) {
@@ -21,6 +21,7 @@ class Bullet extends UMO {
 
   void update() {
     position.add(velocity);
+    velocity.mult(getFriction());
     // kill bullet after certain amount of time
     setCountdown(getCountdown()-1);
     if (getCountdown() == 0) {

@@ -26,7 +26,7 @@ abstract class UMO implements Processable {
     if (getY() - getRadius() < 0 ) {
       setY(getRadius());
     }
-    if (getY() + getRadius() > height ) {
+    if (getY() + getRadius() > height) {
       setY(height - getRadius());
     }
   }

@@ -37,7 +37,7 @@ class Gunship extends UMO {
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
+    rotate(getAngle()-HALF_PI); // dont kpolygon why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
   }
@@ -47,16 +47,16 @@ class Gunship extends UMO {
     // check for what directions are being pressed
     float xdir = 0; 
     float ydir = 0;
-    if (keysPressed[0]) { // LEFT
+    if (input.inputs[0]) { // LEFT
       xdir = -1;
     } 
-    if (keysPressed[1]) { // UP
+    if (input.inputs[1]) { // UP
       ydir = -1;
     } 
-    if (keysPressed[2]) { // RIGHT
+    if (input.inputs[2]) { // RIGHT
       xdir = 1;
     } 
-    if (keysPressed[3]) { // DOWN
+    if (input.inputs[3]) { // DOWN
       ydir = 1;
     } 
 
@@ -69,7 +69,7 @@ class Gunship extends UMO {
     position.add(velocity);
 
     // apply friction
-    if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
+    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
       velocity.mult(getFriction());
     }
 
@@ -112,20 +112,19 @@ class Gunship extends UMO {
   }
 
   void collisionWithUMO() {
-    for (Polygon now : polygons) {
+    for (Polygon polygon : polygons) {
       //distance formula
-      if (sqrt(pow((getX() - now.getX()), 2) + pow((getY() - now.getY()), 2)) 
-        < getRadius() + now.getRadius() ) {
+      if (sqrt(pow((getX() - polygon.getX()), 2) + pow((getY() - polygon.getY()), 2)) 
+        < getRadius() + polygon.getRadius() ) {
         //trust physics
         float m1 = getRadius()*getRadius();
-        float m2 = now.getRadius()*now.getRadius();
+        float m2 = polygon.getRadius()*polygon.getRadius();
         
-        float dxHolder = (2*m1*getDX() + (m2-m1) * now.getDX() ) / (m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * now.getDY() ) / (m1 + m2);
-        setDX( (2*m2*now.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
-        setDY( (2*m2*now.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
-        now.setDX(dxHolder);
-        now.setDY(dyHolder);
+        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (m1 + m2);
+        setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
+        setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
+        polygon.velocity.set(dxHolder, dyHolder);
       }
     }
   }

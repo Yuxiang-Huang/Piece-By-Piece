@@ -8,7 +8,9 @@ class Polygon extends UMO {
     position.set(random(width), random(height));
 
     // Not to collide with player ship
-    while (Math.abs(getX() - player.getX()) < player.getRadius() && Math.abs(getY() - player.getY()) < player.getRadius()) {
+    while (Math.abs(getX() - player.getX()) < player.getRadius() && 
+      Math.abs(getY() - player.getY()) < player.getRadius()) 
+    {
       setX(random(width));
       setY(random(height));
     }
@@ -63,6 +65,11 @@ class Polygon extends UMO {
 
   void display() {
     shape(umo, getX(), getY());
+  }
+
+  void update() {
+    position.add(velocity);
+    velocity.mult(getFriction());
   }
 
   int getHeldExp() {

@@ -67,11 +67,6 @@ class Polygon extends UMO {
     shape(umo, getX(), getY());
   }
 
-  void update() {
-    position.add(velocity);
-    velocity.mult(getFriction());
-  }
-
   int getHeldExp() {
     return heldExp;
   }

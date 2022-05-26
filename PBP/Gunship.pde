@@ -7,7 +7,7 @@ class Gunship extends UMO {
   private int countdown;
 
   Gunship(float x, float y) {
-    setRadius(30);
+    setRadius(unit);
     position.set(x, y);
     acceleration.set(.2, .2);
     setAngle(0);

@@ -2,18 +2,19 @@ Gunship player;
 boolean[] keysPressed; 
 ArrayList<Polygon> polygons;
 boolean DEBUG = true;
+float unit;
 
 void setup() {
   size(displayWidth, displayHeight);
   frameRate(60);
-  
+  unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   // for multi-key presses
   keysPressed = new boolean[4];
   
   // creating polygons
   polygons = new ArrayList<Polygon>();
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 10; i++) {
     float rand = random(1);
     if (rand < .5) { // 50%
       Polygon now = new Polygon("square");
@@ -65,11 +66,11 @@ void draw() {
   background(255);
 
   //draw lines
-  for (int row = 0; row < height; row+=height/35) {
+  for (int row = 0; row < height; row+=unit) {
     stroke(100);
     line(0, row, width, row);
   }
-  for (int col = 0; col < width; col+=width/70) {
+  for (int col = 0; col < width; col+=unit) {
     stroke(200);
     line(col, 0, col, height);
   }

@@ -1,14 +1,14 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
-boolean DEBUG = true;
+boolean DEBUG = false;
 
 void setup() {
   size(displayWidth, displayHeight);
   frameRate(60);
 
   player = new Gunship(width/2, height/2);
-  input = new Controller()
+  input = new Controller();
 
   // creating polygons
   polygons = new ArrayList<Polygon>();
@@ -23,7 +23,6 @@ void setup() {
     }
   }
 }
-
 
 void keyPressed() {
   input.press(keyCode);

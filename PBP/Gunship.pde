@@ -47,16 +47,16 @@ class Gunship extends UMO {
     // check for what directions are being pressed
     float xdir = 0; 
     float ydir = 0;
-    if (keysPressed[0]) { // LEFT
+    if (input.inputs[0]) { // LEFT
       xdir = -1;
     } 
-    if (keysPressed[1]) { // UP
+    if (input.inputs[1]) { // UP
       ydir = -1;
     } 
-    if (keysPressed[2]) { // RIGHT
+    if (input.inputs[2]) { // RIGHT
       xdir = 1;
     } 
-    if (keysPressed[3]) { // DOWN
+    if (input.inputs[3]) { // DOWN
       ydir = 1;
     } 
 
@@ -69,7 +69,7 @@ class Gunship extends UMO {
     position.add(velocity);
 
     // apply friction
-    if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
+    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
       velocity.mult(getFriction());
     }
 

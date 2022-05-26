@@ -1,8 +1,9 @@
 class Bullet extends UMO {
-  final float baseSpeed = 4.5;
+  float baseSpeed = 4.5;
   
   Bullet(Gunship gunship) {
-    position.set(gunship.getX(), gunship.getY());
+    //for spawning the bullet on the gun rather then the middle of the gunship
+    position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
     velocity.setMag(getBaseSpeed());
     setRadius(10);
@@ -19,5 +20,9 @@ class Bullet extends UMO {
 
   float getBaseSpeed() {
     return baseSpeed;
+  }
+  
+  void setBaseSpeed(float baseSpeed) {
+    this.baseSpeed = baseSpeed;
   }
 }

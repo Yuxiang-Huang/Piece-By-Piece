@@ -54,6 +54,7 @@ void draw() {
 
   for (Polygon polygon : polygons) {
     polygon.display();
+    polygon.update();
 
     if (DEBUG) {
       fill(0);

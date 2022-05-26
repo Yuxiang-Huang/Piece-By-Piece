@@ -1,16 +1,15 @@
 Gunship player;
-boolean[] keysPressed; 
+Controller input;
 ArrayList<Polygon> polygons;
 boolean DEBUG = true;
 
 void setup() {
   size(displayWidth, displayHeight);
   frameRate(60);
-  
+
   player = new Gunship(width/2, height/2);
-  // for multi-key presses
-  keysPressed = new boolean[4];
-  
+  input = new Controller()
+
   // creating polygons
   polygons = new ArrayList<Polygon>();
   for (int i = 0; i < 5; i++) {
@@ -25,34 +24,13 @@ void setup() {
   }
 }
 
+
 void keyPressed() {
-  if (key == 'a' || keyCode == LEFT) {
-    keysPressed[0] = true;
-  }
-  if (key == 'w' || keyCode == UP) {
-    keysPressed[1] = true;
-  } 
-  if (key == 'd' || keyCode == RIGHT) {
-    keysPressed[2] = true;
-  }
-  if (key == 's' || keyCode == DOWN) {
-    keysPressed[3] = true;
-  }
+  input.press(keyCode);
 }
 
 void keyReleased() {
-  if (key == 'a' || keyCode == LEFT) {
-    keysPressed[0] = false;
-  }
-  if (key == 'w' || keyCode == UP) {
-    keysPressed[1] = false;
-  }   
-  if (key == 'd' || keyCode == RIGHT) {
-    keysPressed[2] = false;
-  }
-  if (key == 's' || keyCode == DOWN) {
-    keysPressed[3] = false;
-  }
+  input.release(keyCode);
 }
 
 void mouseClicked() {
@@ -99,7 +77,7 @@ void draw() {
     }
     text("mag: "+mag, player.getX()+40, player.getY());
     text("countdown: "+player.getCountdown(), player.getX()+40, player.getY()+20);
-    
-    text(frameRate,20,20);
+
+    text(frameRate, 20, 20);
   }
 }

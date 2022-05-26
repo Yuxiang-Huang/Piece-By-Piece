@@ -55,7 +55,9 @@ void keyReleased() {
 }
 
 void mouseClicked() {
-  player.shoot();
+  if (player.canShoot()) {
+    player.shoot();
+  }
 }
 
 void draw() {
@@ -73,7 +75,7 @@ void draw() {
 
   for (Polygon polygon : polygons) {
     polygon.display();
-    
+
     if (DEBUG) {
       fill(0);
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+10, polygon.getY()-10);
@@ -94,5 +96,6 @@ void draw() {
       mag = player.velocity.mag();
     }
     text("mag: "+mag, player.getX()+40, player.getY());
+    text("countdown: "+player.getCountdown(), player.getX()+40, player.getY()+20);
   }
 }

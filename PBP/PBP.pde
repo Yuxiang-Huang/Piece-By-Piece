@@ -1,24 +1,25 @@
 Gunship player;
 boolean[] keysPressed; 
 ArrayList<Polygon> polygons;
-boolean DEBUG = false;
+boolean DEBUG = true;
 
 void setup() {
   size(displayWidth, displayHeight);
+  frameRate(60);
+  
   player = new Gunship(width/2, height/2);
   // for multi-key presses
   keysPressed = new boolean[4];
+  
   // creating polygons
   polygons = new ArrayList<Polygon>();
   for (int x = 0; x < 5; x++) {
-    int rand = (int) random(3);
-    if (rand == 0) {
+    float rand = random(1);
+    if (rand < .5) { // 50%
       Polygon now = new Polygon("square");
-    }
-    if (rand == 1) {
+    } else if (rand < .83) { // 33%
       Polygon now = new Polygon("triangle");
-    }
-    if (rand == 2) {
+    } else { // 17%
       Polygon now = new Polygon("pentagon");
     }
   }
@@ -79,7 +80,7 @@ void draw() {
     if (DEBUG) {
       fill(0);
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
-    text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
+      text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
     }
   }
 
@@ -98,5 +99,7 @@ void draw() {
     }
     text("mag: "+mag, player.getX()+40, player.getY());
     text("countdown: "+player.getCountdown(), player.getX()+40, player.getY()+20);
+    
+    text(frameRate,20,20);
   }
 }

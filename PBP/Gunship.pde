@@ -8,9 +8,8 @@ class Gunship extends UMO {
 
   Gunship(float x, float y) {
     setRadius(30);
-    position = new PVector(x, y);
-    velocity = new PVector(0, 0);
-    acceleration = new PVector(.2, .2);
+    position.set(x, y);
+    acceleration.set(.2, .2);
     setAngle(0);
 
     setMaxSpeed(5);

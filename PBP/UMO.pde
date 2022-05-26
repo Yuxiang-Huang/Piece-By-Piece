@@ -8,7 +8,10 @@ abstract class UMO implements Processable {
   private final float friction = .98; // for smoother stop
 
   void update() {
+    position.add(velocity);
+    velocity.mult(getFriction());
   }
+
   void display() {
     shape(umo, getX(), getY());
   }

@@ -9,9 +9,12 @@
 * #### Yuxiang Huang:
     *  (05-23-2022): "Today I created the backbone of the project with Daniel in class, so I put it in main.(Totally not because I forgot to checkout into the branch I am working in). After class, to minimize merge conflict, I decided to work on the Polygon class and finished the constructors and displays for Square and Triangle, leaving the pentagon for tomorrow."
     *  (05-24-2022): "Today I finished pentagon, the last one of the polygons. Then, I tested their constructor and displays by creating 9 polygons randomly and resolve all the issues I encountered. Lastly, I colored them."
+    *  (05-25-2022): "Today I worked on the map by creating 'squares' with lines and started figuring out the dimensions. Then I worked on collisions. First the collision with the border and then the collisions with the polygons. The latter didn't work as intended, and I will fix that tomorrow.
+ 
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."
     *  (05-24-2022): "Today I implemented the ability for the gunship to rotate. I also consolidated all the parts of the gunship into one PShape. I tested it and worked out all the issues before merging."
+    *  (05-25-2022): "Today I worked on adding the shooting mechanic to the gunship. This meant that I also had to code the Bullet class. I was able to get the basic bullet movement mechanics working as well as a cooldown to the shooting of the gunship. Tomorrow i will work on implementing bullet collision and health mechanics, as well as adding a timer lifespan to the bullets."
 ---
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
 

@@ -1,15 +1,26 @@
-public class Gunship extends UMO {
+class Gunship extends UMO {
   private float maxSpeed;
-  private float angle;
+  private int reloadSpeed; 
 
-  public Gunship(float x, float y) {
+  private float angle;
+  private ArrayList<Bullet> bullets;
+  private int countdown = 0;
+
+  Gunship(float x, float y) {
     setRadius(30);
     position = new PVector(x, y);
     velocity = new PVector(0, 0);
     acceleration = new PVector(.2, .2);
-    setMaxSpeed(5);
     setAngle(0);
 
+    setMaxSpeed(5);
+    setReloadSpeed(60);
+
+
+    bullets = new ArrayList<Bullet>();
+    setCountdown(0);
+
+    // make shape of gunship
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
@@ -27,7 +38,7 @@ public class Gunship extends UMO {
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
-    rotate(getAngle());
+    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
   }
@@ -57,15 +68,25 @@ public class Gunship extends UMO {
     }
     // apply velocity
     position.add(velocity);
-    
-    //apply friction
+
+    // apply friction
     if (!keysPressed[0] && !keysPressed[1] && !keysPressed[2] && !keysPressed[3]) {
       velocity.mult(getFriction());
     }
-    
-    //check for collisions
+
+    // check for collisions
     collisionWithBorder();
     collisionWithUMO();
+
+    // update and display all bullets
+    for (Bullet bullet : bullets) {
+      bullet.update();
+      bullet.display();
+    }
+
+    if (countdown > 0) {
+      setCountdown(getCountdown()-1);
+    }
   }
 
   float getMaxSpeed() {
@@ -87,7 +108,7 @@ public class Gunship extends UMO {
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
-    return angle-HALF_PI;
+    return angle;
   }
 
   void collisionWithUMO() {
@@ -107,5 +128,29 @@ public class Gunship extends UMO {
         now.setDY(dyHolder);
       }
     }
+  }
+
+
+  int getReloadSpeed() {
+    return reloadSpeed;
+  }
+  void setReloadSpeed(int reloadSpeed) {
+    this.reloadSpeed = reloadSpeed;
+  }
+
+  boolean canShoot() {
+    return (getCountdown() == 0);
+  }
+  void shoot() {
+    setCountdown(getReloadSpeed());
+    bullets.add(new Bullet(this));
+  }
+
+
+  int getCountdown() {
+    return countdown;
+  }
+  void setCountdown(int countdown) {
+    this.countdown = countdown;
   }
 }

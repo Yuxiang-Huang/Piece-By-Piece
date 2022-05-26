@@ -1,7 +1,7 @@
 Gunship player;
 boolean[] keysPressed; 
 ArrayList<Polygon> polygons;
-boolean DEBUG = true;
+boolean DEBUG = false;
 
 void setup() {
   size(displayWidth, displayHeight);
@@ -10,7 +10,7 @@ void setup() {
   keysPressed = new boolean[4];
   // creating polygons
   polygons = new ArrayList<Polygon>();
-  for (int x = 0; x < 1; x++) {
+  for (int x = 0; x < 5; x++) {
     int rand = (int) random(3);
     if (rand == 0) {
       Polygon now = new Polygon("square");
@@ -54,6 +54,12 @@ void keyReleased() {
   }
 }
 
+void mouseClicked() {
+  if (player.canShoot()) {
+    player.shoot();
+  }
+}
+
 void draw() {
   background(255);
 
@@ -68,18 +74,20 @@ void draw() {
   }
 
   for (Polygon polygon : polygons) {
+    polygon.display();
+
     if (DEBUG) {
       fill(0);
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
     text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
     }
-    polygon.display();
   }
 
   // display & update player last so that it always appears on top 
   // all colisions processed through player
   player.update();
   player.display();
+
   if (DEBUG) {
     fill(0);
     text("x: "+round(player.getX()) + "; y: "+round(player.getY()), player.getX()+40, player.getY()-40);
@@ -89,5 +97,6 @@ void draw() {
       mag = player.velocity.mag();
     }
     text("mag: "+mag, player.getX()+40, player.getY());
+    text("countdown: "+player.getCountdown(), player.getX()+40, player.getY()+20);
   }
 }

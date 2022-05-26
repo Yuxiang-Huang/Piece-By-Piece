@@ -10,7 +10,7 @@ void setup() {
   keysPressed = new boolean[4];
   // creating polygons
   polygons = new ArrayList<Polygon>();
-  for (int x = 0; x < 1; x++) {
+  for (int x = 0; x < 9; x++) {
     int rand = (int) random(3);
     if (rand == 0) {
       Polygon now = new Polygon("square");
@@ -70,7 +70,8 @@ void draw() {
   for (Polygon polygon : polygons) {
     if (DEBUG) {
       fill(0);
-      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+10, polygon.getY()-10);
+      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
+    text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
     }
     polygon.display();
   }

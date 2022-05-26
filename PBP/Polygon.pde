@@ -20,8 +20,15 @@ class Polygon extends UMO {
     umo = createShape();
     if (name.equals("square")) {
       setHeldExp(10);
-      setRadius(unit * 2);
-      umo = createShape(RECT, 0, 0, getRadius(), getRadius());
+      setRadius(unit);
+      umo = createShape();
+      umo.beginShape();
+      for (float a = 0; a < TWO_PI; a += TWO_PI/4) {
+        float sx = cos(a) * getRadius();
+        float sy = sin(a) * getRadius();
+        umo.vertex(sx, sy);
+      }
+      umo.endShape(CLOSE);
       umo.setFill(color(255, 255, 0));
 
       //setMaxHealth(10);

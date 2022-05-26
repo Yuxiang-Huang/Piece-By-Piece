@@ -4,7 +4,7 @@ class Gunship extends UMO {
 
   private float angle;
   private ArrayList<Bullet> bullets;
-  private int countdown = 0;
+  private int countdown;
 
   Gunship(float x, float y) {
     setRadius(30);
@@ -78,7 +78,8 @@ class Gunship extends UMO {
     collisionWithUMO();
 
     // update and display all bullets
-    for (Bullet bullet : bullets) {
+    for (int b = 0; b < bullets.size(); b++) {
+      Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
     }

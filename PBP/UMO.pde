@@ -5,7 +5,7 @@ abstract class UMO implements Processable {
   PVector velocity = new PVector(0,0);
   PVector acceleration = new PVector(0,0);
   private color Color;
-  private final float friction = .98; // for smoother stop
+  private final float friction = .98; // for smoother stoping
 
   void update() {
     position.add(velocity);
@@ -17,16 +17,16 @@ abstract class UMO implements Processable {
   }
 
   void collisionWithBorder() {
-    if (getX() < 0 + getRadius()) {
+    if (getX() - getRadius() < 0 ) {
       setX(getRadius());
     }
-    if (getX() > width- getRadius()) {
+    if (getX() + getRadius() > width) {
       setX(width - getRadius());
     }
-    if (getY() < 0 + getRadius()) {
+    if (getY() - getRadius() < 0 ) {
       setY(getRadius());
     }
-    if (getY() > height - getRadius()) {
+    if (getY() + getRadius() > height ) {
       setY(height - getRadius());
     }
   }

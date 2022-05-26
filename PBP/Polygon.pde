@@ -3,18 +3,17 @@ class Polygon extends UMO {
   private String shape;
 
   Polygon(String name) {
-    position = new PVector(random(width), random(height));
+    // So that all polygons are not concentrated on (0,0)
+    position.set(random(width), random(height));
 
-    velocity = new PVector(0, 0);
-
-    //Not to collide with player ship
-    while (Math.abs(getX() - player.getX()) < player.getRadius()) {
+    // Not to collide with player ship
+    while (Math.abs(getX() - player.getX()) < player.getRadius() && Math.abs(getY() - player.getY()) < player.getRadius()) {
       setX(random(width));
-    }
-    while (Math.abs(getY() - player.getY()) < player.getRadius()) {
       setY(random(height));
     }
+
     polygons.add(this);
+    
     if (name.equals("square")) {
       setHeldExp(10);
       setShape("square");

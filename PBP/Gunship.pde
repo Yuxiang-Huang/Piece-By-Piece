@@ -117,6 +117,15 @@ class Gunship extends UMO {
       if (sqrt(pow((getX() - now.getX()), 2) + pow((getY() - now.getY()), 2)) 
         < getRadius() + now.getRadius() ) {
         //trust physics
+        float m1 = getRadius()*getRadius();
+        float m2 = now.getRadius()*now.getRadius();
+        
+        float dxHolder = (2*m1*getDX() + (m2-m1) * now.getDX() ) / (m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * now.getDY() ) / (m1 + m2);
+        setDX( (2*m2*now.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
+        setDY( (2*m2*now.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
+        now.setDX(dxHolder);
+        now.setDY(dyHolder);
       }
     }
   }

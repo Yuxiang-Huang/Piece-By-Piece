@@ -1,7 +1,7 @@
 Gunship player;
 boolean[] keysPressed; 
 ArrayList<Polygon> polygons;
-boolean DEBUG = true;
+boolean DEBUG = false;
 
 void setup() {
   size(displayWidth, displayHeight);

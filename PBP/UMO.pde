@@ -1,9 +1,9 @@
 abstract class UMO implements Processable {
   PShape umo;
   private float radius;
-  PVector position;
-  PVector velocity;
-  PVector acceleration;
+  PVector position = new PVector(0,0);
+  PVector velocity = new PVector(0,0);
+  PVector acceleration = new PVector(0,0);
   private color Color;
   private final float friction = .98; // for smoother stop
 

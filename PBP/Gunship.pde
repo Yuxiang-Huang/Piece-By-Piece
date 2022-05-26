@@ -10,7 +10,7 @@ class Gunship extends UMO {
     acceleration = new PVector(.2, .2);
     setMaxSpeed(5);
     setAngle(0);
-    bullets = new ArrayList<Bullet>;
+    bullets = new ArrayList<Bullet>();
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -92,7 +92,7 @@ class Gunship extends UMO {
     }
     return angle-HALF_PI;
   }
-  
+
   void collisionWithUMO() {
     for (Polygon now : polygons) {
       //distance formula
@@ -102,8 +102,8 @@ class Gunship extends UMO {
       }
     }
   }
-  
+
   void shoot() {
-      
+    bullets.add(new Bullet(this));
   }
 }

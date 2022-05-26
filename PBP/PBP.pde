@@ -54,6 +54,10 @@ void keyReleased() {
   }
 }
 
+void mouseClicked() {
+  player.shoot();
+}
+
 void draw() {
   background(255);
 

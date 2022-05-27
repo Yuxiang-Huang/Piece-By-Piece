@@ -7,43 +7,34 @@ class Polygon extends UMO {
 
   Polygon() {
     // So that all polygons are not concentrated on (0,0)
-    String name;
+    umo = createShape();
     float rand = random(1);
     if (rand < .5) { // 50%
-      name = "square";
-    } else if (rand < .83) { // 33%
-      name = "triangle";
-    } else { // 17%
-      name = "pentagon";
-    }
-    
-    setShape(name);
-
-    umo = createShape();
-    if (name.equals("square")) {
+      setShape("square"); 
+      setExp(10);
       setRadius(unit);
-      
+     
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
       umo.setFill(YELLOW); 
       
-      setHealth(10); // confirmed value from wiki
+      setHealth(10);
       setCollisionDamage(10);
-      setExp(10); // confirmed value from wiki
       
-    } else if (name.equals("triangle")) {
+    } else if (rand < .83) { // 33%
+      setShape("triangle");
+      setExp(25);
       setRadius(unit * 1.5);
       
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
       umo.setFill(RED);
-      
-      setHealth(30); // confirmed value from wiki
-      setCollisionDamage(20); 
-      setExp(25); // confirmed value from wiki
-      
-    } else if (name.equals("pentagon")) {
+      setHealth(30);
+      setCollisionDamage(20);
+    } else { // 17%
+      setShape("pentagon");
+      setExp(130);      
       setRadius(unit * 1.75);
       
       float angle = TWO_PI/5;
@@ -57,9 +48,9 @@ class Polygon extends UMO {
       umo.endShape(CLOSE);
       umo.setFill(BLUE);
 
-      setHealth(100); // confirmed value from wiki
-      setCollisionDamage(30);
-      setExp(130); // confirmed value from wiki
+      setHealth(100); 
+      setCollisionDamage(12);
+      setExp(130);
     }
 
     position.set(random(width), random(height));
@@ -104,16 +95,17 @@ class Polygon extends UMO {
   }
 
   void collisionWithUMO() {
-    for (Polygon polygon : polygons) {
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
         //trust physics
-        float m1 = getRadius()*getRadius();
-        float m2 = polygon.getRadius()*polygon.getRadius();
+        float m1 = getRadius()*getRadius()*getRadius();
+        float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
 
-        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (m1 + m2);
-        setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
-        setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
+        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
+        setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (float)(m1 + m2));
+        setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
       }
     }

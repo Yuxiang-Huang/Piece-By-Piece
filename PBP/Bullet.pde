@@ -9,10 +9,10 @@ class Bullet extends UMO {
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
     velocity.setMag(getBaseSpeed());
-    setRadius(10);
+    setRadius(gunship.getDamage());
     setCountdown(60);
-    setHealth(1);
-    setCollisionDamage(7); // confirmed value from wiki
+    setHealth(gunship.getBulletPenetration()); //bullet penetration
+    setCollisionDamage(gunship.getDamage()); // confirmed value from wiki
   }
 
   void display() {
@@ -26,8 +26,23 @@ class Bullet extends UMO {
     velocity.mult(getFriction());
     // kill bullet after certain amount of time
     setCountdown(getCountdown()-1);
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
+      if (isCollidingWithPolygon(polygon)) {
+        if (polygon.getHealth() >  getCollisionDamage()) {
+          setHealth(getHealth() - getCollisionDamage());
+        } else {
+          setHealth(getHealth() - polygon.getHealth());
+        }
+        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+      }
+    }
     if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
       die();
+    }
+    if (DEBUG) {
+      fill(0);
+      text(""+ getHealth(), getX(), getY() + 20);
     }
   }
 

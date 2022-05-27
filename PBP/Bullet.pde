@@ -12,6 +12,7 @@ class Bullet extends UMO {
     setRadius(10);
     setCountdown(60);
     setHealth(1);
+    setCollisionDamage(5);
   }
 
   void display() {

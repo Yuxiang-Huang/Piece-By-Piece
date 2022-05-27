@@ -14,14 +14,7 @@ void setup() {
   // creating polygons
   polygons = new ArrayList<Polygon>();
   for (int i = 0; i < 10; i++) {
-    float rand = random(1);
-    if (rand < .5) { // 50%
-      Polygon now = new Polygon("square");
-    } else if (rand < .83) { // 33%
-      Polygon now = new Polygon("triangle");
-    } else { // 17%
-      Polygon now = new Polygon("pentagon");
-    }
+    Polygon polygon = new Polygon();
   }
 }
 

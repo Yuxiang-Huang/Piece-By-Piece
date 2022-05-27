@@ -114,8 +114,20 @@ class Gunship extends UMO {
   void collisionWithUMO() {
     for (Polygon polygon : polygons) {
       //distance formula
+      float Radius = 0 ;
+      //trust math to fix collision detection
+      if (polygon.getShape().equals("square")){
+        Radius = polygon.getRadius() / sqrt(2);
+      }
+      if (polygon.getShape().equals("triangle")){
+        Radius = polygon.getRadius() * sqrt(3) / 2;
+      }
+      if (polygon.getShape().equals("pentagon")){
+        Radius = polygon.getRadius() * cos(54);
+      }
+      
       while (sqrt(pow((getX() - polygon.getX()), 2) + pow((getY() - polygon.getY()), 2)) 
-        < getRadius() + polygon.getRadius() ) {
+        < getRadius() + Radius) {
         //trust physics
         float m1 = getRadius()*getRadius();
         float m2 = polygon.getRadius()*polygon.getRadius();

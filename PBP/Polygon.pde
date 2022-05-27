@@ -117,7 +117,6 @@ class Polygon extends UMO {
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
-        //polygon.update();
       }
     }
   }

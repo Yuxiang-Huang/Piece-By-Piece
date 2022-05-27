@@ -65,7 +65,8 @@ void draw() {
     text(frameRate, 20, 20);
   }
 
-  for (Polygon polygon : polygons) {
+  for (int p = 0; p < polygons.size(); p++) {
+    Polygon polygon = polygons.get(p);
     polygon.display();
     polygon.update();
 

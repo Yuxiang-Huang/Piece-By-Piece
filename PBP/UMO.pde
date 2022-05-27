@@ -4,14 +4,24 @@ abstract class UMO implements Processable {
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
-  private color Color;
+  //private color Color;
   private final float friction = .98; // for smoother stoping
+  private int health; 
 
   void update() {
   }
 
   void display() {
     shape(umo, getX(), getY());
+  }
+
+  boolean isCollidingWithBorder() {
+    if (getX() - getRadius() < 0 || getX() + getRadius() > width || 
+      getY() - getRadius() < 0 || getY() + getRadius() > height) 
+    {
+      return true;
+    } 
+    return false;
   }
 
   void collisionWithBorder() {
@@ -21,7 +31,7 @@ abstract class UMO implements Processable {
     if (getX() + getRadius() > width) {
       setX(width - getRadius());
     }
-    if (getY() - getRadius() < 0 ) {
+    if (getY() - getRadius() < 0) {
       setY(getRadius());
     }
     if (getY() + getRadius() > height) {
@@ -97,10 +107,13 @@ abstract class UMO implements Processable {
     return friction;
   }
 
-  color getColor() {
-    return Color;
+  int getHealth() {
+    return health;
   }
-  void setColor(color Color) {
-    this.Color = Color;
+  void setHealth(int health) {
+    this.health = health;
   }
+
+  void die() {
+  };
 }

@@ -124,7 +124,8 @@ class Gunship extends UMO {
   }
 
   void collisionWithUMO() {
-    for (Polygon polygon : polygons) {
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
       while (isCollidingWithPolygon(polygon)) {
         //trust physics
         float m1 = getRadius()*getRadius();
@@ -136,8 +137,8 @@ class Gunship extends UMO {
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
         
-        //setHealth(getHealth()-polygon.getCollisionDamage());
-        //polygon.setHealth(polygon.getHealth()-getCollisionDamage());
+        setHealth(getHealth()-polygon.getCollisionDamage());
+        polygon.setHealth(polygon.getHealth()-getCollisionDamage());
         
         polygon.update();
       }

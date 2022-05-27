@@ -1,9 +1,9 @@
 abstract class UMO implements Processable {
   PShape umo;
   private float radius;
-  PVector position = new PVector(0,0);
-  PVector velocity = new PVector(0,0);
-  PVector acceleration = new PVector(0,0);
+  PVector position = new PVector(0, 0);
+  PVector velocity = new PVector(0, 0);
+  PVector acceleration = new PVector(0, 0);
   private color Color;
   private final float friction = .98; // for smoother stoping
 
@@ -29,63 +29,77 @@ abstract class UMO implements Processable {
     }
   }
 
-  float getRadius() {
-    return radius;
-  }
-  void setRadius(float radius) {
-    this.radius = radius;
-  }
+  boolean isCollidingWithPolygon(Polygon polygon) {
+    //distance formula
+    float Radius = 0 ;
+    //trust math to fix collision detection
+    if (polygon.getShape().equals("square")) {
+      Radius = polygon.getRadius() / sqrt(2);
+    } else if (polygon.getShape().equals("triangle")) {
+      Radius = polygon.getRadius() / 2;
+    } else if (polygon.getShape().equals("pentagon")) {
+      Radius = polygon.getRadius() * sin(54 / 180.0 * PI);
+    }
+    return sqrt(pow((getX() - polygon.getX()), 2) + pow((getY() - polygon.getY()), 2)) 
+      < getRadius() + Radius;
 
-  float getX() {
-    return position.x;
-  }
-  void setX(float x) {
-    this.position.x = x;
-  }
+    float getRadius() {
+      return radius;
+    }
+    void setRadius(float radius) {
+      this.radius = radius;
+    }
 
-  float getY() {
-    return position.y;
-  }
-  void setY(float y) {
-    this.position.y = y;
-  }
+    float getX() {
+      return position.x;
+    }
+    void setX(float x) {
+      this.position.x = x;
+    }
 
-  float getDX() {
-    return velocity.x;
-  }
-  void setDX(float dx) {
-    this.velocity.x = dx;
-  }
+    float getY() {
+      return position.y;
+    }
+    void setY(float y) {
+      this.position.y = y;
+    }
 
-  float getDY() {
-    return velocity.y;
-  }
-  void setDY(float dy) {
-    this.velocity.y = dy;
-  }
+    float getDX() {
+      return velocity.x;
+    }
+    void setDX(float dx) {
+      this.velocity.x = dx;
+    }
 
-  float getDDX() {
-    return acceleration.x;
-  }
-  void setDDX(float ddx) {
-    this.acceleration.x = ddx;
-  }
+    float getDY() {
+      return velocity.y;
+    }
+    void setDY(float dy) {
+      this.velocity.y = dy;
+    }
 
-  float getDDY() {
-    return acceleration.y;
-  }
-  void setDDY(float ddy) {
-    this.acceleration.x = ddy;
-  }
+    float getDDX() {
+      return acceleration.x;
+    }
+    void setDDX(float ddx) {
+      this.acceleration.x = ddx;
+    }
 
-  float getFriction() {
-    return friction;
-  }
+    float getDDY() {
+      return acceleration.y;
+    }
+    void setDDY(float ddy) {
+      this.acceleration.x = ddy;
+    }
 
-  color getColor() {
-    return Color;
+    float getFriction() {
+      return friction;
+    }
+
+    color getColor() {
+      return Color;
+    }
+    void setColor(color Color) {
+      this.Color = Color;
+    }
   }
-  void setColor(color Color) {
-    this.Color = Color;
-  }
-}

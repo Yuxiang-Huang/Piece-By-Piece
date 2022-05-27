@@ -1,6 +1,10 @@
 class Polygon extends UMO {
   private int heldExp;
   private String shape;
+  
+  final color YELLOW = color(255, 255, 0);
+  final color RED = color(255, 0, 0);
+  final color BLUE = color(0, 0, 255);
 
   Polygon(String name) {
     // So that all polygons are not concentrated on (0,0)
@@ -12,7 +16,7 @@ class Polygon extends UMO {
       setRadius(unit);
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
-      umo.setFill(color(255, 255, 0));
+      umo.setFill(YELLOW); 
 
       //setMaxHealth(10);
       //setCurrentHealth(10);
@@ -23,7 +27,7 @@ class Polygon extends UMO {
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
-      umo.setFill(color(255, 0, 0));
+      umo.setFill(RED);
 
       //setMaxHealth(25);
       //setCurrentHealth(25);
@@ -40,7 +44,7 @@ class Polygon extends UMO {
         umo.vertex(sx, sy);
       }
       umo.endShape(CLOSE);
-      umo.setFill(color(0, 0, 255));
+      umo.setFill(BLUE);
 
       //setMaxHealth(130);
       //setCurrentHealth(130);

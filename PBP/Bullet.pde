@@ -28,10 +28,10 @@ class Bullet extends UMO {
     setCountdown(getCountdown()-1);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
-      if (isCollidingWithPolygon(polygon)){
-        if (polygon.getHealth() >  getCollisionDamage()){
+      if (isCollidingWithPolygon(polygon)) {
+        if (polygon.getHealth() >  getCollisionDamage()) {
           setHealth(getHealth() - getCollisionDamage());
-        } else{
+        } else {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
@@ -40,7 +40,10 @@ class Bullet extends UMO {
     if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
       die();
     }
-    
+    //if (DEBUG) {
+    //  fill(0);
+    //  text(""+ getHealth(), getX(), getY() + 20);
+    //}
   }
 
   void die() {

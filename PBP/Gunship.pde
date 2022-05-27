@@ -9,7 +9,7 @@ class Gunship extends UMO {
   private int countdown;
   
   private int damage;
-  private int penetration;
+  private int bulletPenetration;
 
   Gunship(float x, float y) {
     setRadius(unit);

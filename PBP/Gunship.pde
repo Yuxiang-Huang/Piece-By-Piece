@@ -7,6 +7,8 @@ class Gunship extends UMO {
   private float angle;
   private ArrayList<Bullet> bullets;
   private int countdown;
+  
+  private int damage;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -23,6 +25,7 @@ class Gunship extends UMO {
 
     bullets = new ArrayList<Bullet>();
     setCountdown(0);
+    setDamage(7);
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -185,5 +188,12 @@ class Gunship extends UMO {
   
   int getExpRequiredForNextLevel() {
      return int(10*pow(1.5, getLevel()+1));
+  }
+  
+  int getDamage() {
+    return damage;
+  }
+  void setDamage(int damage) {
+    this.damage = damage;
   }
 }

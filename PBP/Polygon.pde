@@ -106,7 +106,8 @@ class Polygon extends UMO {
   }
 
   void collisionWithUMO() {
-    for (Polygon polygon : polygons) {
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
         //trust physics
         float m1 = getRadius()*getRadius();

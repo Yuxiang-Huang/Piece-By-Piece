@@ -13,6 +13,7 @@ class Gunship extends UMO {
     setAngle(0);
 
     setHealth(100);
+    setCollisionDamage(10);
     setMaxSpeed(5);
     setReloadSpeed(60);
 
@@ -134,6 +135,10 @@ class Gunship extends UMO {
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
+        
+        //setHealth(getHealth()-polygon.getCollisionDamage());
+        //polygon.setHealth(polygon.getHealth()-getCollisionDamage());
+        
         polygon.update();
       }
     }

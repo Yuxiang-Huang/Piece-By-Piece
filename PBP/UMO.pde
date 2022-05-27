@@ -7,6 +7,7 @@ abstract class UMO implements Processable {
   //private color Color;
   private final float friction = .98; // for smoother stoping
   private int health; 
+  private int collisionDamage;
 
   void update() {
   }
@@ -107,13 +108,16 @@ abstract class UMO implements Processable {
     return friction;
   }
 
+  void die() {
+  }
   int getHealth() {
     return health;
   }
   void setHealth(int health) {
+    if (health < 0) {health = 0;}
     this.health = health;
   }
-
-  void die() {
-  };
+  
+  int getCollisionDamage() {return collisionDamage;}
+  void setCollisionDamage(int collisionDamage) {this.collisionDamage = collisionDamage;} 
 }

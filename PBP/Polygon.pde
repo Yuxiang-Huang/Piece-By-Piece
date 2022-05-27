@@ -6,8 +6,18 @@ class Polygon extends UMO {
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
 
-  Polygon(String name) {
+  Polygon() {
     // So that all polygons are not concentrated on (0,0)
+    String name;
+    float rand = random(1);
+    if (rand < .5) { // 50%
+      name = "square";
+    } else if (rand < .83) { // 33%
+      name = "triangle";
+    } else { // 17%
+      name = "pentagon";
+    }
+    
     setShape(name);
 
     umo = createShape();
@@ -71,6 +81,7 @@ class Polygon extends UMO {
 
   void die() {
     polygons.remove(this);
+    Polygon polygon = new Polygon();
     //player.setExp(player.getExp() + getHeldExp());
   }
 
@@ -106,7 +117,6 @@ class Polygon extends UMO {
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
-        //polygon.update();
       }
     }
   }

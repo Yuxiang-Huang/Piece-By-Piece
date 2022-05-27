@@ -18,7 +18,8 @@ class Polygon extends UMO {
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
       umo.setFill(YELLOW); 
       
-      setHealth(10);
+      setMaxHealth(10);
+      setHealth(getMaxHealth());
       setCollisionDamage(10);
       
     } else if (rand < .83) { // 33%
@@ -30,7 +31,9 @@ class Polygon extends UMO {
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
       umo.setFill(RED);
-      setHealth(30);
+      
+      setMaxHealth(30);
+      setHealth(getMaxHealth());
       setCollisionDamage(20);
     } else { // 17%
       setShape("pentagon");
@@ -48,9 +51,9 @@ class Polygon extends UMO {
       umo.endShape(CLOSE);
       umo.setFill(BLUE);
 
-      setHealth(100); 
+      setMaxHealth(100); 
+      setHealth(getMaxHealth());
       setCollisionDamage(12);
-      setExp(130);
     }
 
     position.set(random(width), random(height));

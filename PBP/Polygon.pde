@@ -8,20 +8,10 @@ class Polygon extends UMO {
 
   Polygon() {
     // So that all polygons are not concentrated on (0,0)
-    String name;
+    umo = createShape();
     float rand = random(1);
     if (rand < .5) { // 50%
-      name = "square";
-    } else if (rand < .83) { // 33%
-      name = "triangle";
-    } else { // 17%
-      name = "pentagon";
-    }
-    
-    setShape(name);
-
-    umo = createShape();
-    if (name.equals("square")) {
+      setShape("square");
       setHeldExp(10);
       setRadius(unit);
       rectMode(RADIUS);
@@ -29,7 +19,8 @@ class Polygon extends UMO {
       umo.setFill(YELLOW); 
       setHealth(10);
       setCollisionDamage(10);
-    } else if (name.equals("triangle")) {
+    } else if (rand < .83) { // 33%
+      setShape("triangle");
       setHeldExp(25);
       setRadius(unit * 1.5);
       umo = createShape(TRIANGLE, 0, -getRadius(), 
@@ -38,7 +29,8 @@ class Polygon extends UMO {
       umo.setFill(RED);
       setHealth(25);
       setCollisionDamage(20);
-    } else if (name.equals("pentagon")) {
+    } else { // 17%
+      setShape("pentagon");
       setHeldExp(130);
       setRadius(unit * 1.75);
       float angle = TWO_PI/5;

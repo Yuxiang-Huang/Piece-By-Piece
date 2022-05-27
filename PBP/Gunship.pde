@@ -15,8 +15,8 @@ class Gunship extends UMO {
     setAngle(0);
     
     setLevel(1);
-    setHealth(100);
-    setCollisionDamage(10);
+    setHealth(50); // confirmed value from wiki
+    setCollisionDamage(20); // confirmed value from wiki
     setMaxSpeed(5);
     setReloadSpeed(60);
 

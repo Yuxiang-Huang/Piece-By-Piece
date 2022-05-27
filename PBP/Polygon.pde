@@ -1,5 +1,4 @@
 class Polygon extends UMO {
-  private int heldExp;
   private String shape;
 
   final color YELLOW = color(255, 255, 0);
@@ -22,27 +21,31 @@ class Polygon extends UMO {
 
     umo = createShape();
     if (name.equals("square")) {
-      setHeldExp(10);
       setRadius(unit);
+      
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
       umo.setFill(YELLOW); 
-      setHealth(10);
+      
+      setHealth(10); // confirmed value from wiki
       setCollisionDamage(10);
-      setExp(10);
+      setExp(10); // confirmed value from wiki
+      
     } else if (name.equals("triangle")) {
-      setHeldExp(25);
       setRadius(unit * 1.5);
+      
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
       umo.setFill(RED);
-      setHealth(25);
-      setCollisionDamage(20);
-      setExp(25);
+      
+      setHealth(30); // confirmed value from wiki
+      setCollisionDamage(20); 
+      setExp(25); // confirmed value from wiki
+      
     } else if (name.equals("pentagon")) {
-      setHeldExp(130);
       setRadius(unit * 1.75);
+      
       float angle = TWO_PI/5;
       umo = createShape();
       umo.beginShape();
@@ -54,9 +57,9 @@ class Polygon extends UMO {
       umo.endShape(CLOSE);
       umo.setFill(BLUE);
 
-      setHealth(130);
+      setHealth(100); // confirmed value from wiki
       setCollisionDamage(30);
-      setExp(130);
+      setExp(130); // confirmed value from wiki
     }
 
     position.set(random(width), random(height));
@@ -90,14 +93,6 @@ class Polygon extends UMO {
 
   void display() {
     shape(umo, getX(), getY());
-  }
-
-  int getHeldExp() {
-    return heldExp;
-  }
-
-  void setHeldExp(int heldExpNow) {
-    heldExp = heldExpNow;
   }
 
   String getShape() {

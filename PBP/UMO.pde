@@ -106,4 +106,11 @@ abstract class UMO implements Processable {
   float getFriction() {
     return friction;
   }
+
+  int getHealth() {
+    return health;
+  }
+  void setHealth(int health) {
+    this.health = health;
+  }
 }

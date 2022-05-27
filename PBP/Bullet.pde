@@ -11,6 +11,7 @@ class Bullet extends UMO {
     velocity.setMag(getBaseSpeed());
     setRadius(10);
     setCountdown(60);
+    setHealth(1);
   }
 
   void display() {

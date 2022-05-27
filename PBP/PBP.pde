@@ -59,6 +59,7 @@ void draw() {
 
   if (DEBUG) {
     fill(0);
+    text(""+player.getHealth(), player.getX(), player.getY());
     text("x: "+round(player.getX()) + "; y: "+round(player.getY()), player.getX()+40, player.getY()-40);
     text("dx: "+player.getDX() + "; dy: "+player.getDY(), player.getX()+40, player.getY()-20);
     float mag = 0;
@@ -77,6 +78,7 @@ void draw() {
 
     if (DEBUG) {
       fill(0);
+      text(""+polygon.getHealth(), polygon.getX(), polygon.getY());
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
       text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
     }

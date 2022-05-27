@@ -12,6 +12,7 @@ class Gunship extends UMO {
     acceleration.set(.2, .2);
     setAngle(0);
 
+    setHealth(100);
     setMaxSpeed(5);
     setReloadSpeed(60);
 
@@ -82,10 +83,11 @@ class Gunship extends UMO {
       Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
-      
+
       if (DEBUG) {
-          text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
-          text("dx: "+bullet.getDX() + "; dy: "+bullet.getDY(), bullet.getX()+40, bullet.getY()-20);
+        text(""+bullet.getHealth(), bullet.getX(), bullet.getY());
+        text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
+        text("dx: "+bullet.getDX() + "; dy: "+bullet.getDY(), bullet.getX()+40, bullet.getY()-20);
       }
     }
 
@@ -118,7 +120,7 @@ class Gunship extends UMO {
 
   void collisionWithUMO() {
     for (Polygon polygon : polygons) {
-      while (isCollidingWithPolygon(polygon)){
+      while (isCollidingWithPolygon(polygon)) {
         //trust physics
         float m1 = getRadius()*getRadius();
         float m2 = polygon.getRadius()*polygon.getRadius();

@@ -4,8 +4,8 @@ abstract class UMO implements Processable {
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
-  //private color Color;
   private final float friction = .98; // for smoother stoping
+  private int exp;
   private int health; 
   private int collisionDamage;
 
@@ -113,10 +113,23 @@ abstract class UMO implements Processable {
     return health;
   }
   void setHealth(int health) {
-    if (health < 0) {health = 0;}
+    if (health < 0) {
+      health = 0;
+    }
     this.health = health;
   }
-  
-  int getCollisionDamage() {return collisionDamage;}
-  void setCollisionDamage(int collisionDamage) {this.collisionDamage = collisionDamage;} 
+
+  int getCollisionDamage() {
+    return collisionDamage;
+  }
+  void setCollisionDamage(int collisionDamage) {
+    this.collisionDamage = collisionDamage;
+  }
+
+  int getExp() {
+    return exp;
+  }
+  void setExp(int exp) {
+    this.exp = exp;
+  }
 }

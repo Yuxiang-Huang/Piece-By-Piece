@@ -1,5 +1,4 @@
 class Polygon extends UMO {
-  private int heldExp;
   private String shape;
 
   final color YELLOW = color(255, 255, 0);
@@ -11,28 +10,33 @@ class Polygon extends UMO {
     umo = createShape();
     float rand = random(1);
     if (rand < .5) { // 50%
-      setShape("square");
+      setShape("square"); 
       setHeldExp(10);
       setRadius(unit);
+     
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
       umo.setFill(YELLOW); 
+      
       setHealth(10);
       setCollisionDamage(10);
+      
     } else if (rand < .83) { // 33%
       setShape("triangle");
       setHeldExp(25);
       setRadius(unit * 1.5);
+      
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
       umo.setFill(RED);
-      setHealth(25);
+      setHealth(30);
       setCollisionDamage(20);
     } else { // 17%
       setShape("pentagon");
-      setHeldExp(130);
+      setHeldExp(130);      
       setRadius(unit * 1.75);
+      
       float angle = TWO_PI/5;
       umo = createShape();
       umo.beginShape();
@@ -44,8 +48,9 @@ class Polygon extends UMO {
       umo.endShape(CLOSE);
       umo.setFill(BLUE);
 
-      setHealth(130);
-      setCollisionDamage(30);
+      setHealth(100); 
+      setCollisionDamage(12);
+      setExp(130);
     }
 
     position.set(random(width), random(height));
@@ -74,19 +79,11 @@ class Polygon extends UMO {
   void die() {
     polygons.remove(this);
     Polygon polygon = new Polygon();
-    //player.setExp(player.getExp() + getHeldExp());
+    player.setExp(player.getExp() + getExp());
   }
 
   void display() {
     shape(umo, getX(), getY());
-  }
-
-  int getHeldExp() {
-    return heldExp;
-  }
-
-  void setHeldExp(int heldExpNow) {
-    heldExp = heldExpNow;
   }
 
   String getShape() {

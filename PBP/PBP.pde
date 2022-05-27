@@ -1,7 +1,7 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
-boolean DEBUG = true;
+boolean DEBUG = false;
 float unit;
 
 void setup() {
@@ -55,12 +55,9 @@ void draw() {
     text(""+player.getHealth(), player.getX(), player.getY());
     text("x: "+round(player.getX()) + "; y: "+round(player.getY()), player.getX()+40, player.getY()-40);
     text("dx: "+round(player.getDX()) + "; dy: "+round(player.getDY()), player.getX()+40, player.getY()-20);
-    float mag = 0;
-    if (player.velocity.mag() > 0.01) {
-      mag = player.velocity.mag();
-    }
-    text("mag: "+mag, player.getX()+40, player.getY());
+    text("mag: "+round(player.velocity.mag()), player.getX()+40, player.getY());
     text("countdown: "+player.getCountdown(), player.getX()+40, player.getY()+20);
+    text("Level: "+player.getLevel() + "; Exp: "+player.getExp(), player.getX()+40, player.getY()+40);
 
     text(frameRate, 20, 20);
   }
@@ -75,6 +72,7 @@ void draw() {
       text(""+polygon.getHealth(), polygon.getX(), polygon.getY());
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
       text("dx: "+round(polygon.getDX()) + "; dy: "+round(polygon.getDY()), polygon.getX()+40, polygon.getY()-20);
+      text("Exp: "+polygon.getExp(), polygon.getX()+40, polygon.getY());
     }
   }
 }

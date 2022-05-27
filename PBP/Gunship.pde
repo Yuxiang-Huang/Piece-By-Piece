@@ -13,7 +13,8 @@ class Gunship extends UMO {
     position.set(x, y);
     acceleration.set(.2, .2);
     setAngle(0);
-
+    
+    setLevel(1);
     setHealth(100);
     setCollisionDamage(10);
     setMaxSpeed(5);
@@ -93,9 +94,16 @@ class Gunship extends UMO {
         text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
       }
     }
-
+    
+    // decrement shoot cooldown by 1
     if (countdown > 0) {
       setCountdown(getCountdown()-1);
+    }
+    
+    // check if gunship has enough exp for level up
+    if (getExp() >= getExpRequiredForNextLevel()) {
+        setExp(getExp()-getExpRequiredForNextLevel());
+        setLevel(getLevel()+1);
     }
 
     if (getHealth() == 0) {
@@ -173,5 +181,9 @@ class Gunship extends UMO {
   }
   void setLevel(int level) {
     this.level = level;
+  }
+  
+  int getExpRequiredForNextLevel() {
+     return int(10*pow(1.5, getLevel()+1));
   }
 }

@@ -5,22 +5,12 @@ class Polygon extends UMO {
   Polygon(String name) {
     // So that all polygons are not concentrated on (0,0)
     setShape(name);
-    position.set(random(width), random(height));
-
-    // Not to collide with player ship
-    while (Math.abs(getX() - player.getX()) < player.getRadius() && 
-      Math.abs(getY() - player.getY()) < player.getRadius()) 
-    {
-      setX(random(width));
-      setY(random(height));
-    }
-
-    polygons.add(this);
 
     umo = createShape();
     if (name.equals("square")) {
       setHeldExp(10);
-      setRadius(unit * 2);
+      setRadius(unit);
+      rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
       umo.setFill(color(255, 255, 0));
 
@@ -56,6 +46,25 @@ class Polygon extends UMO {
       //setCurrentHealth(130);
       //setCollisionDamage(12);
     }
+
+    position.set(random(width), random(height));
+
+    // Not to collide with player ship
+    while (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 
+      < getRadius() + player.getRadius() || isCollidingWithAnyPolygon()) {
+      setX(random(width));
+      setY(random(height));
+    }
+
+    polygons.add(this);
+  }
+
+  void update() {
+    position.add(velocity);
+    velocity.mult(getFriction());
+    // check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
   }
 
   void die() {
@@ -81,5 +90,31 @@ class Polygon extends UMO {
 
   void setShape(String shapeNow) {
     shape = shapeNow;
+  }
+
+  void collisionWithUMO() {
+    for (Polygon polygon : polygons) {
+      if (isCollidingWithPolygon(polygon)) {
+        //trust physics
+        float m1 = getRadius()*getRadius();
+        float m2 = polygon.getRadius()*polygon.getRadius();
+
+        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (m1 + m2);
+        setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
+        setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
+        polygon.velocity.set(dxHolder, dyHolder);
+        //polygon.update();
+      }
+    }
+  }
+  
+  boolean isCollidingWithAnyPolygon(){
+    for (Polygon polygon : polygons){
+      if (isCollidingWithPolygon(polygon)){
+        return true;
+      }
+    }
+    return false;
   }
 }

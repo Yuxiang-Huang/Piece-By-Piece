@@ -113,18 +113,17 @@ class Gunship extends UMO {
 
   void collisionWithUMO() {
     for (Polygon polygon : polygons) {
-      //distance formula
-      if (sqrt(pow((getX() - polygon.getX()), 2) + pow((getY() - polygon.getY()), 2)) 
-        < getRadius() + polygon.getRadius() ) {
+      while (isCollidingWithPolygon(polygon)){
         //trust physics
         float m1 = getRadius()*getRadius();
         float m2 = polygon.getRadius()*polygon.getRadius();
-        
+
         float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (m1 + m2);
         float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (m1 + m2);
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
+        polygon.update();
       }
     }
   }

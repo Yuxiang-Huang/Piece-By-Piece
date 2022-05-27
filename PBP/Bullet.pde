@@ -11,7 +11,7 @@ class Bullet extends UMO {
     velocity.setMag(getBaseSpeed());
     setRadius(gunship.getDamage());
     setCountdown(60);
-    setHealth(1); //bullet penetration
+    setHealth(gunship.getBulletPenetration()); //bullet penetration
     setCollisionDamage(gunship.getDamage()); // confirmed value from wiki
   }
 
@@ -29,7 +29,11 @@ class Bullet extends UMO {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)){
-        die(); //bullet penetration
+        if (polygon.getHealth() >  getCollisionDamage()){
+          setHealth(getHealth() - getCollisionDamage());
+        } else{
+          setHealth(getHealth() - polygon.getHealth());
+        }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
       }
     }

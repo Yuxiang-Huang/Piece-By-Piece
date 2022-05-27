@@ -26,17 +26,7 @@ class Bullet extends UMO {
     velocity.mult(getFriction());
     // kill bullet after certain amount of time
     setCountdown(getCountdown()-1);
-    for (int p = 0; p < polygons.size(); p++) {
-      Polygon polygon = polygons.get(p);
-      if (isCollidingWithPolygon(polygon)) {
-        if (polygon.getHealth() >  getCollisionDamage()) {
-          setHealth(getHealth() - getCollisionDamage());
-        } else {
-          setHealth(getHealth() - polygon.getHealth());
-        }
-        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
-      }
-    }
+    collideWithPolygon-Momentum-Health();
     if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
       die();
     }

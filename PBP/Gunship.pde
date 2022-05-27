@@ -12,6 +12,8 @@ class Gunship extends UMO {
     acceleration.set(.2, .2);
     setAngle(0);
 
+    setHealth(100);
+    setCollisionDamage(10);
     setMaxSpeed(5);
     setReloadSpeed(60);
 
@@ -37,7 +39,7 @@ class Gunship extends UMO {
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont kpolygon why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
+    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
   }
@@ -82,10 +84,20 @@ class Gunship extends UMO {
       Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
+
+      if (DEBUG) {
+        text(""+bullet.getHealth(), bullet.getX(), bullet.getY());
+        text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
+        text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
+      }
     }
 
     if (countdown > 0) {
       setCountdown(getCountdown()-1);
+    }
+    
+    if (getHealth() == 0) {
+        die();
     }
   }
 
@@ -112,8 +124,9 @@ class Gunship extends UMO {
   }
 
   void collisionWithUMO() {
-    for (Polygon polygon : polygons) {
-      while (isCollidingWithPolygon(polygon)){
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
+      while (isCollidingWithPolygon(polygon)) {
         //trust physics
         float m1 = getRadius()*getRadius();
         float m2 = polygon.getRadius()*polygon.getRadius();
@@ -123,6 +136,10 @@ class Gunship extends UMO {
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
+        
+        setHealth(getHealth()-polygon.getCollisionDamage());
+        polygon.setHealth(polygon.getHealth()-getCollisionDamage());
+        
         polygon.update();
       }
     }

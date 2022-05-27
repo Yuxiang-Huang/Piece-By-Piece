@@ -2,6 +2,10 @@ class Polygon extends UMO {
   private int heldExp;
   private String shape;
 
+  final color YELLOW = color(255, 255, 0);
+  final color RED = color(255, 0, 0);
+  final color BLUE = color(0, 0, 255);
+
   Polygon(String name) {
     // So that all polygons are not concentrated on (0,0)
     setShape(name);
@@ -12,22 +16,18 @@ class Polygon extends UMO {
       setRadius(unit);
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
-      umo.setFill(color(255, 255, 0));
-
-      //setMaxHealth(10);
-      //setCurrentHealth(10);
-      //setCollisionDamage(8);
+      umo.setFill(YELLOW); 
+      setHealth(10);
+      setCollisionDamage(10);
     } else if (name.equals("triangle")) {
       setHeldExp(25);
       setRadius(unit * 1.5);
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
-      umo.setFill(color(255, 0, 0));
-
-      //setMaxHealth(25);
-      //setCurrentHealth(25);
-      //setCollisionDamage(8);
+      umo.setFill(RED);
+      setHealth(25);
+      setCollisionDamage(20);
     } else if (name.equals("pentagon")) {
       setHeldExp(130);
       setRadius(unit * 1.75);
@@ -40,11 +40,10 @@ class Polygon extends UMO {
         umo.vertex(sx, sy);
       }
       umo.endShape(CLOSE);
-      umo.setFill(color(0, 0, 255));
+      umo.setFill(BLUE);
 
-      //setMaxHealth(130);
-      //setCurrentHealth(130);
-      //setCollisionDamage(12);
+      setHealth(130);
+      setCollisionDamage(30);
     }
 
     position.set(random(width), random(height));
@@ -65,6 +64,9 @@ class Polygon extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
+    if (getHealth() == 0) {
+      die();
+    }
   }
 
   void die() {
@@ -108,10 +110,10 @@ class Polygon extends UMO {
       }
     }
   }
-  
-  boolean isCollidingWithAnyPolygon(){
-    for (Polygon polygon : polygons){
-      if (isCollidingWithPolygon(polygon)){
+
+  boolean isCollidingWithAnyPolygon() {
+    for (Polygon polygon : polygons) {
+      if (isCollidingWithPolygon(polygon)) {
         return true;
       }
     }

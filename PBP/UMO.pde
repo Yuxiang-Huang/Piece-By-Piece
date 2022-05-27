@@ -4,14 +4,25 @@ abstract class UMO implements Processable {
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
-  private color Color;
+  //private color Color;
   private final float friction = .98; // for smoother stoping
+  private int health; 
+  private int collisionDamage;
 
   void update() {
   }
 
   void display() {
     shape(umo, getX(), getY());
+  }
+
+  boolean isCollidingWithBorder() {
+    if (getX() - getRadius() < 0 || getX() + getRadius() > width || 
+      getY() - getRadius() < 0 || getY() + getRadius() > height) 
+    {
+      return true;
+    } 
+    return false;
   }
 
   void collisionWithBorder() {
@@ -21,7 +32,7 @@ abstract class UMO implements Processable {
     if (getX() + getRadius() > width) {
       setX(width - getRadius());
     }
-    if (getY() - getRadius() < 0 ) {
+    if (getY() - getRadius() < 0) {
       setY(getRadius());
     }
     if (getY() + getRadius() > height) {
@@ -40,8 +51,7 @@ abstract class UMO implements Processable {
     } else if (polygon.getShape().equals("pentagon")) {
       Radius = polygon.getRadius() * sin(54 / 180.0 * PI);
     }
-    return sqrt(pow((getX() - polygon.getX()), 2) + pow((getY() - polygon.getY()), 2)) 
-      < getRadius() + Radius;
+    return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
 
   float getRadius() {
@@ -97,10 +107,16 @@ abstract class UMO implements Processable {
     return friction;
   }
 
-  color getColor() {
-    return Color;
+  void die() {
   }
-  void setColor(color Color) {
-    this.Color = Color;
+  int getHealth() {
+    return health;
   }
+  void setHealth(int health) {
+    if (health < 0) {health = 0;}
+    this.health = health;
+  }
+  
+  int getCollisionDamage() {return collisionDamage;}
+  void setCollisionDamage(int collisionDamage) {this.collisionDamage = collisionDamage;} 
 }

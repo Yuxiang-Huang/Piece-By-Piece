@@ -59,8 +59,9 @@ void draw() {
 
   if (DEBUG) {
     fill(0);
+    text(""+player.getHealth(), player.getX(), player.getY());
     text("x: "+round(player.getX()) + "; y: "+round(player.getY()), player.getX()+40, player.getY()-40);
-    text("dx: "+player.getDX() + "; dy: "+player.getDY(), player.getX()+40, player.getY()-20);
+    text("dx: "+round(player.getDX()) + "; dy: "+round(player.getDY()), player.getX()+40, player.getY()-20);
     float mag = 0;
     if (player.velocity.mag() > 0.01) {
       mag = player.velocity.mag();
@@ -70,15 +71,16 @@ void draw() {
 
     text(frameRate, 20, 20);
   }
-  
+
   for (Polygon polygon : polygons) {
     polygon.display();
     polygon.update();
 
     if (DEBUG) {
       fill(0);
+      text(""+polygon.getHealth(), polygon.getX(), polygon.getY());
       text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
-      text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
+      text("dx: "+round(polygon.getDX()) + "; dy: "+round(polygon.getDY()), polygon.getX()+40, polygon.getY()-20);
     }
   }
 }

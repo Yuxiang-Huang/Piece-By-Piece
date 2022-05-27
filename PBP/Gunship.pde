@@ -94,6 +94,10 @@ class Gunship extends UMO {
     if (countdown > 0) {
       setCountdown(getCountdown()-1);
     }
+    
+    if (getHealth() == 0) {
+        die();
+    }
   }
 
   float getMaxSpeed() {

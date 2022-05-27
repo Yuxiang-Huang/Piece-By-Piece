@@ -16,7 +16,7 @@
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."
     *  (05-24-2022): "Today I implemented the ability for the gunship to rotate. I also consolidated all the parts of the gunship into one PShape. I tested it and worked out all the issues before merging."
     *  (05-25-2022): "Today I worked on adding the shooting mechanic to the gunship. This meant that I also had to code the Bullet class. I was able to get the basic bullet movement mechanics working as well as a cooldown to the shooting of the gunship. Tomorrow i will work on implementing bullet collision and health mechanics, as well as adding a timer lifespan to the bullets."
-    *  Today I worked on general code refactoring. I deleted some unecesary functions and methods, as well as changed the way we were handeling inputs to match Mr. K's  specifications, and finally converting all the polygon shapes into PShape objects to standerdize our method of displaying. I also continued to work on bullet, giving it friction. I helped Yuxiang fix a bug with the polygons not moving.  
+    *  (05-26-2022): "Today I worked on general code refactoring. I deleted some unecesary functions and methods, as well as changed the way we were handeling inputs to match Mr. K's  specifications, and finally converting all the polygon shapes into PShape objects to standerdize our method of displaying. I also continued to work on bullet, giving it friction. I helped Yuxiang fix a bug with the polygons not moving."
 ---
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
 

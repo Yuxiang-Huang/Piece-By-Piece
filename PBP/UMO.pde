@@ -113,10 +113,23 @@ abstract class UMO implements Processable {
     return health;
   }
   void setHealth(int health) {
-    if (health < 0) {health = 0;}
+    if (health < 0) {
+      health = 0;
+    }
     this.health = health;
   }
-  
-  int getCollisionDamage() {return collisionDamage;}
-  void setCollisionDamage(int collisionDamage) {this.collisionDamage = collisionDamage;} 
+
+  int getCollisionDamage() {
+    return collisionDamage;
+  }
+  void setCollisionDamage(int collisionDamage) {
+    this.collisionDamage = collisionDamage;
+  }
+
+  int getExp() {
+    return exp;
+  }
+  void setExp(int exp) {
+    this.exp = exp;
+  }
 }

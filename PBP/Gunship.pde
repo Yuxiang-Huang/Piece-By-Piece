@@ -1,6 +1,6 @@
 class Gunship extends UMO {
   int level;
-  
+
   private float maxSpeed;
   private int reloadSpeed; 
 
@@ -97,9 +97,9 @@ class Gunship extends UMO {
     if (countdown > 0) {
       setCountdown(getCountdown()-1);
     }
-    
+
     if (getHealth() == 0) {
-        die();
+      die();
     }
   }
 
@@ -138,7 +138,7 @@ class Gunship extends UMO {
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
-        
+
         setHealth(getHealth()-polygon.getCollisionDamage());
         polygon.setHealth(polygon.getHealth()-getCollisionDamage());
       }
@@ -167,5 +167,11 @@ class Gunship extends UMO {
   void setCountdown(int countdown) {
     this.countdown = countdown;
   }
-  
+
+  int getLevel() {
+    return level;
+  }
+  void setLevel(int level) {
+    this.level = level;
+  }
 }

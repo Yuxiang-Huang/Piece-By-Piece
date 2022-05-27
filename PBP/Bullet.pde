@@ -25,9 +25,13 @@ class Bullet extends UMO {
     velocity.mult(getFriction());
     // kill bullet after certain amount of time
     setCountdown(getCountdown()-1);
-    if (getCountdown() == 0) {
-      gunship.bullets.remove(this);
+    if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
+      die();
     }
+  }
+
+  void die() {
+    gunship.bullets.remove(this);
   }
 
   float getBaseSpeed() {

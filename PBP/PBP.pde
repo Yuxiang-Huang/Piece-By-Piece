@@ -71,7 +71,7 @@ void draw() {
 
     text(frameRate, 20, 20);
   }
-  
+
   for (Polygon polygon : polygons) {
     polygon.display();
     polygon.update();

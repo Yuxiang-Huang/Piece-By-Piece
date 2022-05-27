@@ -1,7 +1,7 @@
 class Polygon extends UMO {
   private int heldExp;
   private String shape;
-  
+
   final color YELLOW = color(255, 255, 0);
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
@@ -27,7 +27,7 @@ class Polygon extends UMO {
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
       umo.setFill(RED);
       setHealth(25);
-      
+
       //setCollisionDamage(8);
     } else if (name.equals("pentagon")) {
       setHeldExp(130);
@@ -65,6 +65,9 @@ class Polygon extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
+    if (getHealth() == 0) {
+      die();
+    }
   }
 
   void die() {
@@ -108,10 +111,10 @@ class Polygon extends UMO {
       }
     }
   }
-  
-  boolean isCollidingWithAnyPolygon(){
-    for (Polygon polygon : polygons){
-      if (isCollidingWithPolygon(polygon)){
+
+  boolean isCollidingWithAnyPolygon() {
+    for (Polygon polygon : polygons) {
+      if (isCollidingWithPolygon(polygon)) {
         return true;
       }
     }

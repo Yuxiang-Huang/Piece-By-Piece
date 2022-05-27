@@ -113,4 +113,7 @@ abstract class UMO implements Processable {
   void setHealth(int health) {
     this.health = health;
   }
+
+  void die() {
+  };
 }

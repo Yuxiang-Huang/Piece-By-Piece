@@ -38,7 +38,7 @@ class Gunship extends UMO {
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont kpolygon why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
+    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
   }
@@ -87,7 +87,7 @@ class Gunship extends UMO {
       if (DEBUG) {
         text(""+bullet.getHealth(), bullet.getX(), bullet.getY());
         text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
-        text("dx: "+bullet.getDX() + "; dy: "+bullet.getDY(), bullet.getX()+40, bullet.getY()-20);
+        text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
       }
     }
 

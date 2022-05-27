@@ -52,17 +52,6 @@ void draw() {
     line(col, 0, col, height);
   }
 
-  for (Polygon polygon : polygons) {
-    polygon.display();
-    polygon.update();
-
-    if (DEBUG) {
-      fill(0);
-      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
-      text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
-    }
-  }
-
   // display & update player last so that it always appears on top 
   // all colisions processed through player
   player.update();
@@ -80,5 +69,16 @@ void draw() {
     text("countdown: "+player.getCountdown(), player.getX()+40, player.getY()+20);
 
     text(frameRate, 20, 20);
+  }
+  
+  for (Polygon polygon : polygons) {
+    polygon.display();
+    polygon.update();
+
+    if (DEBUG) {
+      fill(0);
+      text("x: "+round(polygon.getX()) + "; y: "+round(polygon.getY()), polygon.getX()+40, polygon.getY()-40);
+      text("dx: "+polygon.getDX() + "; dy: "+polygon.getDY(), polygon.getX()+40, polygon.getY()-20);
+    }
   }
 }

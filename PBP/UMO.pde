@@ -4,8 +4,8 @@ abstract class UMO implements Processable {
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
-  //private color Color;
   private final float friction = .98; // for smoother stoping
+  private int exp;
   private int health; 
   private int collisionDamage;
 

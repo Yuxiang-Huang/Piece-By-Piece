@@ -51,8 +51,7 @@ abstract class UMO implements Processable {
     } else if (polygon.getShape().equals("pentagon")) {
       Radius = polygon.getRadius() * sin(54 / 180.0 * PI);
     }
-    return sqrt(pow((getX() - polygon.getX()), 2) + pow((getY() - polygon.getY()), 2)) 
-      < getRadius() + Radius;
+    return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
 
   float getRadius() {

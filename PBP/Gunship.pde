@@ -127,6 +127,13 @@ class Gunship extends UMO {
         polygon.velocity.set(dxHolder, dyHolder);
       }
     }
+    //safety area check
+    if (getX() - polygon.getX() < getRadius() + polygon.getRadius()){
+      polygon.setX(polygon.getX() + getRadius() + polygon.getRadius())
+    }
+    if (getY() - polygon.getY() < getRadius() + polygon.getRadius()){
+      polygon.setY(polygon.getY() + getRadius() + polygon.getRadius())
+    }
   }
 
 

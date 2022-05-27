@@ -8,8 +8,6 @@ abstract class UMO implements Processable {
   private final float friction = .98; // for smoother stoping
 
   void update() {
-    position.add(velocity);
-    velocity.mult(getFriction());
   }
 
   void display() {

@@ -29,6 +29,7 @@ class Polygon extends UMO {
       umo.setFill(YELLOW); 
       setHealth(10);
       setCollisionDamage(10);
+      setExp(10);
     } else if (name.equals("triangle")) {
       setHeldExp(25);
       setRadius(unit * 1.5);
@@ -38,6 +39,7 @@ class Polygon extends UMO {
       umo.setFill(RED);
       setHealth(25);
       setCollisionDamage(20);
+      setExp(25);
     } else if (name.equals("pentagon")) {
       setHeldExp(130);
       setRadius(unit * 1.75);
@@ -54,6 +56,7 @@ class Polygon extends UMO {
 
       setHealth(130);
       setCollisionDamage(30);
+      setExp(130);
     }
 
     position.set(random(width), random(height));
@@ -82,7 +85,7 @@ class Polygon extends UMO {
   void die() {
     polygons.remove(this);
     Polygon polygon = new Polygon();
-    //player.setExp(player.getExp() + getHeldExp());
+    player.setExp(player.getExp() + getExp());
   }
 
   void display() {

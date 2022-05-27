@@ -7,7 +7,7 @@ class Gunship extends UMO {
   private float angle;
   private ArrayList<Bullet> bullets;
   private int countdown;
-  
+
   private int damage;
   private int bulletPenetration;
 
@@ -16,7 +16,7 @@ class Gunship extends UMO {
     position.set(x, y);
     acceleration.set(.2, .2);
     setAngle(0);
-    
+
     setLevel(1);
     setHealth(50); // confirmed value from wiki
     setCollisionDamage(20); // confirmed value from wiki
@@ -99,16 +99,16 @@ class Gunship extends UMO {
         text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
       }
     }
-    
+
     // decrement shoot cooldown by 1
     if (countdown > 0) {
       setCountdown(getCountdown()-1);
     }
-    
+
     // check if gunship has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel()) {
-        setExp(getExp()-getExpRequiredForNextLevel());
-        setLevel(getLevel()+1);
+      setExp(getExp()-getExpRequiredForNextLevel());
+      setLevel(getLevel()+1);
     }
 
     if (getHealth() == 0) {
@@ -152,8 +152,14 @@ class Gunship extends UMO {
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
 
-        setHealth(getHealth()-polygon.getCollisionDamage());
-        polygon.setHealth(polygon.getHealth()-getCollisionDamage());
+        if (isCollidingWithPolygon(polygon)) {
+          if (polygon.getHealth() >  getCollisionDamage()) {
+            setHealth(getHealth() - getCollisionDamage());
+          } else {
+            setHealth(getHealth() - polygon.getHealth());
+          }
+          polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        }
       }
     }
   }
@@ -187,11 +193,11 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
-  
+
   int getExpRequiredForNextLevel() {
-     return int(10*pow(1.5, getLevel()+1));
+    return int(10*pow(1.5, getLevel()+1));
   }
-  
+
   int getDamage() {
     return damage;
   }

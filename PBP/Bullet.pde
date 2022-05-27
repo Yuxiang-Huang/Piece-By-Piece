@@ -40,10 +40,10 @@ class Bullet extends UMO {
     if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
       die();
     }
-    //if (DEBUG) {
-    //  fill(0);
-    //  text(""+ getHealth(), getX(), getY() + 20);
-    //}
+    if (DEBUG) {
+      fill(0);
+      text(""+ getHealth(), getX(), getY() + 20);
+    }
   }
 
   void die() {

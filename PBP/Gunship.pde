@@ -82,6 +82,11 @@ class Gunship extends UMO {
       Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
+      
+      if (DEBUG) {
+          text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
+          text("dx: "+bullet.getDX() + "; dy: "+bullet.getDY(), bullet.getX()+40, bullet.getY()-20);
+      }
     }
 
     if (countdown > 0) {

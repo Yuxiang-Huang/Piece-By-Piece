@@ -51,7 +51,7 @@ class Polygon extends UMO {
 
     // Not to collide with player ship
     while (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 
-      < getRadius() + player.getRadius()) {
+      < getRadius() + player.getRadius() || isCollidingWithAnyPolygon()) {
       setX(random(width));
       setY(random(height));
     }
@@ -104,8 +104,17 @@ class Polygon extends UMO {
         setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
-        //polygon.update(); Need to check placement for it to work
+        //polygon.update();
       }
     }
+  }
+  
+  boolean isCollidingWithAnyPolygon(){
+    for (Polygon polygon : polygons){
+      if (isCollidingWithPolygon(polygon)){
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -86,6 +86,8 @@ class Polygon extends UMO {
 
   void display() {
     shape(umo, getX(), getY());
+    displayHealthBar();
+    
     if (DEBUG) {
       fill(0);
       text(""+getHealth(), getX(), getY());

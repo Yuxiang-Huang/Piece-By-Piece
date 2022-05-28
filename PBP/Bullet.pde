@@ -10,10 +10,10 @@ class Bullet extends UMO {
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
     velocity.setMag(getBaseSpeed());
-    setRadius(gunship.getDamage());
+    setRadius(unit/2);
     setCountdown(60);
-    setHealth(gunship.getBulletPenetration()); //bullet penetration
-    setCollisionDamage(gunship.getDamage()); // confirmed value from wiki
+    setHealth(7); //bullet penetration
+    setCollisionDamage(7); // confirmed value from wiki
   }
 
   void display() {

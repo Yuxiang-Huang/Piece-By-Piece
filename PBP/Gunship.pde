@@ -8,9 +8,6 @@ class Gunship extends UMO {
   private ArrayList<Bullet> bullets;
   private int countdown;
 
-  private int damage;
-  private int bulletPenetration;
-
   Gunship(float x, float y) {
     setRadius(unit);
     position.set(x, y);
@@ -27,8 +24,6 @@ class Gunship extends UMO {
 
     bullets = new ArrayList<Bullet>();
     setCountdown(0);
-    setDamage(7);
-    setBulletPenetration(100); //for testing purpose
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -203,18 +198,5 @@ class Gunship extends UMO {
 
   int getExpRequiredForNextLevel() {
     return int(10*pow(1.5, getLevel()+1));
-  }
-
-  int getDamage() {
-    return damage;
-  }
-  void setDamage(int damage) {
-    this.damage = damage;
-  }
-  int getBulletPenetration() {
-    return bulletPenetration;
-  }
-  void setBulletPenetration(int bulletPenetration) {
-    this.bulletPenetration = bulletPenetration;
   }
 }

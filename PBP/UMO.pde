@@ -1,20 +1,38 @@
 abstract class UMO implements Processable {
   PShape umo;
-  private float radius;
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
   private final float friction = .98; // for smoother stoping
+  private float radius;
   private int exp;
   private int maxHealth;
   private int health; 
   private int collisionDamage;
-
+  
   void update() {
   }
 
   void display() {
     shape(umo, getX(), getY());
+  }
+  
+  boolean isDead(){
+    return getHealth() == 0;
+  }
+  
+  void displayHealthBar() {
+    int d;
+    if (getY() <= height/2) {
+      d = 1;
+    } else {
+      d = -1;
+    }
+    rectMode(CORNER);
+    fill(color(255, 0, 0)); // red for lost health
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
+    fill(color(0, 255, 0)); // green for current health
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*(float(getHealth())/getMaxHealth()), 10);
   }
 
   boolean isCollidingWithBorder() {
@@ -55,6 +73,9 @@ abstract class UMO implements Processable {
     return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
 
+
+
+//get and set methods------------------------------------------------------------------
   float getRadius() {
     return radius;
   }
@@ -144,19 +165,5 @@ abstract class UMO implements Processable {
   }
   void setExp(int exp) {
     this.exp = exp;
-  }
-
-  void displayHealthBar() {
-    int d;
-    if (getY() <= height/2) {
-      d = 1;
-    } else {
-      d = -1;
-    }
-    rectMode(CORNER);
-    fill(color(255, 0, 0)); // red for lost health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
-    fill(color(0, 255, 0)); // green for current health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*(float(getHealth())/getMaxHealth()), 10);
   }
 }

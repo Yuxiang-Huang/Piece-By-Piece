@@ -91,8 +91,8 @@ class Gunship extends UMO {
 
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
+    if (getSpeed() > getMaxSpeed()) {
+      setSpeed(getMaxSpeed());
     }
     // apply velocity
     position.add(velocity);

@@ -24,7 +24,7 @@ class Polygon extends UMO {
     } else if (rand < .83) { // 33%
       setShape("triangle");
       setExp(25);
-      setRadius(unit * 1.5);
+      setRadius(unit*1.5);
 
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
@@ -37,7 +37,7 @@ class Polygon extends UMO {
     } else { // 17%
       setShape("pentagon");
       setExp(130);      
-      setRadius(unit * 1.75);
+      setRadius(unit*1.75);
 
       float angle = TWO_PI/5;
       umo = createShape();

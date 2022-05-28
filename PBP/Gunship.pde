@@ -1,6 +1,7 @@
 class Gunship extends UMO {
   private Shop shop;
   private int level;
+  private int skillPoints;
 
   private float maxSpeed;
   private float speed;
@@ -17,7 +18,7 @@ class Gunship extends UMO {
     acceleration.set(.2, .2);
     setAngle(0);
     
-    shop = new Shop();
+    shop = new Shop(this);
     setLevel(1);
     
     //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
@@ -122,6 +123,7 @@ class Gunship extends UMO {
     if (getExp() >= getExpRequiredForNextLevel()) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
+      setSkillPoints(getSkillPoints()+1);
     }
 
     if (getHealth() == 0) {
@@ -198,6 +200,13 @@ class Gunship extends UMO {
   }
   void setLevel(int level) {
     this.level = level;
+  }
+  
+  int getSkillPoints() {
+      return skillPoints;
+  }
+  void setSkillPoints(int skillPoints) {
+    this.skillPoints = skillPoints;
   }
   
   float getMaxSpeed() {

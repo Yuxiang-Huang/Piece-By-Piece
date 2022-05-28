@@ -11,6 +11,25 @@ class Shop {
   Stat reload = new Stat(0, 60, -5);
   Stat movementSpeed = new Stat(0, 5, 1);
 
+  Shop(Gunship gunship) {
+    this.gunship = gunship;
+  }
+
+  void display() {
+  
+  }
+  
+  void update() {
+      //gunship.setHealthRegen(healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel()));
+      println(maxHealth.getBase());
+      println(maxHealth.getModifier());
+      println(maxHealth.getLevel());
+      gunship.setMaxHealth(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel())); 
+      gunship.setCollisionDamage(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel()));
+      gunship.setReloadSpeed(reload.getBase() + (reload.getModifier()*reload.getLevel()));
+      gunship.setMaxSpeed(movementSpeed.getBase() + (movementSpeed.getModifier()*movementSpeed.getLevel()));
+      gunship.acceleration.add(new PVector(.1, .1));
+  }
 
   class Stat {
     

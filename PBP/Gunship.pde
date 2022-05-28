@@ -20,11 +20,14 @@ class Gunship extends UMO {
     shop = new Shop();
     setLevel(1);
     
+    //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
     setMaxHealth(shop.maxHealth.getBase() + (shop.maxHealth.getModifier()*shop.maxHealth.getLevel())); 
     setHealth(getMaxHealth());
+    setCollisionDamage(shop.bodyDamage.getBase() + (shop.bodyDamage.getModifier()*shop.bodyDamage.getLevel()));
+    setReloadSpeed(shop.reload.getBase() + (shop.reload.getModifier()*shop.reload.getLevel()));
+    setMaxSpeed(shop.movementSpeed.getBase() + (shop.movementSpeed.getModifier()*shop.movementSpeed.getLevel()));
     
-    setCollisionDamage(20); // confirmed value from wiki
-    setReloadSpeed(60);
+    
 
 
     bullets = new ArrayList<Bullet>();

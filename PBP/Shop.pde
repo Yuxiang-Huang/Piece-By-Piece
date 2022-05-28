@@ -1,7 +1,7 @@
 class Shop {
   Gunship gunship;
-
-  //Stat statName          = new Stat(level, base, modifier)
+ 
+  //Stat statName = new Stat(level, base, modifier)
   Stat healthRegen = new Stat(0, 5, 5);
   Stat maxHealth = new Stat(0, 50, 25);
   Stat bodyDamage = new Stat(0, 20, 5);
@@ -9,7 +9,7 @@ class Shop {
   Stat bulletPenetration = new Stat(0, 7, 3);
   Stat bulletDamage = new Stat(0, 7, 3);
   Stat reload = new Stat(0, 60, -5);
-  Stat movementSpeed = new Stat(0, 10, 2);
+  Stat movementSpeed = new Stat(0, 5, 2);
 
 
   class Stat {

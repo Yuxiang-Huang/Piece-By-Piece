@@ -10,8 +10,6 @@ abstract class UMO implements Processable {
   private int maxHealth;
   private int health; 
   
-  private int baseCollisionDamage;
-  private int collisionDamageModifier;
   private int collisionDamage;
   
   void update() {

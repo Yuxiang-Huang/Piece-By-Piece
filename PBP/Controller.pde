@@ -25,14 +25,18 @@ class Controller {
     }
 
     // Shop upgrades
+    Shop shop = player.shop;
+    
     if (key == '1' && !player.shop.healthRegen.isMaxLevel()) {
       player.shop.healthRegen.upgrade();
+      player.setMaxHealth(shop.maxHealth.getBase() + (shop.maxHealth.getModifier()*shop.maxHealth.getLevel())); 
     }
     if (key == '2' && !player.shop.maxHealth.isMaxLevel()) {
       player.shop.maxHealth.upgrade();
     }
     if (key == '3' && !player.shop.bodyDamage.isMaxLevel()) {
       player.shop.bodyDamage.upgrade();
+      player.setCollisionDamage(shop.bodyDamage.getBase() + (shop.bodyDamage.getModifier()*shop.bodyDamage.getLevel()));
     }
     if (key == '4' && !player.shop.bulletSpeed.isMaxLevel()) {
       player.shop.bulletSpeed.upgrade();
@@ -45,9 +49,11 @@ class Controller {
     }
     if (key == '7' && !player.shop.reload.isMaxLevel()) {
       player.shop.reload.upgrade();
+      player.setReloadSpeed(shop.reload.getBase() + (shop.reload.getModifier()*shop.reload.getLevel()));
     }
     if (key == '8' && !player.shop.movementSpeed.isMaxLevel()) {
       player.shop.movementSpeed.upgrade();
+      player.setMaxSpeed(shop.movementSpeed.getBase() + (shop.movementSpeed.getModifier()*shop.movementSpeed.getLevel()));
     }
   }
 

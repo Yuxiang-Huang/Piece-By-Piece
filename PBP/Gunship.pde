@@ -107,12 +107,6 @@ class Gunship extends UMO {
       Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
-
-      if (DEBUG) {
-        text(""+bullet.getHealth(), bullet.getX(), bullet.getY());
-        text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
-        text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
-      }
     }
 
     // decrement shoot cooldown by 1

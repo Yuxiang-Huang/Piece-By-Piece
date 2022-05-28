@@ -56,6 +56,8 @@ class Bullet extends UMO {
     if (DEBUG) {
       fill(0);
       text(""+ getHealth(), getX(), getY() + 20);
+      text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
+      text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
     }
   }
 

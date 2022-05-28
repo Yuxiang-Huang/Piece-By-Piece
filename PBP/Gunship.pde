@@ -52,6 +52,16 @@ class Gunship extends UMO {
     shape(umo, 0, 0);
     popMatrix();
     displayHealthBar();
+
+    if (DEBUG) {
+      fill(0);
+      text(""+getHealth(), getX(), getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
+      text("mag: "+round(velocity.mag()), getX()+40, getY());
+      text("countdown: "+getCountdown(), getX()+40, player.getY()+20);
+      text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
+    }
   }
 
   void update() {

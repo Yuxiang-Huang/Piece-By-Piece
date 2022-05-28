@@ -13,25 +13,24 @@ class Polygon extends UMO {
       setShape("square"); 
       setExp(10);
       setRadius(unit);
-     
+
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
       umo.setFill(YELLOW); 
-      
+
       setMaxHealth(10);
       setHealth(getMaxHealth());
       setCollisionDamage(10);
-      
     } else if (rand < .83) { // 33%
       setShape("triangle");
       setExp(25);
       setRadius(unit * 1.5);
-      
+
       umo = createShape(TRIANGLE, 0, -getRadius(), 
         getRadius() * sqrt(3) / 2, getRadius() / 2, 
         -getRadius() * sqrt(3) / 2, getRadius() / 2);
       umo.setFill(RED);
-      
+
       setMaxHealth(30);
       setHealth(getMaxHealth());
       setCollisionDamage(20);
@@ -39,7 +38,7 @@ class Polygon extends UMO {
       setShape("pentagon");
       setExp(130);      
       setRadius(unit * 1.75);
-      
+
       float angle = TWO_PI/5;
       umo = createShape();
       umo.beginShape();
@@ -87,6 +86,13 @@ class Polygon extends UMO {
 
   void display() {
     shape(umo, getX(), getY());
+    if (DEBUG) {
+      fill(0);
+      text(""+getHealth(), getX(), getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
+      text("Exp: "+getExp(), getX()+40, getY());
+    }
   }
 
   String getShape() {

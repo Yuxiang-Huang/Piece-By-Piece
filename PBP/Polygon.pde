@@ -135,7 +135,7 @@ class Polygon extends UMO {
   }
   
   void randomMove(){
-    PVector Accelerate = new PVector(0.1, 0.1);
+    acceleration = new PVector(0.05, 0.05); //Not confirmed
     float rand = random(1);
     int xdir;
     int ydir;

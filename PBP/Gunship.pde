@@ -28,7 +28,7 @@ class Gunship extends UMO {
     bullets = new ArrayList<Bullet>();
     setCountdown(0);
     setDamage(7);
-    setBulletPenetration(7);
+    setBulletPenetration(100); //for testing purpose
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -51,7 +51,7 @@ class Gunship extends UMO {
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
-    
+
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
@@ -107,12 +107,6 @@ class Gunship extends UMO {
       Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
-
-      if (DEBUG) {
-        text(""+bullet.getHealth(), bullet.getX(), bullet.getY());
-        text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
-        text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
-      }
     }
 
     // decrement shoot cooldown by 1
@@ -167,14 +161,12 @@ class Gunship extends UMO {
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (isCollidingWithPolygon(polygon)) {
-          if (polygon.getHealth() >  getCollisionDamage()) {
-            setHealth(getHealth() - getCollisionDamage());
-          } else {
-            setHealth(getHealth() - polygon.getHealth());
-          }
-          polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        if (polygon.getHealth() >  getCollisionDamage()) {
+          setHealth(getHealth() - getCollisionDamage());
+        } else {
+          setHealth(getHealth() - polygon.getHealth());
         }
+        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
       }
     }
   }

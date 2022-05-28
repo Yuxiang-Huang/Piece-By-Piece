@@ -2,6 +2,7 @@ class Bullet extends UMO {
   Gunship gunship;
   float baseSpeed = 10;
   int countdown;
+  ArrayList<UMO> collided = new ArrayList<UMO> ();
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
@@ -29,21 +30,23 @@ class Bullet extends UMO {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
-        //trust physics
-        float m1 = getRadius()*getRadius()*getRadius();
-        float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
+        if (! collided.contains(polygon)) {
+          //trust physics
+          float m1 = getRadius()*getRadius()*getRadius();
+          float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
 
-        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
-        polygon.velocity.set(dxHolder, dyHolder);
+          float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
+          float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
+          polygon.velocity.set(dxHolder, dyHolder);
 
-        if (isCollidingWithPolygon(polygon)) {
           if (polygon.getHealth() >  getCollisionDamage()) {
             setHealth(getHealth() - getCollisionDamage());
           } else {
             setHealth(getHealth() - polygon.getHealth());
           }
           polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+
+          collided.add(polygon);
         }
       }
     }
@@ -53,6 +56,8 @@ class Bullet extends UMO {
     if (DEBUG) {
       fill(0);
       text(""+ getHealth(), getX(), getY() + 20);
+      text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
+      text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
     }
   }
 

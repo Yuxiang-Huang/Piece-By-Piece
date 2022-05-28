@@ -155,8 +155,8 @@ abstract class UMO implements Processable {
     }
     rectMode(CORNER);
     fill(color(255, 0, 0)); // red for lost health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+10)), getRadius()*2, 10);
-    //fill(color(0, 255, 0)); // green for current health
-    //rect(getX(), getY()+(d*(getRadius()+10)), getRadius()*(getHealth()/getMaxHealth()), 7);
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
+    fill(color(0, 255, 0)); // green for current health
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*(float(getHealth())/getMaxHealth()), 10);
   }
 }

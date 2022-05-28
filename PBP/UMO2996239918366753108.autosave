@@ -6,8 +6,7 @@ abstract class UMO implements Processable {
   PVector acceleration = new PVector(0, 0);
   private final float friction = .98; // for smoother stoping
   private int exp;
-  private int maxHealth;
-  private int health; 
+  private int health;
   private int collisionDamage;
 
   void update() {
@@ -110,18 +109,6 @@ abstract class UMO implements Processable {
 
   void die() {
   }
-
-  int getMaxHealth() {
-    return maxHealth;
-  }
-
-  void setMaxHealth(int maxHealth) {
-    if (maxHealth < 0) {
-      maxHealth = 0;
-    }
-    this.maxHealth = maxHealth;
-  }
-
   int getHealth() {
     return health;
   }
@@ -144,19 +131,5 @@ abstract class UMO implements Processable {
   }
   void setExp(int exp) {
     this.exp = exp;
-  }
-
-  void displayHealthBar() {
-    int d;
-    if (getY() <= height/2) {
-      d = 1;
-    } else {
-      d = -1;
-    }
-    rectMode(CORNER);
-    fill(color(255, 0, 0)); // red for lost health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
-    fill(color(0, 255, 0)); // green for current health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*(float(getHealth())/getMaxHealth()), 10);
   }
 }

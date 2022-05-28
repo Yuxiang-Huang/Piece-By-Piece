@@ -18,7 +18,8 @@ class Gunship extends UMO {
     setAngle(0);
 
     setLevel(1);
-    setHealth(50); // confirmed value from wiki
+    setMaxHealth(50); // confirmed value from wiki
+    setHealth(getMaxHealth());
     setCollisionDamage(20); // confirmed value from wiki
     setMaxSpeed(5);
     setReloadSpeed(60);
@@ -50,6 +51,20 @@ class Gunship extends UMO {
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
+    
+    if (getHealth() != getMaxHealth()) {
+      displayHealthBar();
+    }
+
+    if (DEBUG) {
+      fill(0);
+      text(""+getHealth(), getX(), getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
+      text("mag: "+round(velocity.mag()), getX()+40, getY());
+      text("countdown: "+getCountdown(), getX()+40, player.getY()+20);
+      text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
+    }
   }
 
   void update() {

@@ -1,7 +1,7 @@
 class Bullet extends UMO {
   Gunship gunship;
   float baseSpeed = 10;
-  int countdown;
+  int timeTillDeath;
   ArrayList<UMO> collided = new ArrayList<UMO> ();
 
   Bullet(Gunship gunship) {
@@ -11,7 +11,7 @@ class Bullet extends UMO {
     velocity = PVector.fromAngle(gunship.getAngle());
     velocity.setMag(getBaseSpeed());
     setRadius(unit/2);
-    setCountdown(60);
+    setTimeTillDeath(60);
     setHealth(7); //bullet penetration
     setCollisionDamage(7); // confirmed value from wiki
   }
@@ -24,7 +24,7 @@ class Bullet extends UMO {
 
   void update() {
     // kill bullet after certain amount of time
-    setCountdown(getCountdown()-1);
+    setTimeTillDeath(getTimeTillDeath()-1);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
@@ -48,7 +48,7 @@ class Bullet extends UMO {
         }
       }
     }
-    if (getCountdown() == 0 || isCollidingWithBorder()) {
+    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
       die();
     }
     if (DEBUG) {
@@ -75,10 +75,10 @@ class Bullet extends UMO {
     this.baseSpeed = baseSpeed;
   }
 
-  int getCountdown() {
-    return countdown;
+  int getTimeTillDeath() {
+    return timeTillDeath;
   }
-  void setCountdown(int countdown) {
-    this.countdown = countdown;
+  void setTimeTillDeath(int timeTillDeath) {
+    this.timeTillDeath = timeTillDeath;
   }
 }

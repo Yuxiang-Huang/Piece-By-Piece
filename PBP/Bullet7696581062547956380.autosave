@@ -1,20 +1,20 @@
 class Bullet extends UMO {
   Gunship gunship;
-  private int timeTillDeath;
+  int timeTillDeath;
   ArrayList<UMO> collided = new ArrayList<UMO> ();
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
-    setRadius(unit/3);
+    setRadius(unit/2);
     
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
-    
-    setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
+    velocity.setMag(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
+ 
     setTimeTillDeath(60);
-    setHealth(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())); //bullet penetration
-    setCollisionDamage(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())); // confirmed value from wiki
+    setHealth(gunship.shop.bulletP.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel())); //bullet penetration
+    setCollisionDamage(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel())); // confirmed value from wiki
   }
 
   void display() {

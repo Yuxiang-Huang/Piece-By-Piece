@@ -13,6 +13,8 @@ class Shop {
 
 
   class Stat {
+    
+    final int maxLevel = 10;
     private int level;
     private int base;
     private int modifier;
@@ -31,6 +33,10 @@ class Shop {
     }
     void setLevel(int level) {
       this.level = level;
+    }
+    
+    boolean isMaxLevel() {
+        return getLevel() == maxLevel;
     }
 
     int getBase() {

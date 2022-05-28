@@ -1,15 +1,15 @@
 class Shop {
   Gunship gunship;
 
-  //      Stat statName          = new Stat(level, base, modifier)
-  private Stat healthRegen       = new Stat(0, 5, 5);
-  private Stat maxHealth         = new Stat(0, 50, 25);
-  private Stat bodyDamage        = new Stat(0, 20, 5);
-  private Stat bulletSpeed       = new Stat(0, 10, 2);
-  private Stat bulletPenetration = new Stat(0, 7, 3);
-  private Stat bulletDamage      = new Stat(0, 7, 3);
-  private Stat reload            = new Stat(0, 60, -5);
-  private Stat movementSpeed     = new Stat(0, 10, 2);
+  //Stat statName          = new Stat(level, base, modifier)
+  Stat healthRegen = new Stat(0, 5, 5);
+  Stat maxHealth = new Stat(0, 50, 25);
+  Stat bodyDamage = new Stat(0, 20, 5);
+  Stat bulletSpeed = new Stat(0, 10, 2);
+  Stat bulletPenetration = new Stat(0, 7, 3);
+  Stat bulletDamage = new Stat(0, 7, 3);
+  Stat reload = new Stat(0, 60, -5);
+  Stat movementSpeed = new Stat(0, 10, 2);
 
 
   class Stat {
@@ -43,8 +43,8 @@ class Shop {
     int getModifier() {
       return modifier;
     }
-    void setModifier() {
-      this.modifer = modifier;
+    void setModifier(int modifier) {
+      this.modifier = modifier;
     }
   }
 }

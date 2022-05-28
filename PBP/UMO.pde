@@ -11,6 +11,12 @@ abstract class UMO implements Processable {
   private int collisionDamage;
   
   void update() {
+    if (isDead()){
+      die();
+    }
+    velocity.add(acceleration);
+    position.add(velocity);
+    velocity.mult(getFriction());
   }
 
   void display() {

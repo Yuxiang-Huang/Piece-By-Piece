@@ -23,8 +23,6 @@ class Bullet extends UMO {
   }
 
   void update() {
-    position.add(velocity);
-    velocity.mult(getFriction());
     // kill bullet after certain amount of time
     setCountdown(getCountdown()-1);
     for (int p = 0; p < polygons.size(); p++) {
@@ -50,7 +48,7 @@ class Bullet extends UMO {
         }
       }
     }
-    if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
+    if (getCountdown() == 0 || isCollidingWithBorder()) {
       die();
     }
     if (DEBUG) {
@@ -59,6 +57,7 @@ class Bullet extends UMO {
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+20, getY()-20);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);      
     }
+    super.update();
   }
 
   void die() {

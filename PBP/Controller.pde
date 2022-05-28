@@ -1,7 +1,5 @@
 class Controller {
-  static final int P1_LEFT = 0;
-  static final int P1_RIGHT = 1;
-  boolean [] inputs;
+  boolean[] inputs;
 
   public Controller() {
     inputs = new boolean[4]; // 4 valid buttons

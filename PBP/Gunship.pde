@@ -1,15 +1,14 @@
 class Gunship extends UMO {
-  int level;
+  private int level;
 
   private float maxSpeed;
+  private float speed;
+  
   private int reloadSpeed; 
+  private int countdown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
-  private int countdown;
-
-  private int damage;
-  private int bulletPenetration;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -27,8 +26,6 @@ class Gunship extends UMO {
 
     bullets = new ArrayList<Bullet>();
     setCountdown(0);
-    setDamage(7);
-    setBulletPenetration(7);
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -52,7 +49,7 @@ class Gunship extends UMO {
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
-    
+
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
@@ -108,12 +105,6 @@ class Gunship extends UMO {
       Bullet bullet = bullets.get(b);
       bullet.update();
       bullet.display();
-
-      if (DEBUG) {
-        text(""+bullet.getHealth(), bullet.getX(), bullet.getY());
-        text("x: "+round(bullet.getX()) + "; y: "+round(bullet.getY()), bullet.getX()+40, bullet.getY()-40);
-        text("dx: "+round(bullet.getDX()) + "; dy: "+round(bullet.getDY()), bullet.getX()+40, bullet.getY()-20);
-      }
     }
 
     // decrement shoot cooldown by 1
@@ -131,27 +122,8 @@ class Gunship extends UMO {
       die();
     }
   }
-
-  float getMaxSpeed() {
-    return maxSpeed;
-  }
-  void setMaxSpeed(float maxSpeed) {
-    this.maxSpeed = maxSpeed;
-  }
-
-  float getAngle() {
-    return angle;
-  }
-  void setAngle(float angle) {
-    this.angle = angle;
-  }
-
-  float getAngleToMouse() {
-    float angle = atan2(mouseY-getY(), mouseX-getX());
-    if (angle < 0) {
-      angle = TWO_PI + angle;
-    }
-    return angle;
+  
+  void die(){
   }
 
   void collisionWithUMO() {
@@ -168,32 +140,44 @@ class Gunship extends UMO {
         setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (isCollidingWithPolygon(polygon)) {
-          if (polygon.getHealth() >  getCollisionDamage()) {
-            setHealth(getHealth() - getCollisionDamage());
-          } else {
-            setHealth(getHealth() - polygon.getHealth());
-          }
-          polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        if (polygon.getHealth() >  getCollisionDamage()) {
+          setHealth(getHealth() - getCollisionDamage());
+        } else {
+          setHealth(getHealth() - polygon.getHealth());
         }
+        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
       }
     }
   }
-
+  
+  float getAngleToMouse() {
+    float angle = atan2(mouseY-getY(), mouseX-getX());
+    if (angle < 0) {
+      angle = TWO_PI + angle;
+    }
+    return angle;
+  }
+  
+  boolean canShoot() {
+    return (getCountdown() == 0);
+  }
+  
+  void shoot() {
+    setCountdown(getReloadSpeed());
+    bullets.add(new Bullet(this));
+  }
+  
+  int getExpRequiredForNextLevel() {
+    return int(10*pow(1.5, getLevel()+1));
+  }
+  
+//get and set methods------------------------------------------------------------------
 
   int getReloadSpeed() {
     return reloadSpeed;
   }
   void setReloadSpeed(int reloadSpeed) {
     this.reloadSpeed = reloadSpeed;
-  }
-
-  boolean canShoot() {
-    return (getCountdown() == 0);
-  }
-  void shoot() {
-    setCountdown(getReloadSpeed());
-    bullets.add(new Bullet(this));
   }
 
   int getCountdown() {
@@ -209,21 +193,18 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
-
-  int getExpRequiredForNextLevel() {
-    return int(10*pow(1.5, getLevel()+1));
+  
+  float getMaxSpeed() {
+    return maxSpeed;
+  }
+  void setMaxSpeed(float maxSpeed) {
+    this.maxSpeed = maxSpeed;
   }
 
-  int getDamage() {
-    return damage;
+  float getAngle() {
+    return angle;
   }
-  void setDamage(int damage) {
-    this.damage = damage;
-  }
-  int getBulletPenetration() {
-    return bulletPenetration;
-  }
-  void setBulletPenetration(int bulletPenetration) {
-    this.bulletPenetration = bulletPenetration;
+  void setAngle(float angle) {
+    this.angle = angle;
   }
 }

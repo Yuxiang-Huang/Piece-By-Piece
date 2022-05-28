@@ -2,6 +2,7 @@ class Bullet extends UMO {
   Gunship gunship;
   float baseSpeed = 10;
   int countdown;
+  ArrayList<UMO> collided = new ArrayList<UMO> ();
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
@@ -9,10 +10,10 @@ class Bullet extends UMO {
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
     velocity.setMag(getBaseSpeed());
-    setRadius(gunship.getDamage());
+    setRadius(unit/2);
     setCountdown(60);
-    setHealth(gunship.getBulletPenetration()); //bullet penetration
-    setCollisionDamage(gunship.getDamage()); // confirmed value from wiki
+    setHealth(7); //bullet penetration
+    setCollisionDamage(7); // confirmed value from wiki
   }
 
   void display() {
@@ -22,42 +23,48 @@ class Bullet extends UMO {
   }
 
   void update() {
-    position.add(velocity);
-    velocity.mult(getFriction());
     // kill bullet after certain amount of time
     setCountdown(getCountdown()-1);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
-        //trust physics
-        float m1 = getRadius()*getRadius()*getRadius();
-        float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
+        if (! collided.contains(polygon)) {
+          //trust physics
+          float m1 = getRadius()*getRadius()*getRadius();
+          float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
 
-        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
-        polygon.velocity.set(dxHolder, dyHolder);
+          float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
+          float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
+          polygon.velocity.set(dxHolder, dyHolder);
 
-        if (isCollidingWithPolygon(polygon)) {
           if (polygon.getHealth() >  getCollisionDamage()) {
             setHealth(getHealth() - getCollisionDamage());
           } else {
             setHealth(getHealth() - polygon.getHealth());
           }
           polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+
+          collided.add(polygon);
         }
       }
     }
-    if (getCountdown() == 0 || isCollidingWithBorder() || getHealth() == 0) {
+    if (getCountdown() == 0 || isCollidingWithBorder()) {
       die();
     }
     if (DEBUG) {
       fill(0);
       text(""+ getHealth(), getX(), getY() + 20);
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+20, getY()-20);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);      
     }
+    super.update();
   }
 
   void die() {
     gunship.bullets.remove(this);
+  }
+  
+  void collisionWithUMO(){
   }
 
   float getBaseSpeed() {

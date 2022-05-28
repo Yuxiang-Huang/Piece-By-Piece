@@ -67,6 +67,21 @@ class Polygon extends UMO {
     polygons.add(this);
   }
 
+ void display() {
+    shape(umo, getX(), getY());
+    if (getHealth() != getMaxHealth()) {
+      displayHealthBar();
+    }
+
+    if (DEBUG) {
+      fill(0);
+      text(""+getHealth(), getX(), getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
+      text("Exp: "+getExp(), getX()+40, getY());
+    }
+  }
+
   void update() {
     position.add(velocity);
     velocity.mult(getFriction());
@@ -82,19 +97,6 @@ class Polygon extends UMO {
     polygons.remove(this);
     Polygon polygon = new Polygon();
     player.setExp(player.getExp() + getExp());
-  }
-
-  void display() {
-    shape(umo, getX(), getY());
-    displayHealthBar();
-    
-    if (DEBUG) {
-      fill(0);
-      text(""+getHealth(), getX(), getY());
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
-      text("Exp: "+getExp(), getX()+40, getY());
-    }
   }
 
   String getShape() {

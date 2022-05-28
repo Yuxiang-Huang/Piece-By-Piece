@@ -51,6 +51,7 @@ class Gunship extends UMO {
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     shape(umo, 0, 0);
     popMatrix();
+    displayHealthBar();
   }
 
   void update() {

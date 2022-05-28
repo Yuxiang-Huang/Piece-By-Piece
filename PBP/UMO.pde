@@ -110,18 +110,18 @@ abstract class UMO implements Processable {
 
   void die() {
   }
-  
+
   int getMaxHealth() {
     return maxHealth;
   }
-  
+
   void setMaxHealth(int maxHealth) {
     if (maxHealth < 0) {
       maxHealth = 0;
     }
     this.maxHealth = maxHealth;
   }
-  
+
   int getHealth() {
     return health;
   }
@@ -144,5 +144,19 @@ abstract class UMO implements Processable {
   }
   void setExp(int exp) {
     this.exp = exp;
+  }
+
+  void displayHealthBar() {
+    int d;
+    if (getY() <= height/2) {
+      d = 1;
+    } else {
+      d = -1;
+    }
+    rectMode(CORNER);
+    fill(color(255, 0, 0)); // red for lost health
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+10)), getRadius()*2, 10);
+    //fill(color(0, 255, 0)); // green for current health
+    //rect(getX(), getY()+(d*(getRadius()+10)), getRadius()*(getHealth()/getMaxHealth()), 7);
   }
 }

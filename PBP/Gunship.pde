@@ -5,7 +5,7 @@ class Gunship extends UMO {
   private float speed;
   
   private int reloadSpeed; 
-  private int countdown;
+  private int shootCooldown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
@@ -25,7 +25,7 @@ class Gunship extends UMO {
 
 
     bullets = new ArrayList<Bullet>();
-    setCountdown(0);
+    setShootCooldown(0);
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -60,7 +60,7 @@ class Gunship extends UMO {
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
       text("mag: "+round(velocity.mag()), getX()+40, getY());
-      text("countdown: "+getCountdown(), getX()+40, player.getY()+20);
+      text("shootCooldown: "+getShootCooldown(), getX()+40, player.getY()+20);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
     }
   }
@@ -108,8 +108,8 @@ class Gunship extends UMO {
     }
 
     // decrement shoot cooldown by 1
-    if (countdown > 0) {
-      setCountdown(getCountdown()-1);
+    if (shootCooldown > 0) {
+      setShootCooldown(getShootCooldown()-1);
     }
 
     // check if gunship has enough exp for level up
@@ -159,11 +159,11 @@ class Gunship extends UMO {
   }
   
   boolean canShoot() {
-    return (getCountdown() == 0);
+    return (getShootCooldown() == 0);
   }
   
   void shoot() {
-    setCountdown(getReloadSpeed());
+    setShootCooldown(getReloadSpeed());
     bullets.add(new Bullet(this));
   }
   
@@ -180,11 +180,11 @@ class Gunship extends UMO {
     this.reloadSpeed = reloadSpeed;
   }
 
-  int getCountdown() {
-    return countdown;
+  int getShootCooldown() {
+    return shootCooldown;
   }
-  void setCountdown(int countdown) {
-    this.countdown = countdown;
+  void setShootCooldown(int shootCooldown) {
+    this.shootCooldown = shootCooldown;
   }
 
   int getLevel() {

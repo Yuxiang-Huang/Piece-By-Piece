@@ -54,6 +54,7 @@ class Controller {
     if (key == '8' && !player.shop.movementSpeed.isMaxLevel()) {
       player.shop.movementSpeed.upgrade();
       player.setMaxSpeed(shop.movementSpeed.getBase() + (shop.movementSpeed.getModifier()*shop.movementSpeed.getLevel()));
+      player.acceleration.add(new PVector(.1, .1));
     }
   }
 

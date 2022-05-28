@@ -6,7 +6,6 @@ float unit;
 
 void setup() {
   fullScreen();
-  //size(displayWidth, displayHeight);
   frameRate(60);
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -17,6 +16,8 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
+  
+  // creating enemies
 }
 
 void keyPressed() {
@@ -54,8 +55,6 @@ void draw() {
   // all colisions processed through player
   player.update();
   player.display();
-
-
 
   for (int p = 0; p < polygons.size(); p++) {
     Polygon polygon = polygons.get(p);

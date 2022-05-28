@@ -1,15 +1,14 @@
 class Gunship extends UMO {
-  int level;
+  private int level;
 
   private float maxSpeed;
+  private float speed;
+  
   private int reloadSpeed; 
+  private int countdown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
-  private int countdown;
-
-  private int damage;
-  private int bulletPenetration;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -27,8 +26,6 @@ class Gunship extends UMO {
 
     bullets = new ArrayList<Bullet>();
     setCountdown(0);
-    setDamage(7);
-    setBulletPenetration(100); //for testing purpose
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -124,27 +121,8 @@ class Gunship extends UMO {
       die();
     }
   }
-
-  float getMaxSpeed() {
-    return maxSpeed;
-  }
-  void setMaxSpeed(float maxSpeed) {
-    this.maxSpeed = maxSpeed;
-  }
-
-  float getAngle() {
-    return angle;
-  }
-  void setAngle(float angle) {
-    this.angle = angle;
-  }
-
-  float getAngleToMouse() {
-    float angle = atan2(mouseY-getY(), mouseX-getX());
-    if (angle < 0) {
-      angle = TWO_PI + angle;
-    }
-    return angle;
+  
+  void die(){
   }
 
   void collisionWithUMO() {
@@ -170,21 +148,35 @@ class Gunship extends UMO {
       }
     }
   }
-
+  
+  float getAngleToMouse() {
+    float angle = atan2(mouseY-getY(), mouseX-getX());
+    if (angle < 0) {
+      angle = TWO_PI + angle;
+    }
+    return angle;
+  }
+  
+  boolean canShoot() {
+    return (getCountdown() == 0);
+  }
+  
+  void shoot() {
+    setCountdown(getReloadSpeed());
+    bullets.add(new Bullet(this));
+  }
+  
+  int getExpRequiredForNextLevel() {
+    return int(10*pow(1.5, getLevel()+1));
+  }
+  
+//get and set methods------------------------------------------------------------------
 
   int getReloadSpeed() {
     return reloadSpeed;
   }
   void setReloadSpeed(int reloadSpeed) {
     this.reloadSpeed = reloadSpeed;
-  }
-
-  boolean canShoot() {
-    return (getCountdown() == 0);
-  }
-  void shoot() {
-    setCountdown(getReloadSpeed());
-    bullets.add(new Bullet(this));
   }
 
   int getCountdown() {
@@ -200,21 +192,18 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
-
-  int getExpRequiredForNextLevel() {
-    return int(10*pow(1.5, getLevel()+1));
+  
+  float getMaxSpeed() {
+    return maxSpeed;
+  }
+  void setMaxSpeed(float maxSpeed) {
+    this.maxSpeed = maxSpeed;
   }
 
-  int getDamage() {
-    return damage;
+  float getAngle() {
+    return angle;
   }
-  void setDamage(int damage) {
-    this.damage = damage;
-  }
-  int getBulletPenetration() {
-    return bulletPenetration;
-  }
-  void setBulletPenetration(int bulletPenetration) {
-    this.bulletPenetration = bulletPenetration;
+  void setAngle(float angle) {
+    this.angle = angle;
   }
 }

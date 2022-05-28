@@ -83,6 +83,7 @@ class Polygon extends UMO {
   }
 
   void update() {
+    randomMove();
     position.add(velocity);
     velocity.mult(getFriction());
     // check for collisions
@@ -131,5 +132,24 @@ class Polygon extends UMO {
       }
     }
     return false;
+  }
+  
+  void randomMove(){
+    acceleration = new PVector(0.05, 0.05); //Not confirmed
+    float rand = random(1);
+    int xdir;
+    int ydir;
+    if (rand < 0.5){
+      xdir = 1;
+    } else{
+      xdir = -1;
+    }
+    rand = random(1);
+    if (rand < 0.5){
+      ydir = 1;
+    } else{
+      ydir = -1;
+    }
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
   }
 }

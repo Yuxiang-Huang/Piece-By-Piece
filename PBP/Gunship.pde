@@ -19,15 +19,10 @@ class Gunship extends UMO {
     
     setLevel(1);
     
-    setBaseHealth(50); // confirmed value from wiki
-    setHealthModifier(5);
-    setMaxHealth(getBaseHealth() + (getHealthModifier*shop.health.getLevel())); 
+    setMaxHealth(shop.health.getBase() + (shop.health.getModifier()*shop.health.getLevel())); 
     setHealth(getMaxHealth());
     
-    
-    
     setCollisionDamage(20); // confirmed value from wiki
-    setMaxSpeed(5);
     setReloadSpeed(60);
 
 

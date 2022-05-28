@@ -7,8 +7,6 @@ abstract class UMO implements Processable {
   private float radius;
   private int exp;
   
-  private int baseHealth;
-  private int healthModifier;
   private int maxHealth;
   private int health; 
   

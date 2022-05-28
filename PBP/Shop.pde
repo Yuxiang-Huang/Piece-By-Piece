@@ -1,5 +1,6 @@
-class Shop {
+class Shop implements Processable{
   Gunship gunship;
+  PVector position;
  
   //Stat statName = new Stat(level, base, modifier)
   Stat healthRegen = new Stat(0, 5, 5);
@@ -11,19 +12,24 @@ class Shop {
   Stat reload = new Stat(0, 60, -5);
   Stat movementSpeed = new Stat(0, 5, 1);
 
-  Shop(Gunship gunship) {
+  Shop(Gunship gunship, float x, float y) {
     this.gunship = gunship;
+    position = new PVector(x, y);
   }
 
   void display() {
-  
+      //healthRegen.display(0);
+      maxHealth.display(1);
+      bodyDamage.display(2);
+      bulletSpeed.display(3);
+      bulletPenetration.display(4);
+      bulletDamage.display(5);
+      reload.display(6);
+      movementSpeed.display(7);
   }
   
   void update() {
       //gunship.setHealthRegen(healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel()));
-      println(maxHealth.getBase());
-      println(maxHealth.getModifier());
-      println(maxHealth.getLevel());
       gunship.setMaxHealth(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel())); 
       gunship.setCollisionDamage(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel()));
       gunship.setReloadSpeed(reload.getBase() + (reload.getModifier()*reload.getLevel()));
@@ -42,6 +48,12 @@ class Shop {
       setLevel(level);
       setBase(base);
       setModifier(modifier);
+    }
+    
+    void display(int i) {
+      rectMode(CORNER);
+      rect(position.x, position.y+30*i, 200, 20, 5);
+      //text();
     }
 
     void upgrade() {

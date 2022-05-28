@@ -18,7 +18,7 @@ class Gunship extends UMO {
     acceleration.set(.2, .2);
     setAngle(0);
     
-    shop = new Shop(this);
+    shop = new Shop(this, 20, height-250);
     setLevel(1);
     
     //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));

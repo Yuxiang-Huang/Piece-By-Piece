@@ -16,7 +16,7 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
-  
+
   // creating enemies
 }
 
@@ -51,14 +51,15 @@ void draw() {
     line(col, 0, col, height);
   }
 
-  // display & update player last so that it always appears on top 
-  // all colisions processed through player
-  player.update();
-  player.display();
-
   for (int p = 0; p < polygons.size(); p++) {
     Polygon polygon = polygons.get(p);
     polygon.display();
     polygon.update();
   }
+
+  // display & update player last so that it always appears on top 
+  // all colisions processed through player
+  player.update();
+  player.display();
+  player.shop.display();
 }

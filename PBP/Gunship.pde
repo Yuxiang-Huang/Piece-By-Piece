@@ -119,6 +119,9 @@ class Gunship extends UMO {
       die();
     }
   }
+  
+  void die(){
+  }
 
   float getMaxSpeed() {
     return maxSpeed;

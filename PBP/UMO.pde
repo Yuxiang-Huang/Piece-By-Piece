@@ -79,7 +79,8 @@ abstract class UMO implements Processable {
     return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
 
-
+  abstract void die();
+  abstract void collisionWithUMO();
 
 //get and set methods------------------------------------------------------------------
   float getRadius() {
@@ -133,9 +134,6 @@ abstract class UMO implements Processable {
 
   float getFriction() {
     return friction;
-  }
-
-  void die() {
   }
 
   int getMaxHealth() {

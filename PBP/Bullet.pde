@@ -63,6 +63,9 @@ class Bullet extends UMO {
   void die() {
     gunship.bullets.remove(this);
   }
+  
+  void collisionWithUMO(){
+  }
 
   float getBaseSpeed() {
     return baseSpeed;

@@ -1,6 +1,4 @@
 class Controller {
-  static final int P1_LEFT = 0;
-  static final int P1_RIGHT = 1;
   boolean [] inputs;
 
   public Controller() {

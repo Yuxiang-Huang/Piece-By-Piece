@@ -133,7 +133,7 @@ class Gunship extends UMO {
       setMaxHealth((int)getMaxHealth() + 2);
       setHealth(getHealth() + 2);
 
-      setRadius(getRadius() * 1.1); //not confirmed
+      setRadius(getRadius() * 1.014); //not confirmed
     }  
 
     if (int(getHealth()) == 0) {

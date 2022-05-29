@@ -56,10 +56,6 @@ class Shop implements Processable {
       rect(position.x, position.y+30*i, 200, 20, 5);
       fill(color(0,255,0));
       rect(position.x, position.y+30*i, 200*(float(getLevel())/maxLevel), 20, 5);
-      for (i = 0; i < maxLevel; i++) {
-          line(positions.x*)
-      }
-      
     }
 
     void upgrade() {

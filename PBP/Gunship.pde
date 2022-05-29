@@ -75,6 +75,7 @@ class Gunship extends UMO {
       text("shootCooldown: "+getShootCooldown(), getX()+40, player.getY()+20);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+40, getY()+60);
+      text("maxHealth: "+getMaxHealth(), getX()+40, getY()+80);
     }
   }
 
@@ -190,9 +191,7 @@ class Gunship extends UMO {
   }
 
   int getExpRequiredForNextLevel() {
-    //for testing purpose
-    //return int(10*pow(1.5, getLevel()+1));
-    return 10;
+    return 10*getLevel();
   }
 
   void heal() {

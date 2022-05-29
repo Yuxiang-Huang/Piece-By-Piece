@@ -147,6 +147,7 @@ class Gunship extends UMO {
   }
 
   void die() {
+    setGameState(LOST);
   }
 
   void collisionWithUMO() {

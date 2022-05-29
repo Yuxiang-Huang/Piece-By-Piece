@@ -86,9 +86,6 @@ class Polygon extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-    if (getHealth() == 0) {
-      die();
-    }
     randomMove();
     super.update();
   }

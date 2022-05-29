@@ -9,7 +9,7 @@ PImage image;
 void setup() {
   fullScreen();
   frameRate(60);
-  image = loadImage("shop.jpg");
+  image = loadImage("Shop.png");
   
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);

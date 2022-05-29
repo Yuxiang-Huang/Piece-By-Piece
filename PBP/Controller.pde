@@ -71,7 +71,6 @@ class Controller {
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      
     }
   }
 

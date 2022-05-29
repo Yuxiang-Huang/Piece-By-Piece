@@ -4,7 +4,7 @@ class Shop implements Processable {
  
   //Stat statName = new Stat(level, base, modifier)
   Stat healthRegen = new Stat("Health Regen", 0, 5, 5);
-  Stat maxHealth = new Stat("Max Health", 0, 50, 25);
+  Stat maxHealth;
   Stat bodyDamage = new Stat("Body Damage", 0, 20, 5);
   Stat bulletSpeed = new Stat("Bullet Speed", 0, 10, 1);
   Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 3);
@@ -15,6 +15,8 @@ class Shop implements Processable {
   Shop(Gunship gunship, float x, float y) {
     this.gunship = gunship;
     position = new PVector(x, y);
+    println(gunship.getLevel());
+    maxHealth = new Stat("Max Health", 0, 50 + 2 * (gunship.getLevel() - 1), 20); //confirmed
   }
 
   void display() {

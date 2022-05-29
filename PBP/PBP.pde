@@ -1,7 +1,7 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
-boolean DEBUG = false;
+boolean DEBUG = true;
 float unit;
 
 final int PLAYING = 0;

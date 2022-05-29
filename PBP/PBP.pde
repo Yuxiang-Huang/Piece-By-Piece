@@ -93,17 +93,18 @@ void draw() {
     player.shop.display();
 
     // LOST GAME SCREEN
+
+    fill(128, 128, 128, 200);
+    rect(0, 0, width, height); 
+    fill(0);
+    textSize(200);
+    textAlign(CENTER);
     if (getGameState() == LOST) {
-      fill(128,128,128,200);
-      rect(0, 0, width, height); 
-      fill(0);
-      textSize(200);
-      textAlign(CENTER);
       text("YOU LOST :(", width/2, height/2);
+    } else if (getGameState() == WON) {
+      text("YOU WON :)", width/2, height/2);
     }
-    
-    if (getGameState() == WON) {}
-  }
+  }  
 }
 
 int getGameState() {

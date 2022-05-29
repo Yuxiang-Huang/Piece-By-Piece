@@ -54,7 +54,6 @@ class Gunship extends UMO {
 
   void display() {
     text("skill Points: " + getSkillPoints(), 20, height - 260);
-
     //rotate
     setAngle(getAngleToMouse());
     pushMatrix();

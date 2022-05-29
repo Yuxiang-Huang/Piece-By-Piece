@@ -56,6 +56,7 @@ class Gunship extends UMO {
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
+    //translate(width/2, height/2);
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
     scale(getRadius()/unit);
     shape(umo, 0, 0);
@@ -102,6 +103,7 @@ class Gunship extends UMO {
     }
     // apply velocity
     position.add(velocity);
+    pos.add(new PVector(-velocity.x, -velocity.y));
 
     // apply friction
     if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
@@ -133,7 +135,7 @@ class Gunship extends UMO {
       setMaxHealth((int)getMaxHealth() + 2);
       setHealth(getHealth() + 2);
 
-      setRadius(getRadius() * 1.1); //not confirmed
+      setRadius(getRadius() * 1.07); //not confirmed
     }  
 
     if (int(getHealth()) == 0) {

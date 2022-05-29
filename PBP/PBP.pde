@@ -3,6 +3,7 @@ Controller input;
 ArrayList<Polygon> polygons;
 boolean DEBUG = false;
 float unit;
+PVector pos = new PVector(0, 0);
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -17,7 +18,7 @@ void setup() {
   fill(0);
   textSize(15);
   textAlign(LEFT);
-  
+
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   input = new Controller();
@@ -75,6 +76,8 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
+    //pushMatrix();
+    //translate(pos.x, pos.y);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       polygon.display();
@@ -89,7 +92,7 @@ void draw() {
     } else if (player.getLevel() == 15) {
       setGameState(WON);
     }
-
+    //popMatrix();
     player.display();
     player.shop.display();
   } else {

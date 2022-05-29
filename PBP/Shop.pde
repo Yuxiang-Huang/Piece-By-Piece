@@ -42,7 +42,7 @@ class Shop implements Processable {
     
     private String statName;
     private int numKey;
-    final int maxLevel = 10;
+    final int maxLevel = 7;
     private int level;
     private int base;
     private int modifier;
@@ -55,6 +55,10 @@ class Shop implements Processable {
     }
     
     void display(int i) {
+      fill(0);
+      textSize(15);
+      textAlign(LEFT);
+      text("skill Points: " + gunship.getSkillPoints(), 20, height - 260);
       rectMode(CORNER);
       fill(200,200,200,200);
       rect(position.x, position.y+30*i, 200, 20, 5);

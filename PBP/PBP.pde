@@ -4,10 +4,16 @@ ArrayList<Polygon> polygons;
 boolean DEBUG = false;
 float unit;
 
+final int PLAYING = 0;
+final int LOST = 1;
+final int WON = 2;
+
+private int gameState;
+
 void setup() {
   fullScreen();
   frameRate(60);
-  
+
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   input = new Controller();
@@ -19,19 +25,28 @@ void setup() {
   }
 
   // creating enemies
+
+
+  setGameState(PLAYING);
 }
 
 void keyPressed() {
-  input.press(keyCode);
+  if (getGameState() == PLAYING) {
+    input.press(keyCode);
+  }
 }
 
 void keyReleased() {
-  input.release(keyCode);
+  if (getGameState() == PLAYING) {
+    input.release(keyCode);
+  }
 }
 
 void mouseClicked() {
-  if (player.canShoot()) {
-    player.shoot();
+  if (getGameState() == PLAYING) {
+    if (player.canShoot()) {
+      player.shoot();
+    }
   }
 }
 
@@ -52,15 +67,48 @@ void draw() {
     line(col, 0, col, height);
   }
 
-  for (int p = 0; p < polygons.size(); p++) {
-    Polygon polygon = polygons.get(p);
-    polygon.display();
-    polygon.update();
-  }
+  if (getGameState() == PLAYING) {
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
+      polygon.display();
+      polygon.update();
+    }
 
-  // display & update player last so that it always appears on top 
-  // all colisions processed through player
-  player.update();
-  player.display();
-  player.shop.display();
+    // display & update player last so that it always appears on top 
+    // all colisions processed through player
+    player.update();
+    if (player.getHealth() == 0) {
+      setGameState(LOST);
+    } else if (player.getLevel() == 15) {
+      setGameState(WON);
+    }
+
+    player.display();
+    player.shop.display();
+  } else {
+    for (Polygon polygon : polygons) {
+      polygon.display();
+    }
+    player.display();
+    player.shop.display();
+
+    // LOST GAME SCREEN
+    if (getGameState() == LOST) {
+      fill(128,128,128,200);
+      rect(0, 0, width, height); 
+      fill(0);
+      textSize(200);
+      textAlign(CENTER);
+      text("YOU LOST :(", width/2, height/2);
+    }
+    
+    if (getGameState() == WON) {}
+  }
+}
+
+int getGameState() {
+  return gameState;
+}
+void setGameState(int gameState) {
+  this.gameState = gameState;
 }

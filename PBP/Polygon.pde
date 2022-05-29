@@ -7,6 +7,7 @@ class Polygon extends UMO {
 
   Polygon() {
     // So that all polygons are not concentrated on (0,0)
+    stroke(0);
     umo = createShape();
     float rand = random(1);
     if (rand < .5) { // 50%

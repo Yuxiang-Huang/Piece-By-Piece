@@ -24,7 +24,6 @@ class Gunship extends UMO {
 
     setLevel(1);
     shop = new Shop(this, 20, height-250);
-    setLevel(1);
 
     //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
     setMaxHealth(shop.maxHealth.getBase()); 
@@ -53,12 +52,12 @@ class Gunship extends UMO {
   }
 
   void display() {
-    text("skill Points: " + getSkillPoints(), 20, height - 260);
     //rotate
     setAngle(getAngleToMouse());
     pushMatrix();
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
+    scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
 
@@ -67,7 +66,6 @@ class Gunship extends UMO {
     }
 
     if (DEBUG) {
-      fill(0);
       text(""+getHealth(), getX() - 15, getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
@@ -134,11 +132,11 @@ class Gunship extends UMO {
       //increase stats upon level up
       setMaxHealth((int)getMaxHealth() + 2);
       setHealth(getHealth() + 2);
-      
-      //setRadius(getRadius() * 1.1); //not confirmed
+
+      setRadius(getRadius() * 1.014); //not confirmed
     }  
 
-    if (getHealth() == 0) {
+    if (int(getHealth()) == 0) {
       die();
     }
 
@@ -149,6 +147,7 @@ class Gunship extends UMO {
   }
 
   void die() {
+    setGameState(LOST);
   }
 
   void collisionWithUMO() {
@@ -159,10 +158,10 @@ class Gunship extends UMO {
         float m1 = getRadius()*getRadius()*getRadius();
         float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
 
-        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
-        setDX( (2*m2*polygon.getDX() + (m1-m2) * getDX() ) / (m1 + m2));
-        setDY( (2*m2*polygon.getDY() + (m1-m2) * getDY() ) / (float)(m1 + m2));
+        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
+        setDX((2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+        setDY((2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
 
         if (polygon.getHealth() >  getCollisionDamage()) {

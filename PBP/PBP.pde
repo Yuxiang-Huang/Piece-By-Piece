@@ -1,7 +1,7 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
-boolean DEBUG = true;
+boolean DEBUG = false;
 float unit;
 
 final int PLAYING = 0;
@@ -14,6 +14,10 @@ void setup() {
   fullScreen();
   frameRate(60);
 
+  fill(0);
+  textSize(15);
+  textAlign(LEFT);
+  
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   input = new Controller();
@@ -54,6 +58,9 @@ void draw() {
   background(255);
 
   if (DEBUG) {
+    fill(0);
+    textSize(15);
+    textAlign(LEFT);
     text(frameRate, 20, 20);
   }
 
@@ -104,7 +111,10 @@ void draw() {
     } else if (getGameState() == WON) {
       text("YOU WON :)", width/2, height/2);
     }
-  }  
+    fill(0);
+    textSize(15);
+    textAlign(LEFT);
+  }
 }
 
 int getGameState() {

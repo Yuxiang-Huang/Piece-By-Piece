@@ -53,9 +53,6 @@ class Shop implements Processable {
     }
     
     void display(int i) {
-      fill(0);
-      textSize(15);
-      textAlign(LEFT);
       text("skill Points: " + gunship.getSkillPoints(), 20, height - 260);
       rectMode(CORNER);
       fill(200,200,200,200);

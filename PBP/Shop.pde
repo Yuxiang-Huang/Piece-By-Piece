@@ -5,17 +5,16 @@ class Shop implements Processable {
   //Stat statName = new Stat(level, base, modifier)
   Stat healthRegen = new Stat("Health Regen", 0, 5, 5);
   Stat maxHealth;
-  Stat bodyDamage = new Stat("Body Damage", 0, 20, 5);
+  Stat bodyDamage = new Stat("Body Damage", 0, 20, 6); //confirmed
   Stat bulletSpeed = new Stat("Bullet Speed", 0, 10, 1);
   Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 3);
-  Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3);
-  Stat reload = new Stat("Reload", 0, 60, -5);
+  Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed
+  Stat reload = new Stat("Reload", 0, 36, -3); //-2.4 for wiki
   Stat movementSpeed = new Stat("Movement Speed", 0, 5, 1);
 
   Shop(Gunship gunship, float x, float y) {
     this.gunship = gunship;
     position = new PVector(x, y);
-    println(gunship.getLevel());
     maxHealth = new Stat("Max Health", 0, 50 + 2 * (gunship.getLevel() - 1), 20); //confirmed
   }
 

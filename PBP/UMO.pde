@@ -41,6 +41,7 @@ abstract class UMO implements Processable {
     rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
     fill(color(0, 255, 0)); // green for current health
     rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*((getHealth())/getMaxHealth()), 10);
+    fill(0);
   }
 
   boolean isCollidingWithBorder() {
@@ -158,7 +159,7 @@ abstract class UMO implements Processable {
   }
 
   float getHealth() {
-    return round(health);
+    return health;
   }
   void setHealth(float health) {
     if (health < 0) {

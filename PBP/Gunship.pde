@@ -13,6 +13,7 @@ class Gunship extends UMO {
   private ArrayList<Bullet> bullets;
   
   private int healthRegen;
+  private int timeSinceLastHit;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -46,6 +47,8 @@ class Gunship extends UMO {
 
     umo.addChild(gun);
     umo.addChild(body);
+    
+    setTimeSinceLastHit(0);
   }
 
   void display() {
@@ -71,6 +74,7 @@ class Gunship extends UMO {
       text("mag: "+round(velocity.mag()), getX()+40, getY());
       text("shootCooldown: "+getShootCooldown(), getX()+40, player.getY()+20);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
+      text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+40, getY()+60);
     }
   }
 
@@ -133,6 +137,9 @@ class Gunship extends UMO {
     }
     
     heal();
+    if (getTimeSinceLastHit() > 0){
+      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    }
   }
   
   void die(){
@@ -158,6 +165,9 @@ class Gunship extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        
+        //for health regen after 30 sec
+        setTimeSinceLastHit(300); //1800
       }
     }
   }
@@ -237,5 +247,12 @@ class Gunship extends UMO {
   }
   void setHealthRegen(int healthRegen) {
     this.healthRegen = healthRegen;
+  }
+  
+  int getTimeSinceLastHit() {
+    return timeSinceLastHit;
+  }
+  void setTimeSinceLastHit(int timeSinceLastHit) {
+    this.timeSinceLastHit = timeSinceLastHit;
   }
 }

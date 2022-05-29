@@ -206,7 +206,7 @@ class Gunship extends UMO {
         setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 1800);
       }
       if (getTimeSinceLastHit() == 1) {
-        setHeal10percent((getMaxHealth() - getHealth())/10);
+        setHeal10percent((getMaxHealth() - getHealth())/10/60);
       }
     } else {
       //healing after 30 seconds

@@ -8,7 +8,7 @@ abstract class UMO implements Processable {
   private int exp;
   
   private int maxHealth;
-  private int health; 
+  private float health; 
   private float speed;
   private int collisionDamage;
   
@@ -40,7 +40,7 @@ abstract class UMO implements Processable {
     fill(color(255, 0, 0)); // red for lost health
     rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
     fill(color(0, 255, 0)); // green for current health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*(float(getHealth())/getMaxHealth()), 10);
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*((getHealth())/getMaxHealth()), 10);
   }
 
   boolean isCollidingWithBorder() {
@@ -157,10 +157,10 @@ abstract class UMO implements Processable {
     this.maxHealth = maxHealth;
   }
 
-  int getHealth() {
+  float getHealth() {
     return health;
   }
-  void setHealth(int health) {
+  void setHealth(float health) {
     if (health < 0) {
       health = 0;
     }

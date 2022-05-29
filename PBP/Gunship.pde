@@ -65,7 +65,7 @@ class Gunship extends UMO {
 
     if (DEBUG) {
       fill(0);
-      text(""+getHealth(), getX(), getY());
+      text(""+getHealth(), getX() - 15, getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
       text("mag: "+round(velocity.mag()), getX()+40, getY());
@@ -185,7 +185,7 @@ class Gunship extends UMO {
   
   void heal(){
     //healing within 30 seconds 
-    setHealth(getHealth() + getHealthRegen() / 7 * getMaxHealth() / 3600);
+    setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 3600);
   }
   
 //get and set methods------------------------------------------------------------------

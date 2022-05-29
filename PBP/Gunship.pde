@@ -11,6 +11,8 @@ class Gunship extends UMO {
 
   private float angle;
   private ArrayList<Bullet> bullets;
+  
+  private int healthRegen;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -129,6 +131,8 @@ class Gunship extends UMO {
     if (getHealth() == 0) {
       die();
     }
+    
+    heal();
   }
   
   void die(){
@@ -179,6 +183,11 @@ class Gunship extends UMO {
     return int(10*pow(1.5, getLevel()+1));
   }
   
+  void heal(){
+    //healing within 30 seconds 
+    setHealth(getHealth() + getHealthRegen() / 7 * getMaxHealth() / 3600);
+  }
+  
 //get and set methods------------------------------------------------------------------
 
   int getReloadSpeed() {
@@ -221,5 +230,12 @@ class Gunship extends UMO {
   }
   void setAngle(float angle) {
     this.angle = angle;
+  }
+  
+  int getHealthRegen() {
+    return healthRegen;
+  }
+  void setHealthRegen(int healthRegen) {
+    this.healthRegen = healthRegen;
   }
 }

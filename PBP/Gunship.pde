@@ -168,7 +168,7 @@ class Gunship extends UMO {
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
 
         //for health regen after 30 sec
-        setTimeSinceLastHit(300); //1800
+        setTimeSinceLastHit(1800);
       }
     }
   }
@@ -191,20 +191,29 @@ class Gunship extends UMO {
   }
 
   int getExpRequiredForNextLevel() {
-    return int(10*pow(1.5, getLevel()+1));
+    //for testing purpose
+    //return int(10*pow(1.5, getLevel()+1));
+    return 10;
   }
 
   void heal() {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds 
-      setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 3600);
+      if (getHealth() < getMaxHealth()){
+        setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 1800);
+      }
       if (getTimeSinceLastHit() == 1){
         setHeal10percent((getMaxHealth() - getHealth())/10);
       }
     }
     else{
       //healing after 30 seconds
-      setHealth(getHealth() + getHeal10percent());
+      if (getHealth() < getMaxHealth()){
+        setHealth(getHealth() + getHeal10percent());
+      }
+    }
+    if (getHealth() > getMaxHealth()){
+      setHealth(getMaxHealth());
     }
   }
 

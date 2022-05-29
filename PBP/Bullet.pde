@@ -4,16 +4,16 @@ class Bullet extends UMO {
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
-    setRadius(unit/3);
+    setRadius(unit/2); //confirmed from playing
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
-    setTimeTillDeath(60);
+    setTimeTillDeath(180); //confirmed from wiki
     setHealth(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())); //bullet penetration
-    setCollisionDamage(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())); // confirmed value from wiki
+    setCollisionDamage(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()));
   }
 
   void display() {
@@ -21,15 +21,27 @@ class Bullet extends UMO {
     circle(getX(), getY(), getRadius());
     if (DEBUG) {
       fill(0);
-      text(""+ (int) getHealth(), getX(), getY() + 20);
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+20, getY()-20);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);
+      text(""+ (int) getHealth(), getX(), getY() + unit);
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit, getY()-unit);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit, getY());
     }
   }
 
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
+    collisionWithUMO();
+    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
+      die();
+    }
+    super.update();
+  }
+
+  void die() {
+    gunship.bullets.remove(this);
+  }
+
+  void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
@@ -50,19 +62,7 @@ class Bullet extends UMO {
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
       }
     }
-    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
-      die();
-    }
-    super.update();
   }
-
-  void die() {
-    gunship.bullets.remove(this);
-  }
-
-  void collisionWithUMO() {
-  }
-
 
   int getTimeTillDeath() {
     return timeTillDeath;

@@ -24,7 +24,6 @@ class Gunship extends UMO {
 
     setLevel(1);
     shop = new Shop(this, 20, height-250);
-    setLevel(1);
 
     //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
     setMaxHealth(shop.maxHealth.getBase()); 
@@ -58,6 +57,7 @@ class Gunship extends UMO {
     pushMatrix();
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
+    scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
 

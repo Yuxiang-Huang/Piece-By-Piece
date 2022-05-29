@@ -1,7 +1,7 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
-boolean DEBUG = true;
+boolean DEBUG = false;
 float unit;
 
 final int PLAYING = 0;
@@ -104,7 +104,7 @@ void draw() {
     } else if (getGameState() == WON) {
       text("YOU WON :)", width/2, height/2);
     }
-  }  
+  }
 }
 
 int getGameState() {

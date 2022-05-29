@@ -5,23 +5,27 @@ class Gunship extends UMO {
 
   private float maxSpeed;
   private float speed;
-  
+
   private int reloadSpeed; 
   private int shootCooldown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
 
+  private int healthRegen;
+  private int timeSinceLastHit;
+  private float heal10percent;
+
   Gunship(float x, float y) {
     setRadius(unit);
     position.set(x, y);
     acceleration.set(.2, .2);
     setAngle(0);
-    
+
     setLevel(1);
     shop = new Shop(this, 20, height-250);
     setLevel(1);
-    
+
     //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
     setMaxHealth(shop.maxHealth.getBase()); 
     setHealth(getMaxHealth());
@@ -44,9 +48,12 @@ class Gunship extends UMO {
 
     umo.addChild(gun);
     umo.addChild(body);
+
+    setTimeSinceLastHit(0);
   }
 
   void display() {
+    text("skill Points: " + getSkillPoints(), 20, height - 260);
     //rotate
     setAngle(getAngleToMouse());
     pushMatrix();
@@ -61,12 +68,14 @@ class Gunship extends UMO {
 
     if (DEBUG) {
       fill(0);
-      text(""+getHealth(), getX(), getY());
+      text(""+getHealth(), getX() - 15, getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
       text("mag: "+round(velocity.mag()), getX()+40, getY());
       text("shootCooldown: "+getShootCooldown(), getX()+40, player.getY()+20);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
+      text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+40, getY()+60);
+      text("maxHealth: "+getMaxHealth(), getX()+40, getY()+80);
     }
   }
 
@@ -122,14 +131,24 @@ class Gunship extends UMO {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
-    }
+      //increase stats upon level up
+      setMaxHealth((int)getMaxHealth() + 2);
+      setHealth(getHealth() + 2);
+      
+      //setRadius(getRadius() * 1.1); //not confirmed
+    }  
 
     if (getHealth() == 0) {
       die();
     }
+
+    heal();
+    if (getTimeSinceLastHit() > 0) {
+      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    }
   }
-  
-  void die(){
+
+  void die() {
   }
 
   void collisionWithUMO() {
@@ -152,10 +171,13 @@ class Gunship extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+
+        //for health regen after 30 sec
+        setTimeSinceLastHit(1800);
       }
     }
   }
-  
+
   float getAngleToMouse() {
     float angle = atan2(mouseY-getY(), mouseX-getX());
     if (angle < 0) {
@@ -163,21 +185,41 @@ class Gunship extends UMO {
     }
     return angle;
   }
-  
+
   boolean canShoot() {
     return (getShootCooldown() == 0);
   }
-  
+
   void shoot() {
     setShootCooldown(getReloadSpeed());
     bullets.add(new Bullet(this));
   }
-  
+
   int getExpRequiredForNextLevel() {
-    return int(10*pow(1.5, getLevel()+1));
+    return 10*getLevel();
   }
-  
-//get and set methods------------------------------------------------------------------
+
+  void heal() {
+    if (getTimeSinceLastHit() != 0) {
+      //healing within 30 seconds 
+      if (getHealth() < getMaxHealth()) {
+        setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 1800);
+      }
+      if (getTimeSinceLastHit() == 1) {
+        setHeal10percent((getMaxHealth() - getHealth())/10);
+      }
+    } else {
+      //healing after 30 seconds
+      if (getHealth() < getMaxHealth()) {
+        setHealth(getHealth() + getHeal10percent());
+      }
+    }
+    if (getHealth() > getMaxHealth()) {
+      setHealth(getMaxHealth());
+    }
+  }
+
+  //get and set methods------------------------------------------------------------------
 
   int getReloadSpeed() {
     return reloadSpeed;
@@ -199,14 +241,14 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
-  
+
   int getSkillPoints() {
-      return skillPoints;
+    return skillPoints;
   }
   void setSkillPoints(int skillPoints) {
     this.skillPoints = skillPoints;
   }
-  
+
   float getMaxSpeed() {
     return maxSpeed;
   }
@@ -219,5 +261,26 @@ class Gunship extends UMO {
   }
   void setAngle(float angle) {
     this.angle = angle;
+  }
+
+  int getHealthRegen() {
+    return healthRegen;
+  }
+  void setHealthRegen(int healthRegen) {
+    this.healthRegen = healthRegen;
+  }
+
+  int getTimeSinceLastHit() {
+    return timeSinceLastHit;
+  }
+  void setTimeSinceLastHit(int timeSinceLastHit) {
+    this.timeSinceLastHit = timeSinceLastHit;
+  }
+
+  float getHeal10percent() {
+    return heal10percent;
+  }
+  void setHeal10percent(float heal10percent) {
+    this.heal10percent = heal10percent;
   }
 }

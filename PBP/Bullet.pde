@@ -20,6 +20,12 @@ class Bullet extends UMO {
     fill(0);
     ellipseMode(RADIUS);
     circle(getX(), getY(), getRadius());
+    if (DEBUG) {
+      fill(0);
+      text(""+ (int) getHealth(), getX(), getY() + 20);
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+20, getY()-20);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);
+    }
   }
 
   void update() {
@@ -47,12 +53,6 @@ class Bullet extends UMO {
     }
     if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
       die();
-    }
-    if (DEBUG) {
-      fill(0);
-      text(""+ getHealth(), getX(), getY() + 20);
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+20, getY()-20);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);
     }
     super.update();
   }

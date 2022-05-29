@@ -76,7 +76,7 @@ class Polygon extends UMO {
 
     if (DEBUG) {
       fill(0);
-      text(""+getHealth(), getX(), getY());
+      text(""+ (int) getHealth(), getX(), getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
       text("Exp: "+getExp(), getX()+40, getY());

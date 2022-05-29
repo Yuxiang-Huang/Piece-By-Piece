@@ -12,6 +12,7 @@
     *  (05-25-2022): "Today I worked on the map by creating 'squares' with lines and started figuring out the dimensions. Then I worked on collisions. First the collision with the border and then the collisions with the polygons. The latter didn't work as intended, and I will fix that tomorrow.
     *  (05-26-2022): "Today I continue working on the collisions between UMOs. It work as intended after we made polygons also able to move. I perfected the collision detection between polygons and player's ship. I also prevented the polygon from stuck with player's ship after collision. Lastly, I tried to do the same for polygon to polygon collisions, but it didn't work. In addition, I scale everything with a unit variable according to the display size."
     *  (05-27-2022): "Today I finished up the collisions between Polygons and ships. Then, I did the bullet collision with polygons and start working on the penetration part."
+    *  (05-28-2022): "Today I go through the code and prototype of half of the classes with Daniel and made updates. I also fixed some bugs, helped worked on the display of the shop, and confirmed some of the stats.
 
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."

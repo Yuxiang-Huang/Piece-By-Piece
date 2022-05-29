@@ -3,22 +3,23 @@ class Shop implements Processable {
   PVector position;
  
   //Stat statName = new Stat(level, base, modifier)
-  Stat healthRegen = new Stat(0, 5, 5);
-  Stat maxHealth = new Stat(0, 50, 25);
-  Stat bodyDamage = new Stat(0, 20, 5);
-  Stat bulletSpeed = new Stat(0, 10, 1);
-  Stat bulletPenetration = new Stat(0, 7, 3);
-  Stat bulletDamage = new Stat(0, 7, 3);
-  Stat reload = new Stat(0, 60, -5);
-  Stat movementSpeed = new Stat(0, 5, 1);
+  Stat healthRegen = new Stat("Health Regen", 0, 5, 5);
+  Stat maxHealth;
+  Stat bodyDamage = new Stat("Body Damage", 0, 20, 6); //confirmed
+  Stat bulletSpeed = new Stat("Bullet Speed", 0, 10, 1);
+  Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 3);
+  Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed
+  Stat reload = new Stat("Reload", 0, 36, -3); //-2.4 for wiki
+  Stat movementSpeed = new Stat("Movement Speed", 0, 5, 1);
 
   Shop(Gunship gunship, float x, float y) {
     this.gunship = gunship;
     position = new PVector(x, y);
+    maxHealth = new Stat("Max Health", 0, 50 + 2 * (gunship.getLevel() - 1), 20); //confirmed
   }
 
   void display() {
-      //healthRegen.display(0);
+      healthRegen.display(0);
       maxHealth.display(1);
       bodyDamage.display(2);
       bulletSpeed.display(3);
@@ -39,12 +40,14 @@ class Shop implements Processable {
 
   class Stat {
     
+    String statName;
     final int maxLevel = 10;
     private int level;
     private int base;
     private int modifier;
 
-    Stat(int level, int base, int modifier) {
+    Stat(String statName, int level, int base, int modifier) {
+      setStatName(statName);
       setLevel(level);
       setBase(base);
       setModifier(modifier);
@@ -56,6 +59,8 @@ class Shop implements Processable {
       rect(position.x, position.y+30*i, 200, 20, 5);
       fill(color(0,255,0));
       rect(position.x, position.y+30*i, 200*(float(getLevel())/maxLevel), 20, 5);
+      fill(0);
+      text(getStatName(), position.x + 10, position.y+30*i + 15);
     }
 
     void upgrade() {
@@ -84,6 +89,13 @@ class Shop implements Processable {
     }
     void setModifier(int modifier) {
       this.modifier = modifier;
+    }
+    
+    String getStatName(){
+      return statName;
+    }
+    void setStatName(String statName){
+      this.statName = statName;
     }
   }
 }

@@ -18,6 +18,7 @@ class Gunship extends UMO {
     acceleration.set(.2, .2);
     setAngle(0);
     
+    setLevel(1);
     shop = new Shop(this, 20, height-250);
     setLevel(1);
     
@@ -27,9 +28,6 @@ class Gunship extends UMO {
     setCollisionDamage(shop.bodyDamage.getBase());
     setReloadSpeed(shop.reload.getBase());
     setMaxSpeed(shop.movementSpeed.getBase());
-    
-    
-
 
     bullets = new ArrayList<Bullet>();
     setShootCooldown(0);
@@ -44,11 +42,13 @@ class Gunship extends UMO {
     PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun.setFill(color(0));
 
-    umo.addChild(body);
     umo.addChild(gun);
+    umo.addChild(body);
   }
 
   void display() {
+    text("skill Points: " + getSkillPoints(), 20, height - 260);
+    
     //rotate
     setAngle(getAngleToMouse());
     pushMatrix();

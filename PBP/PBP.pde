@@ -4,12 +4,9 @@ ArrayList<Polygon> polygons;
 boolean DEBUG = true;
 float unit;
 
-PImage image;
-
 void setup() {
   fullScreen();
   frameRate(60);
-  image = loadImage("shop.jpg");
   
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);

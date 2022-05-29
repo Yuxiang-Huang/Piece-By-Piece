@@ -20,6 +20,7 @@ class Gunship extends UMO {
     
     setLevel(1);
     shop = new Shop(this, 20, height-250);
+    setLevel(1);
     
     //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
     setMaxHealth(shop.maxHealth.getBase()); 
@@ -41,8 +42,8 @@ class Gunship extends UMO {
     PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun.setFill(color(0));
 
-    umo.addChild(body);
     umo.addChild(gun);
+    umo.addChild(body);
   }
 
   void display() {

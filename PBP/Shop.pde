@@ -40,7 +40,8 @@ class Shop implements Processable {
 
   class Stat {
     
-    String statName;
+    private String statName;
+    private int numKey;
     final int maxLevel = 10;
     private int level;
     private int base;
@@ -61,6 +62,7 @@ class Shop implements Processable {
       rect(position.x, position.y+30*i, 200*(float(getLevel())/maxLevel), 20, 5);
       fill(0);
       text(getStatName(), position.x + 10, position.y+30*i + 15);
+      text("["+(i+1)+"]", position.x+200-20, position.y+15+(30*i));
     }
 
     void upgrade() {
@@ -91,7 +93,7 @@ class Shop implements Processable {
       this.modifier = modifier;
     }
     
-    String getStatName(){
+    String getStatName() {
       return statName;
     }
     void setStatName(String statName){

@@ -131,7 +131,12 @@ class Gunship extends UMO {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
-    }
+      //increase stats upon level up
+      setMaxHealth((int)getMaxHealth() + 2);
+      setHealth(getHealth() + 2);
+      
+      //setRadius(getRadius() * 1.1); //not confirmed
+    }  
 
     if (getHealth() == 0) {
       die();
@@ -197,20 +202,19 @@ class Gunship extends UMO {
   void heal() {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds 
-      if (getHealth() < getMaxHealth()){
+      if (getHealth() < getMaxHealth()) {
         setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 1800);
       }
-      if (getTimeSinceLastHit() == 1){
+      if (getTimeSinceLastHit() == 1) {
         setHeal10percent((getMaxHealth() - getHealth())/10);
       }
-    }
-    else{
+    } else {
       //healing after 30 seconds
-      if (getHealth() < getMaxHealth()){
+      if (getHealth() < getMaxHealth()) {
         setHealth(getHealth() + getHeal10percent());
       }
     }
-    if (getHealth() > getMaxHealth()){
+    if (getHealth() > getMaxHealth()) {
       setHealth(getMaxHealth());
     }
   }
@@ -272,7 +276,7 @@ class Gunship extends UMO {
   void setTimeSinceLastHit(int timeSinceLastHit) {
     this.timeSinceLastHit = timeSinceLastHit;
   }
-  
+
   float getHeal10percent() {
     return heal10percent;
   }

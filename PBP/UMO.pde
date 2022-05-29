@@ -158,7 +158,7 @@ abstract class UMO implements Processable {
   }
 
   float getHealth() {
-    return health;
+    return round(health);
   }
   void setHealth(float health) {
     if (health < 0) {

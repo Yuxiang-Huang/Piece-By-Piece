@@ -17,9 +17,6 @@ class Bullet extends UMO {
   }
 
   void display() {
-    fill(0);
-    textSize(15);
-    textAlign(LEFT);
     ellipseMode(RADIUS);
     circle(getX(), getY(), getRadius());
     if (DEBUG) {

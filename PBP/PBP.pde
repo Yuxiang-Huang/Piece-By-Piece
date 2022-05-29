@@ -54,6 +54,9 @@ void draw() {
   background(255);
 
   if (DEBUG) {
+    fill(0);
+    textSize(15);
+    textAlign(LEFT);
     text(frameRate, 20, 20);
   }
 

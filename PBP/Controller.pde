@@ -10,6 +10,10 @@ class Controller {
   }
 
   void press(int code) {
+    if (key == '`') {
+      DEBUG = !DEBUG;
+    }
+    
     // Movement controls
     if (key == 'a' || keyCode == LEFT) {
       inputs[0] = true;

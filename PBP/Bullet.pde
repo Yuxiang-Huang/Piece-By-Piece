@@ -1,19 +1,20 @@
 class Bullet extends UMO {
   Gunship gunship;
-  float baseSpeed = 10;
-  int countdown;
+  private int timeTillDeath;
   ArrayList<UMO> collided = new ArrayList<UMO> ();
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
+    setRadius(unit/3);
+    
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
-    velocity.setMag(getBaseSpeed());
-    setRadius(unit/2);
-    setCountdown(60);
-    setHealth(7); //bullet penetration
-    setCollisionDamage(7); // confirmed value from wiki
+    
+    setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
+    setTimeTillDeath(60);
+    setHealth(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())); //bullet penetration
+    setCollisionDamage(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())); // confirmed value from wiki
   }
 
   void display() {
@@ -24,7 +25,7 @@ class Bullet extends UMO {
 
   void update() {
     // kill bullet after certain amount of time
-    setCountdown(getCountdown()-1);
+    setTimeTillDeath(getTimeTillDeath()-1);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
@@ -48,7 +49,7 @@ class Bullet extends UMO {
         }
       }
     }
-    if (getCountdown() == 0 || isCollidingWithBorder()) {
+    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
       die();
     }
     if (DEBUG) {
@@ -67,18 +68,11 @@ class Bullet extends UMO {
   void collisionWithUMO(){
   }
 
-  float getBaseSpeed() {
-    return baseSpeed;
-  }
 
-  void setBaseSpeed(float baseSpeed) {
-    this.baseSpeed = baseSpeed;
+  int getTimeTillDeath() {
+    return timeTillDeath;
   }
-
-  int getCountdown() {
-    return countdown;
-  }
-  void setCountdown(int countdown) {
-    this.countdown = countdown;
+  void setTimeTillDeath(int timeTillDeath) {
+    this.timeTillDeath = timeTillDeath;
   }
 }

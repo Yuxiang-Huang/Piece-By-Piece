@@ -1,11 +1,13 @@
 class Gunship extends UMO {
+  private Shop shop;
   private int level;
+  private int skillPoints;
 
   private float maxSpeed;
   private float speed;
   
   private int reloadSpeed; 
-  private int countdown;
+  private int shootCooldown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
@@ -15,17 +17,22 @@ class Gunship extends UMO {
     position.set(x, y);
     acceleration.set(.2, .2);
     setAngle(0);
-
+    
+    shop = new Shop(this, 20, height-250);
     setLevel(1);
-    setMaxHealth(50); // confirmed value from wiki
+    
+    //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
+    setMaxHealth(shop.maxHealth.getBase()); 
     setHealth(getMaxHealth());
-    setCollisionDamage(20); // confirmed value from wiki
-    setMaxSpeed(5);
-    setReloadSpeed(60);
+    setCollisionDamage(shop.bodyDamage.getBase());
+    setReloadSpeed(shop.reload.getBase());
+    setMaxSpeed(shop.movementSpeed.getBase());
+    
+    
 
 
     bullets = new ArrayList<Bullet>();
-    setCountdown(0);
+    setShootCooldown(0);
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -60,7 +67,7 @@ class Gunship extends UMO {
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
       text("mag: "+round(velocity.mag()), getX()+40, getY());
-      text("countdown: "+getCountdown(), getX()+40, player.getY()+20);
+      text("shootCooldown: "+getShootCooldown(), getX()+40, player.getY()+20);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
     }
   }
@@ -85,8 +92,8 @@ class Gunship extends UMO {
 
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
+    if (getSpeed() > getMaxSpeed()) {
+      setSpeed(getMaxSpeed());
     }
     // apply velocity
     position.add(velocity);
@@ -108,14 +115,15 @@ class Gunship extends UMO {
     }
 
     // decrement shoot cooldown by 1
-    if (countdown > 0) {
-      setCountdown(getCountdown()-1);
+    if (shootCooldown > 0) {
+      setShootCooldown(getShootCooldown()-1);
     }
 
     // check if gunship has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel()) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
+      setSkillPoints(getSkillPoints()+1);
     }
 
     if (getHealth() == 0) {
@@ -159,11 +167,11 @@ class Gunship extends UMO {
   }
   
   boolean canShoot() {
-    return (getCountdown() == 0);
+    return (getShootCooldown() == 0);
   }
   
   void shoot() {
-    setCountdown(getReloadSpeed());
+    setShootCooldown(getReloadSpeed());
     bullets.add(new Bullet(this));
   }
   
@@ -180,11 +188,11 @@ class Gunship extends UMO {
     this.reloadSpeed = reloadSpeed;
   }
 
-  int getCountdown() {
-    return countdown;
+  int getShootCooldown() {
+    return shootCooldown;
   }
-  void setCountdown(int countdown) {
-    this.countdown = countdown;
+  void setShootCooldown(int shootCooldown) {
+    this.shootCooldown = shootCooldown;
   }
 
   int getLevel() {
@@ -192,6 +200,13 @@ class Gunship extends UMO {
   }
   void setLevel(int level) {
     this.level = level;
+  }
+  
+  int getSkillPoints() {
+      return skillPoints;
+  }
+  void setSkillPoints(int skillPoints) {
+    this.skillPoints = skillPoints;
   }
   
   float getMaxSpeed() {

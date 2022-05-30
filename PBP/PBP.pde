@@ -14,13 +14,13 @@ void setup() {
   fullScreen();
   frameRate(60);
 
-  fill(0);
-  textSize(15);
-  textAlign(LEFT);
-  
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   input = new Controller();
+
+  fill(0);
+  textSize(unit*3.0/4);
+  textAlign(LEFT);
 
   // creating polygons
   polygons = new ArrayList<Polygon>();
@@ -58,10 +58,7 @@ void draw() {
   background(255);
 
   if (DEBUG) {
-    fill(0);
-    textSize(15);
-    textAlign(LEFT);
-    text(frameRate, 20, 20);
+    text(frameRate, unit, unit);
   }
 
   //draw lines
@@ -70,7 +67,7 @@ void draw() {
     line(0, row, width, row);
   }
   for (int col = 0; col < width; col+=unit) {
-    stroke(200);
+    stroke(100);
     line(col, 0, col, height);
   }
 
@@ -104,7 +101,7 @@ void draw() {
     fill(128, 128, 128, 200);
     rect(0, 0, width, height); 
     fill(0);
-    textSize(200);
+    textSize(unit * 10);
     textAlign(CENTER);
     if (getGameState() == LOST) {
       text("YOU LOST :(", width/2, height/2);
@@ -112,7 +109,7 @@ void draw() {
       text("YOU WON :)", width/2, height/2);
     }
     fill(0);
-    textSize(15);
+    textSize(unit*3.0/4);
     textAlign(LEFT);
   }
 }

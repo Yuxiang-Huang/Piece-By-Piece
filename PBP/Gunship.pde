@@ -19,13 +19,13 @@ class Gunship extends UMO {
   Gunship(float x, float y) {
     setRadius(unit);
     position.set(x, y);
-    acceleration.set(.2, .2);
+    acceleration.set(.1, .1); //not confirmed
     setAngle(0);
 
     setLevel(1);
-    shop = new Shop(this, 20, height-250);
+    shop = new Shop(this, unit, height-unit * 12);
 
-    //setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
+    setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
     setMaxHealth(shop.maxHealth.getBase()); 
     setHealth(getMaxHealth());
     setCollisionDamage(shop.bodyDamage.getBase());
@@ -64,21 +64,22 @@ class Gunship extends UMO {
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
+    
+    displayExpBar();
 
     if (DEBUG) {
-      text(""+getHealth(), getX() - 15, getY());
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
-      text("mag: "+round(velocity.mag()), getX()+40, getY());
-      text("shootCooldown: "+getShootCooldown(), getX()+40, player.getY()+20);
-      text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+40, getY()+40);
-      text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+40, getY()+60);
-      text("maxHealth: "+getMaxHealth(), getX()+40, getY()+80);
+      text(""+getHealth(), getX() - unit, getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
+      text("mag: "+round(velocity.mag()), getX()+unit*2, getY());
+      text("shootCooldown: "+getShootCooldown(), getX()+unit*2, player.getY()+unit);
+      text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
+      text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
+      text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
     }
   }
 
   void update() {
-
     // check for what directions are being pressed
     float xdir = 0; 
     float ydir = 0;
@@ -130,17 +131,17 @@ class Gunship extends UMO {
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
-      setMaxHealth((int)getMaxHealth() + 2);
-      setHealth(getHealth() + 2);
-
-      setRadius(getRadius() * 1.014); //not confirmed
+      setMaxHealth(50 + 2 * (getLevel() - 1)); //confirmed from wiki
+      setHealth(getHealth() + 2); //not confirmed, want to do percentage?
+      setRadius(getRadius() * 1.01); //confirmed from wiki
     }  
-
+    
     if (int(getHealth()) == 0) {
       die();
     }
 
     heal();
+    
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
     }
@@ -196,6 +197,21 @@ class Gunship extends UMO {
 
   int getExpRequiredForNextLevel() {
     return 10*getLevel();
+  }
+  
+  void displayExpBar(){
+    rectMode(CORNER);
+    fill(color(0)); // black for needed Exp
+    rect(width / 2 - 7 * unit, height - 2*unit, 15*unit, unit); //confirmed from playing
+    fill(color(255, 255, 0)); // yellow for gained Exp
+    rect(width / 2 - 7 * unit, height - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
+    fill(255);
+    textAlign(CENTER);
+    textSize(unit);
+    text("Lvl " + getLevel(), width / 2, height - unit);
+    fill(0);
+    textAlign(LEFT);
+    textSize(unit*3.0/4);
   }
 
   void heal() {

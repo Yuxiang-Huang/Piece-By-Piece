@@ -57,8 +57,11 @@ class Bullet extends UMO {
         } else {
           setHealth(getHealth() - polygon.getHealth());
         }
-        
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        //do double damage if not called?
+        if (isDead()){
+          die();
+        }
       }
     }
   }

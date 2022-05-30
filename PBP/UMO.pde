@@ -26,7 +26,7 @@ abstract class UMO implements Processable {
   }
   
   boolean isDead(){
-    return getHealth() == 0;
+    return (int) getHealth() == 0;
   }
   
   void displayHealthBar() {

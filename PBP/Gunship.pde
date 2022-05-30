@@ -3,7 +3,6 @@ class Gunship extends UMO {
   private int level;
   private int skillPoints;
 
-  private float maxSpeed;
   private float speed;
 
   private int reloadSpeed; 
@@ -19,7 +18,7 @@ class Gunship extends UMO {
   Gunship(float x, float y) {
     setRadius(unit);
     position.set(x, y);
-    acceleration.set(.1, .1); //not confirmed
+    acceleration.set(0.051, 0.051); //confirmed from website
     setAngle(0);
 
     setLevel(1);
@@ -80,39 +79,6 @@ class Gunship extends UMO {
   }
 
   void update() {
-    // check for what directions are being pressed
-    float xdir = 0; 
-    float ydir = 0;
-    if (input.inputs[0]) { // LEFT
-      xdir = -1;
-    } 
-    if (input.inputs[1]) { // UP
-      ydir = -1;
-    } 
-    if (input.inputs[2]) { // RIGHT
-      xdir = 1;
-    } 
-    if (input.inputs[3]) { // DOWN
-      ydir = 1;
-    } 
-
-    //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (getSpeed() > getMaxSpeed()) {
-      setSpeed(getMaxSpeed());
-    }
-    // apply velocity
-    position.add(velocity);
-
-    // apply friction
-    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
-      velocity.mult(getFriction());
-    }
-
-    // check for collisions
-    collisionWithBorder();
-    collisionWithUMO();
-
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {
       Bullet bullet = bullets.get(b);
@@ -134,17 +100,49 @@ class Gunship extends UMO {
       setMaxHealth(50 + 2 * (getLevel() - 1)); //confirmed from wiki
       setHealth(getHealth() + 2); //not confirmed, want to do percentage?
       setRadius(getRadius() * 1.01); //confirmed from wiki
+      setSpeed(getSpeed() * 0.985); //confirmed from website
     }  
     
-    if (int(getHealth()) == 0) {
-      die();
-    }
-
     heal();
     
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
     }
+    
+    //should be in UMO.update
+    if (int(getHealth()) == 0) {
+      die();
+    }
+    // check for what directions are being pressed
+    float xdir = 0; 
+    float ydir = 0;
+    if (input.inputs[0]) { // LEFT
+      xdir = -1;
+    } 
+    if (input.inputs[1]) { // UP
+      ydir = -1;
+    } 
+    if (input.inputs[2]) { // RIGHT
+      xdir = 1;
+    } 
+    if (input.inputs[3]) { // DOWN
+      ydir = 1;
+    } 
+
+    //apply acceleration
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    
+    // apply velocity
+    position.add(velocity);
+
+    // apply friction
+    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
+      velocity.mult(getFriction());
+    }
+
+    // check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
   }
 
   void die() {

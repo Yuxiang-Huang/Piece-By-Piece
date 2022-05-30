@@ -30,7 +30,8 @@ class Bullet extends UMO {
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
-    if (getTimeTillDeath() == 0){
+    collisionWithUMO();
+    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
       die();
     }
     super.update();
@@ -44,6 +45,7 @@ class Bullet extends UMO {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
+
         //trust physics
         float m1 = getRadius()*getRadius()*getRadius();
         float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
@@ -58,17 +60,7 @@ class Bullet extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
-        //do double damage if not called?
-        if (isDead()){
-          die();
-        }
       }
-    }
-  }
-  
-  void collisionWithBorder(){
-    if (isCollidingWithBorder()) {
-      die();
     }
   }
 

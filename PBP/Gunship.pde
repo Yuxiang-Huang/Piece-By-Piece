@@ -121,9 +121,22 @@ class Gunship extends UMO {
     if (input.inputs[3]) { // DOWN
       ydir = 1;
     } 
-    acceleration = new PVector(acceleration.x*xdir, acceleration.y*ydir);
-     
-    super.update();
+
+    //apply acceleration
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    if (velocity.mag() > acceleration.x * 9){
+      velocity.setMag(acceleration.x * 9);
+    }
+    
+    // apply velocity
+    position.add(velocity);
+   
+    // apply friction
+    velocity.mult(getFriction());
+
+    // check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
   }
 
   void die() {

@@ -76,9 +76,9 @@ class Polygon extends UMO {
 
     if (DEBUG) {
       text(""+ (int) getHealth(), getX(), getY());
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
-      text("Exp: "+getExp(), getX()+40, getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
+      text("Exp: "+getExp(), getX()+unit*2, getY());
     }
   }
 
@@ -94,14 +94,6 @@ class Polygon extends UMO {
     polygons.remove(this);
     Polygon polygon = new Polygon();
     player.setExp(player.getExp() + getExp());
-  }
-
-  String getShape() {
-    return shape;
-  }
-
-  void setShape(String shapeNow) {
-    shape = shapeNow;
   }
 
   void collisionWithUMO() {
@@ -146,5 +138,13 @@ class Polygon extends UMO {
       ydir = -1;
     }
     acceleration.set(0.05 * xdir, 0.05 * xdir);
+  }
+
+  String getShape() {
+    return shape;
+  }
+
+  void setShape(String shapeNow) {
+    shape = shapeNow;
   }
 }

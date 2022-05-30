@@ -19,6 +19,8 @@ abstract class UMO implements Processable {
     velocity.add(acceleration);
     position.add(velocity);
     velocity.mult(getFriction());
+    collisionWithBorder();
+    collisionWithUMO();
   }
 
   void display() {

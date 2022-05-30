@@ -83,9 +83,6 @@ class Polygon extends UMO {
   }
 
   void update() {
-    // check for collisions
-    collisionWithBorder();
-    collisionWithUMO();
     randomMove();
     super.update();
   }

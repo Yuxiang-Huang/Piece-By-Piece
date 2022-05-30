@@ -15,7 +15,7 @@ class Bullet extends UMO {
     setTimeTillDeath(120); //confirmed from wiki
     setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
     setHealth(getMaxHealth()); //bullet penetration
-    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))); //<>//
+    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))); //<>// //<>//
   }
 
   void display() {
@@ -28,21 +28,36 @@ class Bullet extends UMO {
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit, getY());
     }
   }
-
+  
+  /**
+    
+  
+    Updates the timeTillDeath timer.
+    If timer is at 0 or currently colliding with the border, then die.
+    Checks for collisions with UMOs.
+    Calls super.update.
+  */
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
-    collisionWithUMO();
     if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
       die();
     }
+    collisionWithUMO();
     super.update();
   }
-
+  
+  /**
+    Removes the bullet from its gunship's list of bullets
+  */
   void die() {
     gunship.bullets.remove(this);
   }
 
+
+  /**
+    Runs over all Polygons and if currently colliding with one, applies its damage and force to it
+  */
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
@@ -62,6 +77,7 @@ class Bullet extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        return;
       }
     }
   }

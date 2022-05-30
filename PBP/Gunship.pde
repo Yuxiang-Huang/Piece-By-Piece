@@ -166,6 +166,7 @@ class Gunship extends UMO {
 
         //for health regen after 30 sec
         setTimeSinceLastHit(1800);
+        return;
       }
     }
   }

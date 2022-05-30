@@ -18,7 +18,6 @@ class Gunship extends UMO {
   Gunship(float x, float y) {
     setRadius(unit);
     position.set(x, y);
-    acceleration.set(0.051, 0.051); //confirmed from website
     setAngle(0);
 
     setLevel(1);
@@ -59,7 +58,7 @@ class Gunship extends UMO {
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
-    
+
     displayExpBar();
 
     if (DEBUG) {
@@ -98,13 +97,13 @@ class Gunship extends UMO {
       setRadius(getRadius() * 1.01); //confirmed from wiki
       setSpeed(getSpeed() * 0.985); //confirmed from website
     }  
-    
+
     heal();
-    
+
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
     }
-    
+
     //should be in UMO.update
     if (int(getHealth()) == 0) {
       die();
@@ -127,12 +126,13 @@ class Gunship extends UMO {
 
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    
+
     // apply velocity
-    position.add(velocity);
-    
-    //remember to deal with diagonal 
-    
+    if (velocity.x != 0 || velocity.y != 0) {
+      position.add(velocity.x/sqrt(2), velocity.y/sqrt(2));
+    } else{
+      position.add(velocity);
+    }
     // apply friction
     velocity.mult(getFriction());
 
@@ -192,8 +192,8 @@ class Gunship extends UMO {
   int getExpRequiredForNextLevel() {
     return 10*getLevel();
   }
-  
-  void displayExpBar(){
+
+  void displayExpBar() {
     rectMode(CORNER);
     fill(color(0)); // black for needed Exp
     rect(width / 2 - 7 * unit, height - 2*unit, 15*unit, unit); //confirmed from playing

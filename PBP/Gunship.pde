@@ -202,10 +202,16 @@ class Gunship extends UMO {
   void displayExpBar(){
     rectMode(CORNER);
     fill(color(0)); // black for needed Exp
-    rect(width / 2 - 7 * unit, height - unit, 15*unit, unit); //confirmed from playing
+    rect(width / 2 - 7 * unit, height - 2*unit, 15*unit, unit); //confirmed from playing
     fill(color(255, 255, 0)); // yellow for gained Exp
-    rect(width / 2 - 7 * unit, height - unit, 15*unit*((getExp())/getExpRequiredForNextLevel()), unit);
+    rect(width / 2 - 7 * unit, height - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
+    fill(255);
+    textAlign(CENTER);
+    textSize(unit);
+    text("Lvl " + getLevel(), width / 2, height - unit);
     fill(0);
+    textAlign(LEFT);
+    textSize(unit*3.0/4);
   }
 
   void heal() {

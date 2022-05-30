@@ -13,10 +13,14 @@ private int gameState;
 void setup() {
   fullScreen();
   frameRate(60);
-  
+
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   input = new Controller();
+
+  fill(0);
+  textSize(unit*3.0/4);
+  textAlign(LEFT);
 
   // creating polygons
   polygons = new ArrayList<Polygon>();
@@ -105,7 +109,7 @@ void draw() {
       text("YOU WON :)", width/2, height/2);
     }
     fill(0);
-    textSize(unit);
+    textSize(unit*3.0/4);
     textAlign(LEFT);
   }
 }

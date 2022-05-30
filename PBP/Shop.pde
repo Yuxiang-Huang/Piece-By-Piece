@@ -3,14 +3,14 @@ class Shop implements Processable {
   PVector position;
  
   //Stat statName = new Stat(level, base, modifier)
-  Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed
-  Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed
-  Stat bodyDamage = new Stat("Body Damage", 0, 20, 6); //confirmed
+  Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed from website
+  Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
+  Stat bodyDamage = new Stat("Body Damage", 0, 20, 6); //confirmed from wiki
   Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit, 1); 
-  Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 3);
-  Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed
+  Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 3); //I guess same as damage???
+  Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
   Stat reload = new Stat("Reload", 0, 36, -3); //-2.4 for wiki
-  Stat movementSpeed = new Stat("Movement Speed", 0, 5, 1);
+  Stat movementSpeed = new Stat("Movement Speed", 0, 0.05 * unit, 0.07*0.05*unit); //confirmed from website
 
   Shop(Gunship gunship, float x, float y) {
     this.gunship = gunship;
@@ -29,23 +29,22 @@ class Shop implements Processable {
   }
   
   void update() {
-      gunship.setHealthRegen(healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel()));
-      gunship.setMaxHealth(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel()) + 2 * (gunship.getLevel() - 1)); 
-      gunship.setCollisionDamage(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel()));
-      gunship.setReloadSpeed(reload.getBase() + (reload.getModifier()*reload.getLevel()));
-      gunship.setMaxSpeed(movementSpeed.getBase() + (movementSpeed.getModifier()*movementSpeed.getLevel()));
-      gunship.acceleration.add(new PVector(.1, .1));
+      gunship.setHealthRegen((int)(healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel())));
+      gunship.setMaxHealth((int)(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel()) + 2 * (gunship.getLevel() - 1))); 
+      gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
+      gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
+      float a = movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel();
+      gunship.acceleration = new PVector(a, a);
   }
 
   class Stat {
-    
     private String statName;
     final int maxLevel = 7;
     private int level;
-    private int base;
-    private int modifier;
+    private float base;
+    private float modifier;
 
-    Stat(String statName, int level, int base, int modifier) {
+    Stat(String statName, int level, float base, float modifier) {
       setStatName(statName);
       setLevel(level);
       setBase(base);
@@ -78,17 +77,17 @@ class Shop implements Processable {
         return getLevel() == maxLevel;
     }
 
-    int getBase() {
+    float getBase() {
       return base;
     }
-    void setBase(int base) {
+    void setBase(float base) {
       this.base = base;
     }    
 
-    int getModifier() {
+    float getModifier() {
       return modifier;
     }
-    void setModifier(int modifier) {
+    void setModifier(float modifier) {
       this.modifier = modifier;
     }
     

@@ -93,7 +93,9 @@ class Gunship extends UMO {
       shop.maxHealth.base += 2;
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
+      float percentHealth = getHealth() / getMaxHealth();
       shop.update(); // to update maxHealth;
+      setHealth(percentHealth * getMaxHealth());
     }  
 
     heal();

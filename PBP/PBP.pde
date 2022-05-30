@@ -88,7 +88,9 @@ void draw() {
     }
 
     player.display();
-    player.shop.display();
+    if (player.getSkillPoints() > 0) {
+      player.shop.display();
+    }
   } else {
     for (Polygon polygon : polygons) {
       polygon.display();

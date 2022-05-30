@@ -3,7 +3,7 @@ abstract class UMO implements Processable {
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
-  private final float friction = .98; // for smoother stoping, not confirmed
+  private final float friction = .9; // for smoother stoping, not confirmed
   private float radius;
   private int exp;
   

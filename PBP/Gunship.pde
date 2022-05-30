@@ -25,6 +25,7 @@ class Gunship extends UMO {
     shop = new Shop(this, unit, height-unit * 12);
 
     shop.update();
+    setHealth(getMaxHealth());
 
     bullets = new ArrayList<Bullet>();
     setShootCooldown(0);
@@ -133,9 +134,7 @@ class Gunship extends UMO {
     //remember to deal with diagonal 
     
     // apply friction
-    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
-      velocity.mult(getFriction());
-    }
+    velocity.mult(getFriction());
 
     // check for collisions
     collisionWithBorder();

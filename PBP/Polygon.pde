@@ -5,15 +5,15 @@ class Polygon extends UMO {
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
 
-  Polygon() {
+  Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
     stroke(0);
     umo = createShape();
     float rand = random(1);
     if (rand < .5) { // 50%
       setShape("square"); 
-      setExp(10);
-      setRadius(unit);
+      setExp(10); 
+      setRadius(unit); 
 
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());

@@ -6,7 +6,7 @@ class Shop implements Processable {
   Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed
   Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed
   Stat bodyDamage = new Stat("Body Damage", 0, 20, 6); //confirmed
-  Stat bulletSpeed = new Stat("Bullet Speed", 0, 10, 1); 
+  Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit, 1); 
   Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 3);
   Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed
   Stat reload = new Stat("Reload", 0, 36, -3); //-2.4 for wiki

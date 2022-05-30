@@ -19,7 +19,7 @@ class Gunship extends UMO {
   Gunship(float x, float y) {
     setRadius(unit);
     position.set(x, y);
-    acceleration.set(.2, .2); //not confirmed
+    acceleration.set(.1, .1); //not confirmed
     setAngle(0);
 
     setLevel(1);
@@ -133,7 +133,7 @@ class Gunship extends UMO {
       //increase stats upon level up
       setMaxHealth(50 + 2 * (getLevel() - 1)); //confirmed from wiki
       setHealth(getHealth() + 2); //not confirmed, want to do percentage?
-      setRadius(getRadius() * 1.014); //confirmed from playing
+      setRadius(getRadius() * 1.01); //confirmed from wiki
     }  
     
     if (int(getHealth()) == 0) {

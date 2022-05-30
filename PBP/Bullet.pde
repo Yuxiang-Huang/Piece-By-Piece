@@ -4,7 +4,7 @@ class Bullet extends UMO {
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
-    setRadius(unit/2); //confirmed from playing
+    setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));

@@ -85,7 +85,7 @@ abstract class UMO implements Processable {
   abstract void die();
   abstract void collisionWithUMO();
 
-//get and set methods------------------------------------------------------------------
+  //get and set methods------------------------------------------------------------------
 
   float getRadius() {
     return radius;

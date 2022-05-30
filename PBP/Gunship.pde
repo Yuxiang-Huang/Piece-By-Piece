@@ -64,6 +64,8 @@ class Gunship extends UMO {
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
+    
+    displayExpBar();
 
     if (DEBUG) {
       text(""+getHealth(), getX() - unit, getY());
@@ -195,6 +197,15 @@ class Gunship extends UMO {
 
   int getExpRequiredForNextLevel() {
     return 10*getLevel();
+  }
+  
+  void displayExpBar(){
+    rectMode(CORNER);
+    fill(color(0)); // black for needed Exp
+    rect(width / 2 - 7 * unit, height - unit, 15*unit, unit); //confirmed from playing
+    fill(color(255, 255, 0)); // yellow for gained Exp
+    rect(width / 2 - 7 * unit, height - unit, 15*unit*((getExp())/getExpRequiredForNextLevel()), unit);
+    fill(0);
   }
 
   void heal() {

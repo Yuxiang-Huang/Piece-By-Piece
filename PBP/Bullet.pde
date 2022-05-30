@@ -26,10 +26,34 @@ class Bullet extends UMO {
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);
     }
   }
-
+  
+  /**
+    updates the timeTillDeath timer,
+    checks for collisions with UMOs
+    
+  */
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
+    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
+      die();
+    }
+    collisionWithUMO();
+    super.update();
+  }
+  
+  /**
+    Removes the bullet from its gunship's list of bullets
+  */
+  void die() {
+    gunship.bullets.remove(this);
+  }
+
+
+  /**
+    Runs over all Polygons and if currently colliding with one, applies its damage and force to it
+  */
+  void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
@@ -48,6 +72,7 @@ class Bullet extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        return;
       }
     }
     if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {

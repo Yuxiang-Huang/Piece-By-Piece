@@ -24,12 +24,7 @@ class Gunship extends UMO {
     setLevel(1);
     shop = new Shop(this, unit, height-unit * 12);
 
-    setHealthRegen(shop.healthRegen.getBase() + (shop.healthRegen.getModifier()*shop.healthRegen.getLevel()));
-    setMaxHealth(shop.maxHealth.getBase()); 
-    setHealth(getMaxHealth());
-    setCollisionDamage(shop.bodyDamage.getBase());
-    setReloadSpeed(shop.reload.getBase());
-    setMaxSpeed(shop.movementSpeed.getBase());
+    shop.update();
 
     bullets = new ArrayList<Bullet>();
     setShootCooldown(0);
@@ -134,7 +129,9 @@ class Gunship extends UMO {
     
     // apply velocity
     position.add(velocity);
-
+    
+    //remember to deal with diagonal 
+    
     // apply friction
     if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
       velocity.mult(getFriction());
@@ -260,13 +257,6 @@ class Gunship extends UMO {
   }
   void setSkillPoints(int skillPoints) {
     this.skillPoints = skillPoints;
-  }
-
-  float getMaxSpeed() {
-    return maxSpeed;
-  }
-  void setMaxSpeed(float maxSpeed) {
-    this.maxSpeed = maxSpeed;
   }
 
   float getAngle() {

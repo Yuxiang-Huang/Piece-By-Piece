@@ -3,8 +3,6 @@ class Gunship extends UMO {
   private int level;
   private int skillPoints;
 
-  private float speed;
-
   private int reloadSpeed; 
   private int shootCooldown;
 
@@ -95,7 +93,7 @@ class Gunship extends UMO {
       setMaxHealth(50 + 2 * (getLevel() - 1)); //confirmed from wiki
       setHealth(getHealth() + 2); //not confirmed, want to do percentage?
       setRadius(getRadius() * 1.01); //confirmed from wiki
-      setSpeed(getSpeed() * 0.985); //confirmed from website
+      acceleration.mult(0.985); //confirmed from website
     }  
 
     heal();
@@ -126,13 +124,13 @@ class Gunship extends UMO {
 
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-
-    // apply velocity
-    if (velocity.x != 0 || velocity.y != 0) {
-      position.add(velocity.x/sqrt(2), velocity.y/sqrt(2));
-    } else{
-      position.add(velocity);
+    if (velocity.mag() > acceleration.x * 9){
+      velocity.setMag(acceleration.x * 9);
     }
+    
+    // apply velocity
+    position.add(velocity);
+   
     // apply friction
     velocity.mult(getFriction());
 

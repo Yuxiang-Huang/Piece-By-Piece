@@ -12,6 +12,10 @@ abstract class UMO implements Processable {
   private float speed;
   private int collisionDamage;
 
+  /**
+   If dead, dies
+   Apply acceleration, velocity, and friction
+   */
   void update() {
     if (isDead()) {
       die();

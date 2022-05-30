@@ -97,7 +97,7 @@ void draw() {
     }
     player.display();
 
-    // LOSS/WIN GAME SCREENS
+    // LOST/WON GAME SCREENS
 
     fill(128, 128, 128, 200);
     rect(0, 0, width, height); 

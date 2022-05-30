@@ -137,7 +137,7 @@ class Polygon extends UMO {
     } else{
       ydir = -1;
     }
-    acceleration.set(0.05 * xdir, 0.05 * xdir);
+    acceleration.set(unit / 500 * xdir, unit / 500 * ydir);
   }
 
   String getShape() {

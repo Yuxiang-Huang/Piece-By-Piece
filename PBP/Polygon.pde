@@ -68,7 +68,7 @@ class Polygon extends UMO {
     polygons.add(this);
   }
 
- void display() {
+  void display() {
     shape(umo, getX(), getY());
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
@@ -96,6 +96,9 @@ class Polygon extends UMO {
     player.setExp(player.getExp() + getExp());
   }
 
+  /**
+   Loops over all Polygons and if currently colliding with one, applies force to it
+   */
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
@@ -122,24 +125,29 @@ class Polygon extends UMO {
     }
     return false;
   }
-  
-  void randomMove(){
+
+  /**
+   Applies a random increment to the acceleration to create a wiggily motion
+   */
+  void randomMove() {
     float rand = random(1);
     int xdir;
     int ydir;
-    if (rand < 0.5){
+    if (rand < 0.5) {
       xdir = 1;
-    } else{
+    } else {
       xdir = -1;
     }
     rand = random(1);
-    if (rand < 0.5){
+    if (rand < 0.5) {
       ydir = 1;
-    } else{
+    } else {
       ydir = -1;
     }
     acceleration.set(unit / 500 * xdir, unit / 500 * ydir);
   }
+
+  //get and set methods------------------------------------------------------------------
 
   String getShape() {
     return shape;

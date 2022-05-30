@@ -71,6 +71,16 @@ class Gunship extends UMO {
     }
   }
 
+  /**
+   Loops over all bullets, updates and displays them,
+   Decrements shoot cooldown by 1,
+   Levels up if it has enough exp,
+   Regens health,
+   Decrments hit cooldown by 1,
+   Dies if health is at 0,
+   Applies acceleration from Controller, velocity, and friction
+   checks for collisions with Polygons and Borders
+   */
   void update() {
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {
@@ -124,13 +134,13 @@ class Gunship extends UMO {
 
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9){
+    if (velocity.mag() > acceleration.x * 9) {
       velocity.setMag(acceleration.x * 9);
     }
-    
+
     // apply velocity
     position.add(velocity);
-   
+
     // apply friction
     velocity.mult(getFriction());
 
@@ -143,6 +153,9 @@ class Gunship extends UMO {
     setGameState(LOST);
   }
 
+  /**
+   Loops over all Polygons and if currently colliding with one, applies its damage and force to it
+   */
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
@@ -188,13 +201,9 @@ class Gunship extends UMO {
     bullets.add(new Bullet(this));
   }
 
-  int getExpRequiredForNextLevel() {
-    return 10*getLevel();
-  }
-
   void displayExpBar() {
     rectMode(CORNER);
-    fill(200,200,200,230); // black for needed Exp
+    fill(200, 200, 200, 230); // black for needed Exp
     rect(width / 2 - 7 * unit, height - 2*unit, 15*unit, unit); //confirmed from playing
     fill(color(255, 255, 0)); // yellow for gained Exp
     rect(width / 2 - 7 * unit, height - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
@@ -228,6 +237,10 @@ class Gunship extends UMO {
   }
 
   //get and set methods------------------------------------------------------------------
+
+  int getExpRequiredForNextLevel() {
+    return 10*getLevel();
+  }
 
   int getReloadSpeed() {
     return reloadSpeed;

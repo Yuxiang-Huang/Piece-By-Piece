@@ -2,7 +2,7 @@ class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
   private final float frictionForBullet = .98;
-  
+
   Bullet(Gunship gunship) {
     this.gunship = gunship;
     setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
@@ -28,15 +28,13 @@ class Bullet extends UMO {
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit, getY());
     }
   }
-  
+
   /**
-    
-  
-    Updates the timeTillDeath timer.
-    If timer is at 0 or currently colliding with the border, then die.
-    Checks for collisions with UMOs.
-    Calls super.update.
-  */
+   Updates the timeTillDeath timer.
+   If timer is at 0 or currently colliding with the border, then die.
+   Checks for collisions with UMOs.
+   Calls super.update.
+   */
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
@@ -46,18 +44,18 @@ class Bullet extends UMO {
     collisionWithUMO();
     super.update();
   }
-  
+
   /**
-    Removes the bullet from its gunship's list of bullets
-  */
+   Removes the bullet from its gunship's list of bullets
+   */
   void die() {
     gunship.bullets.remove(this);
   }
 
 
   /**
-    Runs over all Polygons and if currently colliding with one, applies its damage and force to it
-  */
+   Loops over all Polygons and if currently colliding with one, applies its damage and force to it
+   */
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
@@ -82,13 +80,15 @@ class Bullet extends UMO {
     }
   }
 
+  //get and set methods------------------------------------------------------------------
+
   int getTimeTillDeath() {
     return timeTillDeath;
   }
   void setTimeTillDeath(int timeTillDeath) {
     this.timeTillDeath = timeTillDeath;
   }
-  
+
   float getFriction() {
     return frictionForBullet;
   }

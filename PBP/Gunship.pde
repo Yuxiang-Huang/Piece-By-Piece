@@ -157,8 +157,8 @@ class Gunship extends UMO {
         setDY((2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (polygon.getHealth() >  getCollisionDamage()) {
-          setHealth(getHealth() - getCollisionDamage());
+        if (polygon.getHealth() >  polygon.getCollisionDamage()) {
+          setHealth(getHealth() - polygon.getCollisionDamage());
         } else {
           setHealth(getHealth() - polygon.getHealth());
         }

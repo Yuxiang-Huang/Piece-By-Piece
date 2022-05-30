@@ -56,8 +56,8 @@ class Bullet extends UMO {
         float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (polygon.getHealth() >  getCollisionDamage()) {
-          setHealth(getHealth() - getCollisionDamage());
+        if (polygon.getHealth() >  polygon.getCollisionDamage()) {
+          setHealth(getHealth() - polygon.getCollisionDamage());
         } else {
           setHealth(getHealth() - polygon.getHealth());
         }

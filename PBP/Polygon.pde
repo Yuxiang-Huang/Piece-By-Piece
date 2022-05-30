@@ -21,7 +21,7 @@ class Polygon extends UMO {
 
       setMaxHealth(10);
       setHealth(getMaxHealth());
-      setCollisionDamage(10);
+      setCollisionDamage(8);
     } else if (rand < .83) { // 33%
       setShape("triangle");
       setExp(25);
@@ -34,7 +34,7 @@ class Polygon extends UMO {
 
       setMaxHealth(30);
       setHealth(getMaxHealth());
-      setCollisionDamage(20);
+      setCollisionDamage(8);
     } else { // 17%
       setShape("pentagon");
       setExp(130);      

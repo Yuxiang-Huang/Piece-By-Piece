@@ -96,9 +96,8 @@ void draw() {
       polygon.display();
     }
     player.display();
-    player.shop.display();
 
-    // LOST GAME SCREEN
+    // LOSS/WIN GAME SCREENS
 
     fill(128, 128, 128, 200);
     rect(0, 0, width, height); 

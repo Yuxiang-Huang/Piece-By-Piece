@@ -30,7 +30,7 @@ class Shop implements Processable {
   
   void update() {
       gunship.setHealthRegen((int)(healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel())));
-      gunship.setMaxHealth((int)(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel()) + 2 * (gunship.getLevel() - 1))); 
+      gunship.setMaxHealth((int)(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel()))); 
       gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
       gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
       float a = movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel();

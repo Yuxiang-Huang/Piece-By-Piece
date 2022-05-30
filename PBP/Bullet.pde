@@ -1,7 +1,7 @@
 class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
-  private final float frictionForBullet = .99;
+  private final float frictionForBullet = .98;
   
   Bullet(Gunship gunship) {
     this.gunship = gunship;
@@ -12,8 +12,9 @@ class Bullet extends UMO {
     velocity = PVector.fromAngle(gunship.getAngle());
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
-    setTimeTillDeath(180); //confirmed from wiki
-    setHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel()))); //bullet penetration
+    setTimeTillDeath(120); //confirmed from wiki
+    setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())))
+    setHealth(getMaxHealth()); //bullet penetration
     setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())));
   }
 

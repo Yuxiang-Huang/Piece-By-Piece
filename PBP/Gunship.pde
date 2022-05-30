@@ -90,8 +90,10 @@ class Gunship extends UMO {
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
+      shop.maxHealth.base += 2;
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
+      shop.update(); // to update maxHealth;
     }  
 
     heal();

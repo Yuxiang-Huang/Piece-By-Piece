@@ -6,14 +6,14 @@ abstract class UMO implements Processable {
   private final float friction = .9; // for smoother stoping, not confirmed
   private float radius;
   private int exp;
-  
+
   private int maxHealth;
   private float health; 
   private float speed;
   private int collisionDamage;
-  
+
   void update() {
-    if (isDead()){
+    if (isDead()) {
       die();
     }
     velocity.add(acceleration);
@@ -24,11 +24,11 @@ abstract class UMO implements Processable {
   void display() {
     shape(umo, getX(), getY());
   }
-  
-  boolean isDead(){
+
+  boolean isDead() {
     return (int) getHealth() == 0;
   }
-  
+
   void displayHealthBar() {
     int d;
     if (getY() <= height/2) {
@@ -121,12 +121,12 @@ abstract class UMO implements Processable {
   void setDY(float dy) {
     this.velocity.y = dy;
   }
-  
+
   float getSpeed() {
-      return velocity.mag();
+    return velocity.mag();
   }
   void setSpeed(float speed) {
-      this.velocity.setMag(speed);
+    this.velocity.setMag(speed);
   }
 
   float getDDX() {
@@ -164,6 +164,8 @@ abstract class UMO implements Processable {
   void setHealth(float health) {
     if (health < 0) {
       health = 0;
+    } else if (health > getMaxHealth()) {
+      health = getMaxHealth();
     }
     this.health = health;
   }

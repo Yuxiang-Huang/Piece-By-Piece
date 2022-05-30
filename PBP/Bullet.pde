@@ -1,7 +1,8 @@
 class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
-
+  private final float frictionForBullet = .99;
+  
   Bullet(Gunship gunship) {
     this.gunship = gunship;
     setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
@@ -69,5 +70,9 @@ class Bullet extends UMO {
   }
   void setTimeTillDeath(int timeTillDeath) {
     this.timeTillDeath = timeTillDeath;
+  }
+  
+  float getFriction() {
+    return frictionForBullet;
   }
 }

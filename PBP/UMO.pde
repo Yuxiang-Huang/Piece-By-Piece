@@ -3,7 +3,7 @@ abstract class UMO implements Processable {
   PVector position = new PVector(0, 0);
   PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
-  private final float friction = .98; // for smoother stoping
+  private final float friction = .98; // for smoother stoping, not confirmed
   private float radius;
   private int exp;
   
@@ -38,9 +38,9 @@ abstract class UMO implements Processable {
     }
     rectMode(CORNER);
     fill(color(255, 0, 0)); // red for lost health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2, 10);
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+unit*3.0/4)), getRadius()*2, unit/2);
     fill(color(0, 255, 0)); // green for current health
-    rect(getX()-getRadius(), getY()+(d*(getRadius()+15)), getRadius()*2*((getHealth())/getMaxHealth()), 10);
+    rect(getX()-getRadius(), getY()+(d*(getRadius()+unit*3.0/4)), getRadius()*2*((getHealth())/getMaxHealth()), unit/2);
     fill(0);
   }
 

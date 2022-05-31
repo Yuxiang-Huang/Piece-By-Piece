@@ -59,6 +59,8 @@ void mouseClicked() {
   }
 }
 
+void mousePressed() {}
+
 void draw() {
   background(255);
 

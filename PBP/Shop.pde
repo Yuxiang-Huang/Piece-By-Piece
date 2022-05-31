@@ -40,7 +40,6 @@ class Shop implements Processable {
     gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
-    //gunship.acceleration = new PVector(a, a);
   }
 
   class Stat {

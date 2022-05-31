@@ -12,6 +12,8 @@ class Gunship extends UMO {
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
+  
+  private boolean AutoFire;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -85,7 +87,9 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
-
+    
+    setAutoFire(true);
+    
     enemies.add(this);
   }
 
@@ -142,6 +146,9 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void update() {
+    if (getAutoFire()){
+      autoFire();
+    }
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {
       Bullet bullet = bullets.get(b);
@@ -319,7 +326,13 @@ class Gunship extends UMO {
       velocity.setMag(acceleration.x * 9);
     }
   }
-
+  
+  void autoFire(){
+    if (canShoot()){
+      shoot();
+    }
+  }
+  
   //get and set methods------------------------------------------------------------------
 
   int getExpRequiredForNextLevel() {
@@ -380,5 +393,12 @@ class Gunship extends UMO {
   }
   void setHeal10percent(float heal10percent) {
     this.heal10percent = heal10percent;
+  }
+  
+  boolean getAutoFire(){
+    return AutoFire;
+  }
+  void setAutoFire(boolean AutoFire){
+    this.AutoFire = AutoFire;
   }
 }

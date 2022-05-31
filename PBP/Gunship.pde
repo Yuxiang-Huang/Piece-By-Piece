@@ -56,6 +56,7 @@ class Gunship extends UMO {
       setY(random(height));
     }
     setAngle(0);
+    acceleration.set(unit*.01, unit*.01);
 
     setLevel((int) random(14) + 1);
 
@@ -68,18 +69,7 @@ class Gunship extends UMO {
     setSkillPoints(getLevel() - 1);
 
     //randomly assign skill points here
-  }
-
-  void display() {
-    //rotate
-    setAngle(getAngleToMouse());
-    pushMatrix();
-    translate(getX(), getY());
-    //translate(width/2, height/2);
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
-    scale(getRadius()/unit);
-    shape(umo, 0, 0);
-    popMatrix();
+    //randomly assign skill points here
 
     shop.update();
     setHealth(getMaxHealth());
@@ -108,7 +98,7 @@ class Gunship extends UMO {
   }
 
   void display() {
-    if (! enemies.contains(this)) {
+    if (!enemies.contains(this)) {
       //rotate
       setAngle(getAngleToMouse());
       pushMatrix();
@@ -119,7 +109,7 @@ class Gunship extends UMO {
       popMatrix();
     } else {
       //rotate toward gunship
-      float angle = atan((float)(player.getY() - getY()) / (player.getX() - getX()));
+      float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
       if (angle < 0) {
         angle = TWO_PI + angle;
       }
@@ -184,65 +174,53 @@ class Gunship extends UMO {
       getShop().maxHealth.base += 2;
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
-      <<<<<<< HEAD
-        shop.update(); // to update maxHealth;
-    }
-    =======
       getShop().update(); // to update maxHealth;
-  }  
-  >>>>>>> Daniel
+    }   
 
     heal();
 
-  if (getTimeSinceLastHit() > 0) {
-    setTimeSinceLastHit(getTimeSinceLastHit() - 1);
-  }
+    if (getTimeSinceLastHit() > 0) {
+      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    }
 
-  //should be in UMO.update
-  if (int(getHealth()) == 0) {
-    die();
-  }
+    //should be in UMO.update
+    if (int(getHealth()) == 0) {
+      die();
+    }
 
-  <<<<<<< HEAD
     if (enemies.contains(this)) {
-    botMove();
-  } else {
-    // check for what directions are being pressed
-    float xdir = 0;
-    float ydir = 0;
-    if (input.inputs[0]) { // LEFT
-      xdir = -1;
-    }
-    if (input.inputs[1]) { // UP
-      ydir = -1;
-    }
-    if (input.inputs[2]) { // RIGHT
-      xdir = 1;
-    }
-    if (input.inputs[3]) { // DOWN
-      ydir = 1;
-    }
+      botMove();
+    } else {
+      // check for what directions are being pressed
+      float xdir = 0;
+      float ydir = 0;
+      if (input.inputs[0]) { // LEFT
+        xdir = -1;
+      }
+      if (input.inputs[1]) { // UP
+        ydir = -1;
+      }
+      if (input.inputs[2]) { // RIGHT
+        xdir = 1;
+      }
+      if (input.inputs[3]) { // DOWN
+        ydir = 1;
+      }
 
-    //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
-    }
-    =======
       //apply acceleration
       velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
-      >>>>>>> Daniel
-    }
+      if (velocity.mag() > getMaxSpeed()) {
+        velocity.setMag(getMaxSpeed());
+      }
 
-    // apply velocity
-    position.add(velocity);
-    //pos.add(new PVector(-velocity.x, -velocity.y));
+      // apply velocity
+      position.add(velocity);
+      //pos.add(new PVector(-velocity.x, -velocity.y));
 
-    // apply friction
-    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
-      velocity.mult(getFriction());
+      // apply friction
+      if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
+        velocity.mult(getFriction());
+      }
     }
 
     // check for collisions
@@ -387,9 +365,14 @@ class Gunship extends UMO {
       ydir = 1;
     }
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
+    if (velocity.mag() > getMaxSpeed()) {
+      velocity.setMag(getMaxSpeed());
     }
+    // apply velocity
+    position.add(velocity);
+
+    // apply friction
+    velocity.mult(getFriction());
   }
 
   void autoFire() {

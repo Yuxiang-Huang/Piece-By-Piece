@@ -13,7 +13,7 @@ class Controller {
     if (key == '`') {
       DEBUG = !DEBUG;
     }
-    
+
     // Movement controls
     if (key == 'a' || keyCode == LEFT) {
       inputs[0] = true;
@@ -71,7 +71,6 @@ class Controller {
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      
     }
   }
 

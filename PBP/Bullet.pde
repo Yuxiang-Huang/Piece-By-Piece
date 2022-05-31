@@ -1,19 +1,21 @@
 class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
+  private final float frictionForBullet = .98;
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
-    setRadius(unit/3);
+    setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
     velocity = PVector.fromAngle(gunship.getAngle());
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
-    setTimeTillDeath(60);
-    setHealth(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())); //bullet penetration
-    setCollisionDamage(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())); // confirmed value from wiki
+    setTimeTillDeath(120); //confirmed from wiki
+    setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
+    setHealth(getMaxHealth()); //bullet penetration
+    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))); //<>// //<>//
   }
 
   void display() {
@@ -21,17 +23,18 @@ class Bullet extends UMO {
     circle(getX(), getY(), getRadius());
     if (DEBUG) {
       fill(0);
-      text(""+ (int) getHealth(), getX(), getY() + 20);
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+20, getY()-20);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+20, getY()-5);
+      text(""+ (int) getHealth(), getX(), getY() + unit);
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit, getY()-unit);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit, getY());
     }
   }
-  
   /**
-    updates the timeTillDeath timer,
-    checks for collisions with UMOs
-    
-  */
+   Updates the timeTillDeath timer.
+   If timer is at 0 or currently colliding with the border, then die.
+   Checks for collisions with UMOs.
+   Calls super.update.
+   */
+>>>>>>> main
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
@@ -41,18 +44,30 @@ class Bullet extends UMO {
     collisionWithUMO();
     super.update();
   }
+<<<<<<< HEAD
   
   /**
     Removes the bullet from its gunship's list of bullets
   */
+=======
+
+  /**
+   Removes the bullet from its gunship's list of bullets
+   */
+>>>>>>> main
   void die() {
     gunship.bullets.remove(this);
   }
 
 
   /**
+<<<<<<< HEAD
     Runs over all Polygons and if currently colliding with one, applies its damage and force to it
   */
+=======
+   Loops over all Polygons and if currently colliding with one, applies its damage and force to it
+   */
+>>>>>>> main
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
@@ -66,8 +81,8 @@ class Bullet extends UMO {
         float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (polygon.getHealth() >  getCollisionDamage()) {
-          setHealth(getHealth() - getCollisionDamage());
+        if (polygon.getHealth() >  polygon.getCollisionDamage()) {
+          setHealth(getHealth() - polygon.getCollisionDamage());
         } else {
           setHealth(getHealth() - polygon.getHealth());
         }
@@ -75,24 +90,18 @@ class Bullet extends UMO {
         return;
       }
     }
-    if (getTimeTillDeath() == 0 || isCollidingWithBorder()) {
-      die();
-    }
-    super.update();
   }
 
-  void die() {
-    gunship.bullets.remove(this);
-  }
-
-  void collisionWithUMO() {
-  }
-
+  //get and set methods------------------------------------------------------------------
 
   int getTimeTillDeath() {
     return timeTillDeath;
   }
   void setTimeTillDeath(int timeTillDeath) {
     this.timeTillDeath = timeTillDeath;
+  }
+
+  float getFriction() {
+    return frictionForBullet;
   }
 }

@@ -5,15 +5,15 @@ class Polygon extends UMO {
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
 
-  Polygon() {
+  Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
     stroke(0);
     umo = createShape();
     float rand = random(1);
     if (rand < .5) { // 50%
       setShape("square"); 
-      setExp(10);
-      setRadius(unit);
+      setExp(10); 
+      setRadius(unit); 
 
       rectMode(RADIUS);
       umo = createShape(RECT, 0, 0, getRadius(), getRadius());
@@ -21,7 +21,7 @@ class Polygon extends UMO {
 
       setMaxHealth(10);
       setHealth(getMaxHealth());
-      setCollisionDamage(10);
+      setCollisionDamage(8);
     } else if (rand < .83) { // 33%
       setShape("triangle");
       setExp(25);
@@ -34,7 +34,7 @@ class Polygon extends UMO {
 
       setMaxHealth(30);
       setHealth(getMaxHealth());
-      setCollisionDamage(20);
+      setCollisionDamage(8);
     } else { // 17%
       setShape("pentagon");
       setExp(130);      
@@ -68,7 +68,7 @@ class Polygon extends UMO {
     polygons.add(this);
   }
 
- void display() {
+  void display() {
     shape(umo, getX(), getY());
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
@@ -76,9 +76,9 @@ class Polygon extends UMO {
 
     if (DEBUG) {
       text(""+ (int) getHealth(), getX(), getY());
-      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+40, getY()-40);
-      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+40, getY()-20);
-      text("Exp: "+getExp(), getX()+40, getY());
+      text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
+      text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
+      text("Exp: "+getExp(), getX()+unit*2, getY());
     }
   }
 
@@ -96,14 +96,9 @@ class Polygon extends UMO {
     player.setExp(player.getExp() + getExp());
   }
 
-  String getShape() {
-    return shape;
-  }
-
-  void setShape(String shapeNow) {
-    shape = shapeNow;
-  }
-
+  /**
+   Loops over all Polygons and if currently colliding with one, applies force to it
+   */
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
@@ -117,6 +112,7 @@ class Polygon extends UMO {
         setDX((2*m2*polygon.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
         setDY((2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
+        return;
       }
     }
   }
@@ -129,22 +125,35 @@ class Polygon extends UMO {
     }
     return false;
   }
-  
-  void randomMove(){
+
+  /**
+   Applies a random increment to the acceleration to create a wiggily motion
+   */
+  void randomMove() {
     float rand = random(1);
     int xdir;
     int ydir;
-    if (rand < 0.5){
+    if (rand < 0.5) {
       xdir = 1;
-    } else{
+    } else {
       xdir = -1;
     }
     rand = random(1);
-    if (rand < 0.5){
+    if (rand < 0.5) {
       ydir = 1;
-    } else{
+    } else {
       ydir = -1;
     }
-    acceleration.set(0.05 * xdir, 0.05 * xdir);
+    acceleration.set(unit / 500 * xdir, unit / 500 * ydir);
+  }
+
+  //get and set methods------------------------------------------------------------------
+
+  String getShape() {
+    return shape;
+  }
+
+  void setShape(String shapeNow) {
+    shape = shapeNow;
   }
 }

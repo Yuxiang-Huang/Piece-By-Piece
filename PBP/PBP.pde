@@ -17,7 +17,7 @@ void setup() {
 
   fill(0);
   textSize(15);
-  textAlign(LEFT)
+  textAlign(LEFT);
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);

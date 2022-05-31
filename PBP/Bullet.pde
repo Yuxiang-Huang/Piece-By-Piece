@@ -15,7 +15,7 @@ class Bullet extends UMO {
     setTimeTillDeath(120); //confirmed from wiki
     setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
     setHealth(getMaxHealth()); //bullet penetration
-    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))); //<>// //<>//
+    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))); //<>// //<>// //<>//
   }
 
   void display() {
@@ -34,7 +34,6 @@ class Bullet extends UMO {
    Checks for collisions with UMOs.
    Calls super.update.
    */
->>>>>>> main
   void update() {
     // kill bullet after certain amount of time
     setTimeTillDeath(getTimeTillDeath()-1);
@@ -43,31 +42,20 @@ class Bullet extends UMO {
     }
     collisionWithUMO();
     super.update();
-  }
-<<<<<<< HEAD
-  
-  /**
-    Removes the bullet from its gunship's list of bullets
-  */
-=======
+  } 
 
   /**
    Removes the bullet from its gunship's list of bullets
    */
->>>>>>> main
+
   void die() {
     gunship.bullets.remove(this);
   }
 
 
   /**
-<<<<<<< HEAD
-    Runs over all Polygons and if currently colliding with one, applies its damage and force to it
-  */
-=======
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it
    */
->>>>>>> main
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);

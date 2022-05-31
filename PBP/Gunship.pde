@@ -54,13 +54,16 @@ class Gunship extends UMO {
     setAngle(0);
 
     setLevel((int) random(14) + 1);
-    
+
     shop = new Shop(this, unit, height-unit * 12);
-    
+
     //set stats base on level
     shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
+    setSkillPoints(getLevel() - 1);
+
+    //randomly assign skill points here
 
     shop.update();
     setHealth(getMaxHealth());
@@ -73,7 +76,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(0, 0, 255));
     rectMode(CORNER);
     PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun.setFill(color(0));
@@ -97,7 +100,18 @@ class Gunship extends UMO {
       shape(umo, 0, 0);
       popMatrix();
     } else {
-      shape(umo, getX(), getY());
+      //rotate toward gunship
+      float angle = atan((float)(player.getY() - getY()) / (player.getX() - getX()));
+      if (angle < 0) {
+        angle = TWO_PI + angle;
+      }
+      setAngle(angle); //need help...
+      pushMatrix();
+      translate(getX(), getY());
+      rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+      scale(getRadius()/unit);
+      shape(umo, 0, 0);
+      popMatrix();
     }
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
@@ -164,6 +178,7 @@ class Gunship extends UMO {
     }
 
     if (enemies.contains(this)) {
+      botMove();
     } else {
       // check for what directions are being pressed
       float xdir = 0;
@@ -283,6 +298,25 @@ class Gunship extends UMO {
     }
     if (getHealth() > getMaxHealth()) {
       setHealth(getMaxHealth());
+    }
+  }
+
+  void botMove() {
+    int xdir;
+    int ydir;
+    if (getX() > player.getX()){
+      xdir = -1;
+    } else{
+      xdir = 1;
+    }
+    if (getY() > player.getY()){
+      ydir = -1;
+    } else{
+      ydir = 1;
+    }
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    if (velocity.mag() > acceleration.x * 9) {
+      velocity.setMag(acceleration.x * 9);
     }
   }
 

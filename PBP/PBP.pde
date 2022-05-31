@@ -12,7 +12,7 @@ final int WON = 2;
 private int gameState;
 
 void setup() {
-  fullScreen();
+  fullScreen(1);
   frameRate(60);
 
   fill(0);

@@ -23,14 +23,13 @@ void setup() {
   textSize(unit*3.0/4);
   textAlign(LEFT);
 
-  // creating polygons
+  // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
+  enemies = new ArrayList<Gunship>();
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
   
-  // creating enemies
-  enemies = new ArrayList<Gunship>();
   Gunship now = new Gunship();
 
   setGameState(PLAYING);

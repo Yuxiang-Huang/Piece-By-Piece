@@ -43,9 +43,14 @@ class Gunship extends UMO {
     setTimeSinceLastHit(0);
   }
 
+  //enemy constructor
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
+    //while (isCollidingWithAnyUMO()) {
+    //  setX(random(width));
+    //  setY(random(height));
+    //}
     setAngle(0);
 
     setLevel(1);

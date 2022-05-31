@@ -59,8 +59,7 @@ class Polygon extends UMO {
     position.set(random(width), random(height));
 
     // Not to collide with player ship
-    while (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 
-      < getRadius() + player.getRadius() || isCollidingWithAnyPolygon()) {
+    while (isCollidingWithAnyUMO()) {
       setX(random(width));
       setY(random(height));
     }
@@ -115,15 +114,6 @@ class Polygon extends UMO {
         return;
       }
     }
-  }
-
-  boolean isCollidingWithAnyPolygon() {
-    for (Polygon polygon : polygons) {
-      if (isCollidingWithPolygon(polygon)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   /**

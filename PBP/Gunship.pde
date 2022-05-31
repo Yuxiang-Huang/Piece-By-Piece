@@ -13,20 +13,68 @@ class Gunship extends UMO {
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
+  private boolean AutoFire;
 
-  Gunship(float x, float y) {
+  //Gunship(float x, float y) {
+  //  setRadius(unit);
+  //  position.set(x, y);
+  //  setAngle(0);
+  //  acceleration.set(unit*.025, unit*.025);
+
+  //  setLevel(1);
+  //  setShop(new Shop(this, unit, height-unit * 12));
+
+  //  getShop().update();
+  //  setHealth(getMaxHealth());
+
+  //  setBullets(new ArrayList<Bullet>());
+  //  setShootCooldown(0);
+
+  //  // make shape of gunship
+  //  umo = createShape(GROUP);
+
+  //  ellipseMode(RADIUS);
+  //  PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+  //  body.setFill(color(165, 42, 42));
+  //  rectMode(CORNER);
+  //  PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+  //  gun.setFill(color(0));
+
+  //  umo.addChild(gun);
+  //  umo.addChild(body);
+
+  //  setTimeSinceLastHit(0);
+  //}
+
+<<<<<<< Updated upstream
+=======
+  //enemy constructor
+  Gunship() {
     setRadius(unit);
-    position.set(x, y);
+    position.set(random(width), random(height));
+    while (isCollidingWithAnyUMO()) {
+      setX(random(width));
+      setY(random(height));
+    }
     setAngle(0);
-    acceleration.set(unit*.025, unit*.025);
+    acceleration.set(unit*.01, unit*.01);
 
-    setLevel(1);
-    setShop(new Shop(this, unit, height-unit * 12));
+    setLevel((int) random(14) + 1);
 
-    getShop().update();
+    shop = new Shop(this, unit, height-unit * 12);
+
+    //set stats base on level
+    shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
+    setSkillPoints(getLevel() - 1);
+
+    //randomly assign skill points here
+
+    shop.update();
     setHealth(getMaxHealth());
 
-    setBullets(new ArrayList<Bullet>());
+    bullets = new ArrayList<Bullet>();
     setShootCooldown(0);
 
     // make shape of gunship
@@ -34,7 +82,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(0, 0, 255));
     rectMode(CORNER);
     PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun.setFill(color(0));
@@ -43,8 +91,13 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
+
+    setAutoFire(true);
+
+    enemies.add(this);
   }
 
+>>>>>>> Stashed changes
   void display() {
     //rotate
     setAngle(getAngleToMouse());

@@ -1,9 +1,36 @@
 class Player extends Gunship {
   
   Player(float x, float y) {
-    super(x, y);
+    setRadius(unit);
+    //position.set(x, y);
+    setAngle(0);
+    acceleration.set(unit*.025, unit*.025);
+
+    setLevel(1);
+    setShop(new Shop(this, unit, height-unit * 12));
+
+    getShop().update();
+    setHealth(getMaxHealth());
+
+    setBullets(new ArrayList<Bullet>());
+    setShootCooldown(0);
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(165, 42, 42));
+    rectMode(CORNER);
+    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    gun.setFill(color(0));
+
+    umo.addChild(gun);
+    umo.addChild(body);
+
+    setTimeSinceLastHit(0);
   }
-  
+
   void display() {
     //rotate
     setAngle(getAngleToMouse());
@@ -30,10 +57,10 @@ class Player extends Gunship {
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
-    }  
+    }
   }
-  
-    void update() {
+
+  void update() {
     // update and display all bullets
     for (int b = 0; b < getBullets().size(); b++) {
       Bullet bullet = getBullets().get(b);
@@ -135,5 +162,4 @@ class Player extends Gunship {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
     }
   }
-  
 }

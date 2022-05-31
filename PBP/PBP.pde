@@ -104,6 +104,9 @@ void draw() {
     for (Polygon polygon : polygons) {
       polygon.display();
     }
+    for (Gunship enemy: enemies) {
+      enemy.display();
+    }
     player.display();
 
     // LOST/WON GAME SCREENS

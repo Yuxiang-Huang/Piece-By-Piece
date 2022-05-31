@@ -1,5 +1,9 @@
 class Player extends Gunship {
   
+  Player(float x, float y) {
+    super(x, y);
+  }
+  
   void display() {
     //rotate
     setAngle(getAngleToMouse());
@@ -31,14 +35,14 @@ class Player extends Gunship {
   
     void update() {
     // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = bullets.get(b);
+    for (int b = 0; b < getBullets().size(); b++) {
+      Bullet bullet = getBullets().get(b);
       bullet.update();
       bullet.display();
     }
 
     // decrement shoot cooldown by 1
-    if (shootCooldown > 0) {
+    if (getShootCooldown() > 0) {
       setShootCooldown(getShootCooldown()-1);
     }
 
@@ -48,11 +52,11 @@ class Player extends Gunship {
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
-      shop.maxHealth.base += 2;
+      getShop().maxHealth.base += 2;
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
-      shop.update(); // to update maxHealth;
-    }  
+      getShop().update(); // to update maxHealth;
+    } 
 
     heal();
 
@@ -100,14 +104,14 @@ class Player extends Gunship {
     collisionWithUMO();
 
     // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = bullets.get(b);
+    for (int b = 0; b < getBullets().size(); b++) {
+      Bullet bullet = getBullets().get(b);
       bullet.update();
       bullet.display();
     }
 
     // decrement shoot cooldown by 1
-    if (shootCooldown > 0) {
+    if (getShootCooldown() > 0) {
       setShootCooldown(getShootCooldown()-1);
     }
 

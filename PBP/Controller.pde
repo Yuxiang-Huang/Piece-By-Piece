@@ -30,44 +30,44 @@ class Controller {
 
     // Shop upgrades
     if (player.getSkillPoints() > 0) {
-      Shop shop = player.shop;
-      if (key == '1' && !player.shop.healthRegen.isMaxLevel()) {
-        player.shop.healthRegen.upgrade();
+      Shop shop = player.getShop();
+      if (key == '1' && shop.healthRegen.isMaxLevel()) {
+        shop.healthRegen.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '2' && !player.shop.maxHealth.isMaxLevel()) {
-        player.shop.maxHealth.upgrade();
+      if (key == '2' && shop.maxHealth.isMaxLevel()) {
+        shop.maxHealth.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '3' && !player.shop.bodyDamage.isMaxLevel()) {
-        player.shop.bodyDamage.upgrade();
+      if (key == '3' && !shop.bodyDamage.isMaxLevel()) {
+        shop.bodyDamage.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '4' && !player.shop.bulletSpeed.isMaxLevel()) {
-        player.shop.bulletSpeed.upgrade();
+      if (key == '4' && !shop.bulletSpeed.isMaxLevel()) {
+        shop.bulletSpeed.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '5' && !player.shop.bulletPenetration.isMaxLevel()) {
-        player.shop.bulletPenetration.upgrade();
+      if (key == '5' && !shop.bulletPenetration.isMaxLevel()) {
+        shop.bulletPenetration.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '6' && !player.shop.bulletDamage.isMaxLevel()) {
-        player.shop.bulletDamage.upgrade();
+      if (key == '6' && !shop.bulletDamage.isMaxLevel()) {
+        shop.bulletDamage.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '7' && !player.shop.reload.isMaxLevel()) {
-        player.shop.reload.upgrade();
+      if (key == '7' && !shop.reload.isMaxLevel()) {
+        shop.reload.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '8' && !player.shop.movementSpeed.isMaxLevel()) {
-        player.shop.movementSpeed.upgrade();
+      if (key == '8' && !shop.movementSpeed.isMaxLevel()) {
+        shop.movementSpeed.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }

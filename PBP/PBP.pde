@@ -1,4 +1,4 @@
-Gunship player;
+Player player;
 Controller input;
 ArrayList<Polygon> polygons;
 boolean DEBUG = false;
@@ -20,7 +20,7 @@ void setup() {
   textAlign(LEFT);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new Gunship(width/2, height/2);
+  player = new Player(width/2, height/2);
   input = new Controller();
 
   fill(0);
@@ -98,7 +98,7 @@ void draw() {
     //popMatrix();
     player.display();
     if (player.getSkillPoints() > 0) {
-      player.shop.display();
+      player.getShop().display();
     }
   } else {
     for (Polygon polygon : polygons) {

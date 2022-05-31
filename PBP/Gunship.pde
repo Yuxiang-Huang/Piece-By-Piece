@@ -21,12 +21,12 @@ class Gunship extends UMO {
     acceleration.set(unit*.025, unit*.025);
 
     setLevel(1);
-    shop = new Shop(this, unit, height-unit * 12);
+    setShop(new Shop(this, unit, height-unit * 12));
 
-    shop.update();
+    getShop().update();
     setHealth(getMaxHealth());
 
-    bullets = new ArrayList<Bullet>();
+    setBullets(new ArrayList<Bullet>());
     setShootCooldown(0);
 
     // make shape of gunship
@@ -86,14 +86,14 @@ class Gunship extends UMO {
    */
   void update() {
     // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = bullets.get(b);
+    for (int b = 0; b < getBullets().size(); b++) {
+      Bullet bullet = getBullets().get(b);
       bullet.update();
       bullet.display();
     }
 
     // decrement shoot cooldown by 1
-    if (shootCooldown > 0) {
+    if (getShootCooldown() > 0) {
       setShootCooldown(getShootCooldown()-1);
     }
 
@@ -103,10 +103,10 @@ class Gunship extends UMO {
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
-      shop.maxHealth.base += 2;
+      getShop().maxHealth.base += 2;
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
-      shop.update(); // to update maxHealth;
+      getShop().update(); // to update maxHealth;
     }  
 
     heal();
@@ -156,13 +156,13 @@ class Gunship extends UMO {
 
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = bullets.get(b);
+      Bullet bullet = getBullets().get(b);
       bullet.update();
       bullet.display();
     }
 
     // decrement shoot cooldown by 1
-    if (shootCooldown > 0) {
+    if (getShootCooldown() > 0) {
       setShootCooldown(getShootCooldown()-1);
     }
 
@@ -275,7 +275,21 @@ class Gunship extends UMO {
   }
 
   //get and set methods------------------------------------------------------------------
-
+  
+  Shop getShop() {
+    return shop;
+  }
+  void setShop(Shop shop) {
+    this.shop = shop;
+  }
+  
+  ArrayList<Bullet> getBullets() {
+    return bullets;
+  }
+  void setBullets(ArrayList<Bullet> bullets) {
+    this.bullets = bullets;
+  }
+  
   float getMaxSpeed() {
     return maxSpeed;
   }

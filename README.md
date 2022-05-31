@@ -3,6 +3,7 @@
 ### Compile & Run instructions:
 * Open and run project via processing.
 * No command line arguments needed.
+* To activate debug mode press the \` key (the one bellow the esc button)
 * **!Requirement!** Make sure to have fun!
 ---
 ### Dev Log: (MM-DD-YYYY: "LOG")
@@ -22,6 +23,8 @@
     *  (05-26-2022): "Today I worked on general code refactoring. I deleted some unecesary functions and methods, as well as changed the way we were handeling inputs to match Mr. K's  specifications, and finally converting all the polygon shapes into PShape objects to standerdize our method of displaying. I also continued to work on bullet, giving it friction. I helped Yuxiang fix a bug with the polygons not moving."
     *  (05-27-2022): "Today I implemented alot of small to medium features. I made bulets disappear if they hit the border, gave health, maxHealth, and a healthbar to Gunship and Polygon. I then made gunship and bullet collisions with polygons hurt polygons and the gunship. I then implemented Exp and Levels."
     *  (05-28-2022): "Today I mainly worked on the Shop and Stat classes. I transfered all the stats of the gunship into the two classes and included the base stat and the modifier. I also added the ability to level up, which would give you a skill point to spend on upgrading your stats. I also worked on many smaller things like making the gun scale, as well as making acceleration scale with movement speed for smoother movement."
+    *  (05-29-2022): "Today I worked on the health regen stat of the Shop but also polished up the rest of the shop and stats. I also began working on the orthographic camera but quickly realized it's going to take a much longer time and probably won't be ready for the MVP. I also changed radius of the gunship to properly scale with its level."
+    *  (05-30-2022): "Today I worked on throughly testing the game and code to make sure there werent any major bugs present that could break the game. I also found places where I could optimize some code, particularly in collisionWithUMO, where a stoppin condition could be implemented to speed up collision checks."
 ---
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
 

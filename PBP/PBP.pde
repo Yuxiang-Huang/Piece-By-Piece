@@ -79,7 +79,13 @@ void draw() {
       polygon.display();
       polygon.update();
     }
-
+    
+    for (int e = 0; e < enemies.size(); e++) {
+      Gunship enemy = enemies.get(e);
+      enemy.display();
+      enemy.update();
+    }
+    
     // display & update player last so that it always appears on top 
     // all colisions processed through player
     player.update();

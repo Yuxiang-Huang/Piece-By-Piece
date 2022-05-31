@@ -1,9 +1,10 @@
-Gunship player;
+Player player;
 Controller input;
 ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
+PVector pos = new PVector(0, 0);
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -12,11 +13,15 @@ final int WON = 2;
 private int gameState;
 
 void setup() {
-  fullScreen();
+  fullScreen(1);
   frameRate(60);
 
+  fill(0);
+  textSize(15);
+  textAlign(LEFT);
+
   unit = min(displayWidth/70, displayHeight/35);
-  player = new Gunship(width/2, height/2);
+  player = new Player(width/2, height/2);
   input = new Controller();
 
   fill(0);
@@ -55,6 +60,8 @@ void mouseClicked() {
   }
 }
 
+void mousePressed() {}
+
 void draw() {
   background(255);
 
@@ -73,6 +80,8 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
+    //pushMatrix();
+    //translate(pos.x, pos.y);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       polygon.display();
@@ -93,10 +102,10 @@ void draw() {
     } else if (player.getLevel() == 15) {
       setGameState(WON);
     }
-
+    //popMatrix();
     player.display();
     if (player.getSkillPoints() > 0) {
-      player.shop.display();
+      player.getShop().display();
     }
   } else {
     for (Polygon polygon : polygons) {

@@ -222,7 +222,11 @@ class Gunship extends UMO {
   }
 
   void die() {
-    setGameState(LOST);
+    if (enemies.contains(this)){
+      Gunship enemy = new Gunship();
+    } else{
+      setGameState(LOST);
+    }
   }
 
   /**

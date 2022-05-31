@@ -1,6 +1,7 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
+ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
 
@@ -27,7 +28,8 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
-
+  
+  enemies.add(new Gunship());
   // creating enemies
 
 

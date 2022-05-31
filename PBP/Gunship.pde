@@ -42,6 +42,36 @@ class Gunship extends UMO {
 
     setTimeSinceLastHit(0);
   }
+  
+  Gunship() {
+    setRadius(unit);
+    position.set(x, y);
+    setAngle(0);
+
+    setLevel(1);
+    shop = new Shop(this, unit, height-unit * 12);
+
+    shop.update();
+    setHealth(getMaxHealth());
+
+    bullets = new ArrayList<Bullet>();
+    setShootCooldown(0);
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(165, 42, 42));
+    rectMode(CORNER);
+    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    gun.setFill(color(0));
+
+    umo.addChild(gun);
+    umo.addChild(body);
+
+    setTimeSinceLastHit(0);
+  }
 
   void display() {
     //rotate

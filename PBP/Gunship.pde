@@ -47,14 +47,20 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    //while (isCollidingWithAnyUMO()) {
-    //  setX(random(width));
-    //  setY(random(height));
-    //}
+    while (isCollidingWithAnyUMO()) {
+      setX(random(width));
+      setY(random(height));
+    }
     setAngle(0);
 
-    setLevel(1);
+    setLevel((int) random(14) + 1);
+    
     shop = new Shop(this, unit, height-unit * 12);
+    
+    //set stats base on level
+    shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
 
     shop.update();
     setHealth(getMaxHealth());
@@ -90,7 +96,7 @@ class Gunship extends UMO {
       scale(getRadius()/unit);
       shape(umo, 0, 0);
       popMatrix();
-    } else{
+    } else {
       shape(umo, getX(), getY());
     }
     if (getHealth() != getMaxHealth()) {
@@ -104,7 +110,7 @@ class Gunship extends UMO {
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
       text("mag: "+round(velocity.mag()), getX()+unit*2, getY());
-      text("shootCooldown: "+getShootCooldown(), getX()+unit*2, player.getY()+unit);
+      text("shootCooldown: "+getShootCooldown(), getX()+unit*2, getY()+unit);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);

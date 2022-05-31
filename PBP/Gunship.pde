@@ -45,7 +45,7 @@ class Gunship extends UMO {
   
   Gunship() {
     setRadius(unit);
-    position.set(x, y);
+    position.set(random(width), random(height));
     setAngle(0);
 
     setLevel(1);
@@ -71,6 +71,8 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
+    
+    enemies.add(this);
   }
 
   void display() {

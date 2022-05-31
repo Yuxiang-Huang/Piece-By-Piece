@@ -29,9 +29,9 @@ void setup() {
     Polygon polygon = new Polygon();
   }
   
-  enemies.add(new Gunship());
   // creating enemies
-
+  enemies = new ArrayList<Gunship>();
+  Gunship now = new Gunship();
 
   setGameState(PLAYING);
 }

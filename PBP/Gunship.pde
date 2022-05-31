@@ -3,7 +3,7 @@ class Gunship extends UMO {
   private int level;
   private int skillPoints;
 
-  private int reloadSpeed; 
+  private int reloadSpeed;
   private int shootCooldown;
 
   private float angle;
@@ -12,6 +12,8 @@ class Gunship extends UMO {
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
+  
+  private boolean AutoFire;
 
   Gunship(float x, float y) {
     setRadius(unit);
@@ -43,16 +45,78 @@ class Gunship extends UMO {
     setTimeSinceLastHit(0);
   }
 
-  void display() {
-    //rotate
-    setAngle(getAngleToMouse());
-    pushMatrix();
-    translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees. 
-    scale(getRadius()/unit);
-    shape(umo, 0, 0);
-    popMatrix();
+  //enemy constructor
+  Gunship() {
+    setRadius(unit);
+    position.set(random(width), random(height));
+    while (isCollidingWithAnyUMO()) {
+      setX(random(width));
+      setY(random(height));
+    }
+    setAngle(0);
 
+    setLevel((int) random(14) + 1);
+
+    shop = new Shop(this, unit, height-unit * 12);
+
+    //set stats base on level
+    shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
+    setSkillPoints(getLevel() - 1);
+
+    //randomly assign skill points here
+
+    shop.update();
+    setHealth(getMaxHealth());
+
+    bullets = new ArrayList<Bullet>();
+    setShootCooldown(0);
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(0, 0, 255));
+    rectMode(CORNER);
+    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    gun.setFill(color(0));
+
+    umo.addChild(gun);
+    umo.addChild(body);
+
+    setTimeSinceLastHit(0);
+    
+    setAutoFire(true);
+    
+    enemies.add(this);
+  }
+
+  void display() {
+    if (! enemies.contains(this)) {
+      //rotate
+      setAngle(getAngleToMouse());
+      pushMatrix();
+      translate(getX(), getY());
+      rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+      scale(getRadius()/unit);
+      shape(umo, 0, 0);
+      popMatrix();
+    } else {
+      //rotate toward gunship
+      float angle = atan((float)(player.getY() - getY()) / (player.getX() - getX()));
+      if (angle < 0) {
+        angle = TWO_PI + angle;
+      }
+      setAngle(angle); //need help...
+      pushMatrix();
+      translate(getX(), getY());
+      rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+      scale(getRadius()/unit);
+      shape(umo, 0, 0);
+      popMatrix();
+    }
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
@@ -64,7 +128,7 @@ class Gunship extends UMO {
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
       text("mag: "+round(velocity.mag()), getX()+unit*2, getY());
-      text("shootCooldown: "+getShootCooldown(), getX()+unit*2, player.getY()+unit);
+      text("shootCooldown: "+getShootCooldown(), getX()+unit*2, getY()+unit);
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
@@ -82,6 +146,9 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void update() {
+    if (getAutoFire()){
+      autoFire();
+    }
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {
       Bullet bullet = bullets.get(b);
@@ -104,7 +171,7 @@ class Gunship extends UMO {
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       shop.update(); // to update maxHealth;
-    }  
+    }
 
     heal();
 
@@ -116,26 +183,31 @@ class Gunship extends UMO {
     if (int(getHealth()) == 0) {
       die();
     }
-    // check for what directions are being pressed
-    float xdir = 0; 
-    float ydir = 0;
-    if (input.inputs[0]) { // LEFT
-      xdir = -1;
-    } 
-    if (input.inputs[1]) { // UP
-      ydir = -1;
-    } 
-    if (input.inputs[2]) { // RIGHT
-      xdir = 1;
-    } 
-    if (input.inputs[3]) { // DOWN
-      ydir = 1;
-    } 
 
-    //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
+    if (enemies.contains(this)) {
+      botMove();
+    } else {
+      // check for what directions are being pressed
+      float xdir = 0;
+      float ydir = 0;
+      if (input.inputs[0]) { // LEFT
+        xdir = -1;
+      }
+      if (input.inputs[1]) { // UP
+        ydir = -1;
+      }
+      if (input.inputs[2]) { // RIGHT
+        xdir = 1;
+      }
+      if (input.inputs[3]) { // DOWN
+        ydir = 1;
+      }
+
+      //apply acceleration
+      velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+      if (velocity.mag() > acceleration.x * 9) {
+        velocity.setMag(acceleration.x * 9);
+      }
     }
 
     // apply velocity
@@ -150,7 +222,11 @@ class Gunship extends UMO {
   }
 
   void die() {
-    setGameState(LOST);
+    if (enemies.contains(this)){
+      Gunship enemy = new Gunship();
+    } else{
+      setGameState(LOST);
+    }
   }
 
   /**
@@ -218,7 +294,7 @@ class Gunship extends UMO {
 
   void heal() {
     if (getTimeSinceLastHit() != 0) {
-      //healing within 30 seconds 
+      //healing within 30 seconds
       if (getHealth() < getMaxHealth()) {
         setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 1800);
       }
@@ -236,6 +312,31 @@ class Gunship extends UMO {
     }
   }
 
+  void botMove() {
+    int xdir;
+    int ydir;
+    if (getX() > player.getX()){
+      xdir = -1;
+    } else{
+      xdir = 1;
+    }
+    if (getY() > player.getY()){
+      ydir = -1;
+    } else{
+      ydir = 1;
+    }
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    if (velocity.mag() > acceleration.x * 9) {
+      velocity.setMag(acceleration.x * 9);
+    }
+  }
+  
+  void autoFire(){
+    if (canShoot()){
+      shoot();
+    }
+  }
+  
   //get and set methods------------------------------------------------------------------
 
   int getExpRequiredForNextLevel() {
@@ -296,5 +397,12 @@ class Gunship extends UMO {
   }
   void setHeal10percent(float heal10percent) {
     this.heal10percent = heal10percent;
+  }
+  
+  boolean getAutoFire(){
+    return AutoFire;
+  }
+  void setAutoFire(boolean AutoFire){
+    this.AutoFire = AutoFire;
   }
 }

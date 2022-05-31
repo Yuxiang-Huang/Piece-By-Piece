@@ -1,6 +1,7 @@
 Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
+ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
 
@@ -22,14 +23,14 @@ void setup() {
   textSize(unit*3.0/4);
   textAlign(LEFT);
 
-  // creating polygons
+  // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
+  enemies = new ArrayList<Gunship>();
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
-
-  // creating enemies
-
+  
+  Gunship now = new Gunship();
 
   setGameState(PLAYING);
 }
@@ -77,7 +78,13 @@ void draw() {
       polygon.display();
       polygon.update();
     }
-
+    
+    for (int e = 0; e < enemies.size(); e++) {
+      Gunship enemy = enemies.get(e);
+      enemy.display();
+      enemy.update();
+    }
+    
     // display & update player last so that it always appears on top 
     // all colisions processed through player
     player.update();

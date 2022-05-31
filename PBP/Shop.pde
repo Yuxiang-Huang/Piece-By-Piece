@@ -10,7 +10,7 @@ class Shop implements Processable {
   Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
   Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
   Stat reload = new Stat("Reload", 0, 36, -3); //-2.4 for wiki
-  Stat movementSpeed = new Stat("Movement Speed", 0, 0.05 * unit / 2, 0.07*0.05*unit / 2); //confirmed from website
+  Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //confirmed from website
 
   Shop(Gunship gunship, float x, float y) {
     this.gunship = gunship;
@@ -39,8 +39,8 @@ class Shop implements Processable {
     gunship.setHealth(percentHealth * gunship.getMaxHealth());
     gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
-    float a = movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel();
-    gunship.acceleration = new PVector(a, a);
+    gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
+    //gunship.acceleration = new PVector(a, a);
   }
 
   class Stat {

@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>//
+class Bullet extends UMO { //<>// //<>// //<>//
   Gunship gunship;
   private int timeTillDeath;
   private final float frictionForBullet = .98;
@@ -12,6 +12,7 @@ class Bullet extends UMO { //<>//
     velocity = PVector.fromAngle(gunship.getAngle());
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
+
     float m1 = pow(getRadius(), 3);
     float m2 = pow(gunship.getRadius(), 3);
 
@@ -21,7 +22,7 @@ class Bullet extends UMO { //<>//
     setTimeTillDeath(120); //confirmed from wiki
     setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
     setHealth(getMaxHealth()); //bullet penetration
-    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))); //<>//
+    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())));
   }
 
   void display() {
@@ -84,8 +85,29 @@ class Bullet extends UMO { //<>//
         return;
       }
     }
-  }
 
+    //ship bullet collision
+    if (enemies.contains(gunship)) {
+      if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
+        < getRadius() + player.getRadius()) {
+        setHealth(getHealth() - player.getCollisionDamage());
+        player.setHealth(player.getHealth() - getCollisionDamage());
+      }
+    } else {
+      for (Gunship enemy : enemies) {
+        if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
+          < getRadius() + enemy.getRadius()) {
+          if (enemy.getHealth() >  enemy.getCollisionDamage()) {
+            setHealth(getHealth() - enemy.getCollisionDamage());
+          } else {
+            setHealth(getHealth() - enemy.getHealth());
+          }
+          enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+          return;
+        }
+      }
+    }
+  }
   //get and set methods------------------------------------------------------------------
 
   int getTimeTillDeath() {

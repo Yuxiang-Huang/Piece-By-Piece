@@ -13,6 +13,9 @@ class Controller {
     if (key == '`') {
       DEBUG = !DEBUG;
     }
+    if (key == 'e') {
+      player.setAutoFire(!player.getAutoFire());
+    }
 
     // Movement controls
     if (key == 'a' || keyCode == LEFT) {

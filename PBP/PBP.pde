@@ -4,7 +4,8 @@ ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
-PVector pos = new PVector(0, 0);
+
+float newMouseX, newMouseY;
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -65,6 +66,8 @@ void mousePressed() {
 
 void draw() {
   background(255);
+  // to center player
+  translate(width/2 - player.getX(), height/2 - player.getY());
 
   if (DEBUG) {
     text(frameRate, unit, unit);

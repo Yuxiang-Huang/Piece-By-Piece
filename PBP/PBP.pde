@@ -70,11 +70,12 @@ void mousePressed() {
 
 void draw() {
   background(255);
-  // to center player
+  
+  // to center camera on player
   translate(width/2 - player.getX(), height/2 - player.getY());
+  // fix mouse coordinates to be absolute rather than relative
   newMouseX = (player.getX() - width/2) + mouseX;
   newMouseY = (player.getY() - height/2) + mouseY;
-  println(newMouseX, newMouseY);
 
   if (DEBUG) {
     text(frameRate, unit, unit);

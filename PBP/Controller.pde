@@ -10,9 +10,12 @@ class Controller {
   }
 
   void press(int code) {
+    // Game info
     if (key == '`') {
       DEBUG = !DEBUG;
     }
+    
+    // Gun controls
     if (key == 'e') {
       player.setAutoFire(!player.getAutoFire());
     }

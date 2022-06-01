@@ -81,8 +81,6 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
-    //pushMatrix();
-    //translate(pos.x, pos.y);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       polygon.display();
@@ -99,7 +97,6 @@ void draw() {
     // all colisions processed through player
     player.playerUpdate();
     player.playerDisplay();
-
 
     if (player.getSkillPoints() > 0) {
       player.getShop().display();

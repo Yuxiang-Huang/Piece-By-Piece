@@ -52,7 +52,7 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.2) {
+    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) {
       setX(random(width));
       setY(random(height));
     }
@@ -438,7 +438,7 @@ class Gunship extends UMO {
   }
 
   float getAngleToMouse() {
-    float angle = atan2(newMouseY-getY(), newMouseX-getX());
+    float angle = atan2(getMouseY()-getY(), getMouseX()-getX());
     if (angle < 0) {
       angle = TWO_PI + angle;
     }

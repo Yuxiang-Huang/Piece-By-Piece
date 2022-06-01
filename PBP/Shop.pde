@@ -18,7 +18,7 @@ class Shop implements Processable {
   }
 
   void display() {
-    position.set(player.getX()-(width/2)+unit, player.getY()+(height/2)-(unit*2));
+    position.set(player.getX()-(displayWidth/2)+unit, player.getY()+(displayHeight/2)-(unit*2));
     healthRegen.display(0);
     maxHealth.display(1);
     bodyDamage.display(2);

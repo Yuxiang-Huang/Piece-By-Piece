@@ -5,8 +5,8 @@ ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
 
-float newMouseX;
-float newMouseY;
+private float newMouseX;
+private float newMouseY;
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -24,8 +24,11 @@ void setup() {
   textSize(15);
   textAlign(LEFT);
 
-  newMouseX = 0;
-  newMouseY = 0;
+  setMouseX(0);
+  setMouseY(0);
+  
+  width = 3000;
+  height = 3000;
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -72,12 +75,12 @@ void mousePressed() {
 
 void draw() {
   background(255);
-  
+
   // to center camera on player
-  translate(width/2 - player.getX(), height/2 - player.getY());
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
   // fix mouse coordinates to be absolute rather than relative
-  newMouseX = (player.getX() - width/2) + mouseX;
-  newMouseY = (player.getY() - height/2) + mouseY;
+  setMouseX((player.getX() - displayWidth/2) + mouseX);
+  setMouseY((player.getY() - displayHeight/2) + mouseY);
 
   if (DEBUG) {
     text(frameRate, unit, unit);
@@ -126,7 +129,7 @@ void draw() {
     // LOST/WON GAME SCREENS
 
     fill(128, 128, 128, 200);
-    rect(player.getX()-(width/2), player.getY()-(height/2), width, height); 
+    rect(player.getX()-(displayWidth/2), player.getY()-(displayHeight/2), displayWidth, displayHeight); 
     fill(0);
     textSize(unit * 10);
     textAlign(CENTER);
@@ -137,7 +140,7 @@ void draw() {
       message = "YOU WON :)";
     }
     text(message, player.getX(), player.getY());
-    
+
     // reset text
     fill(0);
     textSize(unit*3.0/4);
@@ -152,4 +155,11 @@ int getGameState() {
 }
 void setGameState(int gameState) {
   this.gameState = gameState;
+}
+
+void setMouseX(float newMouseX) {
+  this.newMouseX = newMouseX;
+}
+void setMouseY(float newMouseY) {
+  this.newMouseY = newMouseY;
 }

@@ -22,8 +22,8 @@ void setup() {
   textSize(15);
   textAlign(LEFT);
 
-  newMouseX = mouseX;// + (width/2 - getX());
-  newMouseY = mouseY;// + (height/2 - getY());
+  newMouseX = 0;// + (width/2 - getX());
+  newMouseY = 0;
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -72,7 +72,9 @@ void draw() {
   background(255);
   // to center player
   translate(width/2 - player.getX(), height/2 - player.getY());
-
+  newMouseX = (player.getX() - width/2) + mouseX;
+  newMouseY = (player.getY() - height/2) + mouseY;
+  println(newMouseX, newMouseY);
 
   if (DEBUG) {
     text(frameRate, unit, unit);

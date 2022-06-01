@@ -397,7 +397,7 @@ class Gunship extends UMO {
   }
 
   float getAngleToMouse() {
-    float angle = atan2(mouseY-getY(), mouseX-getX());
+    float angle = atan2(newMouseY-getY(), newMouseX-getX());
     if (angle < 0) {
       angle = TWO_PI + angle;
     }

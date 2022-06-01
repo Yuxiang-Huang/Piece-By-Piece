@@ -14,6 +14,8 @@ final int WON = 2;
 
 private int gameState;
 
+int timeSinceEnemySpawn;
+
 void setup() {
   fullScreen(1);
   frameRate(60);

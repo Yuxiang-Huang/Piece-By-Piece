@@ -5,7 +5,8 @@ ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
 
-float newMouseX, newMouseY;
+float newMouseX;
+float newMouseY;
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -20,6 +21,9 @@ void setup() {
   fill(0);
   textSize(15);
   textAlign(LEFT);
+
+  newMouseX = mouseX;// + (width/2 - getX());
+  newMouseY = mouseY;// + (height/2 - getY());
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -68,6 +72,7 @@ void draw() {
   background(255);
   // to center player
   translate(width/2 - player.getX(), height/2 - player.getY());
+
 
   if (DEBUG) {
     text(frameRate, unit, unit);

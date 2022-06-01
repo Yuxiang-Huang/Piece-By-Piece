@@ -23,7 +23,7 @@ class Gunship extends UMO {
     acceleration.set(unit*.025, unit*.025);
 
     setLevel(1);
-    setShop(new Shop(this, unit, height-unit * 12));
+    setShop(new Shop(this));
 
     getShop().update();
     setHealth(getMaxHealth());
@@ -61,7 +61,7 @@ class Gunship extends UMO {
 
     setLevel((int) random(14) + 1);
 
-    shop = new Shop(this, unit, height-unit * 12);
+    shop = new Shop(this);
 
     //set stats base on level
     shop.maxHealth.base = 50 + 2 * (getLevel() - 1);

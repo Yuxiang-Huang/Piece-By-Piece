@@ -12,9 +12,9 @@ class Shop implements Processable {
   Stat reload = new Stat("Reload", 0, 60, -3); //-2.4 for wiki
   Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //confirmed from website
 
-  Shop(Gunship gunship, float x, float y) {
+  Shop(Gunship gunship) {
     this.gunship = gunship;
-    position = new PVector(x, y);
+    position.set(gunship.getX()-(width/2)+unit, gunship.getY()+(height/2)-unit);
   }
 
   void display() {
@@ -41,6 +41,10 @@ class Shop implements Processable {
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
   }
+  
+  void updatePosition() {
+    position.set(gunship.getX()-(width/2)+unit, gunship.getY()+(height/2)-unit);
+  }
 
   class Stat {
     private String statName;
@@ -60,12 +64,13 @@ class Shop implements Processable {
       text("skill Points: " + gunship.getSkillPoints(), unit, height - unit*13);
       rectMode(CORNER);
       fill(200, 200, 200, 200);
-      rect(position.x, position.y+unit*3.0/2*i, unit*10, unit, unit/4);
+       //unit, height-unit * 12
+      rect(getX(), gunship.getY()+(height/2)-(unit*(3.0/2)*i), unit*10, unit, unit/4);
       fill(color(0, 255, 0));
-      rect(position.x, position.y+unit*3.0/2*i, unit*10*(float(getLevel())/maxLevel), unit, unit/4);
+      rect(getX(), gunship.getY()+(height/2)-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
       fill(0);
       text(getStatName(), position.x + unit/2, position.y+unit*3.0/2*i + unit*3/4);
-      text("["+(i+1)+"]", position.x+unit*10-unit, position.y+unit*3.0/4+(unit*3.0/2*i));
+      //text("["+(i+1)+"]", position.x+unit*10-unit, position.y+unit*3.0/4+(unit*3.0/2*i));
     }
 
     /**
@@ -76,6 +81,13 @@ class Shop implements Processable {
     }
 
     //get and set methods------------------------------------------------------------------
+
+    float getX() {
+      return position.x;
+    }
+    float getY() {
+      return position.y;
+    }
 
     int getLevel() {
       return level;

@@ -40,13 +40,17 @@ void setup() {
 
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
-  enemies = new ArrayList<Gunship>();
-  for (int i = 0; i < 10; i++) {
+  enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
+  for (int i = 0; i < 100; i++) {
     Polygon polygon = new Polygon();
+    polygons.add(polygon);
   }
-
-  Gunship now = new Gunship();
-
+  
+  for (int i = 0; i < 10; i++) {
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
+  } 
+  
   setGameState(PLAYING);
 }
 

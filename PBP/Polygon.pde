@@ -65,8 +65,6 @@ class Polygon extends UMO {
       setX(random(width));
       setY(random(height));
     }
-
-    polygons.add(this);
   }
 
   void display() {

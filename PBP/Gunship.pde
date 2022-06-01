@@ -52,7 +52,7 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO()) {
+    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.2) {
       setX(random(width));
       setY(random(height));
     }
@@ -63,13 +63,13 @@ class Gunship extends UMO {
 
     shop = new Shop(this);
 
-    //set stats base on level
+    // set stats base on level
     shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
-    //randomly assign skill points here
+    // TODO: randomly assign skill points here
 
     shop.update();
     setHealth(getMaxHealth());
@@ -93,8 +93,6 @@ class Gunship extends UMO {
     setTimeSinceLastHit(0);
 
     setAutoFire(true);
-
-    enemies.add(this);
   }
 
   void playerDisplay() {

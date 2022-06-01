@@ -64,7 +64,7 @@ class Gunship extends UMO {
     shop = new Shop(this);
 
     // set stats base on level
-    shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -362,8 +362,9 @@ class Gunship extends UMO {
   }  
 
   void enemyDie() {
-    Gunship enemy = new Gunship();
     enemies.remove(this);
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
   }
 
   /**

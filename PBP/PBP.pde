@@ -1,4 +1,4 @@
-Player player;
+Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
@@ -21,7 +21,7 @@ void setup() {
   textAlign(LEFT);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new Player(width/2, height/2);
+  player = new Gunship(width/2, height/2);
   input = new Controller();
 
   fill(0);
@@ -34,7 +34,7 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
-  
+
   Gunship now = new Gunship();
 
   setGameState(PLAYING);
@@ -60,7 +60,8 @@ void mouseClicked() {
   }
 }
 
-void mousePressed() {}
+void mousePressed() {
+}
 
 void draw() {
   background(255);
@@ -87,23 +88,24 @@ void draw() {
       polygon.display();
       polygon.update();
     }
-    
+
     for (int e = 0; e < enemies.size(); e++) {
       Gunship enemy = enemies.get(e);
-      enemy.display();
-      enemy.update();
+      enemy.enemyDisplay();
+      enemy.enemyUpdate();
     }
-    
+
     // display & update player last so that it always appears on top 
     // all colisions processed through player
-    player.update();
+    player.playerUpdate();
+    player.playerDisplay();
     if (player.getHealth() == 0) {
       setGameState(LOST);
     } else if (player.getLevel() == 15) {
       setGameState(WON);
     }
     //popMatrix();
-    player.display();
+
     if (player.getSkillPoints() > 0) {
       player.getShop().display();
     }
@@ -111,10 +113,10 @@ void draw() {
     for (Polygon polygon : polygons) {
       polygon.display();
     }
-    for (Gunship enemy: enemies) {
-      enemy.display();
+    for (Gunship enemy : enemies) {
+      enemy.enemyDisplay();
     }
-    player.display();
+    player.playerDisplay();
 
     // LOST/WON GAME SCREENS
 

@@ -359,6 +359,7 @@ class Gunship extends UMO {
 
   void die() {
     if (enemies.contains(this)) {
+      enemies.remove(this);
       Gunship enemy = new Gunship();
     } else {
       setGameState(LOST);
@@ -392,6 +393,45 @@ class Gunship extends UMO {
         //for health regen after 30 sec
         setTimeSinceLastHit(1800);
         return;
+      }
+    }
+
+    if (enemies.contains(this)) {
+      if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
+        < getRadius() + player.getRadius()) {
+        float m1 = pow(getRadius(), 3);
+        float m2 = pow(player.getRadius(), 3);
+        float dxHolder = (2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
+        setDX((2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+        setDY((2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        player.velocity.set(dxHolder, dyHolder);
+
+        setHealth(getHealth() - player.getCollisionDamage());
+        player.setHealth(player.getHealth() - getCollisionDamage());
+      }
+    } else {
+      for (Gunship enemy : enemies) {
+        if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
+          < getRadius() + enemy.getRadius()) {
+          float m1 = pow(getRadius(), 3);
+          float m2 = pow(enemy.getRadius(), 3);
+          float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
+          float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
+          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+          enemy.velocity.set(dxHolder, dyHolder);
+
+          setHealth(getHealth() - player.getCollisionDamage());
+          player.setHealth(player.getHealth() - getCollisionDamage());
+          if (enemy.getHealth() >  enemy.getCollisionDamage()) {
+            setHealth(getHealth() - enemy.getCollisionDamage());
+          } else {
+            setHealth(getHealth() - enemy.getHealth());
+          }
+          enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+          return;
+        }
       }
     }
   }

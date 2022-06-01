@@ -264,12 +264,18 @@ class Gunship extends UMO {
       setRadius(getRadius() * 1.07); //not confirmed
     }  
 
+    if (getTimeSinceLastHit() > 0) {
+      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    }
+
     if (int(getHealth()) == 0) {
       die();
     }
 
-    if (getTimeSinceLastHit() > 0) {
-      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    if (player.getHealth() == 0) {
+      setGameState(LOST);
+    } else if (player.getLevel() == 15) {
+      setGameState(WON);
     }
   }
 
@@ -302,7 +308,7 @@ class Gunship extends UMO {
     }   
 
     heal();
-    
+
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
     }

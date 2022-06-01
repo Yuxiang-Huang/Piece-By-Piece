@@ -99,12 +99,7 @@ void draw() {
     // all colisions processed through player
     player.playerUpdate();
     player.playerDisplay();
-    if (player.getHealth() == 0) {
-      setGameState(LOST);
-    } else if (player.getLevel() == 15) {
-      setGameState(WON);
-    }
-    //popMatrix();
+
 
     if (player.getSkillPoints() > 0) {
       player.getShop().display();
@@ -135,6 +130,8 @@ void draw() {
     textAlign(LEFT);
   }
 }
+
+// get and set methods------------------------------------------------------------------
 
 int getGameState() {
   return gameState;

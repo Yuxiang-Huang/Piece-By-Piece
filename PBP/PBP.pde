@@ -4,7 +4,9 @@ ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
-PVector pos = new PVector(0, 0);
+
+float newMouseX;
+float newMouseY;
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -21,6 +23,9 @@ void setup() {
   fill(0);
   textSize(15);
   textAlign(LEFT);
+
+  newMouseX = 0;// + (width/2 - getX());
+  newMouseY = 0;
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -67,6 +72,12 @@ void mousePressed() {
 
 void draw() {
   background(255);
+  
+  // to center camera on player
+  translate(width/2 - player.getX(), height/2 - player.getY());
+  // fix mouse coordinates to be absolute rather than relative
+  newMouseX = (player.getX() - width/2) + mouseX;
+  newMouseY = (player.getY() - height/2) + mouseY;
 
   if (DEBUG) {
     text(frameRate, unit, unit);
@@ -89,11 +100,11 @@ void draw() {
       polygon.update();
     }
 
-    for (int e = 0; e < enemies.size(); e++) {
-      Gunship enemy = enemies.get(e);
-      enemy.enemyDisplay();
-      enemy.enemyUpdate();
-    }
+    //for (int e = 0; e < enemies.size(); e++) {
+    //  Gunship enemy = enemies.get(e);
+    //  enemy.enemyDisplay();
+    //  enemy.enemyUpdate();
+    //}
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player

@@ -12,12 +12,13 @@ class Shop implements Processable {
   Stat reload = new Stat("Reload", 0, 60, -3); //-2.4 for wiki
   Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //confirmed from website
 
-  Shop(Gunship gunship, float x, float y) {
+  Shop(Gunship gunship) {
     this.gunship = gunship;
-    position = new PVector(x, y);
+    position = new PVector(0,0);
   }
 
   void display() {
+    position.set(player.getX()-(width/2)+unit, player.getY()+(height/2)-(unit*2));
     healthRegen.display(0);
     maxHealth.display(1);
     bodyDamage.display(2);
@@ -41,6 +42,10 @@ class Shop implements Processable {
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
   }
+  
+  void updatePosition() {
+    
+  }
 
   class Stat {
     private String statName;
@@ -57,15 +62,16 @@ class Shop implements Processable {
     }
 
     void display(int i) {
-      text("skill Points: " + gunship.getSkillPoints(), unit, height - unit*13);
+      i = 7 - i;
+      text("skill Points: " + gunship.getSkillPoints(), getX(), getY()-(unit*(3.0/2))*7.5);
       rectMode(CORNER);
-      fill(200, 200, 200, 200);
-      rect(position.x, position.y+unit*3.0/2*i, unit*10, unit, unit/4);
-      fill(color(0, 255, 0));
-      rect(position.x, position.y+unit*3.0/2*i, unit*10*(float(getLevel())/maxLevel), unit, unit/4);
+      fill(200, 200, 200, 200); // Translucent Light Grey
+      rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
+      fill(color(0, 255, 0)); // GREEN
+      rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
       fill(0);
-      text(getStatName(), position.x + unit/2, position.y+unit*3.0/2*i + unit*3/4);
-      text("["+(i+1)+"]", position.x+unit*10-unit, position.y+unit*3.0/4+(unit*3.0/2*i));
+      text(getStatName(), getX()+(unit/10), getY()-((unit*(3.0/2))*i) + unit*3/4);
+      text("["+(8-i)+"]",getX()+(unit*10)-unit, getY()-((unit*(3.0/2))*i) + (unit*.7));
     }
 
     /**
@@ -76,6 +82,13 @@ class Shop implements Processable {
     }
 
     //get and set methods------------------------------------------------------------------
+
+    float getX() {
+      return position.x;
+    }
+    float getY() {
+      return position.y;
+    }
 
     int getLevel() {
       return level;

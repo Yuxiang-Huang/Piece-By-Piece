@@ -23,7 +23,7 @@ class Gunship extends UMO {
     acceleration.set(unit*.025, unit*.025);
 
     setLevel(1);
-    setShop(new Shop(this, unit, height-unit * 12));
+    setShop(new Shop(this));
 
     getShop().update();
     setHealth(getMaxHealth());
@@ -61,7 +61,7 @@ class Gunship extends UMO {
 
     setLevel((int) random(14) + 1);
 
-    shop = new Shop(this, unit, height-unit * 12);
+    shop = new Shop(this);
 
     //set stats base on level
     shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
@@ -101,6 +101,7 @@ class Gunship extends UMO {
     //rotate
     setAngle(getAngleToMouse());
     pushMatrix();
+    //translate(width/2, height/2);
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
@@ -229,7 +230,6 @@ class Gunship extends UMO {
 
     // apply velocity
     position.add(velocity);
-    //pos.add(new PVector(-velocity.x, -velocity.y));
 
     // apply friction
     if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
@@ -364,7 +364,7 @@ class Gunship extends UMO {
     } else {
       setGameState(LOST);
     }
-  }
+  }  
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it
@@ -437,7 +437,7 @@ class Gunship extends UMO {
   }
 
   float getAngleToMouse() {
-    float angle = atan2(mouseY-getY(), mouseX-getX());
+    float angle = atan2(newMouseY-getY(), newMouseX-getX());
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
@@ -456,14 +456,14 @@ class Gunship extends UMO {
   void displayExpBar() {
     rectMode(CORNER);
     fill(200, 200, 200, 230); // black for needed Exp
-    rect(width / 2 - 7 * unit, height - 2*unit, 15*unit, unit); //confirmed from playing
+    rect(getX() - 7*unit, getY() + height/2 - 2*unit, 15*unit, unit); //confirmed from playing
     fill(color(255, 255, 0)); // yellow for gained Exp
-    rect(width / 2 - 7 * unit, height - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
+    rect(getX() - 7*unit, getY() + height/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
     fill(255);
     textAlign(CENTER);
     textSize(unit);
     fill(0);
-    text("Lvl " + getLevel(), width / 2, height - unit*1.1);
+    text("Lvl " + getLevel(), getX(), getY() + height/2 - 1.1*unit);
     textAlign(LEFT);
     textSize(unit*3.0/4);
   }

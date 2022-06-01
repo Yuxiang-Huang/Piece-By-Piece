@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>// //<>// //<>//
+class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
   private final float frictionForBullet = .98;
@@ -15,7 +15,7 @@ class Bullet extends UMO { //<>// //<>// //<>//
 
     float m1 = pow(getRadius(), 3);
     float m2 = pow(gunship.getRadius(), 3);
-
+ //<>//
     float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2); //<>//
     float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
     gunship.velocity.add(new PVector(dxHolder, dyHolder));
@@ -35,6 +35,7 @@ class Bullet extends UMO { //<>// //<>// //<>//
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit, getY());
     }
   }
+
   /**
    Updates the timeTillDeath timer.
    If timer is at 0 or currently colliding with the border, then die.
@@ -54,7 +55,6 @@ class Bullet extends UMO { //<>// //<>// //<>//
   /**
    Removes the bullet from its gunship's list of bullets
    */
-
   void die() {
     gunship.bullets.remove(this);
   }
@@ -108,6 +108,7 @@ class Bullet extends UMO { //<>// //<>// //<>//
       }
     }
   }
+
   //get and set methods------------------------------------------------------------------
 
   int getTimeTillDeath() {

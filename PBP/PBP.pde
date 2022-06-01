@@ -4,6 +4,7 @@ ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
+PVector pos = new PVector(0, 0);
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -12,8 +13,12 @@ final int WON = 2;
 private int gameState;
 
 void setup() {
-  fullScreen();
+  fullScreen(1);
   frameRate(60);
+
+  fill(0);
+  textSize(15);
+  textAlign(LEFT);
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -29,7 +34,7 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
-  
+
   Gunship now = new Gunship();
 
   setGameState(PLAYING);
@@ -55,6 +60,9 @@ void mouseClicked() {
   }
 }
 
+void mousePressed() {
+}
+
 void draw() {
   background(255);
 
@@ -78,31 +86,29 @@ void draw() {
       polygon.display();
       polygon.update();
     }
-    
+
     for (int e = 0; e < enemies.size(); e++) {
       Gunship enemy = enemies.get(e);
-      enemy.display();
-      enemy.update();
-    }
-    
-    // display & update player last so that it always appears on top 
-    // all colisions processed through player
-    player.update();
-    if (player.getHealth() == 0) {
-      setGameState(LOST);
-    } else if (player.getLevel() == 15) {
-      setGameState(WON);
+      enemy.enemyDisplay();
+      enemy.enemyUpdate();
     }
 
-    player.display();
+    // display & update player last so that it always appears on top 
+    // all colisions processed through player
+    player.playerUpdate();
+    player.playerDisplay();
+
     if (player.getSkillPoints() > 0) {
-      player.shop.display();
+      player.getShop().display();
     }
   } else {
     for (Polygon polygon : polygons) {
       polygon.display();
     }
-    player.display();
+    for (Gunship enemy : enemies) {
+      enemy.enemyDisplay();
+    }
+    player.playerDisplay();
 
     // LOST/WON GAME SCREENS
 
@@ -121,6 +127,8 @@ void draw() {
     textAlign(LEFT);
   }
 }
+
+// get and set methods------------------------------------------------------------------
 
 int getGameState() {
   return gameState;

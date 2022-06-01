@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>// //<>//
+class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
   private final float frictionForBullet = .98;
@@ -12,10 +12,11 @@ class Bullet extends UMO { //<>// //<>//
     velocity = PVector.fromAngle(gunship.getAngle());
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
-    //apply opposite force to gunship
-    float m1 = getRadius()*getRadius()*getRadius();
-    float m2 = gunship.getRadius()*gunship.getRadius()*gunship.getRadius();
-    float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2);
+
+    float m1 = pow(getRadius(), 3);
+    float m2 = pow(gunship.getRadius(), 3);
+ //<>//
+    float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2); //<>//
     float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
     gunship.velocity.add(new PVector(dxHolder, dyHolder));
     setTimeTillDeath(120); //confirmed from wiki
@@ -49,7 +50,7 @@ class Bullet extends UMO { //<>// //<>//
     }
     collisionWithUMO();
     super.update();
-  }
+  } 
 
   /**
    Removes the bullet from its gunship's list of bullets
@@ -68,8 +69,8 @@ class Bullet extends UMO { //<>// //<>//
       if (isCollidingWithPolygon(polygon)) {
 
         //trust physics
-        float m1 = getRadius()*getRadius()*getRadius();
-        float m2 = polygon.getRadius()*polygon.getRadius()*polygon.getRadius();
+        float m1 = pow(getRadius(), 3);
+        float m2 = pow(polygon.getRadius(), 3);
 
         float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX() ) / (float)(m1 + m2);
         float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY() ) / (float)(m1 + m2);
@@ -107,6 +108,7 @@ class Bullet extends UMO { //<>// //<>//
       }
     }
   }
+
   //get and set methods------------------------------------------------------------------
 
   int getTimeTillDeath() {

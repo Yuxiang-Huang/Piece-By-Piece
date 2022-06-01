@@ -269,7 +269,7 @@ class Gunship extends UMO {
     }
 
     if (int(getHealth()) == 0) {
-      die();
+      playerDie();
     }
 
     if (player.getHealth() == 0) {
@@ -315,7 +315,7 @@ class Gunship extends UMO {
 
     //should be in UMO.update
     if (int(getHealth()) == 0) {
-      die();
+      enemyDie();
     }
 
     int xdir;
@@ -356,15 +356,17 @@ class Gunship extends UMO {
       setShootCooldown(getShootCooldown()-1);
     }
   }
+  void die() {} // need to have becuase Gunship extends UMO
 
-  void die() {
-    if (enemies.contains(this)) {
-      enemies.remove(this);
-      Gunship enemy = new Gunship();
-    } else {
-      setGameState(LOST);
-    }
+
+  void playerDie() {
+    setGameState(LOST);
   }  
+
+  void enemyDie() {
+    Gunship enemy = new Gunship();
+    enemies.remove(this);
+  }
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it

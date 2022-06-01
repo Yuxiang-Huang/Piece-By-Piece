@@ -24,7 +24,7 @@ void setup() {
   textSize(15);
   textAlign(LEFT);
 
-  newMouseX = 0;// + (width/2 - getX());
+  newMouseX = 0;
   newMouseY = 0;
 
   unit = min(displayWidth/70, displayHeight/35);
@@ -100,11 +100,11 @@ void draw() {
       polygon.update();
     }
 
-    //for (int e = 0; e < enemies.size(); e++) {
-    //  Gunship enemy = enemies.get(e);
-    //  enemy.enemyDisplay();
-    //  enemy.enemyUpdate();
-    //}
+    for (int e = 0; e < enemies.size(); e++) {
+      Gunship enemy = enemies.get(e);
+      enemy.enemyDisplay();
+      enemy.enemyUpdate();
+    }
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
@@ -126,15 +126,19 @@ void draw() {
     // LOST/WON GAME SCREENS
 
     fill(128, 128, 128, 200);
-    rect(0, 0, width, height); 
+    rect(player.getX()-(width/2), player.getY()-(height/2), width, height); 
     fill(0);
     textSize(unit * 10);
     textAlign(CENTER);
+    String message = "";
     if (getGameState() == LOST) {
-      text("YOU LOST :(", width/2, height/2);
+      message = "YOU LOST :(";
     } else if (getGameState() == WON) {
-      text("YOU WON :)", width/2, height/2);
+      message = "YOU WON :)";
     }
+    text(message, player.getX(), player.getY());
+    
+    // reset text
     fill(0);
     textSize(unit*3.0/4);
     textAlign(LEFT);

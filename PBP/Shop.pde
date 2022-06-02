@@ -10,8 +10,8 @@ class Shop implements Processable {
   Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/3, (int) unit/14); 
   Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
   Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
-  Stat reload = new Stat("Reload", 0, 36, -2); //-2.4 for wiki
-  Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //confirmed from website
+  Stat reload = new Stat("Reload", 0, 36, -2.4); //confirmed from wiki
+  Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //Daniel made it up when I confirmed with the website
 
   Shop(Gunship gunship) {
     this.gunship = gunship;

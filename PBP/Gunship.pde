@@ -5,7 +5,7 @@ class Gunship extends UMO {
   private int skillPoints;
 
   private int reloadSpeed;
-  private int shootCooldown;
+  private float shootCooldown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
@@ -289,7 +289,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     if (getAutoFire()) {
-      autoFire();
+      //autoFire();
     }
     // update and display all bullets
     for (int b = 0; b < getBullets().size(); b++) {
@@ -546,10 +546,10 @@ class Gunship extends UMO {
     this.reloadSpeed = reloadSpeed;
   }
 
-  int getShootCooldown() {
+  float getShootCooldown() {
     return shootCooldown;
   }
-  void setShootCooldown(int shootCooldown) {
+  void setShootCooldown(float shootCooldown) {
     this.shootCooldown = shootCooldown;
   }
 

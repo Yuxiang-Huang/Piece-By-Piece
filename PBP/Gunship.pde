@@ -52,7 +52,7 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.2) {
+    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) {
       setX(random(width));
       setY(random(height));
     }
@@ -64,7 +64,7 @@ class Gunship extends UMO {
     shop = new Shop(this);
 
     // set stats base on level
-    shop.maxHealth.base = 50 + 2 * (getLevel() - 1);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -362,8 +362,9 @@ class Gunship extends UMO {
   }  
 
   void enemyDie() {
-    Gunship enemy = new Gunship();
     enemies.remove(this);
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
   }
 
   /**
@@ -437,7 +438,7 @@ class Gunship extends UMO {
   }
 
   float getAngleToMouse() {
-    float angle = atan2(newMouseY-getY(), newMouseX-getX());
+    float angle = atan2(getMouseY()-getY(), getMouseX()-getX());
     if (angle < 0) {
       angle = TWO_PI + angle;
     }

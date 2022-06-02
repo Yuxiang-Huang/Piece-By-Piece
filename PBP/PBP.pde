@@ -5,8 +5,8 @@ ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
 
-private float newMouseX;
-private float newMouseY;
+private float MouseX;
+private float MouseY;
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -24,11 +24,10 @@ void setup() {
   textSize(15);
   textAlign(LEFT);
 
-  setMouseX(0);
-  setMouseY(0);
-  
   width = 3000;
   height = 3000;
+  setMouseX(0);
+  setMouseY(0);
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
@@ -45,12 +44,12 @@ void setup() {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
-  
+
   for (int i = 0; i < 10; i++) {
     Gunship enemy = new Gunship();
     enemies.add(enemy);
   } 
-  
+
   setGameState(PLAYING);
 }
 
@@ -78,7 +77,7 @@ void mousePressed() {
 }
 
 void draw() {
-  background(255);
+  background(200,200,200,200);
 
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
@@ -86,11 +85,12 @@ void draw() {
   setMouseX((player.getX() - displayWidth/2) + mouseX);
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
-  if (DEBUG) {
-    text(frameRate, unit, unit);
-  }
+  // draw border
+  fill(255);
+  rectMode(CORNERS);
+  rect(0,0, width,height);
 
-  //draw lines
+  // draw grid lines
   for (int row = 0; row < height; row+=unit) {
     stroke(100);
     line(0, row, width, row);
@@ -98,6 +98,11 @@ void draw() {
   for (int col = 0; col < width; col+=unit) {
     stroke(100);
     line(col, 0, col, height);
+  }
+  
+  if (DEBUG) {
+    fill(0);
+    text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
   }
 
   if (getGameState() == PLAYING) {
@@ -161,9 +166,16 @@ void setGameState(int gameState) {
   this.gameState = gameState;
 }
 
-void setMouseX(float newMouseX) {
-  this.newMouseX = newMouseX;
+float getMouseX() {
+  return this.MouseX;
 }
-void setMouseY(float newMouseY) {
-  this.newMouseY = newMouseY;
+void setMouseX(float MouseX) {
+  this.MouseX = MouseX;
+}
+
+float getMouseY() {
+  return MouseY; 
+}
+void setMouseY(float MouseY) {
+  this.MouseY = MouseY;
 }

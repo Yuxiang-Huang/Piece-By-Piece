@@ -127,7 +127,7 @@ void draw() {
       }
       if (abs(enemy.getX() - player.getX()) < displayWidth/2 
       && abs(enemy.getY() - player.getY()) < displayHeight/2) { 
-        //enemy.enemyUpdate();
+        enemy.enemyUpdate();
       }
     }
 

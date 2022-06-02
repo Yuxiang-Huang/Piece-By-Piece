@@ -281,7 +281,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     if (getAutoFire()) {
-      autoFire();
+      //autoFire();
     }
     // update and display all bullets
     for (int b = 0; b < getBullets().size(); b++) {
@@ -424,17 +424,17 @@ class Gunship extends UMO {
           float m2 = pow(enemy.getRadius(), 3);
           float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
           float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
-          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
           setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
           enemy.velocity.set(dxHolder, dyHolder);
 
-          player.setHealth(player.getHealth() - getCollisionDamage());
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());
           } else {
             setHealth(getHealth() - enemy.getHealth());
           }
           enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+          println("debug check");
           return;
         }
       }

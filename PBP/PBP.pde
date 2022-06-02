@@ -89,6 +89,7 @@ void draw() {
   fill(255);
   rectMode(CORNERS);
   rect(0, 0, width, height);
+  fill(0);
 
   // draw grid lines
   for (int row = 0; row < height; row+=unit) {
@@ -108,6 +109,7 @@ void draw() {
   if (getGameState() == PLAYING) {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
+      
       polygon.display();
       if (abs(polygon.getX() - player.getX()) < displayWidth && abs(polygon.getY() - player.getY()) < displayHeight) { 
         polygon.update();
@@ -119,8 +121,7 @@ void draw() {
       enemy.enemyDisplay();
       if (abs(enemy.getX() - player.getX()) < displayWidth/2 
       && abs(enemy.getY() - player.getY()) < displayHeight/2) { 
-        
-        enemy.enemyUpdate();
+        //enemy.enemyUpdate();
       }
     }
 

@@ -390,7 +390,10 @@ class Gunship extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
-
+        
+        if (polygon.isDead()){
+          setExp(getExp() + getExp()); // Fixed: shouldn't always give it to the player
+        }
         //for health regen after 30 sec
         setTimeSinceLastHit(1800);
         return;

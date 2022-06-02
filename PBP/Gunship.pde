@@ -1,5 +1,6 @@
 class Gunship extends UMO {
   private Shop shop;
+  private Minimap minimap; 
   private int level;
   private int skillPoints;
 
@@ -14,6 +15,8 @@ class Gunship extends UMO {
   private int timeSinceLastHit;
   private float heal10percent;
   private boolean AutoFire;
+  
+  private int collisionDamageWithShip;
 
   // player constructor
   Gunship(float x, float y) {
@@ -24,7 +27,8 @@ class Gunship extends UMO {
 
     setLevel(1);
     setShop(new Shop(this));
-
+    setMinimap(new Minimap(this));
+    
     getShop().update();
     setHealth(getMaxHealth());
 
@@ -403,8 +407,7 @@ class Gunship extends UMO {
     }
 
     if (enemies.contains(this)) {
-      if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
-        < getRadius() + player.getRadius()) {
+      if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(player.getRadius(), 3);
         float dxHolder = (2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
@@ -413,8 +416,8 @@ class Gunship extends UMO {
         setDY((2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
-        setHealth(getHealth() - player.getCollisionDamage());
-        player.setHealth(player.getHealth() - getCollisionDamage());
+        setHealth(getHealth() - player.getCollisionDamageWithShip());
+        player.setHealth(player.getHealth() - getCollisionDamageWithShip());
       }
     } else {
       for (Gunship enemy : enemies) {
@@ -428,13 +431,12 @@ class Gunship extends UMO {
           setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
           enemy.velocity.set(dxHolder, dyHolder);
 
-          if (enemy.getHealth() >  enemy.getCollisionDamage()) {
-            setHealth(getHealth() - enemy.getCollisionDamage());
+          if (enemy.getHealth() >  enemy.getCollisionDamageWithShip()) {
+            setHealth(getHealth() - enemy.getCollisionDamageWithShip());
           } else {
             setHealth(getHealth() - enemy.getHealth());
           }
-          enemy.setHealth(enemy.getHealth() - getCollisionDamage());
-          println("debug check");
+          enemy.setHealth(enemy.getHealth() - getCollisionDamageWithShip());
           return;
         }
       }
@@ -460,9 +462,9 @@ class Gunship extends UMO {
 
   void displayExpBar() {
     rectMode(CORNER);
-    fill(200, 200, 200, 230); // black for needed Exp
+    fill(200, 230); // Translucent Dark Grey for needed Exp
     rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
-    fill(color(255, 255, 0)); // yellow for gained Exp
+    fill(255, 255, 0); // yellow for gained Exp
     rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
     fill(255);
     textAlign(CENTER);
@@ -506,6 +508,13 @@ class Gunship extends UMO {
   }
   void setShop(Shop shop) {
     this.shop = shop;
+  }
+  
+  Minimap getMinimap() {
+    return minimap;
+  }
+  void setMinimap(Minimap minimap) {
+    this.minimap = minimap;
   }
 
   ArrayList<Bullet> getBullets() {
@@ -587,5 +596,12 @@ class Gunship extends UMO {
   }
   void setAutoFire(boolean AutoFire) {
     this.AutoFire = AutoFire;
+  }
+  
+  int getCollisionDamageWithShip() {
+    return collisionDamageWithShip;
+  }
+  void setCollisionDamageWithShip(int collisionDamageWithShip) {
+    this.collisionDamageWithShip = collisionDamageWithShip;
   }
 }

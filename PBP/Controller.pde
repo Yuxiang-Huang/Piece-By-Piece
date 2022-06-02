@@ -37,12 +37,12 @@ class Controller {
     // Shop upgrades
     if (player.getSkillPoints() > 0) {
       Shop shop = player.getShop();
-      if (key == '1' && shop.healthRegen.isMaxLevel()) {
+      if (key == '1' && !shop.healthRegen.isMaxLevel()) {
         shop.healthRegen.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);
       }
-      if (key == '2' && shop.maxHealth.isMaxLevel()) {
+      if (key == '2' && !shop.maxHealth.isMaxLevel()) {
         shop.maxHealth.upgrade();
         shop.update();
         player.setSkillPoints(player.getSkillPoints()-1);

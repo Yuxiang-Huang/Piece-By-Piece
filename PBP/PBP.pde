@@ -4,7 +4,9 @@ ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
 boolean DEBUG = false;
 float unit;
-PVector pos = new PVector(0, 0);
+
+private float MouseX;
+private float MouseY;
 
 final int PLAYING = 0;
 final int LOST = 1;
@@ -22,6 +24,11 @@ void setup() {
   textSize(15);
   textAlign(LEFT);
 
+  width = 3000;
+  height = 3000;
+  setMouseX(0);
+  setMouseY(0);
+
   unit = min(displayWidth/70, displayHeight/35);
   player = new Gunship(width/2, height/2);
   input = new Controller();
@@ -32,12 +39,16 @@ void setup() {
 
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
-  enemies = new ArrayList<Gunship>();
-  for (int i = 0; i < 10; i++) {
+  enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
+  for (int i = 0; i < 100; i++) {
     Polygon polygon = new Polygon();
+    polygons.add(polygon);
   }
 
-  Gunship now = new Gunship();
+  for (int i = 0; i < 10; i++) {
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
+  } 
 
   setGameState(PLAYING);
 }
@@ -66,13 +77,20 @@ void mousePressed() {
 }
 
 void draw() {
-  background(255);
+  background(200,200,200,200);
 
-  if (DEBUG) {
-    text(frameRate, unit, unit);
-  }
+  // to center camera on player
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
+  // fix mouse coordinates to be absolute rather than relative
+  setMouseX((player.getX() - displayWidth/2) + mouseX);
+  setMouseY((player.getY() - displayHeight/2) + mouseY);
 
-  //draw lines
+  // draw border
+  fill(255);
+  rectMode(CORNERS);
+  rect(0,0, width,height);
+
+  // draw grid lines
   for (int row = 0; row < height; row+=unit) {
     stroke(100);
     line(0, row, width, row);
@@ -80,6 +98,11 @@ void draw() {
   for (int col = 0; col < width; col+=unit) {
     stroke(100);
     line(col, 0, col, height);
+  }
+  
+  if (DEBUG) {
+    fill(0);
+    text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
   }
 
   if (getGameState() == PLAYING) {
@@ -115,15 +138,19 @@ void draw() {
     // LOST/WON GAME SCREENS
 
     fill(128, 128, 128, 200);
-    rect(0, 0, width, height); 
+    rect(player.getX()-(displayWidth/2), player.getY()-(displayHeight/2), displayWidth, displayHeight); 
     fill(0);
     textSize(unit * 10);
     textAlign(CENTER);
+    String message = "";
     if (getGameState() == LOST) {
-      text("YOU LOST :(", width/2, height/2);
+      message = "YOU LOST :(";
     } else if (getGameState() == WON) {
-      text("YOU WON :)", width/2, height/2);
+      message = "YOU WON :)";
     }
+    text(message, player.getX(), player.getY());
+
+    // reset text
     fill(0);
     textSize(unit*3.0/4);
     textAlign(LEFT);
@@ -137,4 +164,18 @@ int getGameState() {
 }
 void setGameState(int gameState) {
   this.gameState = gameState;
+}
+
+float getMouseX() {
+  return this.MouseX;
+}
+void setMouseX(float MouseX) {
+  this.MouseX = MouseX;
+}
+
+float getMouseY() {
+  return MouseY; 
+}
+void setMouseY(float MouseY) {
+  this.MouseY = MouseY;
 }

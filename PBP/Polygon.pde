@@ -65,8 +65,6 @@ class Polygon extends UMO {
       setX(random(width));
       setY(random(height));
     }
-
-    polygons.add(this);
   }
 
   void display() {
@@ -94,7 +92,8 @@ class Polygon extends UMO {
   void die() {
     polygons.remove(this);
     Polygon polygon = new Polygon();
-    player.setExp(player.getExp() + getExp());
+    polygons.add(polygon);
+    player.setExp(player.getExp() + getExp()); // shouldint always give it to the player
   }
 
   /**

@@ -27,9 +27,6 @@ void setup() {
   width = displayWidth*3;
   height = displayHeight*3;
   
-  println(displayWidth, width);
-  println(displayHeight, height);
-  
   setMouseX(0);
   setMouseY(0);
 

@@ -45,10 +45,6 @@ class Shop implements Processable {
     gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
   }
   
-  void updatePosition() {
-    
-  }
-
   class Stat {
     private String statName;
     final int maxLevel = 7;
@@ -67,7 +63,7 @@ class Shop implements Processable {
       i = 7 - i;
       text("skill Points: " + gunship.getSkillPoints(), getX(), getY()-(unit*(3.0/2))*7.5);
       rectMode(CORNER);
-      fill(200, 200, 200, 200); // Translucent Light Grey
+      fill(200, 200); // Translucent Light Grey
       rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
       fill(color(0, 255, 0)); // GREEN
       rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);

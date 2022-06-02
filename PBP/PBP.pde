@@ -24,8 +24,9 @@ void setup() {
   textSize(15);
   textAlign(LEFT);
 
-  width = 3000;
-  height = 3000;
+  width = displayWidth*3;
+  height = displayHeight*3;
+  
   setMouseX(0);
   setMouseY(0);
 
@@ -132,6 +133,9 @@ void draw() {
 
     player.playerUpdate();
     player.playerDisplay();
+    
+    player.getMinimap().update();
+    player.getMinimap().display();
 
     if (player.getSkillPoints() > 0) {
       player.getShop().display();
@@ -147,6 +151,7 @@ void draw() {
         enemy.enemyDisplay();
       }
     }
+    player.getMinimap().display();
     player.playerDisplay();
 
     // LOST/WON GAME SCREENS

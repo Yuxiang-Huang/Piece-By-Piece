@@ -289,7 +289,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     if (getAutoFire()) {
-      //autoFire();
+      autoFire();
     }
     // update and display all bullets
     for (int b = 0; b < getBullets().size(); b++) {
@@ -410,7 +410,7 @@ class Gunship extends UMO {
       }
     }
 
-    if (enemies.contains(this)) {
+    if (this != player) {
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(player.getRadius(), 3);

@@ -90,7 +90,7 @@ class Bullet extends UMO {
     }
 
     //ship bullet collision
-    if (enemies.contains(gunship)) {
+    if (! player.bullets.contains(this)) {
       if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
         < getRadius() + player.getRadius()) {
         setHealth(getHealth() - player.getCollisionDamage());

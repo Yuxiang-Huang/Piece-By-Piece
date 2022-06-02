@@ -109,31 +109,27 @@ void draw() {
   if (getGameState() == PLAYING) {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
-      if ((abs(polygon.getX() - player.getX()) < displayWidth / 2 + polygon.getRadius()
-      && abs(polygon.getY() - player.getY()) < displayHeight / 2 + polygon.getRadius())) {
-        polygon.display();
-      }
-      if (abs(polygon.getX() - player.getX()) < displayWidth  
-      && abs(polygon.getY() - player.getY()) < displayHeight) { 
+      if (isWithinUpdateDistance(polygon)) { 
         polygon.update();
+        if (isWithinDisplayDistance(polygon)) {
+          polygon.display();
+        }
       }
     }
 
     for (int e = 0; e < enemies.size(); e++) {
       Gunship enemy = enemies.get(e);
-      if ((abs(enemy.getX() - player.getX()) < displayWidth / 2 + enemy.getRadius()
-      && abs(enemy.getY() - player.getY()) < displayHeight / 2 + enemy.getRadius())) {
-        enemy.enemyDisplay();
-      }
-      if (abs(enemy.getX() - player.getX()) < displayWidth/2 
-      && abs(enemy.getY() - player.getY()) < displayHeight/2) { 
+      if (isWithinUpdateDistance(enemy)) { 
         enemy.enemyUpdate();
+        if (isWithinDisplayDistance(enemy)) {
+          enemy.enemyDisplay();
+        }
       }
     }
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
-    
+
     player.playerUpdate();
     player.playerDisplay();
 
@@ -142,10 +138,14 @@ void draw() {
     }
   } else {
     for (Polygon polygon : polygons) {
-      polygon.display();
+      if (isWithinDisplayDistance(polygon)) {
+        polygon.display();
+      }
     }
     for (Gunship enemy : enemies) {
-      enemy.enemyDisplay();
+      if (isWithinDisplayDistance(enemy)) {
+        enemy.enemyDisplay();
+      }
     }
     player.playerDisplay();
 
@@ -169,6 +169,16 @@ void draw() {
     textSize(unit*3.0/4);
     textAlign(LEFT);
   }
+}
+
+boolean isWithinDisplayDistance(UMO umo) {
+  return abs(umo.getX()-player.getX()) < (displayWidth/2)+umo.getRadius() &&
+    abs(umo.getY()-player.getY()) < (displayHeight/2)+umo.getRadius();
+}
+
+boolean isWithinUpdateDistance(UMO umo) {
+  return abs(umo.getX()-player.getX()) < (displayWidth)+umo.getRadius() &&
+    abs(umo.getY()-player.getY()) < (displayHeight)+umo.getRadius();
 }
 
 // get and set methods------------------------------------------------------------------

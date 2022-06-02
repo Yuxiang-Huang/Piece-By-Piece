@@ -85,20 +85,20 @@ abstract class UMO implements Processable {
     }
     return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
-  
+
   boolean isCollidingWithAnyUMO() {
     if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 
-      < getRadius() + player.getRadius()){
+      < getRadius() + player.getRadius()) {
       return true;
     }
-    
-    for (Gunship enemy: enemies){
+
+    for (Gunship enemy : enemies) {
       if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
-      < getRadius() + enemy.getRadius()){
+        < getRadius() + enemy.getRadius()) {
         return true;
       }
     }
-    
+
     for (Polygon polygon : polygons) {
       if (isCollidingWithPolygon(polygon)) {
         return true;

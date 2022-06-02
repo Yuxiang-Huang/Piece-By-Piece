@@ -5,11 +5,12 @@ class Shop implements Processable {
   //Stat statName = new Stat(level, base, modifier)
   Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed from website
   Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
-  Stat bodyDamage = new Stat("Body Damage", 0, 20, 6); //confirmed from wiki
+  Stat bodyDamage = new Stat("Body Damage", 0, 20, 4); //confirmed from wiki
+  Stat bodyDamageWithShip = new Stat("Body Damage", 0, 30, 6); //confirmed from wiki
   Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/3, (int) unit/14); 
   Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
   Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
-  Stat reload = new Stat("Reload", 0, 60, -3); //-2.4 for wiki
+  Stat reload = new Stat("Reload", 0, 36, -2); //-2.4 for wiki
   Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //confirmed from website
 
   Shop(Gunship gunship) {
@@ -39,6 +40,7 @@ class Shop implements Processable {
     gunship.setMaxHealth((int)(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel()))); 
     gunship.setHealth(percentHealth * gunship.getMaxHealth());
     gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
+    gunship.setCollisionDamageWithShip((int)(bodyDamageWithShip.getBase() + (bodyDamageWithShip.getModifier()*bodyDamage.getLevel())));
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
   }

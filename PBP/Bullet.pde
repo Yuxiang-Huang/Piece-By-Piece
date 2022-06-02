@@ -82,8 +82,8 @@ class Bullet extends UMO {
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         if (polygon.isDead()){
-          println("AHA");
           gunship.setExp(gunship.getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
+          polygon.update(); //to prevent double exp?
         }
         return;
       }
@@ -95,6 +95,7 @@ class Bullet extends UMO {
         < getRadius() + player.getRadius()) {
         setHealth(getHealth() - player.getCollisionDamage());
         player.setHealth(player.getHealth() - getCollisionDamage());
+        player.setTimeSinceLastHit(1800);
       }
     } else {
       for (Gunship enemy : enemies) {

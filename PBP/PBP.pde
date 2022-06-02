@@ -1,4 +1,4 @@
-Player player;
+Gunship player;
 Controller input;
 ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
@@ -12,6 +12,8 @@ final int WON = 2;
 
 private int gameState;
 
+int timeSinceEnemySpawn;
+
 void setup() {
   fullScreen(1);
   frameRate(60);
@@ -21,7 +23,7 @@ void setup() {
   textAlign(LEFT);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new Player(width/2, height/2);
+  player = new Gunship(width/2, height/2);
   input = new Controller();
 
   fill(0);
@@ -34,7 +36,7 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Polygon polygon = new Polygon();
   }
-  
+
   Gunship now = new Gunship();
 
   setGameState(PLAYING);
@@ -60,7 +62,8 @@ void mouseClicked() {
   }
 }
 
-void mousePressed() {}
+void mousePressed() {
+}
 
 void draw() {
   background(255);
@@ -80,30 +83,23 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
-    //pushMatrix();
-    //translate(pos.x, pos.y);
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       polygon.display();
       polygon.update();
     }
-    
+
     for (int e = 0; e < enemies.size(); e++) {
       Gunship enemy = enemies.get(e);
-      enemy.display();
-      enemy.update();
+      enemy.enemyDisplay();
+      enemy.enemyUpdate();
     }
-    
+
     // display & update player last so that it always appears on top 
     // all colisions processed through player
-    player.update();
-    if (player.getHealth() == 0) {
-      setGameState(LOST);
-    } else if (player.getLevel() == 15) {
-      setGameState(WON);
-    }
-    //popMatrix();
-    player.display();
+    player.playerUpdate();
+    player.playerDisplay();
+
     if (player.getSkillPoints() > 0) {
       player.getShop().display();
     }
@@ -111,7 +107,10 @@ void draw() {
     for (Polygon polygon : polygons) {
       polygon.display();
     }
-    player.display();
+    for (Gunship enemy : enemies) {
+      enemy.enemyDisplay();
+    }
+    player.playerDisplay();
 
     // LOST/WON GAME SCREENS
 
@@ -130,6 +129,8 @@ void draw() {
     textAlign(LEFT);
   }
 }
+
+// get and set methods------------------------------------------------------------------
 
 int getGameState() {
   return gameState;

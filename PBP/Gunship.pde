@@ -63,7 +63,11 @@ class Gunship extends UMO {
     setAngle(0);
     acceleration.set(unit*.01, unit*.01);
 
-    setLevel((int) random(14) + 1);
+    int levelHolder = player.getLevel() + (int) random(7) - 3;
+    if (levelHolder < 1){
+      levelHolder = 1;
+    }
+    setLevel(levelHolder);
 
     shop = new Shop(this);
 

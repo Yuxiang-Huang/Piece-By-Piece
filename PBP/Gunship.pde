@@ -14,6 +14,8 @@ class Gunship extends UMO {
   private int timeSinceLastHit;
   private float heal10percent;
   private boolean AutoFire;
+  
+  private int collisionDamageWithShip;
 
   // player constructor
   Gunship(float x, float y) {
@@ -121,6 +123,7 @@ class Gunship extends UMO {
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
+      text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
     }
   }
 
@@ -151,6 +154,7 @@ class Gunship extends UMO {
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
+      text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
     }
   }
 
@@ -279,7 +283,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     if (getAutoFire()) {
-      autoFire();
+      //autoFire();
     }
     // update and display all bullets
     for (int b = 0; b < getBullets().size(); b++) {
@@ -390,7 +394,10 @@ class Gunship extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
-
+        
+        if (polygon.isDead()){
+          setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
+        }
         //for health regen after 30 sec
         setTimeSinceLastHit(1800);
         return;
@@ -408,8 +415,8 @@ class Gunship extends UMO {
         setDY((2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
-        setHealth(getHealth() - player.getCollisionDamage());
-        player.setHealth(player.getHealth() - getCollisionDamage());
+        setHealth(getHealth() - player.getCollisionDamageWithShip());
+        player.setHealth(player.getHealth() - getCollisionDamageWithShip());
       }
     } else {
       for (Gunship enemy : enemies) {
@@ -419,18 +426,16 @@ class Gunship extends UMO {
           float m2 = pow(enemy.getRadius(), 3);
           float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
           float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
-          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
           setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
           enemy.velocity.set(dxHolder, dyHolder);
 
-          setHealth(getHealth() - player.getCollisionDamage());
-          player.setHealth(player.getHealth() - getCollisionDamage());
-          if (enemy.getHealth() >  enemy.getCollisionDamage()) {
-            setHealth(getHealth() - enemy.getCollisionDamage());
+          if (enemy.getHealth() >  enemy.getCollisionDamageWithShip()) {
+            setHealth(getHealth() - enemy.getCollisionDamageWithShip());
           } else {
             setHealth(getHealth() - enemy.getHealth());
           }
-          enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+          enemy.setHealth(enemy.getHealth() - getCollisionDamageWithShip());
           return;
         }
       }
@@ -583,5 +588,12 @@ class Gunship extends UMO {
   }
   void setAutoFire(boolean AutoFire) {
     this.AutoFire = AutoFire;
+  }
+  
+  int getCollisionDamageWithShip() {
+    return collisionDamageWithShip;
+  }
+  void setCollisionDamageWithShip(int collisionDamageWithShip) {
+    this.collisionDamageWithShip = collisionDamageWithShip;
   }
 }

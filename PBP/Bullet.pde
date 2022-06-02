@@ -1,7 +1,7 @@
 class Bullet extends UMO {
   Gunship gunship;
   private int timeTillDeath;
-  private final float frictionForBullet = .98;
+  private final float frictionForBullet = .99;
 
   Bullet(Gunship gunship) {
     this.gunship = gunship;
@@ -15,11 +15,11 @@ class Bullet extends UMO {
 
     float m1 = pow(getRadius(), 3);
     float m2 = pow(gunship.getRadius(), 3);
- //<>//
-    float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2); //<>//
+ //<>// //<>//
+    float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2); //<>// //<>//
     float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
     gunship.velocity.add(new PVector(dxHolder, dyHolder));
-    setTimeTillDeath(120); //confirmed from wiki
+    setTimeTillDeath(180); //confirmed from wiki
     setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
     setHealth(getMaxHealth()); //bullet penetration
     setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())));
@@ -67,7 +67,6 @@ class Bullet extends UMO {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isCollidingWithPolygon(polygon)) {
-
         //trust physics
         float m1 = pow(getRadius(), 3);
         float m2 = pow(polygon.getRadius(), 3);
@@ -82,6 +81,10 @@ class Bullet extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+        if (polygon.isDead()){
+          gunship.setExp(gunship.getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
+          polygon.update(); //to prevent double exp?
+        }
         return;
       }
     }
@@ -92,6 +95,7 @@ class Bullet extends UMO {
         < getRadius() + player.getRadius()) {
         setHealth(getHealth() - player.getCollisionDamage());
         player.setHealth(player.getHealth() - getCollisionDamage());
+        player.setTimeSinceLastHit(1800);
       }
     } else {
       for (Gunship enemy : enemies) {

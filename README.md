@@ -17,6 +17,7 @@
     *  (05-29-2022): "Today I finished health regen for gunship, both within and after 30 seconds after taking damage. Then, I related dimensions to unit in all classes and checked the values using online resources. I also added experience bar and changed stats that change with the level of the ship during the process. Lastly, I reworked movement of the ship."
     *  (05-30-2022): "Today I finished the bullet speed and tested the code for the MVP demo branch. I find an issue with the health when the player's ship gain more health as it level up or upgrade maxHealth. I solved it by keeping the health of the ship the same percentage before and after gaining more health."
     *  (05-31-2022): "Today I apply an opposite force to the ship when it shoots a bullet. Also, I started creating enemies. I was able to spawn them at any level and it is able to track the player and shoot at it without interfere by the player controls."
+    *  (06-1-2022): "Today I finished the collision between enemy ships and player ship, including another stat for ship ship collisions. I also fixed some bugs relating to the introduce of camera and bigger map in the game.
 
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."

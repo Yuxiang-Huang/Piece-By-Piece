@@ -77,7 +77,7 @@ void mousePressed() {
 }
 
 void draw() {
-  background(200,200,200,200);
+  background(200, 200, 200, 200);
 
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
@@ -88,7 +88,8 @@ void draw() {
   // draw border
   fill(255);
   rectMode(CORNERS);
-  rect(0,0, width,height);
+  rect(0, 0, width, height);
+  fill(0);
 
   // draw grid lines
   for (int row = 0; row < height; row+=unit) {
@@ -99,7 +100,7 @@ void draw() {
     stroke(100);
     line(col, 0, col, height);
   }
-  
+
   if (DEBUG) {
     fill(0);
     text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
@@ -108,18 +109,31 @@ void draw() {
   if (getGameState() == PLAYING) {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
-      polygon.display();
-      polygon.update();
+      if ((abs(polygon.getX() - player.getX()) < displayWidth / 2 + polygon.getRadius()
+      && abs(polygon.getY() - player.getY()) < displayHeight / 2 + polygon.getRadius())) {
+        polygon.display();
+      }
+      if (abs(polygon.getX() - player.getX()) < displayWidth  
+      && abs(polygon.getY() - player.getY()) < displayHeight) { 
+        polygon.update();
+      }
     }
 
     for (int e = 0; e < enemies.size(); e++) {
       Gunship enemy = enemies.get(e);
-      enemy.enemyDisplay();
-      enemy.enemyUpdate();
+      if ((abs(enemy.getX() - player.getX()) < displayWidth / 2 + enemy.getRadius()
+      && abs(enemy.getY() - player.getY()) < displayHeight / 2 + enemy.getRadius())) {
+        enemy.enemyDisplay();
+      }
+      if (abs(enemy.getX() - player.getX()) < displayWidth/2 
+      && abs(enemy.getY() - player.getY()) < displayHeight/2) { 
+        enemy.enemyUpdate();
+      }
     }
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
+    
     player.playerUpdate();
     player.playerDisplay();
 
@@ -174,7 +188,7 @@ void setMouseX(float MouseX) {
 }
 
 float getMouseY() {
-  return MouseY; 
+  return MouseY;
 }
 void setMouseY(float MouseY) {
   this.MouseY = MouseY;

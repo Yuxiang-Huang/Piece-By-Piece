@@ -17,7 +17,7 @@
     *  (05-29-2022): "Today I finished health regen for gunship, both within and after 30 seconds after taking damage. Then, I related dimensions to unit in all classes and checked the values using online resources. I also added experience bar and changed stats that change with the level of the ship during the process. Lastly, I reworked movement of the ship."
     *  (05-30-2022): "Today I finished the bullet speed and tested the code for the MVP demo branch. I find an issue with the health when the player's ship gain more health as it level up or upgrade maxHealth. I solved it by keeping the health of the ship the same percentage before and after gaining more health."
     *  (05-31-2022): "Today I apply an opposite force to the ship when it shoots a bullet. Also, I started creating enemies. I was able to spawn them at any level and it is able to track the player and shoot at it without interfere by the player controls."
-    *  (06-1-2022): "Today I finished the collision between enemy ships and player ship, including another stat for ship ship collisions. I also fixed some bugs relating to the introduce of camera and bigger map in the game.
+    *  (06-01-2022): "Today I finished the collision between enemy ships and player ship, including another stat for ship ship collisions. I also fixed some bugs relating to the introduce of camera and bigger map in the game.
 
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."
@@ -29,6 +29,7 @@
     *  (05-29-2022): "Today I worked on the health regen stat of the Shop but also polished up the rest of the shop and stats. I also began working on the orthographic camera but quickly realized it's going to take a much longer time and probably won't be ready for the MVP. I also changed radius of the gunship to properly scale with its level."
     *  (05-30-2022): "Today I worked on thoroughly testing the game and code to make sure there weren't any major bugs present that could break the game. I also found places where I could optimize some code, particularly in collisionWithUMO, where a stopping condition could be implemented to speed up collision checks."
     *  (05-31-2022): "Today I fixed the issue with fullscreen by making it always appear on the main screen. I also changed some code to use the pow() instead of repetitive multiplication. The main thing i worked on however was converting the velocity and acceleration of the gunship into units."
+    *  (06-01-2022): "Today I finished the only thing from the MVP that we had not finished, the orthographic camera. After i figured out how to make the camera I then had to diferentiate all uses of width and height to either stay width and height or displayWidth and displayHeight. I changed the playable area to be a 3k by 3k pixel board and updated the grid lines to fill in the board completly and made a concrete grey border."
 ---
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
 

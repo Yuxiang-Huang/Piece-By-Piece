@@ -121,6 +121,7 @@ class Gunship extends UMO {
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
+      text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
     }
   }
 
@@ -151,6 +152,7 @@ class Gunship extends UMO {
       text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
+      text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
     }
   }
 
@@ -392,7 +394,7 @@ class Gunship extends UMO {
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         
         if (polygon.isDead()){
-          setExp(getExp() + getExp()); // Fixed: shouldn't always give it to the player
+          setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
         }
         //for health regen after 30 sec
         setTimeSinceLastHit(1800);
@@ -426,7 +428,6 @@ class Gunship extends UMO {
           setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
           enemy.velocity.set(dxHolder, dyHolder);
 
-          setHealth(getHealth() - player.getCollisionDamage());
           player.setHealth(player.getHealth() - getCollisionDamage());
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());

@@ -109,16 +109,22 @@ void draw() {
   if (getGameState() == PLAYING) {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
-      
-      polygon.display();
-      if (abs(polygon.getX() - player.getX()) < displayWidth && abs(polygon.getY() - player.getY()) < displayHeight) { 
+      if ((abs(polygon.getX() - player.getX()) < displayWidth / 2 + polygon.getRadius()
+      && abs(polygon.getY() - player.getY()) < displayHeight / 2 + polygon.getRadius())) {
+        polygon.display();
+      }
+      if (abs(polygon.getX() - player.getX()) < displayWidth  
+      && abs(polygon.getY() - player.getY()) < displayHeight) { 
         polygon.update();
       }
     }
 
     for (int e = 0; e < enemies.size(); e++) {
       Gunship enemy = enemies.get(e);
-      enemy.enemyDisplay();
+      if ((abs(enemy.getX() - player.getX()) < displayWidth / 2 + enemy.getRadius()
+      && abs(enemy.getY() - player.getY()) < displayHeight / 2 + enemy.getRadius())) {
+        enemy.enemyDisplay();
+      }
       if (abs(enemy.getX() - player.getX()) < displayWidth/2 
       && abs(enemy.getY() - player.getY()) < displayHeight/2) { 
         //enemy.enemyUpdate();
@@ -127,6 +133,7 @@ void draw() {
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
+    
     player.playerUpdate();
     player.playerDisplay();
 

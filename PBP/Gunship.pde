@@ -245,6 +245,10 @@ class Gunship extends UMO {
     collisionWithBorder();
     collisionWithUMO();
 
+    if (getAutoFire()) {
+      autoFire();
+    }
+
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {
       Bullet bullet = getBullets().get(b);

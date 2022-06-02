@@ -26,7 +26,7 @@ void setup() {
 
   width = displayWidth*3;
   height = displayHeight*3;
-  
+
   setMouseX(0);
   setMouseY(0);
 
@@ -67,7 +67,7 @@ void keyReleased() {
 }
 
 void mouseClicked() {
-  if (getGameState() == PLAYING) {
+  if (getGameState() == PLAYING && !player.getAutoFire()) {
     if (player.canShoot()) {
       player.shoot();
     }
@@ -75,6 +75,15 @@ void mouseClicked() {
 }
 
 void mousePressed() {
+  if (getGameState() == PLAYING) {
+    player.setAutoFire(true);
+  }
+}
+
+void mouseReleased() {
+  if (getGameState() == PLAYING) {
+    player.setAutoFire(false);
+  }
 }
 
 void draw() {
@@ -133,7 +142,7 @@ void draw() {
 
     player.playerUpdate();
     player.playerDisplay();
-    
+
     player.getMinimap().update();
     player.getMinimap().display();
 

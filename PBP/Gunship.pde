@@ -405,8 +405,7 @@ class Gunship extends UMO {
     }
 
     if (enemies.contains(this)) {
-      if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
-        < getRadius() + player.getRadius()) {
+      if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(player.getRadius(), 3);
         float dxHolder = (2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);

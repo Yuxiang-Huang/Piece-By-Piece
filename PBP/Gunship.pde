@@ -1,5 +1,6 @@
 class Gunship extends UMO {
   private Shop shop;
+  private Minimap minimap; 
   private int level;
   private int skillPoints;
 
@@ -26,7 +27,8 @@ class Gunship extends UMO {
 
     setLevel(1);
     setShop(new Shop(this));
-
+    setMinimap(new Minimap(this));
+    
     getShop().update();
     setHealth(getMaxHealth());
 
@@ -506,6 +508,13 @@ class Gunship extends UMO {
   }
   void setShop(Shop shop) {
     this.shop = shop;
+  }
+  
+  Minimap getMinimap() {
+    return minimap;
+  }
+  void setMinimap(Minimap minimap) {
+    this.minimap = minimap;
   }
 
   ArrayList<Bullet> getBullets() {

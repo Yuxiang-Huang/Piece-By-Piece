@@ -14,10 +14,24 @@ class Controller {
     if (key == '`') {
       DEBUG = !DEBUG;
     }
-    
+
+    if (DEBUG && key == 'k') {
+      player.setExp(player.getExpRequiredForNextLevel());
+    }
+
     // Gun controls
     if (key == 'e') {
       player.setAutoFire(!player.getAutoFire());
+    }
+
+    if (key == 'r') {
+      player = new Gunship(width/2, height/2);
+      polygons.clear();
+      for (int i = 0; i < 100; i++) {
+        Polygon polygon = new Polygon();
+        polygons.add(polygon);
+      }
+      enemies.clear();
     }
 
     // Movement controls

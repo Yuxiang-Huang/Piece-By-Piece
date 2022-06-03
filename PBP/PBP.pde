@@ -46,12 +46,8 @@ void setup() {
     polygons.add(polygon);
   }
 
-  for (int i = 0; i < 10; i++) {
-    Gunship enemy = new Gunship();
-    enemies.add(enemy);
-  } 
-
   setGameState(PLAYING);
+  setTimeSinceEnemySpawn(600);
 }
 
 void keyPressed() {
@@ -108,6 +104,20 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
+    //fill(0);
+    textSize(50);
+    textAlign(CENTER);
+    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), 
+                                                          player.getY() - 15 * unit);
+    textAlign(LEFT);
+    if (timeSinceEnemySpawn == 0){
+      Gunship enemy = new Gunship();
+      enemies.add(enemy);
+      setTimeSinceEnemySpawn(enemies.size() * 600);
+    } else{
+      setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
+    }
+    
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
       if (isWithinUpdateDistance(polygon)) { 
@@ -207,4 +217,11 @@ float getMouseY() {
 }
 void setMouseY(float MouseY) {
   this.MouseY = MouseY;
+}
+
+int getTimeSinceEnemySpawn() {
+  return timeSinceEnemySpawn;
+}
+void setTimeSinceEnemySpawn(int timeSinceEnemySpawn) {
+  this.timeSinceEnemySpawn = timeSinceEnemySpawn;
 }

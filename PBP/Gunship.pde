@@ -5,7 +5,7 @@ class Gunship extends UMO {
   private int skillPoints;
 
   private int reloadSpeed;
-  private int shootCooldown;
+  private float shootCooldown;
 
   private float angle;
   private ArrayList<Bullet> bullets;
@@ -63,7 +63,11 @@ class Gunship extends UMO {
     setAngle(0);
     acceleration.set(unit*.01, unit*.01);
 
-    setLevel((int) random(14) + 1);
+    int levelHolder = player.getLevel() + (int) random(7) - 3;
+    if (levelHolder < 1){
+      levelHolder = 1;
+    }
+    setLevel(levelHolder);
 
     shop = new Shop(this);
 
@@ -172,6 +176,7 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
+    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }
@@ -285,7 +290,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     if (getAutoFire()) {
-      //autoFire();
+      autoFire();
     }
     // update and display all bullets
     for (int b = 0; b < getBullets().size(); b++) {
@@ -406,7 +411,7 @@ class Gunship extends UMO {
       }
     }
 
-    if (enemies.contains(this)) {
+    if (this != player) {
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(player.getRadius(), 3);
@@ -542,10 +547,10 @@ class Gunship extends UMO {
     this.reloadSpeed = reloadSpeed;
   }
 
-  int getShootCooldown() {
+  float getShootCooldown() {
     return shootCooldown;
   }
-  void setShootCooldown(int shootCooldown) {
+  void setShootCooldown(float shootCooldown) {
     this.shootCooldown = shootCooldown;
   }
 

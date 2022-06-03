@@ -15,6 +15,10 @@ class Controller {
       DEBUG = !DEBUG;
     }
     
+    if (DEBUG && key == 'k') {
+      player.setExp(player.getExpRequiredForNextLevel());
+    }
+    
     // Gun controls
     if (key == 'e') {
       player.setAutoFire(!player.getAutoFire());

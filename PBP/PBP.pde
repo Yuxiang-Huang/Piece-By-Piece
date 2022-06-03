@@ -114,10 +114,9 @@ void draw() {
 
   if (getGameState() == PLAYING) {
     //fill(0);
-    textSize(50);
+    textSize(30);
     textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), 
-                                                          player.getY() - 15 * unit);
+    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
     textAlign(LEFT);
     if (timeSinceEnemySpawn == 0){
       Gunship enemy = new Gunship();

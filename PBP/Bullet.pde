@@ -1,4 +1,4 @@
-class Bullet extends UMO {
+class Bullet extends UMO { //<>// //<>//
   Gunship gunship;
   private int timeTillDeath;
   private final float frictionForBullet = .99;
@@ -15,8 +15,8 @@ class Bullet extends UMO {
 
     float m1 = pow(getRadius(), 3);
     float m2 = pow(gunship.getRadius(), 3);
- //<>// //<>//
-    float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2); //<>// //<>//
+    //<>//
+    float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2); //<>//
     float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
     gunship.velocity.add(new PVector(dxHolder, dyHolder));
     setTimeTillDeath(180); //confirmed from wiki
@@ -81,7 +81,7 @@ class Bullet extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
-        if (polygon.isDead()){
+        if (polygon.isDead()) {
           gunship.setExp(gunship.getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
           polygon.update(); //to prevent double exp?
         }
@@ -90,7 +90,7 @@ class Bullet extends UMO {
     }
 
     //ship bullet collision
-    if (enemies.contains(gunship)) {
+    if (! player.bullets.contains(this)) {
       if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
         < getRadius() + player.getRadius()) {
         setHealth(getHealth() - player.getCollisionDamage());
@@ -107,6 +107,13 @@ class Bullet extends UMO {
             setHealth(getHealth() - enemy.getHealth());
           }
           enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+
+          if (enemy.isDead()) {
+            player.setExp(player.getExp() + enemy.getLevel() * (enemy.getLevel() - 1) * 10 / 2) ; 
+            //half of total enemy exp, trust math
+            //enemy.update(); //to prevent double exp?
+          }
+
           return;
         }
       }

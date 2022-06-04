@@ -133,7 +133,6 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
-    println(1);
     textSize(unit * 2.5);
     textAlign(CENTER);
     text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);

@@ -20,10 +20,6 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  //fill(0);
-  //textSize(15);
-  //textAlign(LEFT);
-
   width = displayWidth*3;
   height = displayHeight*3;
 
@@ -45,12 +41,6 @@ void setup() {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
-  
-  //create 10 enemies for testing purpose
-  //for (int i = 0; i < 10; i++) {
-  //  Gunship enemy = new Gunship();
-  //  enemies.add(enemy);
-  //}
 
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);

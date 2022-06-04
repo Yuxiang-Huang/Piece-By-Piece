@@ -26,7 +26,7 @@ void setup() {
 
   width = displayWidth*3;
   height = displayHeight*3;
-  
+
   setMouseX(0);
   setMouseY(0);
 
@@ -63,7 +63,7 @@ void keyReleased() {
 }
 
 void mouseClicked() {
-  if (getGameState() == PLAYING) {
+  if (getGameState() == PLAYING && !player.getAutoFire()) {
     if (player.canShoot()) {
       player.shoot();
     }
@@ -71,6 +71,15 @@ void mouseClicked() {
 }
 
 void mousePressed() {
+  if (getGameState() == PLAYING) {
+    player.setAutoFire(true);
+  }
+}
+
+void mouseReleased() {
+  if (getGameState() == PLAYING) {
+    player.setAutoFire(false);
+  }
 }
 
 void draw() {
@@ -103,39 +112,38 @@ void draw() {
     text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
   }
 
+  for (int p = 0; p < polygons.size(); p++) {
+    Polygon polygon = polygons.get(p);
+    if (isWithinUpdateDistance(polygon)) { 
+      polygon.update();
+      if (isWithinDisplayDistance(polygon)) {
+        polygon.display();
+      }
+    }
+  }
+
+  for (int e = 0; e < enemies.size(); e++) {
+    Gunship enemy = enemies.get(e);
+    if (isWithinUpdateDistance(enemy)) { 
+      enemy.enemyUpdate();
+      if (isWithinDisplayDistance(enemy)) {
+        enemy.enemyDisplay();
+      }
+    }
+  }
+
   if (getGameState() == PLAYING) {
     //fill(0);
-    textSize(50);
+    textSize(30);
     textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), 
-                                                          player.getY() - 15 * unit);
+    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
     textAlign(LEFT);
-    if (timeSinceEnemySpawn == 0){
+    if (timeSinceEnemySpawn == 0) {
       Gunship enemy = new Gunship();
       enemies.add(enemy);
       setTimeSinceEnemySpawn(enemies.size() * 600);
-    } else{
+    } else {
       setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
-    }
-    
-    for (int p = 0; p < polygons.size(); p++) {
-      Polygon polygon = polygons.get(p);
-      if (isWithinUpdateDistance(polygon)) { 
-        polygon.update();
-        if (isWithinDisplayDistance(polygon)) {
-          polygon.display();
-        }
-      }
-    }
-
-    for (int e = 0; e < enemies.size(); e++) {
-      Gunship enemy = enemies.get(e);
-      if (isWithinUpdateDistance(enemy)) { 
-        enemy.enemyUpdate();
-        if (isWithinDisplayDistance(enemy)) {
-          enemy.enemyDisplay();
-        }
-      }
     }
 
     // display & update player last so that it always appears on top 
@@ -143,7 +151,7 @@ void draw() {
 
     player.playerUpdate();
     player.playerDisplay();
-    
+
     player.getMinimap().update();
     player.getMinimap().display();
 

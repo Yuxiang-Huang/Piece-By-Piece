@@ -32,6 +32,7 @@
     *  (05-30-2022): "Today I worked on thoroughly testing the game and code to make sure there weren't any major bugs present that could break the game. I also found places where I could optimize some code, particularly in collisionWithUMO, where a stopping condition could be implemented to speed up collision checks."
     *  (05-31-2022): "Today I fixed the issue with fullscreen by making it always appear on the main screen. I also changed some code to use the pow() instead of repetitive multiplication. The main thing i worked on however was converting the velocity and acceleration of the gunship into units."
     *  (06-01-2022): "Today I finished the only thing from the MVP that we had not finished, the orthographic camera. After i figured out how to make the camera I then had to diferentiate all uses of width and height to either stay width and height or displayWidth and displayHeight. I changed the playable area to be a 3k by 3k pixel board and updated the grid lines to fill in the board completly and made a concrete grey border."
+    *  (06-02-2022): "Today I decided to finish one of the low priority items, the minimap. I made the minimap display your position and the positions of all the enemies. I also worked with Yuxiang to decide how to approach update distance and display distance to optimize the game."
 ---
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
 

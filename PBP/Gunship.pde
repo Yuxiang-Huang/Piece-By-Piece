@@ -56,7 +56,7 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) {
+    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.3) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
@@ -249,6 +249,10 @@ class Gunship extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
+
+    if (getAutoFire()) {
+      autoFire();
+    }
 
     // update and display all bullets
     for (int b = 0; b < bullets.size(); b++) {

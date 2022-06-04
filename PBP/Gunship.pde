@@ -176,7 +176,6 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
-    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }
@@ -250,22 +249,6 @@ class Gunship extends UMO {
     collisionWithBorder();
     collisionWithUMO();
 
-    if (getAutoFire()) {
-      autoFire();
-    }
-
-    // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = getBullets().get(b);
-      bullet.update();
-      bullet.display();
-    }
-
-    // decrement shoot cooldown by 1
-    if (getShootCooldown() > 0) {
-      setShootCooldown(getShootCooldown()-1);
-    }
-
     // check if gunship has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel()) {
       setExp(getExp()-getExpRequiredForNextLevel());
@@ -293,6 +276,7 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
+    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }
@@ -356,21 +340,9 @@ class Gunship extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-
-    // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = getBullets().get(b);
-      bullet.update();
-      bullet.display();
-    }
-
-    // decrement shoot cooldown by 1
-    if (getShootCooldown() > 0) {
-      setShootCooldown(getShootCooldown()-1);
-    }
   }
+  
   void die() {} // need to have becuase Gunship extends UMO
-
 
   void playerDie() {
     setGameState(LOST);

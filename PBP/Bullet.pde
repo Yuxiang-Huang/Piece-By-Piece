@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>// //<>// //<>// //<>//
+class Bullet extends UMO { //<>//
   Gunship gunship;
   private int timeTillDeath;
   private final float frictionForBullet = .99;

@@ -6,7 +6,7 @@ class Polygon extends UMO {
   final color BLUE = color(0, 0, 255);
 
   float radian;
-  float movingRadius;
+  float angularChange;
   boolean rotationCW;
 
   Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
@@ -73,7 +73,7 @@ class Polygon extends UMO {
       setRotationCW(true);
     }
     setRadian(2*PI*random(1));
-    setMovingRadius(unit/500 * random(2)); //not done
+    setAngularChange(radians(random(1)/10.0)); //not done
   }
 
   void display() {
@@ -134,12 +134,12 @@ class Polygon extends UMO {
 
   void moveInCircle() {
     //one full circle in 60 seconds
+    radian += radians(get(angularChange));
     if (getRotationCW()) {
-      radian += radians(0.1);
+      acceleration.set((unit/500)*cos(radian), (getMovingRadius())*sin(radian));
     } else {
-      radian -= radians(0.1);
+      acceleration.set((unit/500)*cos(radian)*-1, (getMovingRadius())*sin(radian)*-1);
     }
-    acceleration.set((getMovingRadius())*cos(radian), (getMovingRadius())*sin(radian));
   }
 
   //get and set methods------------------------------------------------------------------
@@ -159,11 +159,11 @@ class Polygon extends UMO {
     this.radian = radian;
   }
 
-  float getMovingRadius() {
-    return movingRadius;
+  float getAngularChange() {
+    return angularChange;
   }
-  void setMovingRadius(float movingRadius) {
-    this.movingRadius = movingRadius;
+  void setAngularChange(float angularChange) {
+    this.angularChange = angularChange;
   }
 
   boolean getRotationCW() {

@@ -56,7 +56,7 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) {
+    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.3) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
@@ -249,18 +249,6 @@ class Gunship extends UMO {
     collisionWithBorder();
     collisionWithUMO();
 
-    // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = getBullets().get(b);
-      bullet.update();
-      bullet.display();
-    }
-
-    // decrement shoot cooldown by 1
-    if (getShootCooldown() > 0) {
-      setShootCooldown(getShootCooldown()-1);
-    }
-
     // check if gunship has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel()) {
       setExp(getExp()-getExpRequiredForNextLevel());
@@ -352,21 +340,9 @@ class Gunship extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-
-    // update and display all bullets
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = getBullets().get(b);
-      bullet.update();
-      bullet.display();
-    }
-
-    // decrement shoot cooldown by 1
-    if (getShootCooldown() > 0) {
-      setShootCooldown(getShootCooldown()-1);
-    }
   }
+  
   void die() {} // need to have becuase Gunship extends UMO
-
 
   void playerDie() {
     setGameState(LOST);

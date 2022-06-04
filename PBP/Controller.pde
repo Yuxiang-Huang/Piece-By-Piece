@@ -15,15 +15,6 @@ class Controller {
       DEBUG = !DEBUG;
     }
 
-    if (DEBUG && key == 'k') {
-      player.setExp(player.getExpRequiredForNextLevel());
-    }
-
-    // Gun controls
-    if (key == 'e') {
-      player.setAutoFire(!player.getAutoFire());
-    }
-
     if (key == 'r') {
       player = new Gunship(width/2, height/2);
       polygons.clear();
@@ -32,20 +23,32 @@ class Controller {
         polygons.add(polygon);
       }
       enemies.clear();
+      setTimeSinceEnemySpawn(600);
+      setGameState(PLAYING);
     }
 
-    // Movement controls
-    if (key == 'a' || keyCode == LEFT) {
-      inputs[0] = true;
-    }
-    if (key == 'w' || keyCode == UP) {
-      inputs[1] = true;
-    } 
-    if (key == 'd' || keyCode == RIGHT) {
-      inputs[2] = true;
-    }
-    if (key == 's' || keyCode == DOWN) {
-      inputs[3] = true;
+    if (getGameState() == PLAYING) {
+      if (DEBUG && key == 'k') {
+        player.setExp(player.getExpRequiredForNextLevel());
+      }
+
+      // Gun controls
+      if (key == 'e') {
+        player.setAutoFire(!player.getAutoFire());
+      }
+      // Movement controls
+      if (key == 'a' || keyCode == LEFT) {
+        inputs[0] = true;
+      }
+      if (key == 'w' || keyCode == UP) {
+        inputs[1] = true;
+      } 
+      if (key == 'd' || keyCode == RIGHT) {
+        inputs[2] = true;
+      }
+      if (key == 's' || keyCode == DOWN) {
+        inputs[3] = true;
+      }
     }
 
     // Shop upgrades

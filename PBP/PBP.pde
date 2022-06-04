@@ -47,7 +47,7 @@ void setup() {
   }
   
   //create 10 enemies for testing purpose
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 10; i++) {
     Gunship enemy = new Gunship();
     enemies.add(enemy);
   }
@@ -173,7 +173,7 @@ void draw() {
     }
     for (Gunship enemy : enemies) {
       if (isWithinDisplayDistance(enemy)) {
-        //enemy.enemyDisplay();
+        enemy.enemyDisplay();
       }
     }
     player.getMinimap().display();

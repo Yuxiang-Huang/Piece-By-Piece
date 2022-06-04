@@ -315,6 +315,7 @@ class Gunship extends UMO {
       enemyDie();
     }
 
+    //botMove
     int xdir;
     int ydir;
     if (getX() > player.getX()) {
@@ -399,47 +400,28 @@ class Gunship extends UMO {
         setDY((2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
+        if (getHealth() >  getCollisionDamage()) {
+          player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+        } else {
+          player.setHealth(player.getHealth() - getHealth());
+        }
         setHealth(getHealth() - player.getCollisionDamageWithShip());
-        player.setHealth(player.getHealth() - getCollisionDamageWithShip());
       } 
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
-          if (abs(getX() - enemy.getX()) < getRadius() + enemy.getRadius()) {
+          if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
             if (getX() - enemy.getX() < 0) {
               setX(enemy.getX() - getRadius() - enemy.getRadius());
             } else {
               setX(enemy.getX() + getRadius() + enemy.getRadius());
             }
-          }
-          if (abs(getY() - enemy.getY()) < getRadius() + enemy.getRadius()) {
             if (getY() - enemy.getY() < 0) {
               setY(enemy.getY() - getRadius() - enemy.getRadius());
             } else {
               setY(enemy.getY() + getRadius() + enemy.getRadius());
             }
           }
-        }
-      }
-    } else {
-      for (Gunship enemy : enemies) {
-        if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
-          < getRadius() + enemy.getRadius()) {
-          float m1 = pow(getRadius(), 3);
-          float m2 = pow(enemy.getRadius(), 3);
-          float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
-          float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
-          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
-          setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
-          enemy.velocity.set(dxHolder, dyHolder);
-
-          if (enemy.getHealth() >  enemy.getCollisionDamageWithShip()) {
-            setHealth(getHealth() - enemy.getCollisionDamageWithShip());
-          } else {
-            setHealth(getHealth() - enemy.getHealth());
-          }
-          enemy.setHealth(enemy.getHealth() - getCollisionDamageWithShip());
-          return;
         }
       }
     }
@@ -499,7 +481,7 @@ class Gunship extends UMO {
 
   void autoFire() {
     if (canShoot()) {
-      shoot();
+      //shoot();
     }
   }
 

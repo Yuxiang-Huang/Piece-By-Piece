@@ -7,6 +7,7 @@ class Polygon extends UMO {
   
   float radian;
   float movingRadius;
+  boolean rotationCW;
   
   Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
@@ -74,7 +75,7 @@ class Polygon extends UMO {
       setRotationCW(true);
     }
     setRadian(2*PI*random(1));
-    setMovingRadius(unit/500); //not done
+    setMovingRadius(unit/500 * random(2)); //not done
   }
 
   void display() {
@@ -133,7 +134,6 @@ class Polygon extends UMO {
   void moveInCircle() {
     //one full circle in 60 seconds
     radian += radians(0.1);
-    println(getMovingRadius());
     acceleration.set((getMovingRadius())*cos(radian), (getMovingRadius())*sin(radian));
   }
 
@@ -159,5 +159,12 @@ class Polygon extends UMO {
   }
   void setMovingRadius(float movingRadius) {
     this.movingRadius = movingRadius;
+  }
+  
+  boolean getRotationCW() {
+    return rotationCW;
+  }
+  void setRotationCW(boolean rotationCW) {
+    this.rotationCW = rotationCW;
   }
 }

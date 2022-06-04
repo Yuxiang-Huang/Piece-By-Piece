@@ -20,9 +20,9 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  fill(0);
-  textSize(15);
-  textAlign(LEFT);
+  //fill(0);
+  //textSize(15);
+  //textAlign(LEFT);
 
   width = displayWidth*3;
   height = displayHeight*3;
@@ -45,21 +45,23 @@ void setup() {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
+  
+  //create 10 enemies for testing purpose
+  //for (int i = 0; i < 10; i++) {
+  //  Gunship enemy = new Gunship();
+  //  enemies.add(enemy);
+  //}
 
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);
 }
 
 void keyPressed() {
-  if (getGameState() == PLAYING) {
-    input.press(keyCode);
-  }
+  input.press(keyCode);
 }
 
 void keyReleased() {
-  if (getGameState() == PLAYING) {
-    input.release(keyCode);
-  }
+  input.release(keyCode);
 }
 
 void mouseClicked() {
@@ -112,32 +114,7 @@ void draw() {
     text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
   }
 
-  for (int p = 0; p < polygons.size(); p++) {
-    Polygon polygon = polygons.get(p);
-    if (isWithinUpdateDistance(polygon)) { 
-      polygon.update();
-      if (isWithinDisplayDistance(polygon)) {
-        polygon.display();
-      }
-    }
-  }
-
-  for (int e = 0; e < enemies.size(); e++) {
-    Gunship enemy = enemies.get(e);
-    if (isWithinUpdateDistance(enemy)) { 
-      enemy.enemyUpdate();
-      if (isWithinDisplayDistance(enemy)) {
-        enemy.enemyDisplay();
-      }
-    }
-  }
-
   if (getGameState() == PLAYING) {
-    //fill(0);
-    textSize(30);
-    textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-    textAlign(LEFT);
     if (timeSinceEnemySpawn == 0) {
       Gunship enemy = new Gunship();
       enemies.add(enemy);
@@ -145,6 +122,32 @@ void draw() {
     } else {
       setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
     }
+
+    for (int p = 0; p < polygons.size(); p++) {
+      Polygon polygon = polygons.get(p);
+      if (isWithinUpdateDistance(polygon)) { 
+        polygon.update();
+        if (isWithinDisplayDistance(polygon)) {
+          polygon.display();
+        }
+      }
+    }
+
+    for (int e = 0; e < enemies.size(); e++) {
+      Gunship enemy = enemies.get(e);
+      if (isWithinUpdateDistance(enemy)) { 
+        enemy.enemyUpdate();
+        if (isWithinDisplayDistance(enemy)) {
+          enemy.enemyDisplay();
+        }
+      }
+    }
+
+    textSize(unit*2);
+    textAlign(CENTER);
+    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+    textAlign(LEFT);
+    textSize(unit*3.0/4);    
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
@@ -177,7 +180,7 @@ void draw() {
     fill(128, 128, 128, 200);
     rect(player.getX()-(displayWidth/2), player.getY()-(displayHeight/2), displayWidth, displayHeight); 
     fill(0);
-    textSize(unit * 10);
+    textSize(unit*10);
     textAlign(CENTER);
     String message = "";
     if (getGameState() == LOST) {

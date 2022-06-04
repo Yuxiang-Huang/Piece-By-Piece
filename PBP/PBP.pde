@@ -47,7 +47,7 @@ void setup() {
   }
   
   //create 10 enemies for testing purpose
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 2; i++) {
     Gunship enemy = new Gunship();
     enemies.add(enemy);
   }

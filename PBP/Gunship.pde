@@ -410,18 +410,16 @@ class Gunship extends UMO {
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
-          if (abs(getX() - enemy.getX()) < (getRadius() + enemy.getRadius())/2) {
+          if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
             if (getX() - enemy.getX() < 0) {
-              setX(enemy.getX() - (getRadius() + enemy.getRadius())/2);
+              setX(enemy.getX() - getRadius() - enemy.getRadius());
             } else {
-              setX(enemy.getX() + (getRadius() + enemy.getRadius())/2);
+              setX(enemy.getX() + getRadius() + enemy.getRadius());
             }
-          }
-          if (abs(getY() - enemy.getY()) < (getRadius() + enemy.getRadius())/2) {
             if (getY() - enemy.getY() < 0) {
-              setY(enemy.getY() - (getRadius() + enemy.getRadius())/2);
+              setY(enemy.getY() - getRadius() - enemy.getRadius());
             } else {
-              setY(enemy.getY() + (getRadius() + enemy.getRadius())/2);
+              setY(enemy.getY() + getRadius() + enemy.getRadius());
             }
           }
         }

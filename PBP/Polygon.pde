@@ -116,25 +116,17 @@ class Polygon extends UMO {
       Polygon polygon = polygons.get(p);
       if (polygon != this) {
         if (isCollidingWithPolygon(polygon)) {
-          //defy the law of physics with no other choice...
+          //trust physics
           float m1 = pow(getRadius(), 3);
           float m2 = pow(polygon.getRadius(), 3);
-          float dxHolder = 1.0 * (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
-          float dyHolder = 1.0 *(2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
-          setDX(1.0 *(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
-          setDY(1.0 *(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+          float dxHolder = 2 * (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
+          float dyHolder = 2 * (2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
+          setDX(2 * (2*m2*polygon.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
+          setDY(2 * (2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
           polygon.velocity.set(new PVector(dxHolder, dyHolder));
-          
-          if (getX() > polygon.getX()){
-            setX(polygon.getX() + getRadius() + polygon.getX());
-          } else{
-            setX(polygon.getX() - getRadius() - polygon.getX());
-          }
-          if (getY() > polygon.getY()){
-            setY(polygon.getY() + getRadius() + polygon.getX());
-          } else{
-            setY(polygon.getY() - getRadius() - polygon.getX());
-          }
+
+          setRotationCW(! getRotationCW());
+          polygon.setRotationCW(! polygon.getRotationCW());
         }
       }
     }
@@ -142,7 +134,11 @@ class Polygon extends UMO {
 
   void moveInCircle() {
     //one full circle in 60 seconds
-    radian += radians(0.1);
+    if (getRotationCW()) {
+      radian += radians(0.1);
+    } else {
+      radian -= radians(0.1);
+    }
     acceleration.set((getMovingRadius())*cos(radian), (getMovingRadius())*sin(radian));
   }
 

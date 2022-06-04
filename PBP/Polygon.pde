@@ -5,7 +5,8 @@ class Polygon extends UMO {
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
   
-  float radian = 0;
+  float radian;
+  float movingRadius;
   
   Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
@@ -67,12 +68,19 @@ class Polygon extends UMO {
       setX(random(width));
       setY(random(height));
     }
+    
+    //random Circular movement
+    if (random(2) > 1){
+      setRotationCW(true);
+    }
+    setRadian(2*PI*random(1));
+    setMovingRadius(unit/500); //not done
   }
 
   void display() {
     pushMatrix();
     translate(getX(), getY());
-    rotate(radian-HALF_PI); 
+    rotate(getRadian()-HALF_PI); 
     shape(umo, 0, 0);
     popMatrix();
     if (getHealth() != getMaxHealth()) {
@@ -122,12 +130,11 @@ class Polygon extends UMO {
     }
   }
 
-  /**
-   Applies a random increment to the acceleration to create a wiggily motion
-   */
   void moveInCircle() {
-    radian += radians(1);
-    acceleration.set((unit/500)*cos(radian), (unit/500)*sin(radian));
+    //one full circle in 60 seconds
+    radian += radians(0.1);
+    println(getMovingRadius());
+    acceleration.set((getMovingRadius())*cos(radian), (getMovingRadius())*sin(radian));
   }
 
   //get and set methods------------------------------------------------------------------
@@ -136,7 +143,21 @@ class Polygon extends UMO {
     return shape;
   }
 
-  void setShape(String shapeNow) {
-    shape = shapeNow;
+  void setShape(String shape) {
+    this.shape = shape;
+  }
+  
+  float getRadian() {
+    return radian;
+  }
+  void setRadian(float radian) {
+    this.radian = radian;
+  }
+  
+  float getMovingRadius() {
+    return movingRadius;
+  }
+  void setMovingRadius(float movingRadius) {
+    this.movingRadius = movingRadius;
   }
 }

@@ -315,6 +315,7 @@ class Gunship extends UMO {
       enemyDie();
     }
 
+    //botMove
     int xdir;
     int ydir;
     if (getX() > player.getX()) {
@@ -399,24 +400,28 @@ class Gunship extends UMO {
         setDY((2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
+        if (getHealth() >  getCollisionDamage()) {
+          player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+        } else {
+          player.setHealth(player.getHealth() - getHealth());
+        }
         setHealth(getHealth() - player.getCollisionDamageWithShip());
-        player.setHealth(player.getHealth() - getCollisionDamageWithShip());
       } 
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
-          if (abs(getX() - enemy.getX()) < getRadius() + enemy.getRadius()) {
+          if (abs(getX() - enemy.getX()) < (getRadius() + enemy.getRadius())/2) {
             if (getX() - enemy.getX() < 0) {
-              setX(enemy.getX() - getRadius() - enemy.getRadius());
+              setX(enemy.getX() - (getRadius() + enemy.getRadius())/2);
             } else {
-              setX(enemy.getX() + getRadius() + enemy.getRadius());
+              setX(enemy.getX() + (getRadius() + enemy.getRadius())/2);
             }
           }
-          if (abs(getY() - enemy.getY()) < getRadius() + enemy.getRadius()) {
+          if (abs(getY() - enemy.getY()) < (getRadius() + enemy.getRadius())/2) {
             if (getY() - enemy.getY() < 0) {
-              setY(enemy.getY() - getRadius() - enemy.getRadius());
+              setY(enemy.getY() - (getRadius() + enemy.getRadius())/2);
             } else {
-              setY(enemy.getY() + getRadius() + enemy.getRadius());
+              setY(enemy.getY() + (getRadius() + enemy.getRadius())/2);
             }
           }
         }
@@ -478,7 +483,7 @@ class Gunship extends UMO {
 
   void autoFire() {
     if (canShoot()) {
-      shoot();
+      //shoot();
     }
   }
 

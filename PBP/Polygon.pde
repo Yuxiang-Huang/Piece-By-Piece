@@ -4,7 +4,9 @@ class Polygon extends UMO {
   final color YELLOW = color(255, 255, 0);
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
-
+  
+  float radian = 0;
+  
   Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
     stroke(0);
@@ -68,11 +70,15 @@ class Polygon extends UMO {
   }
 
   void display() {
-    shape(umo, getX(), getY());
+    pushMatrix();
+    translate(getX(), getY());
+    rotate(radian-HALF_PI); 
+    shape(umo, 0, 0);
+    popMatrix();
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
-
+    
     if (DEBUG) {
       text(""+ (int) getHealth(), getX(), getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
@@ -85,7 +91,7 @@ class Polygon extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-    randomMove();
+    moveInCircle();
     super.update();
   }
 
@@ -119,22 +125,9 @@ class Polygon extends UMO {
   /**
    Applies a random increment to the acceleration to create a wiggily motion
    */
-  void randomMove() {
-    float rand = random(1);
-    int xdir;
-    int ydir;
-    if (rand < 0.5) {
-      xdir = 1;
-    } else {
-      xdir = -1;
-    }
-    rand = random(1);
-    if (rand < 0.5) {
-      ydir = 1;
-    } else {
-      ydir = -1;
-    }
-    acceleration.set((unit/500)*xdir, (unit/500)*ydir);
+  void moveInCircle() {
+    radian += radians(1);
+    acceleration.set((unit/500)*cos(radian), (unit/500)*sin(radian));
   }
 
   //get and set methods------------------------------------------------------------------

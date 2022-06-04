@@ -4,11 +4,11 @@ class Polygon extends UMO {
   final color YELLOW = color(255, 255, 0);
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
-  
+
   float radian;
   float movingRadius;
   boolean rotationCW;
-  
+
   Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
     stroke(0);
@@ -26,7 +26,6 @@ class Polygon extends UMO {
       setMaxHealth(10);
       setHealth(getMaxHealth());
       setCollisionDamage(8);
-      
     } else if (rand < .83) { // 33%
       setShape("triangle");
       setExp(25);
@@ -40,7 +39,6 @@ class Polygon extends UMO {
       setMaxHealth(30);
       setHealth(getMaxHealth());
       setCollisionDamage(8);
-      
     } else { // 17%
       setShape("pentagon");
       setExp(130);      
@@ -69,9 +67,9 @@ class Polygon extends UMO {
       setX(random(width));
       setY(random(height));
     }
-    
+
     //random Circular movement
-    if (random(2) > 1){
+    if (random(2) > 1) {
       setRotationCW(true);
     }
     setRadian(2*PI*random(1));
@@ -87,7 +85,7 @@ class Polygon extends UMO {
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
-    
+
     if (DEBUG) {
       text(""+ (int) getHealth(), getX(), getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
@@ -116,17 +114,28 @@ class Polygon extends UMO {
   void collisionWithUMO() {
     for (int p = 0; p < polygons.size(); p++) {
       Polygon polygon = polygons.get(p);
-      if (isCollidingWithPolygon(polygon)) {
-        //trust physics
-        float m1 = pow(getRadius(), 3);
-        float m2 = pow(polygon.getRadius(), 3);
-
-        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
-        setDX((2*m2*polygon.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
-        setDY((2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
-        polygon.velocity.set(dxHolder, dyHolder);
-        return;
+      if (polygon != this) {
+        if (isCollidingWithPolygon(polygon)) {
+          //defy the law of physics with no other choice...
+          float m1 = pow(getRadius(), 3);
+          float m2 = pow(polygon.getRadius(), 3);
+          float dxHolder = 1.0 * (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
+          float dyHolder = 1.0 *(2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
+          setDX(1.0 *(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
+          setDY(1.0 *(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+          polygon.velocity.set(new PVector(dxHolder, dyHolder));
+          
+          if (getX() > polygon.getX()){
+            setX(polygon.getX() + getRadius() + polygon.getX());
+          } else{
+            setX(polygon.getX() - getRadius() - polygon.getX());
+          }
+          if (getY() > polygon.getY()){
+            setY(polygon.getY() + getRadius() + polygon.getX());
+          } else{
+            setY(polygon.getY() - getRadius() - polygon.getX());
+          }
+        }
       }
     }
   }
@@ -146,21 +155,21 @@ class Polygon extends UMO {
   void setShape(String shape) {
     this.shape = shape;
   }
-  
+
   float getRadian() {
     return radian;
   }
   void setRadian(float radian) {
     this.radian = radian;
   }
-  
+
   float getMovingRadius() {
     return movingRadius;
   }
   void setMovingRadius(float movingRadius) {
     this.movingRadius = movingRadius;
   }
-  
+
   boolean getRotationCW() {
     return rotationCW;
   }

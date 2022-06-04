@@ -15,7 +15,7 @@ class Gunship extends UMO {
   private int timeSinceLastHit;
   private float heal10percent;
   private boolean AutoFire;
-  
+
   private int collisionDamageWithShip;
 
   // player constructor
@@ -28,7 +28,7 @@ class Gunship extends UMO {
     setLevel(1);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
-    
+
     getShop().update();
     setHealth(getMaxHealth());
 
@@ -64,7 +64,7 @@ class Gunship extends UMO {
     acceleration.set(unit*.01, unit*.01);
 
     int levelHolder = player.getLevel() + (int) random(7) - 3;
-    if (levelHolder < 1){
+    if (levelHolder < 1) {
       levelHolder = 1;
     }
     setLevel(levelHolder);
@@ -341,8 +341,9 @@ class Gunship extends UMO {
     collisionWithBorder();
     collisionWithUMO();
   }
-  
-  void die() {} // need to have becuase Gunship extends UMO
+
+  void die() {
+  } // need to have becuase Gunship extends UMO
 
   void playerDie() {
     setGameState(LOST);
@@ -377,8 +378,8 @@ class Gunship extends UMO {
           setHealth(getHealth() - polygon.getHealth());
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
-        
-        if (polygon.isDead()){
+
+        if (polygon.isDead()) {
           setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
         }
         //for health regen after 30 sec
@@ -388,6 +389,7 @@ class Gunship extends UMO {
     }
 
     if (this != player) {
+      //check for collision with player
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(player.getRadius(), 3);
@@ -399,6 +401,18 @@ class Gunship extends UMO {
 
         setHealth(getHealth() - player.getCollisionDamageWithShip());
         player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+      } 
+      //check for collision with enemies
+      for (Gunship enemy : enemies) {
+        if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
+          float m1 = pow(getRadius(), 3);
+          float m2 = pow(enemy.getRadius(), 3);
+          float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
+          float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
+          setDX((2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDY((2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+          enemy.velocity.set(dxHolder, dyHolder);
+        }
       }
     } else {
       for (Gunship enemy : enemies) {
@@ -490,7 +504,7 @@ class Gunship extends UMO {
   void setShop(Shop shop) {
     this.shop = shop;
   }
-  
+
   Minimap getMinimap() {
     return minimap;
   }
@@ -578,7 +592,7 @@ class Gunship extends UMO {
   void setAutoFire(boolean AutoFire) {
     this.AutoFire = AutoFire;
   }
-  
+
   int getCollisionDamageWithShip() {
     return collisionDamageWithShip;
   }

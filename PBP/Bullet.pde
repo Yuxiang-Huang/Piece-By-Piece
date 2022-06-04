@@ -122,15 +122,16 @@ class Bullet extends UMO { //<>// //<>// //<>// //<>//
         if (sqrt(pow((getX() - bullet.getX()), 2) + pow((getY() - bullet.getY()), 2))
           < getRadius() + bullet.getRadius()) {
           //take collision damage or remaining health
+          float healthBefore = getHealth();
           if (bullet.getHealth() >  bullet.getCollisionDamage()) {
             setHealth(getHealth() - bullet.getCollisionDamage());
           } else {
             setHealth(getHealth() - bullet.getHealth());
           }
-          if (getHealth() >  getCollisionDamage()) {
+          if (healthBefore >  getCollisionDamage()) {
             bullet.setHealth(bullet.getHealth() - getCollisionDamage());
           } else {
-            bullet.setHealth(bullet.getHealth() - getHealth());
+            bullet.setHealth(bullet.getHealth() - healthBefore);
           }
         }
       }

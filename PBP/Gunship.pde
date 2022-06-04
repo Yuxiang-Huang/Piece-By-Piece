@@ -176,7 +176,6 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
-    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }
@@ -289,6 +288,7 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
+    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }

@@ -20,9 +20,9 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  fill(0);
-  textSize(15);
-  textAlign(LEFT);
+  //fill(0);
+  //textSize(15);
+  //textAlign(LEFT);
 
   width = displayWidth*3;
   height = displayHeight*3;
@@ -104,12 +104,13 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
-    //fill(0);
-    textSize(50);
+    textSize(unit * 2.5);
     textAlign(CENTER);
     text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), 
                                                           player.getY() - 15 * unit);
     textAlign(LEFT);
+    textSize(unit*3.0/4);
+  
     if (timeSinceEnemySpawn == 0){
       Gunship enemy = new Gunship();
       enemies.add(enemy);

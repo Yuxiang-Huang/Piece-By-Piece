@@ -109,12 +109,6 @@ void draw() {
   }
 
   if (getGameState() == PLAYING) {
-    textSize(unit * 2.5);
-    textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-    textAlign(LEFT);
-    textSize(unit*3.0/4);
-
     if (timeSinceEnemySpawn == 0) {
       Gunship enemy = new Gunship();
       enemies.add(enemy);
@@ -142,6 +136,12 @@ void draw() {
         }
       }
     }
+
+    textSize(unit*2);
+    textAlign(CENTER);
+    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+    textAlign(LEFT);
+    textSize(unit*3.0/4);    
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
@@ -174,7 +174,7 @@ void draw() {
     fill(128, 128, 128, 200);
     rect(player.getX()-(displayWidth/2), player.getY()-(displayHeight/2), displayWidth, displayHeight); 
     fill(0);
-    textSize(unit * 10);
+    textSize(unit*10);
     textAlign(CENTER);
     String message = "";
     if (getGameState() == LOST) {

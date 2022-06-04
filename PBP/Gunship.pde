@@ -481,7 +481,7 @@ class Gunship extends UMO {
 
   void autoFire() {
     if (canShoot()) {
-      //shoot();
+      shoot();
     }
   }
 

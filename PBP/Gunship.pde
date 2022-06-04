@@ -8,7 +8,7 @@ class Gunship extends UMO {
   private float shootCooldown;
 
   private float angle;
-  private ArrayList<Bullet> bullets;
+  private ArrayList<Gun> guns;
 
   private float maxSpeed;
   private int healthRegen;
@@ -32,7 +32,8 @@ class Gunship extends UMO {
     getShop().update();
     setHealth(getMaxHealth());
 
-    setBullets(new ArrayList<Bullet>());
+    setGuns(new ArrayList<Gun>());
+    getGuns().add(new Gun(this, 0));
     setShootCooldown(0);
 
     // make shape of gunship
@@ -82,7 +83,7 @@ class Gunship extends UMO {
     shop.update();
     setHealth(getMaxHealth());
 
-    bullets = new ArrayList<Bullet>();
+    guns = new ArrayList<Gun>();
     setShootCooldown(0);
 
     // make shape of gunship
@@ -179,11 +180,9 @@ class Gunship extends UMO {
     if (getAutoFire()) {
       autoFire();
     }
-    // update and display all bullets
-    for (int b = 0; b < getBullets().size(); b++) {
-      Bullet bullet = getBullets().get(b);
-      bullet.update();
-      bullet.display();
+    // update all guns
+    for (Gun gun : guns) {
+      gun.update();
     }
 
     // decrement shoot cooldown by 1
@@ -280,11 +279,9 @@ class Gunship extends UMO {
     if (getAutoFire()) {
       autoFire();
     }
-    // update and display all bullets
-    for (int b = 0; b < getBullets().size(); b++) {
-      Bullet bullet = getBullets().get(b);
-      bullet.update();
-      bullet.display();
+    // update and display all guns
+    for (Gun gun : guns) {
+      gun.update();
     }
 
     // decrement shoot cooldown by 1
@@ -441,7 +438,9 @@ class Gunship extends UMO {
 
   void shoot() {
     setShootCooldown(getReloadSpeed());
-    bullets.add(new Bullet(this));
+    for (Gun gun : guns) {
+      gun.shoot();
+    }
   }
 
   void displayExpBar() {
@@ -501,11 +500,11 @@ class Gunship extends UMO {
     this.minimap = minimap;
   }
 
-  ArrayList<Bullet> getBullets() {
-    return bullets;
+  ArrayList<Gun> getGuns() {
+    return guns;
   }
-  void setBullets(ArrayList<Bullet> bullets) {
-    this.bullets = bullets;
+  void setGuns(ArrayList<Gun> guns) {
+    this.guns = guns;
   }
 
   float getMaxSpeed() {

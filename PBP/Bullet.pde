@@ -9,9 +9,11 @@ class Bullet extends UMO { //<>// //<>// //<>//
     this.gun = gun;
     setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
 
+    float angle = gunship.getAngle() + gun.getAngle();
+
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
-    position.set(gunship.getX()+(gunship.getRadius()*cos(gunship.getAngle())), gunship.getY()+(gunship.getRadius()*sin(gunship.getAngle())));
-    velocity = PVector.fromAngle(gunship.getAngle());
+    position.set(gunship.getX()+(gunship.getRadius()*cos(angle)), gunship.getY()+(gunship.getRadius()*sin(angle)));
+    velocity = PVector.fromAngle(angle);
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
 

@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>// //<>// //<>//
+class Bullet extends UMO { //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;
@@ -7,8 +7,8 @@ class Bullet extends UMO { //<>// //<>// //<>//
   Bullet(Gunship gunship, Gun gun) {
     this.gunship = gunship;
     this.gun = gun;
-    setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
-    float spread = .1;
+    setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); // base confirmed from playing, modifier confirmed from wiki
+    float spread = .03*gunship.getShop().reload.getLevel(); // bullet spread scales with reload speed 
     float angle = gunship.getAngle() + gun.getAngle() + (random(spread*2)-spread);
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.

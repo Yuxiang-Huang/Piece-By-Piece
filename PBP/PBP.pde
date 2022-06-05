@@ -9,8 +9,9 @@ private float MouseX;
 private float MouseY;
 
 final int PLAYING = 0;
-final int LOST = 1;
-final int WON = 2;
+final int PAUSED = 1;
+final int LOST = 2;
+final int WON = 3;
 
 private int gameState;
 
@@ -41,13 +42,13 @@ void setup() {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
-  
+
   //please don't delete just comment
   for (int i = 0; i < 10; i++) {
     Gunship enemy = new Gunship();
     enemies.add(enemy);
   }
-  
+
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);
 }
@@ -178,8 +179,11 @@ void draw() {
     fill(0);
     textSize(unit*10);
     textAlign(CENTER);
+
     String message = "";
-    if (getGameState() == LOST) {
+    if (getGameState() == PAUSED) {
+      message = "GAME PAUSED";
+    } else if (getGameState() == LOST) {
       message = "YOU LOST :(";
     } else if (getGameState() == WON) {
       message = "YOU WON :)";

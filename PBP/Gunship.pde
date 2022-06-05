@@ -70,20 +70,21 @@ class Gunship extends UMO {
     }
     setLevel(levelHolder);
 
-    shop = new Shop(this);
+    setShop(new Shop(this));
 
     // set stats base on level
-    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
     // TODO: randomly assign skill points here
 
-    shop.update();
+    getShop().update();
     setHealth(getMaxHealth());
 
     guns = new ArrayList<Gun>();
+    guns.add(new Gun(this, 0));
     setShootCooldown(0);
 
     // make shape of gunship
@@ -100,8 +101,6 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
-
-    setAutoFire(true);
   }
 
   void playerDisplay() {
@@ -276,9 +275,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     shop.randomUpgrade();
-    if (getAutoFire()) {
-      autoFire();
-    }
+    autoFire();
     // update and display all guns
     for (Gun gun : guns) {
       gun.update();

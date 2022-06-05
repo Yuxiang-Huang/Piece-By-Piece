@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>//
+class Bullet extends UMO {  //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;
@@ -102,7 +102,7 @@ class Bullet extends UMO { //<>//
       }
     } else {
       for (Gunship enemy : enemies) {
-        if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
+        if (enemy != gunship && sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
           < getRadius() + enemy.getRadius()) {
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());

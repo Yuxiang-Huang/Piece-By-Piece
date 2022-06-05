@@ -81,7 +81,12 @@ class Gunship extends UMO {
 
     shop.randomUpgrade();
     //compare gun stats to gunship stats to determine if suicidal
-    //if (getShop().getHealthRegen().getLevel())
+    if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+    getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+    getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+    getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()){
+      setSuicidal(true);
+    }
     
     shop.update();
     setHealth(getMaxHealth());

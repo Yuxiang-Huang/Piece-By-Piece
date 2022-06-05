@@ -102,7 +102,7 @@ class Bullet extends UMO {  //<>//
       }
     } else {
       for (Gunship enemy : enemies) {
-        if (enemy != gunship && sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
+        if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
           < getRadius() + enemy.getRadius()) {
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());
@@ -121,7 +121,7 @@ class Bullet extends UMO {  //<>//
     }
     //bullet bullet collision
     if (gunship != player) {
-      for (Gun gun : gunship.getGuns()) {
+      for (Gun gun : player.getGuns()) {
         for (int b = 0; b < gun.getBullets().size(); b++) {
           Bullet bullet = gun.getBullets().get(b);
           if (sqrt(pow((getX() - bullet.getX()), 2) + pow((getY() - bullet.getY()), 2))

@@ -27,6 +27,14 @@ class Controller {
       setGameState(PLAYING);
     }
 
+    if (key == 'p') {
+      if (getGameState() == PLAYING) {
+        setGameState(PAUSED);
+      } else if (getGameState() == PAUSED) {
+        setGameState(PLAYING);
+      }
+    }
+
     if (getGameState() == PLAYING) {
       if (DEBUG && key == 'k') {
         player.setExp(player.getExpRequiredForNextLevel());

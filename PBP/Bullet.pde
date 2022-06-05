@@ -8,7 +8,7 @@ class Bullet extends UMO { //<>// //<>// //<>//
     this.gunship = gunship;
     this.gun = gun;
     setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); //base confirmed from playing, modifier confirmed from wiki
-    float spread = .2;
+    float spread = .1;
     float angle = gunship.getAngle() + gun.getAngle() + (random(spread*2)-spread);
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.

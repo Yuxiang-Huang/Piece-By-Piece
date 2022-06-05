@@ -41,7 +41,13 @@ void setup() {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
-
+  
+  //please don't delete just comment
+  for (int i = 0; i < 10; i++) {
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
+  }
+  
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);
 }

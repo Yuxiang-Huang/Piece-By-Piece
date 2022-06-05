@@ -15,7 +15,7 @@ class Gunship extends UMO {
   private int timeSinceLastHit;
   private float heal10percent;
   private int collisionDamageWithShip;
-  
+
   private boolean AutoFire;
   private boolean suicidal;
 
@@ -29,6 +29,13 @@ class Gunship extends UMO {
     setLevel(1);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
+
+    // set stats base on level
+    setLevel(15);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
+    setSkillPoints(getLevel() - 1);
 
     getShop().update();
     setHealth(getMaxHealth());
@@ -82,12 +89,12 @@ class Gunship extends UMO {
     shop.randomUpgrade();
     //compare gun stats to gunship stats to determine if suicidal
     if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
-    getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-    getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
-    getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()){
+      getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+      getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
       setSuicidal(true);
     }
-    
+
     shop.update();
     setHealth(getMaxHealth());
 
@@ -151,9 +158,9 @@ class Gunship extends UMO {
     setAngle(angle);
     pushMatrix();
     translate(getX(), getY());
-    if (isSuicidal()){
+    if (isSuicidal()) {
       rotate(getAngle()+HALF_PI);
-    } else{
+    } else {
       rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     }
     scale(getRadius()/unit);
@@ -311,6 +318,15 @@ class Gunship extends UMO {
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
       shop.randomUpgrade();
+      //update suicidal
+      if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+        getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+        getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+        getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+        setSuicidal(true);
+      } else{
+        setSuicidal(false);
+      }
     }   
 
     heal();
@@ -596,7 +612,7 @@ class Gunship extends UMO {
   void setCollisionDamageWithShip(int collisionDamageWithShip) {
     this.collisionDamageWithShip = collisionDamageWithShip;
   }
-  
+
   boolean isSuicidal() {
     return suicidal;
   }

@@ -14,9 +14,10 @@ class Gunship extends UMO {
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
-  private boolean AutoFire;
-
   private int collisionDamageWithShip;
+  
+  private boolean AutoFire;
+  private boolean suicidal;
 
   // player constructor
   Gunship(float x, float y) {
@@ -135,15 +136,19 @@ class Gunship extends UMO {
   }
 
   void enemyDisplay() {
-    //rotate toward gunship
+    //rotate toward gunship if more stats on bullet, else use bullet to accelerate
     float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
-    setAngle(angle); //need help...
+    setAngle(angle);
     pushMatrix();
     translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+    if (isSuicidal()){
+      rotate(getAngle()+HALF_PI);
+    } else{
+      rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+    }
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
@@ -583,5 +588,12 @@ class Gunship extends UMO {
   }
   void setCollisionDamageWithShip(int collisionDamageWithShip) {
     this.collisionDamageWithShip = collisionDamageWithShip;
+  }
+  
+  boolean isSuicidal() {
+    return suicidal;
+  }
+  void setSuicidal(boolean suicidal) {
+    this.suicidal = suicidal;
   }
 }

@@ -79,10 +79,12 @@ class Gunship extends UMO {
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
-    // TODO: randomly assign skill points here
-
+    shop.randomUpgrade();
+    //compare gun stats to gunship stats to determine if suicidal
+    if (getShop().getHealthRegen().getLevel())
+    
     shop.update();
-    setHealth(getMaxHealth());
+    setHealth(getShop().healthRegen.getlevel());
 
     guns = new ArrayList<Gun>();
     setShootCooldown(0);
@@ -280,7 +282,6 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }
@@ -304,6 +305,7 @@ class Gunship extends UMO {
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
+      shop.randomUpgrade();
     }   
 
     heal();

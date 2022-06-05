@@ -81,10 +81,10 @@ class Gunship extends UMO {
 
     shop.randomUpgrade();
     //compare gun stats to gunship stats to determine if suicidal
-    if (getShop().getHealthRegen().getLevel())
+    //if (getShop().getHealthRegen().getLevel())
     
     shop.update();
-    setHealth(getShop().healthRegen.getlevel());
+    setHealth(getMaxHealth());
 
     guns = new ArrayList<Gun>();
     setShootCooldown(0);

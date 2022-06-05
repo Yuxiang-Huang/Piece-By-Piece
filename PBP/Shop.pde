@@ -119,10 +119,6 @@ class Shop implements Processable {
     return movementSpeed;
   }
   
-  Stat getHealthRegen(){
-    return healthRegen;
-  }
-  
     class Stat {
       private String statName;
       final int maxLevel = 7;

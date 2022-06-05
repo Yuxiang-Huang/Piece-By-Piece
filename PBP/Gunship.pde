@@ -269,7 +269,7 @@ class Gunship extends UMO {
 
     if (player.getHealth() == 0) {
       setGameState(LOST);
-    } else if (player.getLevel() >= 15) {
+    } else if (player.getLevel() >= 30) {
       setGameState(WON);
     }
   }
@@ -364,10 +364,10 @@ class Gunship extends UMO {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(polygon.getRadius(), 3);
 
-        float dxHolder = 5*(2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
-        float dyHolder = 5*(2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
-        setDX(5*(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
-        setDY(5*(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        float dxHolder = 3*(2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
+        float dyHolder = 3*(2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
+        setDX(3*(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+        setDY(3*(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         polygon.velocity.set(dxHolder, dyHolder);
 
         if (polygon.getHealth() >  polygon.getCollisionDamage()) {
@@ -391,10 +391,10 @@ class Gunship extends UMO {
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(player.getRadius(), 3);
-        float dxHolder = (2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
-        float dyHolder = (2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
-        setDX((2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
-        setDY((2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        float dxHolder = 3*(2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
+        float dyHolder = 3*(2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
+        setDX(3*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+        setDY(3*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
         if (getHealth() >  getCollisionDamage()) {

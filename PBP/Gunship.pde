@@ -155,18 +155,18 @@ class Gunship extends UMO {
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
-    setAngle(angle);
+    if (isSuicidal()) {
+      setAngle(getAngle() + PI);
+    } else{
+      setAngle(angle);
+    }
     pushMatrix();
     translate(getX(), getY());
-    if (isSuicidal()) {
-      rotate(getAngle()+HALF_PI);
-    } else {
-      rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
-    }
+    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
-
+    
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }

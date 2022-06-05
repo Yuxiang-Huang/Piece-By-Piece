@@ -1,17 +1,17 @@
 class Shop implements Processable {
   Gunship gunship;
   PVector position;
-
+  
   //Stat statName = new Stat(level, base, modifier)
-  Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed from website
-  Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
-  Stat bodyDamage = new Stat("Body Damage", 0, 20, 4); //confirmed from wiki
-  Stat bodyDamageWithShip = new Stat("Body Damage", 0, 30, 6); //confirmed from wiki
-  Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/3, (int) unit/14); 
-  Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
-  Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
-  Stat reload = new Stat("Reload", 0, 36, -2.4); //confirmed from wiki
-  Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //Daniel made it up when I confirmed with the website
+  private Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed from website
+  private Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
+  private Stat bodyDamage = new Stat("Body Damage", 0, 20, 4); //confirmed from wiki
+  private Stat bodyDamageWithShip = new Stat("Body Damage", 0, 30, 6); //confirmed from wiki
+  private Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/3, (int) unit/14); 
+  private Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
+  private Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
+  private Stat reload = new Stat("Reload", 0, 36, -2.4); //confirmed from wiki
+  private Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //Daniel made it up when I confirmed with the website
 
   Shop(Gunship gunship) {
     this.gunship = gunship;
@@ -90,7 +90,35 @@ class Shop implements Processable {
       }
     }
   }
-
+  
+  Stat getHealthRegen(){
+    return healthRegen;
+  }
+  Stat getMaxHealth(){
+    return maxHealth;
+  }
+  Stat getBodyDamage(){
+    return bodyDamage;
+  }
+  Stat getBodyDamageWithShip(){
+    return bodyDamageWithShip;
+  }
+  Stat getBulletSpeed(){
+    return bulletSpeed;
+  }
+  Stat getBulletPenetration(){
+    return bulletPenetration;
+  }
+  Stat getBulletDamage(){
+    return bulletDamage;
+  }
+  Stat getReload(){
+    return reload;
+  }
+  Stat getMovementSpeed(){
+    return movementSpeed;
+  }
+  
     class Stat {
       private String statName;
       final int maxLevel = 7;

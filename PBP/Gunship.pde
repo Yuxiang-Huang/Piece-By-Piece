@@ -14,9 +14,10 @@ class Gunship extends UMO {
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
-  private boolean AutoFire;
-
   private int collisionDamageWithShip;
+
+  private boolean AutoFire;
+  private boolean suicidal;
 
   // player constructor
   Gunship(float x, float y) {
@@ -28,6 +29,13 @@ class Gunship extends UMO {
     setLevel(1);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
+
+    // set stats base on level
+    setLevel(15);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
+    setSkillPoints(getLevel() - 1);
 
     getShop().update();
     setHealth(getMaxHealth());
@@ -78,7 +86,14 @@ class Gunship extends UMO {
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
-    // TODO: randomly assign skill points here
+    shop.randomUpgrade();
+    //compare gun stats to gunship stats to determine if suicidal
+    if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+      getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+      getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+      setSuicidal(true);
+    }
 
     shop.update();
     setHealth(getMaxHealth());
@@ -135,15 +150,19 @@ class Gunship extends UMO {
   }
 
   void enemyDisplay() {
-    //rotate toward gunship
+    //rotate toward gunship if more stats on bullet, else use bullet to accelerate
     float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
-    setAngle(angle); //need help...
+    setAngle(angle);
     pushMatrix();
     translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+    if (isSuicidal()) {
+      rotate(getAngle()+HALF_PI);
+    } else {
+      rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+    }
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
@@ -275,7 +294,6 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    shop.randomUpgrade();
     if (getAutoFire()) {
       autoFire();
     }
@@ -299,6 +317,16 @@ class Gunship extends UMO {
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
+      shop.randomUpgrade();
+      //update suicidal
+      if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+        getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+        getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+        getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+        setSuicidal(true);
+      } else{
+        setSuicidal(false);
+      }
     }   
 
     heal();
@@ -583,5 +611,12 @@ class Gunship extends UMO {
   }
   void setCollisionDamageWithShip(int collisionDamageWithShip) {
     this.collisionDamageWithShip = collisionDamageWithShip;
+  }
+
+  boolean isSuicidal() {
+    return suicidal;
+  }
+  void setSuicidal(boolean suicidal) {
+    this.suicidal = suicidal;
   }
 }

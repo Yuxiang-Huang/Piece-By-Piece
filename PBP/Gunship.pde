@@ -282,7 +282,7 @@ class Gunship extends UMO {
 
     if (player.getHealth() == 0) {
       setGameState(LOST);
-    } else if (player.getLevel() >= 30) {
+    } else if (player.getLevel() >= 45) {
       setGameState(WON);
     }
   }

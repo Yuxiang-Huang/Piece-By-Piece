@@ -49,7 +49,54 @@ class Twin extends Gunship {
     umo.addChild(body);
   }
 
-  void evolve() {
+  void displayEvolutions() {
+    fill(0);
+    textSize(unit);
+    textAlign(CENTER);
+
+    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
+
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new Twin().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new Sniper().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new MachineGun().umo, getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10));
+
+    fill(0);
+    textSize(unit*3.0/4);
+    textAlign(LEFT);
+  }
+
+  void evolve(char evolution) {
+    Gunship newPlayer = player;
+    switch(key) {
+    case '1': 
+      newPlayer = new TripleShot(player.getX(), player.getY()); 
+      break;
+    case '2': 
+      newPlayer = new Sniper(player.getX(), player.getY()); 
+      break;
+    case '3': 
+      newPlayer = new MachineGun(player.getX(), player.getY()); 
+      break;
+    }
+    newPlayer.velocity = player.velocity;
+    newPlayer.setLevel(player.getLevel());
+    newPlayer.setShop(player.getShop());
+    newPlayer.getShop().gunship = newPlayer;
+    newPlayer.setSkillPoints(player.getSkillPoints());
+    newPlayer.setRadius(player.getRadius());
+    player = newPlayer;
   }
   boolean canEvolve() {
     return getLevel() >= 30;

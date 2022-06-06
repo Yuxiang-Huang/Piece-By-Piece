@@ -294,7 +294,7 @@ class Gunship extends UMO {
 
   void enemyUpdate() {
     //in shooting distance, 60 is just a random number I chose for now after few testing
-    if ( dist(getX(), getY(), player.getX(), player.getY()) < 
+    if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
     (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 60){
       autoFire();
     }
@@ -342,19 +342,9 @@ class Gunship extends UMO {
     }
 
     //botMove
-    int xdir;
-    int ydir;
-    if (getX() > player.getX()) {
-      xdir = -1;
-    } else {
-      xdir = 1;
-    }
-    if (getY() > player.getY()) {
-      ydir = -1;
-    } else {
-      ydir = 1;
-    }
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+    accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+    velocity.add(accelearationNow);
     if (velocity.mag() > getMaxSpeed()) {
       velocity.setMag(getMaxSpeed());
     }

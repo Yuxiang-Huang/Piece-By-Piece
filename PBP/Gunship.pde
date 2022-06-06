@@ -562,6 +562,10 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
+  
+  boolean canEvolve() {
+    return getLevel() >= 15;
+  }
 
   int getSkillPoints() {
     return skillPoints;

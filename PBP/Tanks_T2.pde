@@ -3,8 +3,8 @@ class Twin extends Gunship {
   Twin(float x, float y) {
     super(x, y);
     setGuns(new ArrayList<Gun>());
-    getGuns().add(new Gun(this, 5));
-    getGuns().add(new Gun(this, 5));
+    getGuns().add(new Gun(this, 3));
+    getGuns().add(new Gun(this, -3));
     setShootCooldown(0);
 
     // make shape of gunship
@@ -28,8 +28,8 @@ class Twin extends Gunship {
   Twin() {
     super();
     setGuns(new ArrayList<Gun>());
-    getGuns().add(new Gun(this, 0));
-    getGuns().add(new Gun(this, 0));
+    getGuns().add(new Gun(this, 3));
+    getGuns().add(new Gun(this, -3));
     setShootCooldown(0);
 
     // make shape of gunship

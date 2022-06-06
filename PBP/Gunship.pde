@@ -344,10 +344,16 @@ class Gunship extends UMO {
     //botMove
     PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
     accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+    
     velocity.add(accelearationNow);
     if (velocity.mag() > getMaxSpeed()) {
       velocity.setMag(getMaxSpeed());
     }
+    //add randomness
+    velocity.add((random(30 - getLevel()) - random(30 - getLevel())) * velocity.x/15, 
+    (random(30 - getLevel()) - random(30 - getLevel())) * velocity.y/15);
+    velocity.setMag(getMaxSpeed());
+    
     // apply velocity
     position.add(velocity);
 

@@ -145,7 +145,7 @@ class Gunship extends UMO {
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
       text("mag: "+round(velocity.mag()), getX()+unit*2, getY());
       text("shootCooldown: "+getShootCooldown(), getX()+unit*2, getY()+unit);
-      text("Level: "+getLevel() + "; Exp: "+getExp(), getX()+unit*2, getY()+unit*2);
+      text("Level: "+getLevel() + "; Exp: "+getExp() + "; SP: "+getSkillPoints(), getX()+unit*2, getY()+unit*2);
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
@@ -552,6 +552,9 @@ class Gunship extends UMO {
     newPlayer.velocity = player.velocity;
     newPlayer.setLevel(player.getLevel());
     newPlayer.setShop(player.getShop());
+    newPlayer.getShop().gunship = newPlayer;
+    newPlayer.setSkillPoints(player.getSkillPoints());
+    newPlayer.setRadius(player.getRadius());
     player = newPlayer;
   }
 

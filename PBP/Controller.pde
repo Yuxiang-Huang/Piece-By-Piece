@@ -61,7 +61,7 @@ class Controller {
 
     // Evolution
     if (player.canEvolve()) {
-      if ('1' <= key && key <= char(player.getNumberOfEvolutions())) {
+      if ('1' <= key && key <= char(player.getNumberOfEvolutions()) + '1') {
         player.evolve(key);
       }
     }

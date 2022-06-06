@@ -154,11 +154,11 @@ class Gunship extends UMO {
     if (angle < 0) {
       angle = TWO_PI + angle;
     }
-    if (isSuicidal()) {
-      setAngle(getAngle() + PI);
-    } else{
-      setAngle(angle);
-    }
+    //if (isSuicidal()) {
+    //  setAngle(getAngle() + PI);
+    //} else{
+    setAngle(angle);
+    //}
     pushMatrix();
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
@@ -293,9 +293,9 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    //in shooting distance
-    if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
-    (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 100){
+    //in shooting distance, 60 is just a random number I chose for now after few testing
+    if ( dist(getX(), getY(), player.getX(), player.getY()) < 
+    (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 60){
       autoFire();
     }
     // update and display all guns

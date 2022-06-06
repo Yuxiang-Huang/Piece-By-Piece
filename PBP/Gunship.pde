@@ -163,11 +163,11 @@ class Gunship extends UMO {
     //}
     
     //rotate toward gunship if more stats on bullet, else use bullet to accelerate
-    //if (isSuicidal()) {
-    //  setAngle(getAngle() + PI);
-    //} else{
-    setAngle(angle);
-    //}
+    if (isSuicidal()) {
+      setAngle(angle + PI);
+    } else{
+      setAngle(angle);
+    }
     pushMatrix();
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
@@ -348,7 +348,7 @@ class Gunship extends UMO {
     if (int(getHealth()) == 0) {
       enemyDie();
     }
-
+    
     //botMove
     PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
     accelearationNow.setMag(mag(acceleration.x, acceleration.y));
@@ -366,7 +366,7 @@ class Gunship extends UMO {
 
     // apply friction
     velocity.mult(getFriction());
-
+    
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();

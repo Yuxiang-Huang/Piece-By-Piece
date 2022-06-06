@@ -392,10 +392,16 @@ class Gunship extends UMO {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(polygon.getRadius(), 3);
 
-        float dxHolder = 3*(2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
-        float dyHolder = 3*(2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
-        setDX(3*(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
-        setDY(3*(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
+        //only defy physics for pentagon
+        if (polygon.getShape().equals("pentagon")){
+          setDX(3*(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDY(3*(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        } else{
+          setDX((2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDY((2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        }
         polygon.velocity.set(dxHolder, dyHolder);
 
         if (polygon.getHealth() >  polygon.getCollisionDamage()) {

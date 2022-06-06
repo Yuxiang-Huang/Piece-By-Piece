@@ -15,9 +15,10 @@ class Gunship extends UMO {
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
-  private boolean AutoFire;
-
   private int collisionDamageWithShip;
+
+  private boolean AutoFire;
+  private boolean suicidal;
 
   // player constructor
   Gunship(float x, float y) {
@@ -30,6 +31,13 @@ class Gunship extends UMO {
     setNumberOfEvolutions(4);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
+
+    // set stats base on level
+    setLevel(1);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
+    setSkillPoints(getLevel() - 1);
 
     getShop().update();
     setHealth(getMaxHealth());
@@ -59,7 +67,7 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.3) { // cant spawn ship on top of UMO or too close to player
+    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
@@ -80,7 +88,14 @@ class Gunship extends UMO {
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
-    // TODO: randomly assign skill points here
+    shop.randomUpgrade();
+    //compare gun stats to gunship stats to determine if suicidal
+    if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+      getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+      getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+      setSuicidal(true);
+    }
 
     getShop().update();
     setHealth(getMaxHealth());
@@ -107,7 +122,6 @@ class Gunship extends UMO {
 
   void playerDisplay() {
     //rotate
-    setAngle(getAngleToMouse());
     pushMatrix();
     //translate(width/2, height/2);
     translate(getX(), getY());
@@ -139,12 +153,6 @@ class Gunship extends UMO {
   }
 
   void enemyDisplay() {
-    //rotate toward gunship
-    float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
-    if (angle < 0) {
-      angle = TWO_PI + angle;
-    }
-    setAngle(angle); //need help...
     pushMatrix();
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
@@ -181,6 +189,38 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
+    // check for what directions are being pressed
+    float xdir = 0;
+    float ydir = 0;
+    if (input.inputs[0]) { // LEFT
+      xdir = -1;
+    }
+    if (input.inputs[1]) { // UP
+      ydir = -1;
+    }
+    if (input.inputs[2]) { // RIGHT
+      xdir = 1;
+    }
+    if (input.inputs[3]) { // DOWN
+      ydir = 1;
+    }
+
+    //apply acceleration
+    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    if (velocity.mag() > getMaxSpeed()) {
+      velocity.setMag(getMaxSpeed());
+    }
+
+    // apply velocity
+    position.add(velocity);
+
+    // apply friction
+    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
+      velocity.mult(getFriction());
+    }
+
+    setAngle(getAngleToMouse());
+
     if (getAutoFire()) {
       autoFire();
     }
@@ -217,37 +257,6 @@ class Gunship extends UMO {
       die();
     }
 
-    // check for what directions are being pressed
-    float xdir = 0;
-    float ydir = 0;
-    if (input.inputs[0]) { // LEFT
-      xdir = -1;
-    }
-    if (input.inputs[1]) { // UP
-      ydir = -1;
-    }
-    if (input.inputs[2]) { // RIGHT
-      xdir = 1;
-    }
-    if (input.inputs[3]) { // DOWN
-      ydir = 1;
-    }
-
-    //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
-    }
-
-    // apply velocity
-    position.add(velocity);
-
-    // apply friction
-    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
-      velocity.mult(getFriction());
-    }
-
-
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
@@ -279,8 +288,11 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    shop.randomUpgrade();
-    autoFire();
+    //in shooting distance, 60 is just a random number I chose for now after few testing
+    if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
+      (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 60) {
+      autoFire();
+    }
     // update and display all guns
     for (Gun gun : guns) {
       gun.update();
@@ -301,6 +313,16 @@ class Gunship extends UMO {
       setRadius(getRadius() * 1.01); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
+      shop.randomUpgrade();
+      //update suicidal
+      if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+        getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+        getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+        getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+        setSuicidal(true);
+      } else {
+        setSuicidal(false);
+      }
     }   
 
     heal();
@@ -315,27 +337,42 @@ class Gunship extends UMO {
     }
 
     //botMove
-    int xdir;
-    int ydir;
-    if (getX() > player.getX()) {
-      xdir = -1;
-    } else {
-      xdir = 1;
-    }
-    if (getY() > player.getY()) {
-      ydir = -1;
-    } else {
-      ydir = 1;
-    }
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
+    PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+    accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+
+    velocity.add(accelearationNow);
     if (velocity.mag() > getMaxSpeed()) {
       velocity.setMag(getMaxSpeed());
     }
+    //add randomness
+    velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+    velocity.setMag(getMaxSpeed());
+
     // apply velocity
     position.add(velocity);
 
     // apply friction
     velocity.mult(getFriction());
+
+    //more likely to shoot at the direction player is moving in
+    //if (getType().equals("predictor")){
+    //float angle = atan2((player.getY() + player.getDY() * 20 - getY()), (player.getX() + player.getDX() * 20 - getX()));
+    //} else{
+    float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
+    if (angle < 0) {
+      angle = TWO_PI + angle;
+    }
+    //randomize facing angle
+    //if(getType().equals("randomizer")
+    angle += (random(1) - random(1)) * PI/16;
+    //}
+
+    //rotate toward gunship if more stats on bullet, else use bullet to accelerate
+    if (isSuicidal()) {
+      setAngle(angle + PI);
+    } else {
+      setAngle(angle);
+    }
 
     // check for collisions
     collisionWithBorder();
@@ -366,10 +403,16 @@ class Gunship extends UMO {
         float m1 = pow(getRadius(), 3);
         float m2 = pow(polygon.getRadius(), 3);
 
-        float dxHolder = 3*(2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
-        float dyHolder = 3*(2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
-        setDX(3*(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
-        setDY(3*(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        float dxHolder = (2*m1*getDX() + (m2-m1) * polygon.getDX()) / (float)(m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * polygon.getDY()) / (float)(m1 + m2);
+        //only defy physics for pentagon
+        if (polygon.getShape().equals("pentagon")) {
+          setDX(3*(2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDY(3*(2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        } else {
+          setDX((2*m2*polygon.getDX() + (m1-m2) * getDX()) / (m1 + m2));
+          setDY((2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        }
         polygon.velocity.set(dxHolder, dyHolder);
 
         if (polygon.getHealth() >  polygon.getCollisionDamage()) {
@@ -656,5 +699,12 @@ class Gunship extends UMO {
   }
   void setCollisionDamageWithShip(int collisionDamageWithShip) {
     this.collisionDamageWithShip = collisionDamageWithShip;
+  }
+
+  boolean isSuicidal() {
+    return suicidal;
+  }
+  void setSuicidal(boolean suicidal) {
+    this.suicidal = suicidal;
   }
 }

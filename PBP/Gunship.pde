@@ -461,19 +461,25 @@ class Gunship extends UMO {
     textAlign(CENTER);
 
     text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-    
-    rectMode(RADIUS);
+
+
     fill(200, 230);
-    
+    rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
     shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5));
-    
+
+    fill(200, 230);
+    rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
     shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5));
-    
+
+    fill(200, 230);
+    rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
     shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
-    
+
+    fill(200, 230);
+    rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
     shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
@@ -562,7 +568,7 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
-  
+
   boolean canEvolve() {
     return getLevel() >= 15;
   }

@@ -22,7 +22,7 @@ class Bullet extends UMO {  //<>//
 
     float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2);
     float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
-    gunship.velocity.add(new PVector(dxHolder/2, dyHolder/2));
+    gunship.velocity.add(new PVector(dxHolder, dyHolder));
     setTimeTillDeath(180); //confirmed from wiki
     setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
     setHealth(getMaxHealth()); //bullet penetration

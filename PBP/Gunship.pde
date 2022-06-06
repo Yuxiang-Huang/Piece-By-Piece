@@ -3,6 +3,7 @@ class Gunship extends UMO {
   private Minimap minimap; 
   private int level;
   private int skillPoints;
+  private int numberOfEvolutions;
 
   private int reloadSpeed;
   private float shootCooldown;
@@ -26,6 +27,7 @@ class Gunship extends UMO {
     acceleration.set(unit*.025, unit*.025);
 
     setLevel(1);
+    setNumberOfEvolutions(4);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
 
@@ -488,6 +490,28 @@ class Gunship extends UMO {
     textAlign(LEFT);
   }
 
+  void evolve(char evolution) {
+    Gunship newPlayer = player;
+    switch(key) {
+    case '1': 
+      newPlayer = new Twin(player.getX(), player.getY()); 
+      break;
+    case '2': 
+      newPlayer = new Sniper(player.getX(), player.getY()); 
+      break;
+    case '3': 
+      newPlayer = new MachineGun(player.getX(), player.getY()); 
+      break;
+    case '4': 
+      newPlayer = new FlankGuard(player.getX(), player.getY()); 
+      break;
+    }
+    newPlayer.velocity = player.velocity;
+    newPlayer.setLevel(player.getLevel());
+    newPlayer.setShop(player.getShop());
+    player = newPlayer;
+  }
+
   void heal() {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds
@@ -572,6 +596,15 @@ class Gunship extends UMO {
   boolean canEvolve() {
     return getLevel() >= 15;
   }
+
+  int getNumberOfEvolutions() {
+    return numberOfEvolutions;
+  }
+  void setNumberOfEvolutions(int numberOfEvolutions) {
+    this.numberOfEvolutions = numberOfEvolutions;
+  }
+
+
 
   int getSkillPoints() {
     return skillPoints;

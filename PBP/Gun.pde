@@ -6,7 +6,7 @@ class Gun {
   Gun(Gunship gunship, float angle) {
     this.gunship = gunship;
     setBullets(new ArrayList<Bullet>());
-    setAngle(angle);
+    setAngle(radians(angle));
   }
 
   void update() {

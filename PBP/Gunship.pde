@@ -116,7 +116,6 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
-    setAutoFire(true);
   }
 
   void playerDisplay() {
@@ -294,7 +293,9 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    if (getAutoFire()) {
+    //in shooting distance
+    if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
+    (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 100){
       autoFire();
     }
     // update and display all guns

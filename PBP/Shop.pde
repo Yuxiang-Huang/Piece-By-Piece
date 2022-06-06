@@ -20,6 +20,8 @@ class Shop implements Processable {
 
   void display() {
     position.set(player.getX()-(displayWidth/2)+unit, player.getY()+(displayHeight/2)-(unit*2));
+    fill(0);
+    text("skill Points: " + gunship.getSkillPoints(), position.x, position.y-(unit*(3.0/2))*7.5);
     healthRegen.display(0);
     maxHealth.display(1);
     bodyDamage.display(2);
@@ -91,79 +93,78 @@ class Shop implements Processable {
     }
   }
 
-    class Stat {
-      private String statName;
-      final int maxLevel = 7;
-      private int level;
-      private float base;
-      private float modifier;
+  class Stat {
+    private String statName;
+    final int maxLevel = 7;
+    private int level;
+    private float base;
+    private float modifier;
 
-      Stat(String statName, int level, float base, float modifier) {
-        setStatName(statName);
-        setLevel(level);
-        setBase(base);
-        setModifier(modifier);
-      }
+    Stat(String statName, int level, float base, float modifier) {
+      setStatName(statName);
+      setLevel(level);
+      setBase(base);
+      setModifier(modifier);
+    }
 
-      void display(int i) {
-        i = 7 - i;
-        text("skill Points: " + gunship.getSkillPoints(), getX(), getY()-(unit*(3.0/2))*7.5);
-        rectMode(CORNER);
-        fill(200, 200); // Translucent Light Grey
-        rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
-        fill(color(0, 255, 0)); // GREEN
-        rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
-        fill(0);
-        text(getStatName(), getX()+(unit/10), getY()-((unit*(3.0/2))*i) + unit*3/4);
-        text("["+(8-i)+"]", getX()+(unit*10)-unit, getY()-((unit*(3.0/2))*i) + (unit*.7));
-      }
+    void display(int i) {
+      i = 7 - i;
+      rectMode(CORNER);
+      fill(200, 200); // Translucent Light Grey
+      rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
+      fill(color(0, 255, 0)); // GREEN
+      rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
+      fill(0);
+      text(getStatName(), getX()+(unit/10), getY()-((unit*(3.0/2))*i) + unit*3/4);
+      text("["+(8-i)+"]", getX()+(unit*10)-unit, getY()-((unit*(3.0/2))*i) + (unit*.7));
+    }
 
-      /**
-       Increments level of stat by 1.
-       */
-      void upgrade() {
-        setLevel(getLevel()+1);
-      }
+    /**
+     Increments level of stat by 1.
+     */
+    void upgrade() {
+      setLevel(getLevel()+1);
+    }
 
-      //get and set methods------------------------------------------------------------------
+    //get and set methods------------------------------------------------------------------
 
-      float getX() {
-        return position.x;
-      }
-      float getY() {
-        return position.y;
-      }
+    float getX() {
+      return position.x;
+    }
+    float getY() {
+      return position.y;
+    }
 
-      int getLevel() {
-        return level;
-      }
-      void setLevel(int level) {
-        this.level = level;
-      }
+    int getLevel() {
+      return level;
+    }
+    void setLevel(int level) {
+      this.level = level;
+    }
 
-      boolean isMaxLevel() {
-        return getLevel() == maxLevel;
-      }
+    boolean isMaxLevel() {
+      return getLevel() == maxLevel;
+    }
 
-      float getBase() {
-        return base;
-      }
-      void setBase(float base) {
-        this.base = base;
-      }    
+    float getBase() {
+      return base;
+    }
+    void setBase(float base) {
+      this.base = base;
+    }    
 
-      float getModifier() {
-        return modifier;
-      }
-      void setModifier(float modifier) {
-        this.modifier = modifier;
-      }
+    float getModifier() {
+      return modifier;
+    }
+    void setModifier(float modifier) {
+      this.modifier = modifier;
+    }
 
-      String getStatName() {
-        return statName;
-      }
-      void setStatName(String statName) {
-        this.statName = statName;
-      }
+    String getStatName() {
+      return statName;
+    }
+    void setStatName(String statName) {
+      this.statName = statName;
     }
   }
+}

@@ -3,8 +3,8 @@ class Twin extends Gunship {
   Twin(float x, float y) {
     super(x, y);
     setGuns(new ArrayList<Gun>());
-    getGuns().add(new Gun(this, 0));
-    getGuns().add(new Gun(this, 0));
+    getGuns().add(new Gun(this, 5));
+    getGuns().add(new Gun(this, 5));
     setShootCooldown(0);
 
     // make shape of gunship
@@ -12,7 +12,7 @@ class Twin extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    body.setFill(color(165, 42, 42));
     rectMode(CORNERS);
     PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
     gun1.setFill(color(0));
@@ -37,7 +37,7 @@ class Twin extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    body.setFill(color(165, 42, 42));
     rectMode(CORNERS);
     PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
     gun1.setFill(color(0));
@@ -47,6 +47,12 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+  }
+
+  void evolve() {
+  }
+  boolean canEvolve() {
+    return getLevel() >= 30;
   }
 }
 
@@ -63,9 +69,9 @@ class Sniper extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
-    rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 3*getRadius()/3, 1.3*getRadius());
+    body.setFill(color(165, 42, 42));
+    rectMode(CORNERS);
+    PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -83,13 +89,19 @@ class Sniper extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    body.setFill(color(165, 42, 42));
     rectMode(CORNERS);
     PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
     gun.setFill(color(0));
 
     umo.addChild(gun);
     umo.addChild(body);
+  }
+
+  void evolve() {
+  }
+  boolean canEvolve() {
+    return getLevel() >= 30;
   }
 }
 
@@ -128,12 +140,18 @@ class MachineGun extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    body.setFill(color(165, 42, 42));
     PShape gun = createShape(TRIANGLE, 0, 0, -getRadius(), 1.5*getRadius(), getRadius(), 1.5*getRadius());
     gun.setFill(color(0));
 
     umo.addChild(gun);
     umo.addChild(body);
+  }
+
+  void evolve() {
+  }
+  boolean canEvolve() {
+    return getLevel() >= 30;
   }
 }
 
@@ -178,7 +196,7 @@ class FlankGuard extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    body.setFill(color(165, 42, 42));
     rectMode(CORNER);
     PShape gun1 = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun1.setFill(color(0));
@@ -189,5 +207,11 @@ class FlankGuard extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+  }
+
+  void evolve() {
+  }
+  boolean canEvolve() {
+    return getLevel() >= 30;
   }
 }

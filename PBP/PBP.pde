@@ -28,7 +28,7 @@ void setup() {
   setMouseY(0);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new FlankGuard(width/2, height/2);
+  player = new Gunship(width/2, height/2);
   input = new Controller();
 
   fill(0);
@@ -44,10 +44,10 @@ void setup() {
   }
 
   //please don't delete just comment
-  for (int i = 0; i < 10; i++) {
-    Gunship enemy = new Gunship();
-    enemies.add(enemy);
-  }
+  //for (int i = 0; i < 10; i++) {
+  //  Gunship enemy = new Gunship();
+  //  enemies.add(enemy);
+  //}
 
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);

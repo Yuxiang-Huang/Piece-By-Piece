@@ -3,6 +3,7 @@ class Gunship extends UMO {
   private Minimap minimap; 
   private int level;
   private int skillPoints;
+  private int numberOfEvolutions;
 
   private int reloadSpeed;
   private float shootCooldown;
@@ -27,6 +28,7 @@ class Gunship extends UMO {
     acceleration.set(unit*.025, unit*.025);
 
     setLevel(1);
+    setNumberOfEvolutions(4);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
 
@@ -134,6 +136,9 @@ class Gunship extends UMO {
     }
 
     displayExpBar();
+    if (canEvolve()) {
+      displayEvolutions();
+    }
 
     if (DEBUG) {
       text(""+getHealth(), getX() - unit, getY());
@@ -493,6 +498,61 @@ class Gunship extends UMO {
     textSize(unit*3.0/4);
   }
 
+  void displayEvolutions() {
+    fill(0);
+    textSize(unit);
+    textAlign(CENTER);
+
+    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
+
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new Twin().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new Sniper().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new MachineGun().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+
+    fill(0);
+    textSize(unit*3.0/4);
+    textAlign(LEFT);
+  }
+
+  void evolve(char evolution) {
+    Gunship newPlayer = player;
+    switch(key) {
+    case '1': 
+      newPlayer = new Twin(player.getX(), player.getY()); 
+      break;
+    case '2': 
+      newPlayer = new Sniper(player.getX(), player.getY()); 
+      break;
+    case '3': 
+      newPlayer = new MachineGun(player.getX(), player.getY()); 
+      break;
+    case '4': 
+      newPlayer = new FlankGuard(player.getX(), player.getY()); 
+      break;
+    }
+    newPlayer.velocity = player.velocity;
+    newPlayer.setLevel(player.getLevel());
+    newPlayer.setShop(player.getShop());
+    player = newPlayer;
+  }
+
   void heal() {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds
@@ -573,6 +633,19 @@ class Gunship extends UMO {
   void setLevel(int level) {
     this.level = level;
   }
+
+  boolean canEvolve() {
+    return getLevel() >= 15;
+  }
+
+  int getNumberOfEvolutions() {
+    return numberOfEvolutions;
+  }
+  void setNumberOfEvolutions(int numberOfEvolutions) {
+    this.numberOfEvolutions = numberOfEvolutions;
+  }
+
+
 
   int getSkillPoints() {
     return skillPoints;

@@ -5,6 +5,46 @@ class Sniper extends Gunship {
 }
 
 class MachineGun extends Gunship {
+   // player constructor
+  MachineGun(float x, float y) {
+    super(x, y);
+    setGuns(new ArrayList<Gun>());
+    getGuns().add(new Gun(this, 0));
+    setShootCooldown(0);
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(165, 42, 42));
+    PShape gun = createShape(TRIANGLE, 0,0, -getRadius(),1.5*getRadius(), getRadius(),1.5*getRadius());
+    gun.setFill(color(0));
+
+    umo.addChild(gun);
+    umo.addChild(body);
+  }
+
+
+  // enemy constructor
+  MachineGun() {
+    super();
+    setGuns(new ArrayList<Gun>());
+    getGuns().add(new Gun(this, 0));
+    setShootCooldown(0);
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(0, 0, 255));
+    PShape gun = createShape(TRIANGLE, 0,0, -getRadius(),1.5*getRadius(), getRadius(),1.5*getRadius());
+    gun.setFill(color(0));
+    
+    umo.addChild(gun);
+    umo.addChild(body);
+  }
 }
 
 class FlankGuard extends Gunship {

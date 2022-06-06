@@ -28,7 +28,7 @@ void setup() {
   setMouseY(0);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new FlankGuard(width/2, height/2);
+  player = new Gunship(width/2, height/2);
   input = new Controller();
 
   fill(0);

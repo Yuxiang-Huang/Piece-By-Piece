@@ -110,7 +110,19 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    int rand = (int) (random(3));
+    if (rand == 0){
+      setMode("straight");
+      body.setFill(color(0, 255, 0)); 
+    } else if (rand == 1){
+      setMode("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else{
+      setMode("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
     rectMode(CORNER);
     PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun.setFill(color(0));
@@ -119,15 +131,6 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
-    
-    int rand = (int) (random(3));
-    if (rand == 0){
-      setMode("straight");
-    } else if (rand == 1){
-      setMode("random");
-    } else{
-      setMode("predict");
-    }
   }
 
   void playerDisplay() {

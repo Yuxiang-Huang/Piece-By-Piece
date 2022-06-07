@@ -15,6 +15,7 @@ class Twin extends Gunship {
     rectMode(CORNERS);
     PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
     gun1.setFill(color(0));
+    rectMode(CORNERS);
     PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
     gun2.setFill(color(0));
 
@@ -69,7 +70,7 @@ class Twin extends Gunship {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new MachineGun().umo, getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10));
+    shape(new TwinFlank().umo, getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10));
 
     fill(0);
     textSize(unit*3.0/4);
@@ -86,7 +87,7 @@ class Twin extends Gunship {
       newPlayer = new QuadTank(player.getX(), player.getY()); 
       break;
     case '3': 
-      newPlayer = new MachineGun(player.getX(), player.getY()); 
+      newPlayer = new TwinFlank(player.getX(), player.getY()); 
       break;
     }
     newPlayer.velocity = player.velocity;

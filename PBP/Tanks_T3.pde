@@ -130,8 +130,83 @@ class QuadTank extends Gunship {
     umo.addChild(body);
   }
 
-  void evolve() {
+  boolean canEvolve() {
+    return false;
   }
+}
+
+class TwinFlank extends Gunship {
+  // player constructor 
+  TwinFlank(float x, float y) {
+    super(x, y);
+    setGuns(new ArrayList<Gun>());
+    getGuns().add(new Gun(this, 3));
+    getGuns().add(new Gun(this, -3));
+    getGuns().add(new Gun(this, 177));
+    getGuns().add(new Gun(this, -177));
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(165, 42, 42));
+    rectMode(CORNERS);
+    PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
+    gun1.setFill(color(0));
+    rectMode(CORNERS);
+    PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
+    gun2.setFill(color(0));
+    rectMode(CORNERS);
+    PShape gun3 = createShape(RECT, -1, 0, -getRadius()*2/3, -getRadius()*2);
+    gun1.setFill(color(0));
+    rectMode(CORNERS);
+    PShape gun4 = createShape(RECT, 1, 0, getRadius()*2/3, -getRadius()*2);
+    gun2.setFill(color(0));
+
+    umo.addChild(gun1);
+    umo.addChild(gun2);
+    umo.addChild(gun3);
+    umo.addChild(gun4);
+    umo.addChild(body);
+  }
+
+  // enemy constructor
+  TwinFlank() {
+    super();
+    setGuns(new ArrayList<Gun>());
+    getGuns().add(new Gun(this, 3));
+    getGuns().add(new Gun(this, -3));
+    getGuns().add(new Gun(this, 177));
+    getGuns().add(new Gun(this, -177));
+
+
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(color(165, 42, 42));
+    rectMode(CORNERS);
+    PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
+    gun1.setFill(color(0));
+    rectMode(CORNERS);
+    PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
+    gun2.setFill(color(0));
+    rectMode(CORNERS);
+    PShape gun3 = createShape(RECT, -1, 0, -getRadius()*2/3, -getRadius()*2);
+    gun1.setFill(color(0));
+    rectMode(CORNERS);
+    PShape gun4 = createShape(RECT, 1, 0, getRadius()*2/3, -getRadius()*2);
+    gun2.setFill(color(0));
+
+    umo.addChild(gun1);
+    umo.addChild(gun2);
+    umo.addChild(gun3);
+    umo.addChild(gun4);
+    umo.addChild(body);
+  }
+
   boolean canEvolve() {
     return false;
   }

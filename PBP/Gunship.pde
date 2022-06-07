@@ -27,14 +27,16 @@ class Gunship extends UMO {
     setAngle(0);
     acceleration.set(unit*.025, unit*.025);
 
-    setLevel(1);
     setNumberOfEvolutions(4);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(1);
-    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    setLevel(14);
+    shop.maxHealth.base = 50000 + 2*(getLevel() - 1);
+    
+    //setLevel(1);
+    //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -225,18 +227,17 @@ class Gunship extends UMO {
     }
 
     //apply acceleration
+    float maxSpeed = max(acceleration.x * 9, velocity.mag());
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
+    if (velocity.mag() > maxSpeed) {
+      velocity.setMag(maxSpeed);
     }
 
     // apply velocity
     position.add(velocity);
 
     // apply friction
-    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
-      velocity.mult(getFriction());
-    }
+    velocity.mult(getFriction());
 
     setAngle(getAngleToMouse());
 
@@ -310,7 +311,7 @@ class Gunship extends UMO {
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
-      autoFire();
+      //autoFire();
     }
     // update and display all guns
     for (Gun gun : guns) {

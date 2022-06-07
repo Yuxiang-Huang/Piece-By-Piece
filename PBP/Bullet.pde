@@ -17,7 +17,7 @@ class Bullet extends UMO {  //<>//
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
 
-    float m1 = pow(getRadius(), 3);
+    float m1 = pow(getRadius(), 3.5);
     float m2 = pow(gunship.getRadius(), 3);
 
     float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2);

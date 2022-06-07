@@ -59,8 +59,14 @@ class Controller {
       }
     }
 
+    // Evolution
+    if (player.canEvolve()) {
+      if ('1' <= key && key <= char(player.getNumberOfEvolutions()) + '1') {
+        player.evolve(key);
+      }
+    }
     // Shop upgrades
-    if (player.getSkillPoints() > 0) {
+    else if (player.getSkillPoints() > 0) {
       Shop shop = player.getShop();
       if (key == '1' && !shop.healthRegen.isMaxLevel()) {
         shop.healthRegen.upgrade();

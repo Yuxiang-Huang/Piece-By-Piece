@@ -32,7 +32,6 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     //cheat
-    //setLevel(14);
     //shop.maxHealth.base = 10000;
 
     // set stats base on level
@@ -312,7 +311,7 @@ class Gunship extends UMO {
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
-      //autoFire();
+      autoFire();
     }
     // update and display all guns
     for (Gun gun : guns) {
@@ -374,21 +373,23 @@ class Gunship extends UMO {
       }
     } else {
       //move toward the player using negative reciprocal
-      //PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
-      //accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
+      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
 
       //0.01 to prevent 
-      PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
-      if (player.getX() < getX()) {
-        accelearationNow.x *= -1;
-      } 
-      if (player.getY() < getY()) {
-        accelearationNow.y *= -1;
-      }
+      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
+      //if (player.getX() < getX()) {
+      //  accelearationNow.x *= -1;
+      //} 
+      //if (player.getY() < getY()) {
+      //  accelearationNow.y *= -1;
+      //}
       velocity.add(accelearationNow);
-      velocity.setMag(acceleration.x * 9); 
+      if (velocity.mag() > acceleration.x * 9) {
+        velocity.setMag(acceleration.x * 9);
+      }
     }
-    
+
     // apply velocity
     position.add(velocity);
 

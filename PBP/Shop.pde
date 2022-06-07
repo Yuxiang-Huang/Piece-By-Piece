@@ -11,7 +11,7 @@ class Shop implements Processable {
   private Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
   private Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
   private Stat reload = new Stat("Reload", 0, 36, -2.4); //confirmed from wiki
-  private Stat movementSpeed = new Stat("Movement Speed", 0, unit/5.4, unit/(5.4*5)); //Daniel made it up when I confirmed with the website
+  private Stat movementSpeed = new Stat("Movement Speed", 0, 0.05 * unit/2, 1.07); //confirmed from website
 
   Shop(Gunship gunship) {
     this.gunship = gunship;
@@ -44,7 +44,7 @@ class Shop implements Processable {
     gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
     gunship.setCollisionDamageWithShip((int)(bodyDamageWithShip.getBase() + (bodyDamageWithShip.getModifier()*bodyDamage.getLevel())));
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
-    gunship.setMaxSpeed(movementSpeed.getBase() + movementSpeed.getModifier()*movementSpeed.getLevel());
+    gunship.acceleration = new PVector(movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()), movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()));
   }
 
   void randomUpgrade() {

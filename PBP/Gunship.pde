@@ -11,7 +11,6 @@ class Gunship extends UMO {
   private float angle;
   private ArrayList<Gun> guns;
 
-  private float maxSpeed;
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
@@ -227,8 +226,8 @@ class Gunship extends UMO {
 
     //apply acceleration
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
+    if (velocity.mag() > acceleration.x * 9) {
+      velocity.setMag(acceleration.x * 9);
     }
 
     // apply velocity
@@ -363,13 +362,13 @@ class Gunship extends UMO {
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
 
       velocity.add(accelearationNow);
-      if (velocity.mag() > getMaxSpeed()) {
-        velocity.setMag(getMaxSpeed());
+      if (velocity.mag() > acceleration.x * 9) {
+        velocity.setMag(acceleration.x * 9);
       } 
       if (getType().equals("random")) {
         //randomness
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
-        velocity.setMag(getMaxSpeed());
+        velocity.setMag(acceleration.x * 9);
       }
     } else {
       //move toward the player after ? seconds, maybe ? affect by movement speeds
@@ -385,8 +384,8 @@ class Gunship extends UMO {
       //}
       
       velocity.add(accelearationNow);
-      if (velocity.mag() > getMaxSpeed()) {
-        velocity.setMag(getMaxSpeed());
+      if (velocity.mag() > acceleration.x * 9) {
+        velocity.setMag(acceleration.x * 9);
       }
     }
     // apply velocity
@@ -650,13 +649,6 @@ class Gunship extends UMO {
   }
   void setGuns(ArrayList<Gun> guns) {
     this.guns = guns;
-  }
-
-  float getMaxSpeed() {
-    return maxSpeed;
-  }
-  void setMaxSpeed(float maxSpeed) {
-    this.maxSpeed = maxSpeed;
   }
 
   int getExpRequiredForNextLevel() {

@@ -19,7 +19,7 @@ class Gunship extends UMO {
 
   private boolean AutoFire;
   private boolean suicidal;
-  private String mode;
+  private String type;
 
   // player constructor
   Gunship(float x, float y) {
@@ -112,14 +112,14 @@ class Gunship extends UMO {
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
     int rand = (int) (random(3));
     if (rand == 0) {
-      setMode("straight");
+      setType("straight");
       body.setFill(color(0, 255, 0));
     } else if (rand == 1) {
-      setMode("random");
+      setType("random");
       //cyan
       body.setFill(color(0, 255, 255));
     } else {
-      setMode("predict");
+      setType("predict");
       //magenta
       body.setFill(color(255, 0, 255));
     }
@@ -172,9 +172,9 @@ class Gunship extends UMO {
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
-    if (getMode().equals("straight")) {
+    if (getType().equals("straight")) {
       text("S", getX(), getY());
-    } else if (getMode().equals("random")) {
+    } else if (getType().equals("random")) {
       text("R", getX(), getY());
     } else {
       text("P", getX(), getY());
@@ -357,7 +357,7 @@ class Gunship extends UMO {
     }
 
     //botMove
-    if (! getMode().equals("predict")) {
+    if (! getType().equals("predict")) {
       //stratight at the player
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
@@ -366,7 +366,7 @@ class Gunship extends UMO {
       if (velocity.mag() > getMaxSpeed()) {
         velocity.setMag(getMaxSpeed());
       } 
-      if (getMode().equals("random")) {
+      if (getType().equals("random")) {
         //randomness
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
         if (velocity.mag() > getMaxSpeed()) {
@@ -376,13 +376,13 @@ class Gunship extends UMO {
     } else {
       //!!! move toward the player after ? seconds, maybe ? affect by movement speeds
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 300 - getX()), 
-                                             acceleration.y*(player.getY() + player.getDY() * 300 - getY()));
+        acceleration.y*(player.getY() + player.getDY() * 300 - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
 
       velocity.add(accelearationNow);
       if (velocity.mag() > getMaxSpeed()) {
         velocity.setMag(getMaxSpeed());
-      } 
+      }
     }
     // apply velocity
     position.add(velocity);
@@ -390,18 +390,25 @@ class Gunship extends UMO {
     // apply friction
     velocity.mult(getFriction());
 
+    if (getType().equals("predict")){
+    }
     //more likely to shoot at the direction player is moving in
     //if (getType().equals("predictor")){
     //float angle = atan2((player.getY() + player.getDY() * 20 - getY()), (player.getX() + player.getDX() * 20 - getX()));
     //} else{
-    float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
-    if (angle < 0) {
-      angle = TWO_PI + angle;
+
+    else {
+      //straight at player  
+      float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
+      if (angle < 0) {
+        angle = TWO_PI + angle;
+      }
+
+      //randomize facing angle
+      if (getType().equals("random")){
+        angle += (random(1) - random(1)) * PI/16;
+      }
     }
-    //randomize facing angle
-    //if(getType().equals("randomizer")
-    angle += (random(1) - random(1)) * PI/16;
-    //}
 
     //rotate toward gunship if more stats on bullet, else use bullet to accelerate
     if (isSuicidal()) {
@@ -744,10 +751,10 @@ class Gunship extends UMO {
     this.suicidal = suicidal;
   }
 
-  String getMode() {
-    return mode;
+  String getType() {
+    return type;
   }
-  void setMode(String mode) {
-    this.mode = mode;
+  void setType(String type) {
+    this.type = type;
   }
 }

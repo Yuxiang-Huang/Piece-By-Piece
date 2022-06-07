@@ -184,7 +184,7 @@ class Gunship extends UMO {
       displayHealthBar();
     }
 
-    if (DEBUG) {
+    if (DEBUG && getX() - player.getX() < displayWidth / 2 && getY() - player.getY() < displayHeight / 2 ) {
       text(""+getHealth(), getX() - unit, getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);

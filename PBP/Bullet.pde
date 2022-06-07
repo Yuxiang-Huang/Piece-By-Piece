@@ -43,7 +43,7 @@ class Bullet extends UMO {  //<>//
     }
     circle(getX(), getY(), getRadius());
     fill(0);
-    if (DEBUG) {
+    if (DEBUG && getX() - player.getX() < displayWidth / 2 && getY() - player.getY() < displayHeight / 2 ) {
       fill(0);
       text(""+ (int) getHealth(), getX(), getY() + unit);
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit, getY()-unit);

@@ -111,14 +111,14 @@ class Gunship extends UMO {
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
     int rand = (int) (random(3));
-    if (rand == 0){
+    if (rand == 0) {
       setMode("straight");
-      body.setFill(color(0, 255, 0)); 
-    } else if (rand == 1){
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
       setMode("random");
       //cyan
       body.setFill(color(0, 255, 255));
-    } else{
+    } else {
       setMode("predict");
       //magenta
       body.setFill(color(255, 0, 255));
@@ -172,11 +172,11 @@ class Gunship extends UMO {
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
-    if (getMode().equals("straight")){
+    if (getMode().equals("straight")) {
       text("S", getX(), getY());
-    } else if (getMode().equals("random")){
+    } else if (getMode().equals("random")) {
       text("R", getX(), getY());
-    } else{
+    } else {
       text("P", getX(), getY());
     }
 
@@ -357,17 +357,33 @@ class Gunship extends UMO {
     }
 
     //botMove
-    PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
-    accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+    if (! getMode().equals("predict")) {
+      //stratight at the player
+      PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
 
-    velocity.add(accelearationNow);
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
+      velocity.add(accelearationNow);
+      if (velocity.mag() > getMaxSpeed()) {
+        velocity.setMag(getMaxSpeed());
+      } 
+      if (getMode().equals("random")) {
+        //randomness
+        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        if (velocity.mag() > getMaxSpeed()) {
+          velocity.setMag(getMaxSpeed());
+        }
+      }
+    } else {
+      //!!! move toward the player after ? seconds, maybe ? affect by movement speeds
+      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 300 - getX()), 
+                                             acceleration.y*(player.getY() + player.getDY() * 300 - getY()));
+      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+
+      velocity.add(accelearationNow);
+      if (velocity.mag() > getMaxSpeed()) {
+        velocity.setMag(getMaxSpeed());
+      } 
     }
-    //add randomness
-    velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
-    velocity.setMag(getMaxSpeed());
-
     // apply velocity
     position.add(velocity);
 
@@ -727,7 +743,7 @@ class Gunship extends UMO {
   void setSuicidal(boolean suicidal) {
     this.suicidal = suicidal;
   }
-  
+
   String getMode() {
     return mode;
   }

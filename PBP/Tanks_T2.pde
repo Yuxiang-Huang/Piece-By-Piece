@@ -57,9 +57,9 @@ class Twin extends Gunship {
     text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
 
 
-    //fill(200, 230);
-    //rectMode(RADIUS);
-    //rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
     //shape(new TripleShot().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
@@ -249,6 +249,63 @@ class FlankGuard extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+  }
+
+  void displayEvolutions() {
+    fill(0);
+    textSize(unit);
+    textAlign(CENTER);
+
+    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    //shape(new TripleShot().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new QuadTank().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new TwinFlank().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    //shape(new Auto3().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+
+    fill(0);
+    textSize(unit*3.0/4);
+    textAlign(LEFT);
+  }
+
+  void evolve(char evolution) {
+    Gunship newPlayer = player;
+    switch(key) {
+    case '1': 
+      //newPlayer = new TripleShot(player.getX(), player.getY()); 
+      break;
+    case '2': 
+      newPlayer = new QuadTank(player.getX(), player.getY()); 
+      break;
+    case '3': 
+      newPlayer = new TwinFlank(player.getX(), player.getY()); 
+      break;
+    case '4':
+      //  newPlayer = new Auto3(player.getX(), player.getY());
+      break;
+    }
+    newPlayer.velocity = player.velocity;
+    newPlayer.setLevel(player.getLevel());
+    newPlayer.setShop(player.getShop());
+    newPlayer.getShop().gunship = newPlayer;
+    newPlayer.setSkillPoints(player.getSkillPoints());
+    newPlayer.setRadius(player.getRadius());
+    player = newPlayer;
   }
 
   void evolve() {

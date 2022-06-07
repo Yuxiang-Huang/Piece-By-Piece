@@ -100,7 +100,9 @@ class QuadTank extends Gunship {
     super();
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
+    getGuns().add(new Gun(this, 90));
     getGuns().add(new Gun(this, 180));
+    getGuns().add(new Gun(this, 270));
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -109,20 +111,28 @@ class QuadTank extends Gunship {
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
     body.setFill(color(165, 42, 42));
     rectMode(CORNER);
-    PShape gun1 = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
     gun1.setFill(color(0));
     rectMode(CORNER);
-    PShape gun2 = createShape(RECT, getRadius()/3, -getRadius()/3, -2*getRadius()/3, -1.3*getRadius());
+    PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
     gun2.setFill(color(0));
+    rectMode(CORNER);
+    PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
+    gun3.setFill(color(0));
+    rectMode(CORNER);
+    PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
+    gun4.setFill(color(0));
 
     umo.addChild(gun1);
     umo.addChild(gun2);
+    umo.addChild(gun3);
+    umo.addChild(gun4);
     umo.addChild(body);
   }
 
   void evolve() {
   }
   boolean canEvolve() {
-    return getLevel() >= 30;
+    return false;
   }
 }

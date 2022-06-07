@@ -11,7 +11,6 @@ class Gunship extends UMO {
   private float angle;
   private ArrayList<Gun> guns;
 
-  private float maxSpeed;
   private int healthRegen;
   private int timeSinceLastHit;
   private float heal10percent;
@@ -19,6 +18,7 @@ class Gunship extends UMO {
 
   private boolean AutoFire;
   private boolean suicidal;
+  private String type;
 
   // player constructor
   Gunship(float x, float y) {
@@ -27,10 +27,12 @@ class Gunship extends UMO {
     setAngle(0);
     acceleration.set(unit*.025, unit*.025);
 
-    setLevel(1);
     setNumberOfEvolutions(4);
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
+
+    //cheat
+    //shop.maxHealth.base = 10000;
 
     // set stats base on level
     setLevel(1);
@@ -109,7 +111,19 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(0, 0, 255));
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
     rectMode(CORNER);
     PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun.setFill(color(0));
@@ -159,12 +173,19 @@ class Gunship extends UMO {
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
+    if (getType().equals("straight")) {
+      text("S", getX(), getY());
+    } else if (getType().equals("random")) {
+      text("R", getX(), getY());
+    } else {
+      text("P", getX(), getY());
+    }
 
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();
     }
 
-    if (DEBUG) {
+    if (DEBUG && getX() - player.getX() < displayWidth / 2 && getY() - player.getY() < displayHeight / 2 ) {
       text(""+getHealth(), getX() - unit, getY());
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit*2, getY()-unit*2);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit*2, getY()-unit);
@@ -206,18 +227,17 @@ class Gunship extends UMO {
     }
 
     //apply acceleration
+    float maxSpeed = max(acceleration.x * 9, velocity.mag());
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
+    if (velocity.mag() > maxSpeed) {
+      velocity.setMag(maxSpeed);
     }
 
     // apply velocity
     position.add(velocity);
 
     // apply friction
-    if (!input.inputs[0] && !input.inputs[1] && !input.inputs[2] && !input.inputs[3]) {
-      velocity.mult(getFriction());
-    }
+    velocity.mult(getFriction());
 
     setAngle(getAngleToMouse());
 
@@ -288,9 +308,9 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    //in shooting distance, 60 is just a random number I chose for now after few testing
+    //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
-      (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 60) {
+      (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
       autoFire();
     }
     // update and display all guns
@@ -337,16 +357,38 @@ class Gunship extends UMO {
     }
 
     //botMove
-    PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
-    accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+    if (! getType().equals("predict")) {
+      //stratight at the player
+      PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
 
-    velocity.add(accelearationNow);
-    if (velocity.mag() > getMaxSpeed()) {
-      velocity.setMag(getMaxSpeed());
+      velocity.add(accelearationNow);
+      if (velocity.mag() > acceleration.x * 9) {
+        velocity.setMag(acceleration.x * 9);
+      } 
+      if (getType().equals("random")) {
+        //randomness
+        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.setMag(acceleration.x * 9);
+      }
+    } else {
+      //move toward the player using negative reciprocal
+      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
+      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+
+      //0.01 to prevent 
+      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
+      //if (player.getX() < getX()) {
+      //  accelearationNow.x *= -1;
+      //} 
+      //if (player.getY() < getY()) {
+      //  accelearationNow.y *= -1;
+      //}
+      velocity.add(accelearationNow);
+      if (velocity.mag() > acceleration.x * 9) {
+        velocity.setMag(acceleration.x * 9);
+      }
     }
-    //add randomness
-    velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
-    velocity.setMag(getMaxSpeed());
 
     // apply velocity
     position.add(velocity);
@@ -354,18 +396,22 @@ class Gunship extends UMO {
     // apply friction
     velocity.mult(getFriction());
 
-    //more likely to shoot at the direction player is moving in
-    //if (getType().equals("predictor")){
-    //float angle = atan2((player.getY() + player.getDY() * 20 - getY()), (player.getX() + player.getDX() * 20 - getX()));
-    //} else{
-    float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
-    if (angle < 0) {
-      angle = TWO_PI + angle;
+    float angle = 0;
+    if (getType().equals("predict")) {
+      //shoot at the direction player is moving in
+      angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));
+    } else {
+      //straight at player  
+      angle = atan2((player.getY() - getY()), (player.getX() - getX()));
+      if (angle < 0) {
+        angle = TWO_PI + angle;
+      }
+
+      //randomize facing angle
+      if (getType().equals("random")) {
+        angle += (random(1) - random(1)) * PI/16;
+      }
     }
-    //randomize facing angle
-    //if(getType().equals("randomizer")
-    angle += (random(1) - random(1)) * PI/16;
-    //}
 
     //rotate toward gunship if more stats on bullet, else use bullet to accelerate
     if (isSuicidal()) {
@@ -607,13 +653,6 @@ class Gunship extends UMO {
     this.guns = guns;
   }
 
-  float getMaxSpeed() {
-    return maxSpeed;
-  }
-  void setMaxSpeed(float maxSpeed) {
-    this.maxSpeed = maxSpeed;
-  }
-
   int getExpRequiredForNextLevel() {
     return 10*getLevel();
   }
@@ -706,5 +745,12 @@ class Gunship extends UMO {
   }
   void setSuicidal(boolean suicidal) {
     this.suicidal = suicidal;
+  }
+
+  String getType() {
+    return type;
+  }
+  void setType(String type) {
+    this.type = type;
   }
 }

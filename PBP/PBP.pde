@@ -44,10 +44,10 @@ void setup() {
   }
 
   //please don't delete just comment
-  //for (int i = 0; i < 10; i++) {
-  //  Gunship enemy = new Gunship();
-  //  enemies.add(enemy);
-  //}
+  for (int i = 0; i < 10; i++) {
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
+  }
 
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);

@@ -17,7 +17,7 @@ class Bullet extends UMO {  //<>//
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
 
-    float m1 = pow(getRadius(), 3);
+    float m1 = pow(getRadius(), 3.5);
     float m2 = pow(gunship.getRadius(), 3);
 
     float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2);
@@ -31,8 +31,19 @@ class Bullet extends UMO {  //<>//
 
   void display() {
     ellipseMode(RADIUS);
+    //color the bullets
+    if (gunship != player) {
+      if (gunship.getType().equals("straight")) {
+        fill(0, 255, 0);
+      } else if (gunship.getType().equals("random")) {
+        fill(0, 255, 255);
+      } else {
+        fill(255, 0, 255);
+      }
+    }
     circle(getX(), getY(), getRadius());
-    if (DEBUG) {
+    fill(0);
+    if (DEBUG && getX() - player.getX() < displayWidth / 2 && getY() - player.getY() < displayHeight / 2 ) {
       fill(0);
       text(""+ (int) getHealth(), getX(), getY() + unit);
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit, getY()-unit);

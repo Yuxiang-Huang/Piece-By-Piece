@@ -55,7 +55,7 @@ class Gunship extends UMO {
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
     body.setFill(color(165, 42, 42));
     rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    PShape gun = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -137,7 +137,6 @@ class Gunship extends UMO {
   void playerDisplay() {
     //rotate
     pushMatrix();
-    //translate(width/2, height/2);
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);

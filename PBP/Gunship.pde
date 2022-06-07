@@ -19,6 +19,7 @@ class Gunship extends UMO {
 
   private boolean AutoFire;
   private boolean suicidal;
+  private String mode;
 
   // player constructor
   Gunship(float x, float y) {
@@ -118,6 +119,15 @@ class Gunship extends UMO {
     umo.addChild(body);
 
     setTimeSinceLastHit(0);
+    
+    int rand = (int) (random(3));
+    if (rand == 0){
+      setMode("straight");
+    } else if (rand == 1){
+      setMode("random");
+    } else{
+      setMode("predict");
+    }
   }
 
   void playerDisplay() {
@@ -706,5 +716,12 @@ class Gunship extends UMO {
   }
   void setSuicidal(boolean suicidal) {
     this.suicidal = suicidal;
+  }
+  
+  String getMode() {
+    return mode;
+  }
+  void setMode(String mode) {
+    this.mode = mode;
   }
 }

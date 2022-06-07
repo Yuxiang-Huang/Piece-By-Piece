@@ -123,7 +123,6 @@ class Gunship extends UMO {
   void playerDisplay() {
     //rotate
     pushMatrix();
-    //translate(width/2, height/2);
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);

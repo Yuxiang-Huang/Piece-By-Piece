@@ -172,6 +172,13 @@ class Gunship extends UMO {
     scale(getRadius()/unit);
     shape(umo, 0, 0);
     popMatrix();
+    if (getMode().equals("straight")){
+      text("S", getX(), getY());
+    } else if (getMode().equals("random")){
+      text("R", getX(), getY());
+    } else{
+      text("P", getX(), getY());
+    }
 
     if (getHealth() != getMaxHealth()) {
       displayHealthBar();

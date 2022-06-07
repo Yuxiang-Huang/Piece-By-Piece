@@ -31,12 +31,13 @@ class Gunship extends UMO {
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
 
+    //cheat
+    //setLevel(14);
+    //shop.maxHealth.base = 10000;
+
     // set stats base on level
-    setLevel(14);
-    shop.maxHealth.base = 50000 + 2*(getLevel() - 1);
-    
-    //setLevel(1);
-    //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    setLevel(1);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -372,31 +373,30 @@ class Gunship extends UMO {
         velocity.setMag(acceleration.x * 9);
       }
     } else {
-      //move toward the player after ? seconds, maybe ? affect by movement speeds
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-      
-      ////testing negative reciprocal, for final boss
-      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
-      //if (player.getX() < getX()){
-      //  accelearationNow.x *= -1;
-      //} if (player.getY() < getY()){
-      //  accelearationNow.y *= -1;
-      //}
-      
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
+      //move toward the player using negative reciprocal
+      //PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
+      //accelearationNow.setMag(mag(acceleration.x, acceleration.y));
+
+      //0.01 to prevent 
+      PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
+      if (player.getX() < getX()) {
+        accelearationNow.x *= -1;
+      } 
+      if (player.getY() < getY()) {
+        accelearationNow.y *= -1;
       }
+      velocity.add(accelearationNow);
+      velocity.setMag(acceleration.x * 9); 
     }
+    
     // apply velocity
     position.add(velocity);
 
     // apply friction
     velocity.mult(getFriction());
-    
+
     float angle = 0;
-    if (getType().equals("predict")){
+    if (getType().equals("predict")) {
       //shoot at the direction player is moving in
       angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));
     } else {
@@ -407,7 +407,7 @@ class Gunship extends UMO {
       }
 
       //randomize facing angle
-      if (getType().equals("random")){
+      if (getType().equals("random")) {
         angle += (random(1) - random(1)) * PI/16;
       }
     }

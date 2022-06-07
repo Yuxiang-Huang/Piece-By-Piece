@@ -21,8 +21,8 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  width = displayWidth;
-  height = displayHeight;
+  width = displayWidth*3;
+  height = displayHeight*3;
 
   setMouseX(0);
   setMouseY(0);
@@ -44,13 +44,13 @@ void setup() {
   }
 
   //please don't delete just comment
-  //for (int i = 0; i < 10; i++) {
-  //  Gunship enemy = new Gunship();
-  //  enemies.add(enemy);
-  //}
+  for (int i = 0; i < 10; i++) {
+    Gunship enemy = new Gunship();
+    enemies.add(enemy);
+  }
 
   setGameState(PLAYING);
-  setTimeSinceEnemySpawn(6000000);
+  setTimeSinceEnemySpawn(600);
 }
 
 void keyPressed() {

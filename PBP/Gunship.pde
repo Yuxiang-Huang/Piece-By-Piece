@@ -308,9 +308,9 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    //in shooting distance, 60 is just a random number I chose for now after few testing
+    //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
-      (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 60) {
+      (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
       autoFire();
     }
     // update and display all guns
@@ -369,14 +369,11 @@ class Gunship extends UMO {
       if (getType().equals("random")) {
         //randomness
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
-        if (velocity.mag() > getMaxSpeed()) {
-          velocity.setMag(getMaxSpeed());
-        }
+        velocity.setMag(getMaxSpeed());
       }
     } else {
       //!!! move toward the player after ? seconds, maybe ? affect by movement speeds
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 300 - getX()), 
-        acceleration.y*(player.getY() + player.getDY() * 300 - getY()));
+      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
 
       velocity.add(accelearationNow);
@@ -392,9 +389,8 @@ class Gunship extends UMO {
     
     float angle = 0;
     if (getType().equals("predict")){
-      //more likely to shoot at the direction player is moving in
-
-    //float angle = atan2((player.getY() + player.getDY() * 20 - getY()), (player.getX() + player.getDX() * 20 - getX()));
+      //shoot at the direction player is moving in
+      angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));
     } else {
       //straight at player  
       angle = atan2((player.getY() - getY()), (player.getX() - getX()));

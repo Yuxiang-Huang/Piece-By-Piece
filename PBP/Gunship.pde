@@ -389,17 +389,15 @@ class Gunship extends UMO {
 
     // apply friction
     velocity.mult(getFriction());
-
+    
+    float angle = 0;
     if (getType().equals("predict")){
-    }
-    //more likely to shoot at the direction player is moving in
-    //if (getType().equals("predictor")){
-    //float angle = atan2((player.getY() + player.getDY() * 20 - getY()), (player.getX() + player.getDX() * 20 - getX()));
-    //} else{
+      //more likely to shoot at the direction player is moving in
 
-    else {
+    //float angle = atan2((player.getY() + player.getDY() * 20 - getY()), (player.getX() + player.getDX() * 20 - getX()));
+    } else {
       //straight at player  
-      float angle = atan2((player.getY() - getY()), (player.getX() - getX()));
+      angle = atan2((player.getY() - getY()), (player.getX() - getX()));
       if (angle < 0) {
         angle = TWO_PI + angle;
       }

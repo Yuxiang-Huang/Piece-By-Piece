@@ -31,7 +31,18 @@ class Bullet extends UMO {  //<>//
 
   void display() {
     ellipseMode(RADIUS);
+    //color the bullets
+    if (gunship != player) {
+      if (gunship.getType().equals("straight")) {
+        fill(0, 255, 0);
+      } else if (gunship.getType().equals("random")) {
+        fill(0, 255, 255);
+      } else {
+        fill(255, 0, 255);
+      }
+    }
     circle(getX(), getY(), getRadius());
+    fill(0);
     if (DEBUG) {
       fill(0);
       text(""+ (int) getHealth(), getX(), getY() + unit);

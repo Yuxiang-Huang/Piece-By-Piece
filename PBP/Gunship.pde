@@ -372,10 +372,18 @@ class Gunship extends UMO {
         velocity.setMag(getMaxSpeed());
       }
     } else {
-      //!!! move toward the player after ? seconds, maybe ? affect by movement speeds
+      //move toward the player after ? seconds, maybe ? affect by movement speeds
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
+      
+      ////testing negative reciprocal, for final boss
+      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
+      //if (player.getX() < getX()){
+      //  accelearationNow.x *= -1;
+      //} if (player.getY() < getY()){
+      //  accelearationNow.y *= -1;
+      //}
+      
       velocity.add(accelearationNow);
       if (velocity.mag() > getMaxSpeed()) {
         velocity.setMag(getMaxSpeed());

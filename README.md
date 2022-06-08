@@ -1,11 +1,28 @@
 # Piece-By-Piece
+
 ---
+
 ### Compile & Run instructions:
 * Open and run project via processing.
 * No command line arguments needed.
 * To activate debug mode press the \` key (the one bellow the esc button)
 * **!Requirement!** Make sure to have fun!
+* 
 ---
+
+### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
+
+### Brief Summary:
+We will attempt to recreate the shooter game Diep.io (an Agar.io clone) with no multiplayer, but bot enemies that you need to defeat. The MVP will focus on the movement1, stat upgrades2, and level up mechanics (including polygons), and the Final Project will focus on adding tank upgrades and bot enemies.
+
+<img src="./ref/GunShip.png" width="250" height="200"> <img src="./ref/Shop.png" width="250" height="200"> <img src="./ref/Pentagon.png" width="250" height="200">
+
+By shooting enemies you can gain experience points, which once you acquire enough off to level up, you gain a skill point that lets you upgrade a stat of your player. The playable map will be bigger than the entire screen, meaning the camera won't just be a static overhead view, but one that moves along with your ship, always keeping it in focus (orthographic camera). 
+
+Once we are done with the MVP (~1 week) we can start working on the actual final project. The main focus of the actual project is to add a tree of tank upgrades that allow you to attack differently and have different attributes. We will also want to add bot enemies, which are also tanks.
+
+---
+
 ### Dev Log: (MM-DD-YYYY: "LOG")
 * #### Yuxiang Huang:
     *  (05-23-2022): "Today I created the backbone of the project with Daniel in class, so I put it in main.(Totally not because I forgot to checkout into the branch I am working in). After class, to minimize merge conflict, I decided to work on the Polygon class and finished the constructors and displays for Square and Triangle, leaving the pentagon for tomorrow."
@@ -39,19 +56,12 @@
     *  (06-02-2022): "Today I decided to finish one of the low priority items, the minimap. I made the minimap display your position and the positions of all the enemies. I also worked with Yuxiang to decide how to approach update distance and display distance to optimize the game."
     *  (06-03-2022): "Today I implemented more debug functionality by allowing debug to be activated when game has ended. I also allowed to freely level up with the press of 'k' when debug mode is activated. I also gave the ability to autofire when mouse is held down."
     *  (06-04-2022): "Today I started work on preparing us for implementing evolution by implementing the Gun class so that we can have diffrent gunships with diffrent amounts of guns. I gave Gun an angle so that a Gun could be at any rotation. I also playtested the game and fixed some values for better gameplay."
+    *  (06-05-2022): "Today I added a pause button 'p' that pauses the game. I also started work on implementing the evolution mechanic and the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. The base tank can evolve when it reaches level 15"
+    *  (06-06-2022): "Today I finished the display for the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. I also started work on some tier 3 evolutions. A tier 2 tanks can evolve when it reaches level 30."
+    *  (06-07-2022): ""
+    
 ---
-### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
 
-### Brief Summary:
-We will attempt to recreate the shooter game Diep.io (an Agar.io clone) with no multiplayer, but bot enemies that you need to defeat. The MVP will focus on the movement1, stat upgrades2, and level up mechanics (including polygons), and the Final Project will focus on adding tank upgrades and bot enemies.
-
-<img src="./ref/GunShip.png" width="250" height="200"> <img src="./ref/Shop.png" width="250" height="200"> <img src="./ref/Pentagon.png" width="250" height="200">
-
-By shooting enemies you can gain experience points, which once you acquire enough off to level up, you gain a skill point that lets you upgrade a stat of your player. The playable map will be bigger than the entire screen, meaning the camera won't just be a static overhead view, but one that moves along with your ship, always keeping it in focus (orthographic camera).
-
-Once we are done with the MVP (~1 week) we can start working on the actual final project. The main focus of the actual project is to add a tree of tank upgrades that allow you to attack differently and have different attributes. We will also want to add bot enemies, which are also tanks.
-
----
 ### Made by the "We Piece Together" team:
 * #### Yuxiang Huang (co-founder)
 * #### Daniel Yentin (co-founder)

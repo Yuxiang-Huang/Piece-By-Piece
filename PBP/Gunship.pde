@@ -212,6 +212,10 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
+    if (getInvincible() > 0){
+      setInvincible(getInvincible() - 1);
+    }
+    
     // check for what directions are being pressed
     float xdir = 0;
     float ydir = 0;
@@ -289,6 +293,10 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
+    if (getInvincible() > 0){
+      setInvincible(getInvincible() - 1);
+    }
+    
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
@@ -481,6 +489,9 @@ class Gunship extends UMO {
             player.setHealth(player.getHealth() - getHealth());
           }
           setHealth(getHealth() - player.getCollisionDamageWithShip());
+          //1 sec?
+          setInvincible(60);
+          player.setInvincible(60);
         }
       }
       //check for collision with enemies

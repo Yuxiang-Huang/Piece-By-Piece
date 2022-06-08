@@ -18,7 +18,7 @@ class Gunship extends UMO {
 
   private boolean AutoFire;
   private boolean suicidal;
-  private boolean invincible;
+  private int invincible;
   private String type;
 
   // player constructor
@@ -39,7 +39,7 @@ class Gunship extends UMO {
     shop.maxHealth.base = 1000000;
     //pow causes precision problem
     setRadius(unit * pow(1.01, getLevel()-1));
-    
+
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -164,6 +164,7 @@ class Gunship extends UMO {
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
     }
   }
 
@@ -442,12 +443,15 @@ class Gunship extends UMO {
         }
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (polygon.getHealth() >  polygon.getCollisionDamage()) {
-          setHealth(getHealth() - polygon.getCollisionDamage());
-        } else {
-          setHealth(getHealth() - polygon.getHealth());
+        //only do damage part if not invincible
+        if (getInvincible() == 0) {
+          if (polygon.getHealth() >  polygon.getCollisionDamage()) {
+            setHealth(getHealth() - polygon.getCollisionDamage());
+          } else {
+            setHealth(getHealth() - polygon.getHealth());
+          }
+          polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         }
-        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
 
         if (polygon.isDead()) {
           setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
@@ -469,13 +473,16 @@ class Gunship extends UMO {
         setDY(3*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
-        if (getHealth() >  getCollisionDamage()) {
-          player.setHealth(player.getHealth() - getCollisionDamageWithShip());
-        } else {
-          player.setHealth(player.getHealth() - getHealth());
+        //only do damage part if not invincible
+        if (getInvincible() == 0) {
+          if (getHealth() >  getCollisionDamage()) {
+            player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+          } else {
+            player.setHealth(player.getHealth() - getHealth());
+          }
+          setHealth(getHealth() - player.getCollisionDamageWithShip());
         }
-        setHealth(getHealth() - player.getCollisionDamageWithShip());
-      } 
+      }
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
@@ -610,7 +617,7 @@ class Gunship extends UMO {
       shoot();
     }
   }
-  
+
   void autoSpin() {
     setAngle(getAngle()+.1);
   }
@@ -738,11 +745,11 @@ class Gunship extends UMO {
   void setType(String type) {
     this.type = type;
   }
-  
-  boolean isInvincible() {
+
+  int getInvincible() {
     return invincible;
   }
-  void getInvincible(boolean invincible) {
+  void setInvincible(int invincible) {
     this.invincible = invincible;
   }
 }

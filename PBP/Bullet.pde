@@ -107,9 +107,12 @@ class Bullet extends UMO {  //<>//
     if (gunship != player) {
       if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
         < getRadius() + player.getRadius()) {
-        setHealth(getHealth() - player.getCollisionDamage());
-        player.setHealth(player.getHealth() - getCollisionDamage());
-        player.setTimeSinceLastHit(1800);
+        //only do damage part if not invincible
+        if (player.getInvincible() == 0) {
+          setHealth(getHealth() - player.getCollisionDamage());
+          player.setHealth(player.getHealth() - getCollisionDamage());
+          player.setTimeSinceLastHit(1800);
+        }
       }
     } else {
       for (Gunship enemy : enemies) {

@@ -18,7 +18,7 @@ class Controller {
     if (key == 'r') {
       player = new Gunship(width/2, height/2);
       polygons.clear();
-      for (int i = 0; i < 100; i++) {
+      for (int i = 0; i < 30; i++) {
         Polygon polygon = new Polygon();
         polygons.add(polygon);
       }
@@ -62,6 +62,9 @@ class Controller {
       // Gun controls
       if (key == 'e') {
         player.setAutoFire(!player.getAutoFire());
+      }
+      if (key == 'r') {
+        //player.setAutoRotate(!player.getAutoRotate());
       }
       // Movement controls
       if (key == 'a' || keyCode == LEFT) {

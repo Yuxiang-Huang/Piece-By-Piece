@@ -31,16 +31,14 @@ class Gunship extends UMO {
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
 
-    //cheat
-    //shop.maxHealth.base = 1000000;
-
     // set stats base on level
     setLevel(1);
-    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    //cheat
+    shop.maxHealth.base = 1000000;
     //pow causes precision problem
-    for (int i = 0; i < getLevel() - 1; i ++){
-      setRadius(getRadius() * 1.01); //confirmed from wiki
-    }
+    setRadius(unit * pow(1.01, getLevel()-1));
+    
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -89,7 +87,7 @@ class Gunship extends UMO {
 
     // set stats base on level
     getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -262,7 +260,7 @@ class Gunship extends UMO {
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
       getShop().maxHealth.base += 2;
-      setRadius(getRadius() * 1.01); //confirmed from wiki
+      setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
     }   
@@ -311,7 +309,7 @@ class Gunship extends UMO {
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
       getShop().maxHealth.base += 2;
-      setRadius(getRadius() * 1.01); //confirmed from wiki
+      setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
       shop.randomUpgrade();
@@ -610,6 +608,10 @@ class Gunship extends UMO {
     if (canShoot()) {
       shoot();
     }
+  }
+  
+  void autoSpin() {
+    setAngle(getAngle()+.1);
   }
 
   //get and set methods------------------------------------------------------------------

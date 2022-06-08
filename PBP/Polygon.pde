@@ -149,8 +149,6 @@ class Polygon extends UMO {
       setRotationCW(! getRotationCW());
     } 
     if (getX() > width){
-    //demonstration
-    //else{
       acceleration.x = -1 * unit/500;
       setRotationCW(! getRotationCW());
     } if (getY() < 0){
@@ -158,7 +156,6 @@ class Polygon extends UMO {
       setRotationCW(! getRotationCW());
     } 
     if (getY() > height){
-    //else{
       acceleration.y = -1 * unit/500;
       setRotationCW(! getRotationCW());
     }

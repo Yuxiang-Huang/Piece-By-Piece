@@ -38,7 +38,8 @@ void setup() {
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
-  for (int i = 0; i < 50; i++) {
+  
+  for (int i = 0; i < (30); i++) {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
@@ -83,7 +84,7 @@ void mouseReleased() {
   }
 }
 
-void draw() {
+void draw() { //<>//
   background(200, 200, 200, 200);
 
   // to center camera on player

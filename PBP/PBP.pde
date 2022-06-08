@@ -44,12 +44,6 @@ void setup() {
     polygons.add(polygon);
   }
 
-  //please don't delete just comment
-  //for (int i = 0; i < 10; i++) {
-  //  Gunship enemy = new Gunship();
-  //  enemies.add(enemy);
-  //}
-
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);
   //cheat
@@ -90,7 +84,7 @@ void draw() { //<>//
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
   // fix mouse coordinates to be absolute rather than relative
-  setMouseX((player.getX() - displayWidth/2) + mouseX);
+  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>//
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
   // draw border

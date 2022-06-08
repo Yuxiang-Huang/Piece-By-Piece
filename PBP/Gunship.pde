@@ -18,6 +18,7 @@ class Gunship extends UMO {
 
   private boolean AutoFire;
   private boolean suicidal;
+  private boolean invincible;
   private String type;
 
   // player constructor
@@ -736,5 +737,12 @@ class Gunship extends UMO {
   }
   void setType(String type) {
     this.type = type;
+  }
+  
+  boolean isInvincible() {
+    return invincible;
+  }
+  void getInvincible(boolean invincible) {
+    this.invincible = invincible;
   }
 }

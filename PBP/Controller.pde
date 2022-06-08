@@ -36,8 +36,20 @@ class Controller {
     }
 
     if (getGameState() == PLAYING) {
+      //level up
       if (DEBUG && key == 'k') {
         player.setExp(player.getExpRequiredForNextLevel());
+      }
+      
+      //create enemy
+      if (DEBUG && key == 'j') {
+        Gunship enemy = new Gunship();
+        enemies.add(enemy);
+      }
+      
+      //full health
+      if (DEBUG && key == 'h') {
+        player.setHealth(player.getMaxHealth());
       }
 
       // Gun controls

@@ -21,8 +21,8 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  width = displayWidth*3;
-  height = displayHeight*3;
+  width = displayWidth*1;
+  height = displayHeight*1;
 
   setMouseX(0);
   setMouseY(0);
@@ -38,7 +38,7 @@ void setup() {
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 50; i++) {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }

@@ -62,8 +62,8 @@ class Polygon extends UMO {
 
     position.set(random(width), random(height));
 
-    // Not to collide with player ship
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.3) {
+    // Not to collide with player ship and leave some area in between
+    while (isCollidingWithAnyUMOSpawning()){
       setX(random(width));
       setY(random(height));
     }

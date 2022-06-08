@@ -62,8 +62,8 @@ class Polygon extends UMO {
 
     position.set(random(width), random(height));
 
-    // Not to collide with player ship
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.3) {
+    // Not to collide with player ship and leave some area in between
+    while (isCollidingWithAnyUMOSpawning()){
       setX(random(width));
       setY(random(height));
     }
@@ -96,9 +96,9 @@ class Polygon extends UMO {
 
   void update() {
     // check for collisions
+    moveInCircle();
     collisionWithBorder();
     collisionWithUMO();
-    moveInCircle();
     super.update();
   }
 
@@ -139,6 +139,28 @@ class Polygon extends UMO {
       acceleration.set((unit/500)*cos(radian), (unit/500)*sin(radian));
     } else {
       acceleration.set((unit/500)*cos(radian)*-1, (unit/500)*sin(radian)*-1);
+    }
+  }
+  
+  void collisionWithBorder(){
+    //move back
+    if (getX() < 0){
+      acceleration.x = 1 * unit/500;
+      setRotationCW(! getRotationCW());
+    } 
+    if (getX() > width){
+    //demonstration
+    //else{
+      acceleration.x = -1 * unit/500;
+      setRotationCW(! getRotationCW());
+    } if (getY() < 0){
+      acceleration.y = 1 * unit/500;
+      setRotationCW(! getRotationCW());
+    } 
+    if (getY() > height){
+    //else{
+      acceleration.y = -1 * unit/500;
+      setRotationCW(! getRotationCW());
     }
   }
 

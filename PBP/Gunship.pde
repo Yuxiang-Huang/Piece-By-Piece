@@ -32,12 +32,15 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     //cheat
-    //shop.maxHealth.base = 10000;
+    //shop.maxHealth.base = 1000000;
 
     // set stats base on level
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    //pow causes precision problem
+    for (int i = 0; i < getLevel() - 1; i ++){
+      setRadius(getRadius() * 1.01); //confirmed from wiki
+    }
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -226,10 +229,9 @@ class Gunship extends UMO {
     }
 
     //apply acceleration
-    float maxSpeed = max(acceleration.x * 9, velocity.mag());
     velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > maxSpeed) {
-      velocity.setMag(maxSpeed);
+    if (velocity.mag() > acceleration.x * 9) {
+      velocity.setMag(acceleration.x * 9);
     }
 
     // apply velocity
@@ -267,29 +269,9 @@ class Gunship extends UMO {
 
     heal();
 
-    if (getTimeSinceLastHit() > 0) {
-      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
-    }
-
-    //should be in UMO.update
-    if (int(getHealth()) == 0) {
-      die();
-    }
-
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-
-    // check if gunship has enough exp for level up
-    if (getExp() >= getExpRequiredForNextLevel()) {
-      setExp(getExp()-getExpRequiredForNextLevel());
-      setLevel(getLevel()+1);
-      setSkillPoints(getSkillPoints()+1);
-      //increase stats upon level up
-      setMaxHealth((int)getMaxHealth() + 2);
-      setHealth(getHealth() + 2);
-      setRadius(getRadius() * 1.07); //not confirmed
-    }  
 
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
@@ -367,8 +349,9 @@ class Gunship extends UMO {
       } 
       if (getType().equals("random")) {
         //randomness
+        float speedNow = velocity.mag();
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
-        velocity.setMag(acceleration.x * 9);
+        velocity.setMag(speedNow);
       }
     } else {
       //move toward the player using negative reciprocal

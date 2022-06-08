@@ -38,7 +38,7 @@ void setup() {
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 50; i++) {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
@@ -51,6 +51,8 @@ void setup() {
 
   setGameState(PLAYING);
   setTimeSinceEnemySpawn(600);
+  //cheat
+  //setTimeSinceEnemySpawn(60000);
 }
 
 void keyPressed() {

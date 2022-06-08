@@ -85,6 +85,20 @@ abstract class UMO implements Processable {
     }
     return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
+  
+  boolean isCollidingWithPolygonSpawning(Polygon polygon) {
+    //distance formula
+    float Radius = 0 ;
+    //trust math to fix collision detection
+    if (polygon.getShape().equals("square")) {
+      Radius = polygon.getRadius() / sqrt(2);
+    } else if (polygon.getShape().equals("triangle")) {
+      Radius = polygon.getRadius() / 2;
+    } else if (polygon.getShape().equals("pentagon")) {
+      Radius = polygon.getRadius() * sin(54 / 180.0 * PI);
+    }
+    return dist(getX(), getY(), polygon.getX(), polygon.getY()) < (getRadius() + Radius) * 3;
+  }
 
   boolean isCollidingWithAnyUMO() {
     if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 
@@ -101,6 +115,29 @@ abstract class UMO implements Processable {
 
     for (Polygon polygon : polygons) {
       if (isCollidingWithPolygon(polygon)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  boolean isCollidingWithAnyUMOSpawning(){
+    //k to leave some breathing space
+    int k = 3;
+    if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 
+      < (getRadius() + player.getRadius()) * k) {
+      return true;
+    }
+
+    for (Gunship enemy : enemies) {
+      if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
+        < (getRadius() + enemy.getRadius()) * k) {
+        return true;
+      }
+    }
+
+    for (Polygon polygon : polygons) {
+      if (isCollidingWithPolygonSpawning(polygon)) {
         return true;
       }
     }

@@ -37,8 +37,15 @@ class Controller {
 
     if (getGameState() == PLAYING) {
       //level up
-      if (DEBUG && key == 'k') {
+      if (DEBUG && key == 'l') {
         player.setExp(player.getExpRequiredForNextLevel());
+      }
+      
+      //50 damage to each enemy
+      if (DEBUG && key == 'k') {
+        for (Gunship enemy : enemies){
+          enemy.setHealth(enemy.getHealth() - 50);
+        }
       }
       
       //create enemy

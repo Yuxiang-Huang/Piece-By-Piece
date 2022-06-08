@@ -141,6 +141,9 @@ class Polygon extends UMO {
       acceleration.set((unit/500)*cos(radian)*-1, (unit/500)*sin(radian)*-1);
     }
   }
+  
+  void collisionWithBorder(){
+  }
 
   //get and set methods------------------------------------------------------------------
 

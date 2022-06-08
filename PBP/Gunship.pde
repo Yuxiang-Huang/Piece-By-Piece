@@ -32,12 +32,15 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     //cheat
-    //shop.maxHealth.base = 10000;
+    //shop.maxHealth.base = 1000000;
 
     // set stats base on level
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    //pow causes precision problem
+    for (int i = 0; i < getLevel() - 1; i ++){
+      setRadius(getRadius() * 1.01); //confirmed from wiki
+    }
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -86,7 +89,7 @@ class Gunship extends UMO {
 
     // set stats base on level
     getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(getRadius() * pow(1.000001, getLevel() - 1)); //confirmed from wiki
+    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 

@@ -367,8 +367,9 @@ class Gunship extends UMO {
       } 
       if (getType().equals("random")) {
         //randomness
+        float speedNow = velocity.mag();
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
-        velocity.setMag(acceleration.x * 9);
+        velocity.setMag(speedNow);
       }
     } else {
       //move toward the player using negative reciprocal

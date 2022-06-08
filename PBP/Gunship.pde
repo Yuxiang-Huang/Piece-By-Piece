@@ -86,7 +86,7 @@ class Gunship extends UMO {
 
     // set stats base on level
     getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    setRadius(getRadius() * pow(1.000001, getLevel() - 1)); //confirmed from wiki
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -266,29 +266,9 @@ class Gunship extends UMO {
 
     heal();
 
-    if (getTimeSinceLastHit() > 0) {
-      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
-    }
-
-    //should be in UMO.update
-    if (int(getHealth()) == 0) {
-      die();
-    }
-
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-
-    // check if gunship has enough exp for level up
-    if (getExp() >= getExpRequiredForNextLevel()) {
-      setExp(getExp()-getExpRequiredForNextLevel());
-      setLevel(getLevel()+1);
-      setSkillPoints(getSkillPoints()+1);
-      //increase stats upon level up
-      setMaxHealth((int)getMaxHealth() + 2);
-      setHealth(getHealth() + 2);
-      setRadius(getRadius() * 1.07); //not confirmed
-    }  
 
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);

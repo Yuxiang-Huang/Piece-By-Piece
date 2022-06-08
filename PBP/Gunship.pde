@@ -71,12 +71,13 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) { // cant spawn ship on top of UMO or too close to player
+    while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
     setAngle(0);
     acceleration.set(unit*.01, unit*.01);
+    setInvincible(60);
 
     int levelHolder = player.getLevel() + (int) random(7) - 3;
     if (levelHolder < 1) {
@@ -142,7 +143,17 @@ class Gunship extends UMO {
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
-    shape(umo, 0, 0);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } else{
+        //umo.setFill(color(255));
+        //shape(umo, 0, 0);
+        //umo.setFill(color(165, 42, 42));
+      }
+    } else {
+      shape(umo, 0, 0);
+    }
     popMatrix();
 
     if (getHealth() != getMaxHealth()) {
@@ -173,7 +184,17 @@ class Gunship extends UMO {
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
-    shape(umo, 0, 0);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } else{
+        //umo.setFill(color(255));
+        //shape(umo, 0, 0);
+        //umo.setFill(color(165, 42, 42));
+      }
+    } else {
+      shape(umo, 0, 0);
+    }
     popMatrix();
     if (getType().equals("straight")) {
       text("S", getX(), getY());
@@ -212,10 +233,10 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
-    if (getInvincible() > 0){
+    if (getInvincible() > 0) {
       setInvincible(getInvincible() - 1);
     }
-    
+
     // check for what directions are being pressed
     float xdir = 0;
     float ydir = 0;
@@ -293,10 +314,10 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
-    if (getInvincible() > 0){
+    if (getInvincible() > 0) {
       setInvincible(getInvincible() - 1);
     }
-    
+
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {

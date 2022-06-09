@@ -222,6 +222,7 @@ class Gunship extends UMO {
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
+      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*8);
     }
   }
 

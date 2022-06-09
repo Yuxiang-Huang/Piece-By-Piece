@@ -126,7 +126,7 @@ class QuadTank extends Gunship {
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
-// there must be a more efficient way...
+      // there must be a more efficient way...
       umo = createShape(GROUP);
       ellipseMode(RADIUS);
       PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
@@ -153,10 +153,49 @@ class QuadTank extends Gunship {
     } 
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);
-      text("Boss is ANGRY", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      textSize(unit*2);
+      textAlign(CENTER);
+      text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      textAlign(LEFT);
+      textSize(unit*3.0/4);
     }
-
+    
+    //last phase
     if (getHealth() < getMaxHealth() / 3) {
+      setDisplay2(600); 
+      // there must be a more efficient way...
+      umo = createShape(GROUP);
+      ellipseMode(RADIUS);
+      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+      setType("predict");
+      body.setFill(color(255, 0, 255));
+      rectMode(CORNER);
+      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+      gun1.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
+      gun2.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
+      gun3.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
+      gun4.setFill(color(0));
+
+      umo.addChild(gun1);
+      umo.addChild(gun2);
+      umo.addChild(gun3);
+      umo.addChild(gun4);
+      umo.addChild(body);
+    }
+    
+    if (getDisplay2() > 0 ) {
+      setDisplay2(getDisplay2() - 1);
+      textSize(unit*2);
+      textAlign(CENTER);
+      text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      textAlign(LEFT);
+      textSize(unit*3.0/4);
     }
   }
 
@@ -165,6 +204,7 @@ class QuadTank extends Gunship {
   }
 
   void enemyDie() {
+    enemies.remove(this);
     setGameState(WON);
   }
 
@@ -176,7 +216,7 @@ class QuadTank extends Gunship {
   }
 
   int getDisplay2() {
-    return display1;
+    return display2;
   }
   void setDisplay2(int display2) {
     this.display2 = display2;

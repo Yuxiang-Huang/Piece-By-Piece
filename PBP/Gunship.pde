@@ -266,16 +266,16 @@ class Gunship extends UMO {
     }
     velocity.add(accelerationNow);
 
+    //don't fly
+    if (velocity.mag() > flyingSpeed){
+      velocity.setMag(flyingSpeed);
+    }
+    
     // apply velocity
     position.add(velocity);
 
     // apply friction
     velocity.mult(getFriction());
-    
-    //don't fly
-    if (velocity.mag() > flyingSpeed){
-      velocity.setMag(flyingSpeed);
-    }
 
     if (getAutoRotate()) {
       autoRotate();
@@ -408,17 +408,16 @@ class Gunship extends UMO {
       }
       velocity.add(accelerationNow);
     }
-
+    //don't fly
+    if (velocity.mag() > flyingSpeed){
+      velocity.setMag(flyingSpeed);
+    }
+    
     // apply velocity
     position.add(velocity);
 
     // apply friction
     velocity.mult(getFriction());
-    
-    //don't fly
-    if (velocity.mag() > flyingSpeed){
-      velocity.setMag(flyingSpeed);
-    }
 
     float angle = 0;
     if (getType().equals("predict")) {

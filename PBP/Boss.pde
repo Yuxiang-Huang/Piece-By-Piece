@@ -185,8 +185,6 @@ body.setFill(color(255, 0, 255));
       textSize(unit*3.0/4);
     }
     
-    autoRotate();
-    
     if (getHealth() < getMaxHealth() / 6){
       setDisplay2(0);
       textSize(unit*2);

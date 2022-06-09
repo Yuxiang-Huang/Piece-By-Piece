@@ -1,4 +1,5 @@
 Gunship player;
+Gunship boss;
 Controller input;
 ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
@@ -83,8 +84,8 @@ void draw() { //<>//
 
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
-  // fix mouse coordinates to be absolute rather than relative
-  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>// //<>//
+  // fix mouse coordinates to be absolute rather than relative //<>//
+  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>//
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
   // draw border

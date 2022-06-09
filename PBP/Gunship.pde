@@ -306,8 +306,8 @@ class Gunship extends UMO {
 
     if (player.getHealth() == 0) {
       setGameState(LOST);
-    } else if (player.getLevel() >= 45) {
-      setGameState(WON);
+    } else if (boss != null && player.getLevel() >= 30) {
+      boss = new QuadTank(width/2, height/2);
     }
   }
 
@@ -384,15 +384,6 @@ class Gunship extends UMO {
       //move toward the player using negative reciprocal
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
-      //0.01 to prevent 
-      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
-      //if (player.getX() < getX()) {
-      //  accelearationNow.x *= -1;
-      //} 
-      //if (player.getY() < getY()) {
-      //  accelearationNow.y *= -1;
-      //}
       velocity.add(accelearationNow);
       if (velocity.mag() > acceleration.x * 9) {
         velocity.setMag(acceleration.x * 9);

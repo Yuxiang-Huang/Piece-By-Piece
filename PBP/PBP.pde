@@ -58,7 +58,7 @@ void setup() {
   //cheat
   //setTimeSinceEnemySpawn(60000);
   
-  flyingSpeed = 7 * unit;
+  flyingSpeed = unit;
 }
 
 void keyPressed() {

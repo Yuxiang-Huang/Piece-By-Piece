@@ -18,20 +18,31 @@ class GameScreen {
     smallText();
     text("1. Press the 'WASD' keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit);
 
-    text("2. Move the Mouse to rotate to where you want look", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-2);
-    text("    or press the 'q' key to rotate automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-3);
+    text("2. Move the Mouse to rotate to where you want look", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
+    text("    or press the 'q' key to rotate automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-2);
 
-    text("3. Press the Mouse to shoot a bullet out of your guns", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-5);
-    text("    or press the 'e' key to shoot automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-6);
+    text("3. Press the Mouse to shoot a bullet out of your guns", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-4);
+    text("    or press the 'e' key to shoot automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-5);
 
-    text("4. Whenever you have a skill point to spend,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-8);
-    text("    press the corresponding number key to upgrade a stat.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-9);
+    text("4. Whenever you have a skill point to spend,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-7);
+    text("    press the corresponding number key to upgrade a stat.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-8);
 
-    text("5. Whenever you reach a certain level, you can evolve,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-11);
-    text("    press the corresponding number key to evolve.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-12);
+    text("5. Whenever you reach a certain level, you can evolve,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-10);
+    text("    press the corresponding number key to evolve.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-11);
 
-    text("6. Press 'p' to pause the game at any time.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-14);
-    text("    You can also press 'r' to restart the game.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-15);
+    text("6. Press 'p' to pause the game at any time.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-13);
+    text("    You can also press 'r' to restart the game.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-14);
+
+    mediumText();
+    text("Hacks:", player.getX(), player.getY()-unit*3);
+
+    smallText();
+    text("Press '`' (below the 'esc' key) to activate debug mode.", player.getX(), player.getY()-unit);
+    text("debug mode displays alot of useful information.", player.getX(), player.getY());
+
+    text("When debug mode is active, you can do the following: ", player.getX(), player.getY()-unit*-2);
+
+    text("1. Press 'l' ", player.getX(), player.getY()-unit*-4);
 
     resetText();
   }

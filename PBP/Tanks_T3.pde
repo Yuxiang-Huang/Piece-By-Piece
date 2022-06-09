@@ -96,8 +96,8 @@ class QuadTank extends Gunship {
 
 
   // enemy constructor
-  QuadTank() {
-    super();
+  QuadTank(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 90));
@@ -172,8 +172,8 @@ class TwinFlank extends Gunship {
   }
 
   // enemy constructor
-  TwinFlank() {
-    super();
+  TwinFlank(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
     getGuns().add(new Gun(this, -3));

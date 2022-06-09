@@ -23,8 +23,8 @@ class Gunship extends UMO {
   private String type;
 
   //error?
-  Gunship() {
-  }
+  //Gunship() {
+  //}
 
   color LightBlue = color(1, 178, 225);
 
@@ -40,7 +40,7 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(29);
+    setLevel(1);
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
     shop.maxHealth.base = 1000000;
@@ -49,10 +49,6 @@ class Gunship extends UMO {
     // set stats base on level
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-    //pow causes precision problem
-    for (int i = 0; i < getLevel() - 1; i ++) {
-      setRadius(getRadius() * 1.01); //confirmed from wiki
-    }
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -388,7 +384,7 @@ class Gunship extends UMO {
     }
 
     //botMove
-    if (! getType().equals("predict")) {
+    if (!getType().equals("predict")) {
       //stratight at the player
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));

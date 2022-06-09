@@ -16,7 +16,8 @@ class Bullet extends UMO {  //<>//
     velocity = PVector.fromAngle(angle);
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
-
+    
+    //threshold m1 for correct direction
     float m1 = pow(getRadius(), 3.5);
     float m2 = pow(gunship.getRadius(), 3);
 

@@ -259,11 +259,12 @@ class Gunship extends UMO {
       ydir = 1;
     }
 
+    PVector accelerationNow = new PVector(acceleration.x*xdir, acceleration.y*ydir);
     //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
+    if (xdir != 0 && ydir != 0){
+      accelerationNow.mult(1.0/sqrt(2));
     }
+    velocity.add(accelerationNow);
 
     // apply velocity
     position.add(velocity);
@@ -512,12 +513,12 @@ class Gunship extends UMO {
           }
           setHealth(getHealth() - player.getCollisionDamageWithShip());
           if (isDead()) {
-            player.setExp(player.getExp() + enemy.getLevel() * (enemy.getLevel() - 1) * 10 / 2) ; 
+            player.setExp(player.getExp() + getLevel() * (getLevel() - 1) * 10 / 2) ; 
             //half of total enemy exp, trust math
           }
           //1 sec?
-          setInvincible(60);
-          player.setInvincible(60);
+          setInvincible(30);
+          player.setInvincible(30);
         }
       }
       //check for collision with enemies

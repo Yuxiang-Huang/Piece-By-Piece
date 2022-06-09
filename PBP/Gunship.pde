@@ -503,7 +503,7 @@ class Gunship extends UMO {
         player.velocity.set(dxHolder, dyHolder);
 
         //only do damage part if not invincible
-        if (getInvincible() == 0) {
+        if (getInvincible() == 0 && player.getInvincible() == 0) {
           if (getHealth() >  getCollisionDamage()) {
             player.setHealth(player.getHealth() - getCollisionDamageWithShip());
           } else {

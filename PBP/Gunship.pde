@@ -45,10 +45,6 @@ class Gunship extends UMO {
     //cheat
     shop.maxHealth.base = 1000000;
     setRadius(unit * pow(1.01, getLevel()-1));
-
-    // set stats base on level
-    setLevel(1);
-    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 

@@ -63,7 +63,6 @@ class QuadTank extends Gunship {
 
   void enemyUpdate() {
     super.enemyUpdate();
-    autoRotate();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
@@ -184,6 +183,41 @@ body.setFill(color(255, 0, 255));
       text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       textAlign(LEFT);
       textSize(unit*3.0/4);
+    }
+    
+    autoRotate();
+    
+    if (getHealth() < getMaxHealth() / 6){
+      setDisplay2(0);
+      textSize(unit*2);
+      textAlign(CENTER);
+      text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      textAlign(LEFT);
+      textSize(unit*3.0/4);
+      
+      setType("escape");
+      umo = createShape(GROUP);
+      ellipseMode(RADIUS);
+      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+body.setFill(color(255));
+      rectMode(CORNER);
+      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+      gun1.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
+      gun2.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
+      gun3.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
+      gun4.setFill(color(0));
+
+      umo.addChild(gun1);
+      umo.addChild(gun2);
+      umo.addChild(gun3);
+      umo.addChild(gun4);
+      umo.addChild(body);
     }
   }
 

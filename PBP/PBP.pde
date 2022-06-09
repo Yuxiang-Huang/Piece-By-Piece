@@ -15,6 +15,7 @@ final int PLAYING = 0;
 final int PAUSED = 1;
 final int LOST = 2;
 final int WON = 3;
+float flyingSpeed;
 
 private int gameState;
 GameScreen GameScreen = new GameScreen();
@@ -56,6 +57,8 @@ void setup() {
   setTimeSinceEnemySpawn(600);
   //cheat
   //setTimeSinceEnemySpawn(60000);
+  
+  flyingSpeed = 10 * unit;
 }
 
 void keyPressed() {

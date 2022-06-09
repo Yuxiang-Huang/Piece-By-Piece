@@ -271,6 +271,11 @@ class Gunship extends UMO {
 
     // apply friction
     velocity.mult(getFriction());
+    
+    //don't fly
+    if (velocity.mag() > flyingSpeed){
+      velocity.setMag(flyingSpeed);
+    }
 
     if (getAutoRotate()) {
       autoRotate();
@@ -379,7 +384,7 @@ class Gunship extends UMO {
     }
 
     //botMove
-    if (!getType().equals("predict")) {
+    if (!getType().equals("predict") && !getType().equals("escape")) {
       //stratight at the player
       PVector accelerationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
       accelerationNow.setMag(mag(acceleration.x, acceleration.y));
@@ -395,7 +400,7 @@ class Gunship extends UMO {
         velocity.setMag(speedNow);
       }
     } else {
-      //move toward the player using negative reciprocal
+      //move toward the player's position after 1 sec
       PVector accelerationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelerationNow.setMag(mag(acceleration.x, acceleration.y));
       if (accelerationNow.x != 0 && accelerationNow.y != 0){
@@ -409,6 +414,11 @@ class Gunship extends UMO {
 
     // apply friction
     velocity.mult(getFriction());
+    
+    //don't fly
+    if (velocity.mag() > flyingSpeed){
+      velocity.setMag(flyingSpeed);
+    }
 
     float angle = 0;
     if (getType().equals("predict")) {

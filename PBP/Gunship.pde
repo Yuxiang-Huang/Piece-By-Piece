@@ -440,7 +440,7 @@ class Gunship extends UMO {
 
   void enemyDie() {
     enemies.remove(this);
-    spawnAnEnemy();
+    setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 600);
   }
 
   /**

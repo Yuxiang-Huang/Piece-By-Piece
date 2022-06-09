@@ -110,7 +110,7 @@ void draw() { //<>//
   }
 
   if (getGameState() == PLAYING) {
-    if (timeSinceEnemySpawn == 0) {
+    if (getTimeSinceEnemySpawn() <= 0 && boss == null) {
       spawnAnEnemy();
       setTimeSinceEnemySpawn(enemies.size() * 600);
     } else if (boss == null){

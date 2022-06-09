@@ -20,6 +20,10 @@ class Gunship extends UMO {
   private boolean suicidal;
   private int invincible;
   private String type;
+  
+  //error?
+  Gunship(){
+  }
 
   // player constructor
   Gunship(float x, float y) {
@@ -141,7 +145,7 @@ class Gunship extends UMO {
     if (getInvincible() > 1) {
       if (getInvincible() % 2 == 0) {
         shape(umo, 0, 0);
-      } else{
+      } else {
         //umo.setFill(color(255));
         //shape(umo, 0, 0);
         //umo.setFill(color(165, 42, 42));
@@ -183,7 +187,7 @@ class Gunship extends UMO {
     if (getInvincible() > 1) {
       if (getInvincible() % 2 == 0) {
         shape(umo, 0, 0);
-      } else{
+      } else {
         //umo.setFill(color(255));
         //shape(umo, 0, 0);
         //umo.setFill(color(165, 42, 42));
@@ -192,12 +196,14 @@ class Gunship extends UMO {
       shape(umo, 0, 0);
     }
     popMatrix();
-    if (getType().equals("straight")) {
-      text("S", getX(), getY());
-    } else if (getType().equals("random")) {
-      text("R", getX(), getY());
-    } else {
-      text("P", getX(), getY());
+    if (!DEBUG) {
+      if (getType().equals("straight")) {
+        text("S", getX(), getY());
+      } else if (getType().equals("random")) {
+        text("R", getX(), getY());
+      } else {
+        text("P", getX(), getY());
+      }
     }
 
     if (getHealth() != getMaxHealth()) {

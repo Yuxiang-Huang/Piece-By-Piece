@@ -136,6 +136,11 @@ void draw() { //<>//
         }
       }
     }
+    
+    if (boss != null){
+      boss.enemyUpdate();
+      boss.enemyDisplay();
+    }
 
     textSize(unit*2);
     textAlign(CENTER);
@@ -168,6 +173,9 @@ void draw() { //<>//
     }
     player.getMinimap().display();
     player.playerDisplay();
+    if (boss != null){
+      boss.display();
+    }
 
     // LOST/WON GAME SCREENS
 

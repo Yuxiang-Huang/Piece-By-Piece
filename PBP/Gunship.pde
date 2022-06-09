@@ -19,7 +19,12 @@ class Gunship extends UMO {
   private boolean autoFire;
   private boolean autoRotate;
   private boolean suicidal;
+  private int invincible;
   private String type;
+
+  //error?
+  Gunship() {
+  }
 
   color LightBlue = color(1, 178, 225);
 
@@ -34,8 +39,12 @@ class Gunship extends UMO {
     setShop(new Shop(this));
     setMinimap(new Minimap(this));
 
+    // set stats base on level
+    setLevel(29);
+    //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
-    //shop.maxHealth.base = 1000000;
+    shop.maxHealth.base = 1000000;
+    setRadius(unit * pow(1.01, getLevel()-1));
 
     // set stats base on level
     setLevel(1);
@@ -58,10 +67,10 @@ class Gunship extends UMO {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     body.setFill(color(165, 42, 42));
     rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -72,27 +81,24 @@ class Gunship extends UMO {
 
 
   // enemy constructor
-  Gunship() {
+  Gunship(int levelHolder) {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) { // cant spawn ship on top of UMO or too close to player
+    while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
     setAngle(0);
     acceleration.set(unit*.01, unit*.01);
+    setInvincible(60);
 
-    int levelHolder = player.getLevel() + (int) random(7) - 3;
-    if (levelHolder < 1) {
-      levelHolder = 1;
-    }
     setLevel(levelHolder);
 
     setShop(new Shop(this));
 
     // set stats base on level
     getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(getRadius() * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -116,7 +122,7 @@ class Gunship extends UMO {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     int rand = (int) (random(3));
     if (rand == 0) {
       setType("straight");
@@ -131,7 +137,7 @@ class Gunship extends UMO {
       body.setFill(color(255, 0, 255));
     }
     rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -146,7 +152,17 @@ class Gunship extends UMO {
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
-    shape(umo, 0, 0);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } else {
+        //umo.setFill(color(255));
+        //shape(umo, 0, 0);
+        //umo.setFill(color(165, 42, 42));
+      }
+    } else {
+      shape(umo, 0, 0);
+    }
     popMatrix();
 
     if (getHealth() != getMaxHealth()) {
@@ -169,6 +185,8 @@ class Gunship extends UMO {
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("AutoFire: "+getAutoFire() + "; AutoRotate: "+getAutoRotate(), getX()+unit*2, getY()+unit*6);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
+      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
     }
   }
 
@@ -177,14 +195,26 @@ class Gunship extends UMO {
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
-    shape(umo, 0, 0);
-    popMatrix();
-    if (getType().equals("straight")) {
-      text("S", getX(), getY());
-    } else if (getType().equals("random")) {
-      text("R", getX(), getY());
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } else {
+        //umo.setFill(color(255));
+        //shape(umo, 0, 0);
+        //umo.setFill(color(165, 42, 42));
+      }
     } else {
-      text("P", getX(), getY());
+      shape(umo, 0, 0);
+    }
+    popMatrix();
+    if (!DEBUG) {
+      if (getType().equals("straight")) {
+        text("S", getX(), getY());
+      } else if (getType().equals("random")) {
+        text("R", getX(), getY());
+      } else {
+        text("P", getX(), getY());
+      }
     }
 
     if (getHealth() != getMaxHealth()) {
@@ -201,6 +231,9 @@ class Gunship extends UMO {
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
+      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
+      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*7);
     }
   }
 
@@ -216,6 +249,10 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
+    if (getInvincible() > 0) {
+      setInvincible(getInvincible() - 1);
+    }
+
     // check for what directions are being pressed
     float xdir = 0;
     float ydir = 0;
@@ -270,7 +307,7 @@ class Gunship extends UMO {
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
       getShop().maxHealth.base += 2;
-      setRadius(getRadius() * 1.01); //confirmed from wiki
+      setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
     }   
@@ -291,12 +328,17 @@ class Gunship extends UMO {
 
     if (player.getHealth() == 0) {
       setGameState(LOST);
-    } else if (player.getLevel() >= 45) {
-      setGameState(WON);
+    } else if (boss == null && player.getLevel() >= 30) {
+      boss = new QuadTank(width/2, height/2);
+      enemies.add(boss);
     }
   }
 
   void enemyUpdate() {
+    if (getInvincible() > 0) {
+      setInvincible(getInvincible() - 1);
+    }
+
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
@@ -319,7 +361,7 @@ class Gunship extends UMO {
       setSkillPoints(getSkillPoints()+1);
       //increase stats upon level up
       getShop().maxHealth.base += 2;
-      setRadius(getRadius() * 1.01); //confirmed from wiki
+      setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
       shop.randomUpgrade();
@@ -365,15 +407,6 @@ class Gunship extends UMO {
       //move toward the player using negative reciprocal
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
-      //0.01 to prevent 
-      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
-      //if (player.getX() < getX()) {
-      //  accelearationNow.x *= -1;
-      //} 
-      //if (player.getY() < getY()) {
-      //  accelearationNow.y *= -1;
-      //}
       velocity.add(accelearationNow);
       if (velocity.mag() > acceleration.x * 9) {
         velocity.setMag(acceleration.x * 9);
@@ -424,8 +457,7 @@ class Gunship extends UMO {
 
   void enemyDie() {
     enemies.remove(this);
-    Gunship enemy = new Gunship();
-    enemies.add(enemy);
+    setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 600);
   }
 
   /**
@@ -451,12 +483,15 @@ class Gunship extends UMO {
         }
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (polygon.getHealth() >  polygon.getCollisionDamage()) {
-          setHealth(getHealth() - polygon.getCollisionDamage());
-        } else {
-          setHealth(getHealth() - polygon.getHealth());
+        //only do damage part if not invincible
+        if (getInvincible() == 0) {
+          if (polygon.getHealth() >  polygon.getCollisionDamage()) {
+            setHealth(getHealth() - polygon.getCollisionDamage());
+          } else {
+            setHealth(getHealth() - polygon.getHealth());
+          }
+          polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         }
-        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
 
         if (polygon.isDead()) {
           setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
@@ -478,13 +513,19 @@ class Gunship extends UMO {
         setDY(3*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
-        if (getHealth() >  getCollisionDamage()) {
-          player.setHealth(player.getHealth() - getCollisionDamageWithShip());
-        } else {
-          player.setHealth(player.getHealth() - getHealth());
+        //only do damage part if not invincible
+        if (getInvincible() == 0 && player.getInvincible() == 0) {
+          if (getHealth() >  getCollisionDamage()) {
+            player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+          } else {
+            player.setHealth(player.getHealth() - getHealth());
+          }
+          setHealth(getHealth() - player.getCollisionDamageWithShip());
+          //1 sec?
+          setInvincible(60);
+          player.setInvincible(60);
         }
-        setHealth(getHealth() - player.getCollisionDamageWithShip());
-      } 
+      }
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
@@ -545,22 +586,22 @@ class Gunship extends UMO {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Twin().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Twin(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Sniper().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Sniper(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new MachineGun().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+    shape(new MachineGun(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+    shape(new FlankGuard(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
     GameScreen.resetText();
   }
@@ -616,8 +657,12 @@ class Gunship extends UMO {
     }
   }
 
+
   void autoRotate() {
     setAngle(getAngle()+radians(2));
+  }
+  void autoSpin() {
+    setAngle(getAngle()+.1);
   }
 
   //get and set methods------------------------------------------------------------------
@@ -747,5 +792,12 @@ class Gunship extends UMO {
   }
   void setType(String type) {
     this.type = type;
+  }
+
+  int getInvincible() {
+    return invincible;
+  }
+  void setInvincible(int invincible) {
+    this.invincible = invincible;
   }
 }

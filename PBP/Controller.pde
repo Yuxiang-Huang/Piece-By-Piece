@@ -23,13 +23,14 @@ class Controller {
       if (key == 'r') {
         player = new Gunship(width/2, height/2);
         polygons.clear();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 30; i++) {
           Polygon polygon = new Polygon();
           polygons.add(polygon);
         }
         enemies.clear();
         setTimeSinceEnemySpawn(600);
-        setGameState(INTRO);
+        setGameState(PLAYING);
+        boss = null;
       }
 
       if (key == 'p') {
@@ -40,28 +41,62 @@ class Controller {
         }
       }
 
+      if (key == 'r') {
+        player = new Gunship(width/2, height/2);
+        polygons.clear();
+        for (int i = 0; i < 100; i++) {
+          Polygon polygon = new Polygon();
+          polygons.add(polygon);
+        }
+        enemies.clear();
+        setTimeSinceEnemySpawn(600);
+        setGameState(INTRO);
+      }
+
       if (getGameState() == PLAYING) {
-        //level up
-        if (DEBUG && key == 'l') {
-          player.setExp(player.getExpRequiredForNextLevel());
-        }
-
-        //50 damage to each enemy
-        if (DEBUG && key == 'k') {
-          for (Gunship enemy : enemies) {
-            enemy.setHealth(enemy.getHealth() - 50);
+        if (DEBUG) {
+          //create enemy
+          if (key == 'j') {
+            spawnAnEnemy();
           }
-        }
 
-        //create enemy
-        if (DEBUG && key == 'j') {
-          Gunship enemy = new Gunship();
-          enemies.add(enemy);
-        }
+          //full health
+          if (key == 'h') {
+            player.setHealth(player.getMaxHealth());
+          }
 
-        //full health
-        if (DEBUG && key == 'h') {
-          player.setHealth(player.getMaxHealth());
+          //invincibility
+          if (key == 'y') {
+            player.setInvincible(600);
+          }
+
+          //randomUpgrade
+          if (key == 'u') {
+            player.getShop().randomUpgrade();
+          }
+
+          //level up
+          if (key == 'l') {
+            player.setExp(player.getExpRequiredForNextLevel());
+          }
+
+          //50 damage to each enemy
+          if (key == 'k') {
+            for (Gunship enemy : enemies) {
+              enemy.setHealth(enemy.getHealth() - 50);
+            }
+          }
+
+          //create enemy
+          if (key == 'j') {
+            Gunship enemy = new Gunship();
+            enemies.add(enemy);
+          }
+
+          //full health
+          if (key == 'h') {
+            player.setHealth(player.getMaxHealth());
+          }
         }
 
         // Gun controls

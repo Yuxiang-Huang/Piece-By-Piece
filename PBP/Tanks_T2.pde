@@ -25,20 +25,31 @@ class Twin extends Gunship {
   }
 
   // enemy constructor
-  Twin() {
-    super();
+  Twin(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
     getGuns().add(new Gun(this, -3));
-
 
     // make shape of gunship
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
-    rectMode(CORNERS);
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
     PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
     gun1.setFill(color(0));
     PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
@@ -65,7 +76,7 @@ class Twin extends Gunship {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new QuadTank().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+    //shape(new QuadTank().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
@@ -96,8 +107,10 @@ class Twin extends Gunship {
     newPlayer.setRadius(player.getRadius());
     player = newPlayer;
   }
+
   boolean canEvolve() {
-    return getLevel() >= 30;
+    //return getLevel() >= 30;
+    return false;
   }
 }
 
@@ -122,18 +135,33 @@ class Sniper extends Gunship {
     umo.addChild(body);
   }
   // enemy constructor
-  Sniper() {
-    super();
+  Sniper(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
-    rectMode(CORNERS);
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
     PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
     gun.setFill(color(0));
 
@@ -144,7 +172,8 @@ class Sniper extends Gunship {
   void evolve() {
   }
   boolean canEvolve() {
-    return getLevel() >= 30;
+    //return getLevel() >= 30;
+     return false;
   }
 }
 
@@ -172,17 +201,33 @@ class MachineGun extends Gunship {
 
 
   // enemy constructor
-  MachineGun() {
-    super();
+  MachineGun(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
     PShape gun = createShape(TRIANGLE, 0, 0, -getRadius(), 1.5*getRadius(), getRadius(), 1.5*getRadius());
     gun.setFill(color(0));
 
@@ -193,7 +238,8 @@ class MachineGun extends Gunship {
   void evolve() {
   }
   boolean canEvolve() {
-    return getLevel() >= 30;
+    //return getLevel() >= 30;
+     return false;
   }
 }
 
@@ -225,8 +271,8 @@ class FlankGuard extends Gunship {
 
 
   // enemy constructor
-  FlankGuard() {
-    super();
+  FlankGuard(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 180));
@@ -234,9 +280,24 @@ class FlankGuard extends Gunship {
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
     rectMode(CORNER);
     PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
     gun1.setFill(color(0));
@@ -307,6 +368,7 @@ class FlankGuard extends Gunship {
   void evolve() {
   }
   boolean canEvolve() {
-    return getLevel() >= 30;
+    //return getLevel() >= 30;
+    return false;
   }
 }

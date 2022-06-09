@@ -495,8 +495,8 @@ class Gunship extends UMO {
     if (this != player) {
       //check for collision with player
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
-        float m1 = pow(getRadius(), 3);
-        float m2 = pow(player.getRadius(), 3);
+        float m1 = unit;
+        float m2 = unit;
         float dxHolder = 3*(2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
         float dyHolder = 3*(2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
         setDX(3*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
@@ -511,6 +511,10 @@ class Gunship extends UMO {
             player.setHealth(player.getHealth() - getHealth());
           }
           setHealth(getHealth() - player.getCollisionDamageWithShip());
+          if (isDead()) {
+            player.setExp(player.getExp() + enemy.getLevel() * (enemy.getLevel() - 1) * 10 / 2) ; 
+            //half of total enemy exp, trust math
+          }
           //1 sec?
           setInvincible(60);
           player.setInvincible(60);
@@ -520,8 +524,8 @@ class Gunship extends UMO {
       for (Gunship enemy : enemies) {
         if (enemy != this) {
           if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
-            float m1 = pow(getRadius(), 3);
-            float m2 = pow(enemy.getRadius(), 3);
+            float m1 = unit;
+            float m2 = unit;
             float dxHolder = 3*(2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
             float dyHolder = 3*(2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
             setDX(3*(2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));

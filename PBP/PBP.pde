@@ -79,13 +79,13 @@ void mousePressed() {
     player.setAutoFire(true);
   }
 }
-
+ //<>//
 void mouseReleased() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(false);
   }
-}
-
+} //<>//
+ //<>//
 void draw() {
   background(200, 200, 200, 200);
   // to center camera on player
@@ -133,18 +133,15 @@ void draw() {
       updateAllEnemies();
       displayAllEnemies();
 
-      GameScreen.mediumText(CENTER);
-      if (boss == null) {
-        text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      }
-      GameScreen.resetText();   
-
-
       // display time till next enemy spawn
-      textSize(unit*2);
-      textAlign(CENTER);
-      text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();  
+
+      if (boss == null) {
+        GameScreen.mediumText(CENTER);
+        textSize(unit*2);
+        textAlign(CENTER);
+        text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+        GameScreen.resetText();
+      }
 
       // display & update player last so that it always appears on top 
       // all colisions processed through player
@@ -166,7 +163,7 @@ void draw() {
 
       textSize(unit*2);
       textAlign(CENTER);
-      text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      //text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
       GameScreen.resetText(); 
 
       // PAUSED/LOST/WON GAME SCREENS

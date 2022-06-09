@@ -16,14 +16,17 @@ class Gunship extends UMO {
   private float heal10percent;
   private int collisionDamageWithShip;
 
-  private boolean AutoFire;
+  private boolean autoFire;
+  private boolean autoRotate;
   private boolean suicidal;
   private int invincible;
   private String type;
-  
+
   //error?
-  Gunship(){
+  Gunship() {
   }
+
+  color LightBlue = color(1, 178, 225);
 
   // player constructor
   Gunship(float x, float y) {
@@ -43,6 +46,13 @@ class Gunship extends UMO {
     shop.maxHealth.base = 1000000;
     setRadius(unit * pow(1.01, getLevel()-1));
 
+    // set stats base on level
+    setLevel(1);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    //pow causes precision problem
+    for (int i = 0; i < getLevel() - 1; i ++) {
+      setRadius(getRadius() * 1.01); //confirmed from wiki
+    }
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -174,6 +184,7 @@ class Gunship extends UMO {
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
+      text("AutoFire: "+getAutoFire() + "; AutoRotate: "+getAutoRotate(), getX()+unit*2, getY()+unit*6);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
     }
@@ -270,7 +281,11 @@ class Gunship extends UMO {
     // apply friction
     velocity.mult(getFriction());
 
-    setAngle(getAngleToMouse());
+    if (getAutoRotate()) {
+      autoRotate();
+    } else {
+      setAngle(getAngleToMouse());
+    } 
 
     if (getAutoFire()) {
       autoFire();
@@ -558,8 +573,7 @@ class Gunship extends UMO {
     textSize(unit);
     fill(0);
     text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
-    textAlign(LEFT);
-    textSize(unit*3.0/4);
+    GameScreen.resetText();
   }
 
   void displayEvolutions() {
@@ -568,7 +582,6 @@ class Gunship extends UMO {
     textAlign(CENTER);
 
     text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-
 
     fill(200, 230);
     rectMode(RADIUS);
@@ -590,9 +603,7 @@ class Gunship extends UMO {
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
     shape(new FlankGuard(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
-    fill(0);
-    textSize(unit*3.0/4);
-    textAlign(LEFT);
+    GameScreen.resetText();
   }
 
   void evolve(char evolution) {
@@ -646,6 +657,10 @@ class Gunship extends UMO {
     }
   }
 
+
+  void autoRotate() {
+    setAngle(getAngle()+radians(2));
+  }
   void autoSpin() {
     setAngle(getAngle()+.1);
   }
@@ -745,10 +760,17 @@ class Gunship extends UMO {
   }
 
   boolean getAutoFire() {
-    return AutoFire;
+    return autoFire;
   }
-  void setAutoFire(boolean AutoFire) {
-    this.AutoFire = AutoFire;
+  void setAutoFire(boolean autoFire) {
+    this.autoFire = autoFire;
+  }
+
+  boolean getAutoRotate() {
+    return autoRotate;
+  }
+  void setAutoRotate(boolean autoRotate) {
+    this.autoRotate = autoRotate;
   }
 
   int getCollisionDamageWithShip() {

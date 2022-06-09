@@ -7,7 +7,7 @@
 * No command line arguments needed.
 * To activate debug mode press the \` key (the one bellow the esc button)
 * **!Requirement!** Make sure to have fun!
-* 
+*
 ---
 
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
@@ -17,7 +17,7 @@ We will attempt to recreate the shooter game Diep.io (an Agar.io clone) with no 
 
 <img src="./ref/GunShip.png" width="250" height="200"> <img src="./ref/Shop.png" width="250" height="200"> <img src="./ref/Pentagon.png" width="250" height="200">
 
-By shooting enemies you can gain experience points, which once you acquire enough off to level up, you gain a skill point that lets you upgrade a stat of your player. The playable map will be bigger than the entire screen, meaning the camera won't just be a static overhead view, but one that moves along with your ship, always keeping it in focus (orthographic camera). 
+By shooting enemies you can gain experience points, which once you acquire enough off to level up, you gain a skill point that lets you upgrade a stat of your player. The playable map will be bigger than the entire screen, meaning the camera won't just be a static overhead view, but one that moves along with your ship, always keeping it in focus (orthographic camera).
 
 Once we are done with the MVP (~1 week) we can start working on the actual final project. The main focus of the actual project is to add a tree of tank upgrades that allow you to attack differently and have different attributes. We will also want to add bot enemies, which are also tanks.
 
@@ -41,6 +41,7 @@ Once we are done with the MVP (~1 week) we can start working on the actual final
     *  (06-05-2022): "Today I mainly worked on the enemies. I randomized their movements and shooting angle. I give them a distance where they start shooting and they don't always move at 45 degree angle now. I made a kind of suicidal enemy that shoot in the opposite direction to accelerate toward the player if they have more body traits than bullet traits. There are more ideas about enemies that I will implement later. I also worked a lot on collision today and defied physics to make things nicer. However, I realized by the end that from the second we use setMag(), we are defying physics and I will rework speed tomorrow."
     *  (06-06-2022): "Today I adjust values for shooting distance for enemies and tried to rework speed and collisions, which didn't end well. My main accomplishment today is to create three types of enemies and display them differently and each of them has a different trait. "straight" type enemies run straight toward the player ship and shoot straight at it. "random" type enemies move randomly with a general direction toward the player ship and shoot randomly but with a central spread toward the player ship. "predict" type enemies do every thing the "straight" enemy do except with the player ship's position after one second with the current dx and dy."
     *  (06-07-2022): "Today I fixed the issue of polygons flying across the screen by making everything spawning farther apart and redo polygon collision with border. They now can go outside the boundary and come back to prevent stacked collision. I also changed and create the cheat keys. All of them only work in debug mode. 'h' regain all health for player ship, 'j' spawn another enemy, 'k' deals 50 damage to all enemy ships, and 'l' levels player ship up by one level.
+    *  (06-08-2022): "Today I start by creating an invincible frame after collision that protect the ship from any damage and limit it to do any damage. Next, I wrote a method call spawnAnEnemy that spawn different kinds of ships base on level. In addition, I figured out the problem with size when spawning higher level ships and fixed it for gunship class. I also fixed a problem with colors for enemy constructors for tier 2 tanks. Lastly, I made a boss when player reach level 30. It will change through three types of enemies I made, each having a different behavior. In the first transition, it will spawn four gunship enemies up, down, left, right the player ship. In the second time, it will spawn four types of tier 2 tanks diagonally from the player. I also changed spawning mechanism during the process. Now killing an enemy only decrease spawn time by 10 seconds instead of spawning another enemy immediately. After the boss is created. No more spawning of enemies except the eight the boss create.
 
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."
@@ -59,7 +60,7 @@ Once we are done with the MVP (~1 week) we can start working on the actual final
     *  (06-05-2022): "Today I added a pause button 'p' that pauses the game. I also started work on implementing the evolution mechanic and the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. The base tank can evolve when it reaches level 15"
     *  (06-06-2022): "Today I finished the display for the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. I also started work on some tier 3 evolutions. A tier 2 tanks can evolve when it reaches level 30."
     *  (06-07-2022): ""
-    
+
 ---
 
 ### Made by the "We Piece Together" team:

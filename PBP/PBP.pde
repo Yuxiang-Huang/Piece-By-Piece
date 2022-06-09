@@ -128,7 +128,7 @@ void draw() {
     updateAllEnemies();
     displayAllEnemies();
 
-
+    // display time till next enemy spawn
     textSize(unit*2);
     textAlign(CENTER);
     text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);

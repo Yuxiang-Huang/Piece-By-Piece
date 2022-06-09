@@ -63,6 +63,9 @@ class Controller {
       if (key == 'e') {
         player.setAutoFire(!player.getAutoFire());
       }
+      if (key == 'q') {
+        player.setAutoRotate(!player.getAutoRotate());
+      }
       // Movement controls
       if (key == 'a' || keyCode == LEFT) {
         inputs[0] = true;

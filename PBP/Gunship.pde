@@ -16,11 +16,12 @@ class Gunship extends UMO {
   private float heal10percent;
   private int collisionDamageWithShip;
 
-  private boolean AutoFire;
+  private boolean autoFire;
+  private boolean autoRotate;
   private boolean suicidal;
   private String type;
-  
-  color LightBlue = new color(1, 178, 225);
+
+  color LightBlue = color(1, 178, 225);
 
   // player constructor
   Gunship(float x, float y) {
@@ -40,7 +41,7 @@ class Gunship extends UMO {
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //pow causes precision problem
-    for (int i = 0; i < getLevel() - 1; i ++){
+    for (int i = 0; i < getLevel() - 1; i ++) {
       setRadius(getRadius() * 1.01); //confirmed from wiki
     }
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
@@ -167,6 +168,7 @@ class Gunship extends UMO {
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
+      text("AutoFire: "+getAutoFire() + "; AutoRotate: "+getAutoRotate(), getX()+unit*2, getY()+unit*6);
     }
   }
 
@@ -242,7 +244,11 @@ class Gunship extends UMO {
     // apply friction
     velocity.mult(getFriction());
 
-    setAngle(getAngleToMouse());
+    if (getAutoRotate()) {
+      autoRotate();
+    } else {
+      setAngle(getAngleToMouse());
+    } 
 
     if (getAutoFire()) {
       autoFire();
@@ -614,6 +620,10 @@ class Gunship extends UMO {
     }
   }
 
+  void autoRotate() {
+    setAngle(getAngle()+radians(2));
+  }
+
   //get and set methods------------------------------------------------------------------
 
   Shop getShop() {
@@ -673,8 +683,6 @@ class Gunship extends UMO {
     this.numberOfEvolutions = numberOfEvolutions;
   }
 
-
-
   int getSkillPoints() {
     return skillPoints;
   }
@@ -711,10 +719,17 @@ class Gunship extends UMO {
   }
 
   boolean getAutoFire() {
-    return AutoFire;
+    return autoFire;
   }
-  void setAutoFire(boolean AutoFire) {
-    this.AutoFire = AutoFire;
+  void setAutoFire(boolean autoFire) {
+    this.autoFire = autoFire;
+  }
+
+  boolean getAutoRotate() {
+    return autoRotate;
+  }
+  void setAutoRotate(boolean autoRotate) {
+    this.autoRotate = autoRotate;
   }
 
   int getCollisionDamageWithShip() {

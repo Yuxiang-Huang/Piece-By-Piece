@@ -67,7 +67,7 @@ class Gunship extends UMO {
 
 
   // enemy constructor
-  Gunship() {
+  Gunship(int levelHolder) {
     setRadius(unit);
     position.set(random(width), random(height));
     while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
@@ -78,10 +78,6 @@ class Gunship extends UMO {
     acceleration.set(unit*.01, unit*.01);
     setInvincible(60);
 
-    int levelHolder = player.getLevel() + (int) random(7) - 3;
-    if (levelHolder < 1) {
-      levelHolder = 1;
-    }
     setLevel(levelHolder);
 
     setShop(new Shop(this));
@@ -447,8 +443,7 @@ class Gunship extends UMO {
 
   void enemyDie() {
     enemies.remove(this);
-    Gunship enemy = new Gunship();
-    enemies.add(enemy);
+    spawnAnEnemy();
   }
 
   /**
@@ -714,8 +709,6 @@ class Gunship extends UMO {
   void setNumberOfEvolutions(int numberOfEvolutions) {
     this.numberOfEvolutions = numberOfEvolutions;
   }
-
-
 
   int getSkillPoints() {
     return skillPoints;

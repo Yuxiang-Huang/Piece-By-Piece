@@ -50,8 +50,7 @@ class Controller {
       
       //create enemy
       if (DEBUG && key == 'j') {
-        Gunship enemy = new Gunship();
-        enemies.add(enemy);
+        spawnAnEnemy();
       }
       
       //full health

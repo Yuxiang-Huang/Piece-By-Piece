@@ -24,8 +24,8 @@ class Twin extends Gunship {
   }
 
   // enemy constructor
-  Twin() {
-    super();
+  Twin(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
     getGuns().add(new Gun(this, -3));
@@ -123,8 +123,8 @@ class Sniper extends Gunship {
     umo.addChild(body);
   }
   // enemy constructor
-  Sniper() {
-    super();
+  Sniper(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
@@ -173,8 +173,8 @@ class MachineGun extends Gunship {
 
 
   // enemy constructor
-  MachineGun() {
-    super();
+  MachineGun(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
@@ -226,8 +226,8 @@ class FlankGuard extends Gunship {
 
 
   // enemy constructor
-  FlankGuard() {
-    super();
+  FlankGuard(int levelHolder) {
+    super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 180));

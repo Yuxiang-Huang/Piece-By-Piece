@@ -38,7 +38,7 @@ void setup() {
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
-  
+
   for (int i = 0; i < (30); i++) {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
@@ -84,7 +84,7 @@ void draw() { //<>//
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
   // fix mouse coordinates to be absolute rather than relative
-  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>//
+  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>// //<>//
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
   // draw border
@@ -110,8 +110,7 @@ void draw() { //<>//
 
   if (getGameState() == PLAYING) {
     if (timeSinceEnemySpawn == 0) {
-      Gunship enemy = new Gunship();
-      enemies.add(enemy);
+      spawnAnEnemy();
       setTimeSinceEnemySpawn(enemies.size() * 600);
     } else {
       setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
@@ -202,6 +201,19 @@ boolean isWithinDisplayDistance(UMO umo) {
 boolean isWithinUpdateDistance(UMO umo) {
   return abs(umo.getX()-player.getX()) < (displayWidth)+umo.getRadius() &&
     abs(umo.getY()-player.getY()) < (displayHeight)+umo.getRadius();
+}
+
+void spawnAnEnemy() {
+  int levelHolder = player.getLevel() + (int) random(7) - 3;
+  if (levelHolder < 15) {
+    if (levelHolder < 1) {
+      levelHolder = 1;
+    }
+    Gunship enemy = new Gunship(levelHolder);
+    enemies.add(enemy);
+  }
+  if (levelHolder > 15 & levelHolder < 30) {
+  }
 }
 
 // get and set methods------------------------------------------------------------------

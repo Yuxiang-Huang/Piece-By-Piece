@@ -63,7 +63,7 @@ class QuadTank extends Gunship {
 
   void enemyUpdate() {
     super.enemyUpdate();
-    autoSpin();
+    autoRotate();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 

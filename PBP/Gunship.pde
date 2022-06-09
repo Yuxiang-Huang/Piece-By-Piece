@@ -320,8 +320,8 @@ class Gunship extends UMO {
     if (player.getHealth() == 0) {
       setGameState(LOST);
     } else if (boss == null && player.getLevel() >= 30) {
-      //boss = new QuadTank(width/2, height/2);
-      //enemies.add(boss);
+      boss = new QuadTank(width/2, height/2);
+      enemies.add(boss);
     }
   }
 

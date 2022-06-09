@@ -134,7 +134,6 @@ void draw() {
       displayAllEnemies();
 
       // display time till next enemy spawn
-
       if (boss == null) {
         GameScreen.mediumText(CENTER);
         textSize(unit*2);
@@ -209,7 +208,7 @@ void displayAllPolygons() {
 void updateAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
     Gunship enemy = enemies.get(e);
-    if (isWithinUpdateDistance(enemy) && enemy != boss) { 
+    if (isWithinUpdateDistance(enemy) || enemy == boss) { 
       enemy.enemyUpdate();
     }
   }
@@ -217,7 +216,7 @@ void updateAllEnemies() {
 void displayAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
     Gunship enemy = enemies.get(e);
-    if (isWithinDisplayDistance(enemy) && enemy != boss) {
+    if (isWithinDisplayDistance(enemy) || enemy == boss) {
       enemy.enemyDisplay();
     }
   }

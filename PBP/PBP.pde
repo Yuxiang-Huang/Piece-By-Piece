@@ -137,11 +137,6 @@ void draw() { //<>//
       }
     }
 
-    if (boss != null) {
-      boss.enemyUpdate();
-      boss.enemyDisplay();
-    }
-
     textSize(unit*2);
     textAlign(CENTER);
     if (boss == null) {

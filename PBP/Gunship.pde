@@ -37,7 +37,7 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(1);
+    setLevel(30);
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
     shop.maxHealth.base = 1000000;
@@ -314,6 +314,7 @@ class Gunship extends UMO {
       setGameState(LOST);
     } else if (boss == null && player.getLevel() >= 30) {
       boss = new QuadTank(width/2, height/2);
+      enemies.add(boss);
     }
   }
 

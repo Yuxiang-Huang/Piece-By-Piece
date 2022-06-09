@@ -16,7 +16,7 @@ class Gun {
       bullet.display();
     }
   }
-  
+
   void shoot() {
     getBullets().add(new Bullet(gunship, this));
   }

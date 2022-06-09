@@ -85,7 +85,7 @@ abstract class UMO implements Processable {
     }
     return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
-  
+
   boolean isCollidingWithPolygonSpawning(Polygon polygon) {
     //distance formula
     float Radius = 0 ;
@@ -120,8 +120,8 @@ abstract class UMO implements Processable {
     }
     return false;
   }
-  
-  boolean isCollidingWithAnyUMOSpawning(){
+
+  boolean isCollidingWithAnyUMOSpawning() {
     //k to leave some breathing space
     int k = 3;
     if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2)) 

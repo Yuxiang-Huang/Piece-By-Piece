@@ -121,7 +121,7 @@ class Sniper extends Gunship {
   }
 
   boolean canEvolve() {
-     return false;
+    return false;
   }
 }
 
@@ -184,7 +184,7 @@ class MachineGun extends Gunship {
   }
 
   boolean canEvolve() {
-     return false;
+    return false;
   }
 }
 

@@ -18,6 +18,7 @@ class Gunship extends UMO {
 
   private boolean AutoFire;
   private boolean suicidal;
+  private int invincible;
   private String type;
 
   // player constructor
@@ -38,7 +39,7 @@ class Gunship extends UMO {
     shop.maxHealth.base = 1000000;
     //pow causes precision problem
     setRadius(unit * pow(1.01, getLevel()-1));
-    
+
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -70,12 +71,13 @@ class Gunship extends UMO {
   Gunship() {
     setRadius(unit);
     position.set(random(width), random(height));
-    while (isCollidingWithAnyUMO() && dist(getX(), getY(), player.getX(), player.getY()) < min(width, height)*.5) { // cant spawn ship on top of UMO or too close to player
+    while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
     setAngle(0);
     acceleration.set(unit*.01, unit*.01);
+    setInvincible(60);
 
     int levelHolder = player.getLevel() + (int) random(7) - 3;
     if (levelHolder < 1) {
@@ -141,7 +143,17 @@ class Gunship extends UMO {
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
-    shape(umo, 0, 0);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } else{
+        //umo.setFill(color(255));
+        //shape(umo, 0, 0);
+        //umo.setFill(color(165, 42, 42));
+      }
+    } else {
+      shape(umo, 0, 0);
+    }
     popMatrix();
 
     if (getHealth() != getMaxHealth()) {
@@ -163,6 +175,7 @@ class Gunship extends UMO {
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
     }
   }
 
@@ -171,7 +184,17 @@ class Gunship extends UMO {
     translate(getX(), getY());
     rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
     scale(getRadius()/unit);
-    shape(umo, 0, 0);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } else{
+        //umo.setFill(color(255));
+        //shape(umo, 0, 0);
+        //umo.setFill(color(165, 42, 42));
+      }
+    } else {
+      shape(umo, 0, 0);
+    }
     popMatrix();
     if (getType().equals("straight")) {
       text("S", getX(), getY());
@@ -210,6 +233,10 @@ class Gunship extends UMO {
    checks for collisions with Polygons and Borders
    */
   void playerUpdate() {
+    if (getInvincible() > 0) {
+      setInvincible(getInvincible() - 1);
+    }
+
     // check for what directions are being pressed
     float xdir = 0;
     float ydir = 0;
@@ -287,6 +314,10 @@ class Gunship extends UMO {
   }
 
   void enemyUpdate() {
+    if (getInvincible() > 0) {
+      setInvincible(getInvincible() - 1);
+    }
+
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
@@ -441,12 +472,15 @@ class Gunship extends UMO {
         }
         polygon.velocity.set(dxHolder, dyHolder);
 
-        if (polygon.getHealth() >  polygon.getCollisionDamage()) {
-          setHealth(getHealth() - polygon.getCollisionDamage());
-        } else {
-          setHealth(getHealth() - polygon.getHealth());
+        //only do damage part if not invincible
+        if (getInvincible() == 0) {
+          if (polygon.getHealth() >  polygon.getCollisionDamage()) {
+            setHealth(getHealth() - polygon.getCollisionDamage());
+          } else {
+            setHealth(getHealth() - polygon.getHealth());
+          }
+          polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         }
-        polygon.setHealth(polygon.getHealth() - getCollisionDamage());
 
         if (polygon.isDead()) {
           setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
@@ -468,13 +502,19 @@ class Gunship extends UMO {
         setDY(3*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
         player.velocity.set(dxHolder, dyHolder);
 
-        if (getHealth() >  getCollisionDamage()) {
-          player.setHealth(player.getHealth() - getCollisionDamageWithShip());
-        } else {
-          player.setHealth(player.getHealth() - getHealth());
+        //only do damage part if not invincible
+        if (getInvincible() == 0 && player.getInvincible() == 0) {
+          if (getHealth() >  getCollisionDamage()) {
+            player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+          } else {
+            player.setHealth(player.getHealth() - getHealth());
+          }
+          setHealth(getHealth() - player.getCollisionDamageWithShip());
+          //1 sec?
+          setInvincible(60);
+          player.setInvincible(60);
         }
-        setHealth(getHealth() - player.getCollisionDamageWithShip());
-      } 
+      }
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
@@ -609,7 +649,7 @@ class Gunship extends UMO {
       shoot();
     }
   }
-  
+
   void autoSpin() {
     setAngle(getAngle()+.1);
   }
@@ -736,5 +776,12 @@ class Gunship extends UMO {
   }
   void setType(String type) {
     this.type = type;
+  }
+
+  int getInvincible() {
+    return invincible;
+  }
+  void setInvincible(int invincible) {
+    this.invincible = invincible;
   }
 }

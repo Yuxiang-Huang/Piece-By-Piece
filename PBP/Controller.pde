@@ -58,14 +58,21 @@ class Controller {
       if (DEBUG && key == 'h') {
         player.setHealth(player.getMaxHealth());
       }
+      
+      //invincibility
+      if (DEBUG && key == 'y'){
+        player.setInvincible(600);
+      }
 
       // Gun controls
       if (key == 'e') {
         player.setAutoFire(!player.getAutoFire());
       }
+      
       if (key == 'r') {
         //player.setAutoRotate(!player.getAutoRotate());
       }
+      
       // Movement controls
       if (key == 'a' || keyCode == LEFT) {
         inputs[0] = true;

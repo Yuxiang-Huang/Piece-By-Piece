@@ -21,12 +21,7 @@ class Gunship extends UMO {
   private boolean suicidal;
   private int invincible;
   private String type;
-
-<<<<<<< Updated upstream
-  color LightBlue = color(1, 178, 225);
-
-=======
->>>>>>> Stashed changes
+  
   // player constructor
   Gunship(float x, float y) {
     setRadius(unit);
@@ -39,6 +34,7 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
+<<<<<<< HEAD
     setLevel(29);
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
@@ -48,6 +44,11 @@ class Gunship extends UMO {
     // set stats base on level
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+=======
+    setLevel(1);
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    setRadius(unit * pow(1.01, getLevel()-1));
+>>>>>>> main
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -207,8 +208,10 @@ class Gunship extends UMO {
         text("S", getX(), getY());
       } else if (getType().equals("random")) {
         text("R", getX(), getY());
-      } else {
+      } else if (getType().equals("predict")){
         text("P", getX(), getY());
+      } else{
+        text("E", getX(), getY());
       }
     }
 
@@ -228,7 +231,7 @@ class Gunship extends UMO {
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
-      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*7);
+      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*8);
     }
   }
 
@@ -264,12 +267,18 @@ class Gunship extends UMO {
       ydir = 1;
     }
 
+    PVector accelerationNow = new PVector(acceleration.x*xdir, acceleration.y*ydir);
     //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
+    if (xdir != 0 && ydir != 0){
+      accelerationNow.mult(1.0/sqrt(2));
     }
+    velocity.add(accelerationNow);
 
+    //don't fly
+    if (velocity.mag() > flyingSpeed){
+      velocity.setMag(flyingSpeed);
+    }
+    
     // apply velocity
     position.add(velocity);
 
@@ -296,7 +305,7 @@ class Gunship extends UMO {
     }
 
     // check if player has enough exp for level up
-    if (getExp() >= getExpRequiredForNextLevel()) {
+    if (getExp() >= getExpRequiredForNextLevel() && player.getLevel() < 30) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
@@ -349,7 +358,7 @@ class Gunship extends UMO {
       setShootCooldown(getShootCooldown()-1);
     }
 
-    // check if player has enough exp for level up
+    // check if enemy has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel()) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
@@ -383,31 +392,54 @@ class Gunship extends UMO {
     }
 
     //botMove
+<<<<<<< HEAD
     if (!getType().equals("predict")) {
+=======
+    if (!getType().equals("predict") && !getType().equals("escape")) {
+>>>>>>> main
       //stratight at the player
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
-      } 
+      PVector accelerationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
+      }
+      velocity.add(accelerationNow);
+      
       if (getType().equals("random")) {
         //randomness
         float speedNow = velocity.mag();
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
         velocity.setMag(speedNow);
       }
-    } else {
-      //move toward the player using negative reciprocal
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
+    } else if (getType().equals("predict")){
+      //move toward the player's position after 1 sec
+      PVector accelerationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
       }
+      velocity.add(accelerationNow);
+    } else{
+      //move in reciprocal to escape
+      PVector accelerationNow = new PVector(max(1, abs(acceleration.x*player.getDY())), max(1, abs(acceleration.y* player.getDX())));
+      if (player.getX() > getX()) {
+        accelerationNow.x *= -1;
+      } 
+      if (player.getY() > getY()) {
+        accelerationNow.y *= -1;
+      }
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
+      }
+      velocity.add(accelerationNow);
     }
-
+    
+    //don't fly
+    if (velocity.mag() > flyingSpeed){
+      velocity.setMag(flyingSpeed);
+    }
+    
     // apply velocity
     position.add(velocity);
 
@@ -500,8 +532,8 @@ class Gunship extends UMO {
     if (this != player) {
       //check for collision with player
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
-        float m1 = pow(getRadius(), 3);
-        float m2 = pow(player.getRadius(), 3);
+        float m1 = unit;
+        float m2 = unit;
         float dxHolder = 3*(2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
         float dyHolder = 3*(2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
         setDX(3*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
@@ -516,17 +548,21 @@ class Gunship extends UMO {
             player.setHealth(player.getHealth() - getHealth());
           }
           setHealth(getHealth() - player.getCollisionDamageWithShip());
+          if (isDead()) {
+            player.setExp(player.getExp() + getLevel() * (getLevel() - 1) * 10 / 2) ; 
+            //half of total enemy exp, trust math
+          }
           //1 sec?
-          setInvincible(60);
-          player.setInvincible(60);
+          setInvincible(30);
+          player.setInvincible(30);
         }
       }
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
           if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
-            float m1 = pow(getRadius(), 3);
-            float m2 = pow(enemy.getRadius(), 3);
+            float m1 = unit;
+            float m2 = unit;
             float dxHolder = 3*(2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
             float dyHolder = 3*(2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
             setDX(3*(2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));
@@ -559,22 +595,25 @@ class Gunship extends UMO {
 
   void displayExpBar() {
     rectMode(CORNER);
-    fill(200, 230); // Translucent Dark Grey for needed Exp
-    rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
-    fill(255, 255, 0); // yellow for gained Exp
-    rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
-    fill(255);
-    textAlign(CENTER);
-    textSize(unit);
-    fill(0);
+    if (player.getLevel() < 30) {
+      fill(200, 230); // Translucent Dark Grey for needed Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
+      fill(255, 255, 0); // yellow for gained Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
+      fill(0);
+    } else{
+      //max level
+      fill(255, 255, 0); // yellow for gained Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      fill(0);
+    }
+    GameScreen.smallText(CENTER);
     text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
     GameScreen.resetText();
   }
 
   void displayEvolutions() {
-    fill(0);
-    textSize(unit);
-    textAlign(CENTER);
+    GameScreen.smallText(CENTER);
 
     text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
 

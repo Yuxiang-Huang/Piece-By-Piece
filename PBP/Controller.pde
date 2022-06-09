@@ -11,8 +11,8 @@ class Controller {
 
   void press(int code) {
     if (getGameState() == INTRO) {
-      setGameState(CONTROLS);
-    } else if (getGameState() == CONTROLS) {
+      setGameState(INFO);
+    } else if (getGameState() == INFO) {
       setGameState(PLAYING);
     } else {
       // Game info
@@ -55,29 +55,16 @@ class Controller {
 
       if (getGameState() == PLAYING) {
         if (DEBUG) {
-          //create enemy
-          if (key == 'j') {
-            spawnAnEnemy();
-          }
-
-          //full health
-          if (key == 'h') {
-            player.setHealth(player.getMaxHealth());
-          }
-
-          //invincibility
-          if (key == 'y') {
-            player.setInvincible(600);
-          }
-
-          //randomUpgrade
-          if (key == 'u') {
-            player.getShop().randomUpgrade();
-          }
-
           //level up
           if (key == 'l') {
             player.setExp(player.getExpRequiredForNextLevel());
+          }
+          //level up to 29
+          if (key == 'L') {
+            while (player.getLevel() < 29) {
+              player.setExp(player.getExpRequiredForNextLevel());
+              player.playerUpdate();
+            }
           }
 
           //50 damage to each enemy
@@ -89,13 +76,28 @@ class Controller {
 
           //create enemy
           if (key == 'j') {
-            Gunship enemy = new Gunship();
-            enemies.add(enemy);
+            spawnAnEnemy();
           }
 
           //full health
           if (key == 'h') {
             player.setHealth(player.getMaxHealth());
+          }
+          //1000000 health
+          if (key == 'H') {
+            player.getShop().maxHealth.base = 1000000;
+            player.getShop().update();
+            player.setHealth(player.getMaxHealth());
+          }
+
+          //randomUpgrade
+          if (key == 'u') {
+            player.getShop().randomUpgrade();
+          }
+
+          //invincibility
+          if (key == 'y') {
+            player.setInvincible(600);
           }
         }
 

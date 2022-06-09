@@ -24,6 +24,10 @@ class Gunship extends UMO {
 
   color LightBlue = color(1, 178, 225);
 
+  //error?
+  Gunship(){
+  }
+  
   // player constructor
   Gunship(float x, float y) {
     setRadius(unit);

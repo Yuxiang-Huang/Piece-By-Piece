@@ -177,8 +177,8 @@ class Gunship extends UMO {
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("AutoFire: "+getAutoFire() + "; AutoRotate: "+getAutoRotate(), getX()+unit*2, getY()+unit*6);
-      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
-      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*7);
+      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*8);
     }
   }
 
@@ -225,7 +225,7 @@ class Gunship extends UMO {
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
-      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*7);
+      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*8);
     }
   }
 
@@ -561,17 +561,13 @@ class Gunship extends UMO {
     fill(255, 255, 0); // yellow for gained Exp
     rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
     fill(255);
-    textAlign(CENTER);
-    textSize(unit);
-    fill(0);
+    GameScreen.smallText(CENTER);
     text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
     GameScreen.resetText();
   }
 
   void displayEvolutions() {
-    fill(0);
-    textSize(unit);
-    textAlign(CENTER);
+    GameScreen.smallText(CENTER);
 
     text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
 

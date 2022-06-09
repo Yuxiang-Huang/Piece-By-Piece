@@ -133,8 +133,7 @@ void draw() {
       updateAllEnemies();
       displayAllEnemies();
 
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       if (boss == null) {
         text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
       }

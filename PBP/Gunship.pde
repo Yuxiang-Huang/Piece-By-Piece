@@ -381,13 +381,13 @@ class Gunship extends UMO {
     //botMove
     if (!getType().equals("predict")) {
       //stratight at the player
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
-      } 
+      PVector accelerationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
+      }
+      velocity.add(accelerationNow);
+      
       if (getType().equals("random")) {
         //randomness
         float speedNow = velocity.mag();
@@ -396,12 +396,12 @@ class Gunship extends UMO {
       }
     } else {
       //move toward the player using negative reciprocal
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
+      PVector accelerationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
       }
+      velocity.add(accelerationNow);
     }
 
     // apply velocity

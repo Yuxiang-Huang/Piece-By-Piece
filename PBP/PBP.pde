@@ -10,7 +10,7 @@ private float MouseX;
 private float MouseY;
 
 final int INTRO = -2;
-final int CONTROLS = -1;
+final int INFO = -1;
 final int PLAYING = 0;
 final int PAUSED = 1;
 final int LOST = 2;
@@ -96,8 +96,8 @@ void draw() {
 
   if (getGameState() == INTRO) {
     GameScreen.displayIntro();
-  } else if (getGameState() == CONTROLS) {
-    GameScreen.displayControls();
+  } else if (getGameState() == INFO) {
+    GameScreen.displayInfo();
   } else {
     // draw border
     fill(255);

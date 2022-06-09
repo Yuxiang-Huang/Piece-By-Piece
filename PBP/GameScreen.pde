@@ -1,21 +1,27 @@
 class GameScreen {
   void displayIntro() {
     displayLightGreyRect();
-    largeText();
-    text("PRESS ANY KEY", player.getX(), player.getY());
-    text("TO PLAY", player.getX(), player.getY()+(unit*9));
+
+    largeText(CENTER);
+    text("Piece-By-Piece", player.getX(), player.getY() - displayHeight/2 + unit*9);
+
+    mediumText(CENTER);
+    text("Made by: Daniel Yentin & Yuxiang Huang", player.getX(), player.getY()-unit*4);
+
+    smallText(CENTER);
+    text("Press any key to continue...", player.getX(), player.getY() + displayHeight/2 - unit*2);
     resetText();
   }
 
-  void displayControls() {
+  void displayInfo() {
     displayLightGreyRect();
-    largeText();
-    text("CONTROLS", player.getX(), player.getY() - displayHeight/2 + 9*unit);
+    largeText(CENTER);
+    text("INFORMATION", player.getX(), player.getY() - displayHeight/2 + 9*unit);
 
-    mediumText();
+    mediumText(LEFT);
     text("Gunship:", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*3);
 
-    smallText();
+    smallText(LEFT);
     text("1. Press the 'WASD' or Arrow keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit);
 
     text("2. Move the Mouse to rotate to where you want look,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
@@ -33,10 +39,10 @@ class GameScreen {
     text("6. Press 'p' to pause the game at any time.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-13);
     text("    You can also press 'r' to restart the game.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-14);
 
-    mediumText();
+    mediumText(LEFT);
     text("Hacks:", player.getX(), player.getY()-unit*3);
 
-    smallText();
+    smallText(LEFT);
     text("Press '`' (below the 'esc' key) to activate debug mode.", player.getX(), player.getY()-unit);
     text("debug mode displays alot of useful information.", player.getX(), player.getY());
 
@@ -48,29 +54,33 @@ class GameScreen {
     text("    You can also hold down 'k' do instantly kill all enemies.", player.getX(), player.getY()-unit*-7);
 
     text("3. Press 'j' to instantly spawn in an enemy.", player.getX(), player.getY()-unit*-9);
-    
+
     text("4. Press 'h' to instantly heal yourself.", player.getX(), player.getY()-unit*-11);
+
+    text("5. Press 'u' to instantly buy a random upgrade from the shop.", player.getX(), player.getY()-unit*-13);
+
+    text("6. Press 'y' to instantly give yourself invincibility for 10s.", player.getX(), player.getY()-unit*-15);
 
     resetText();
   }
 
   void displayPaused() {
     displayLightGreyRect();
-    largeText();
+    largeText(CENTER);
     text("GAME PAUSED", player.getX(), player.getY());
     resetText();
   }
 
   void displayLost() {
     displayLightGreyRect();
-    largeText();
+    largeText(CENTER);
     text("GAME LOST", player.getX(), player.getY());
     resetText();
   }
 
   void displayWon() {
     displayLightGreyRect();
-    largeText();
+    largeText(CENTER);
     text("GAME WON", player.getX(), player.getY());
     resetText();
   }
@@ -86,21 +96,21 @@ class GameScreen {
     textAlign(LEFT);
   }
 
-  void smallText() {
+  void smallText(int allignment) {
     fill(0);
     textSize(unit);
-    textAlign(LEFT);
+    textAlign(allignment);
   }
 
-  void mediumText() {
+  void mediumText(int allignment) {
     fill(0);
     textSize(unit*2);
-    textAlign(LEFT);
+    textAlign(allignment);
   }
 
-  void largeText() {
+  void largeText(int allignment) {
     fill(0);
     textSize(unit*9);
-    textAlign(CENTER);
+    textAlign(allignment);
   }
 }

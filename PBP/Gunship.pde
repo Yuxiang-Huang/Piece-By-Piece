@@ -22,10 +22,6 @@ class Gunship extends UMO {
   private int invincible;
   private String type;
 
-  //error?
-  //Gunship() {
-  //}
-
   color LightBlue = color(1, 178, 225);
 
   // player constructor

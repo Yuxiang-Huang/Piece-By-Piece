@@ -37,7 +37,7 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(30);
+    setLevel(29);
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
     shop.maxHealth.base = 1000000;
@@ -222,7 +222,7 @@ class Gunship extends UMO {
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
-      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*8);
+      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*7);
     }
   }
 

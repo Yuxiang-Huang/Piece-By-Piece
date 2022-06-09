@@ -170,9 +170,6 @@ void draw() { //<>//
     }
     player.getMinimap().display();
     player.playerDisplay();
-    if (boss != null) {
-      boss.display();
-    }
 
     // LOST/WON GAME SCREENS
 

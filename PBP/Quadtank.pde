@@ -75,7 +75,7 @@ class QuadTank extends Gunship {
     setShop(new Shop(this));
 
     // set stats base on level
-    getShop().maxHealth.base = 300; //why not
+    getShop().maxHealth.base = 900; //why not
     setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -127,10 +127,29 @@ class QuadTank extends Gunship {
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
       setType("straight");
-      Gunship Enemy = new Gunship(40);
-      Enemy.setX(player.getX() + getRadius() * 3);
-      Enemy.setY(player.getY());
-      enemies.add(Enemy);
+      //spawn four gunships around you
+      for (int x = 0 ; x < 4; x++){
+        Gunship Enemy = new Gunship(40);
+        switch(x){
+          case 0:
+          Enemy.setX(player.getX() + getRadius() * 30);
+          Enemy.setY(player.getY());
+          break;
+          case 1:
+          Enemy.setX(player.getX() - getRadius() * 30);
+          Enemy.setY(player.getY());
+          break;
+          case 2:
+          Enemy.setX(player.getX());
+          Enemy.setY(player.getY() + getRadius() * 30);
+          break;
+          case 3:
+          Enemy.setX(player.getX());
+          Enemy.setY(player.getY() - getRadius() * 30);
+          break;
+        }
+        enemies.add(Enemy);
+      }
       
       //there must be a more efficient way...
 //Daniel, I just want to change the color of the body...
@@ -171,6 +190,26 @@ body.setFill(color(0, 255, 0));
       setDisplay1(0); 
       setDisplay2(600); 
       setType("predict");
+      //spawn four types of ships around you
+      Gunship enemy1 = new Twin(40);
+      enemy1.setX(player.getX() + getRadius() * 30);
+      enemy1.setY(player.getY() + getRadius() * 30);
+      enemies.add(enemy1);
+      
+      Gunship enemy2 = new Sniper(40);
+      enemy2.setX(player.getX() + getRadius() * 30);
+      enemy2.setY(player.getY() - getRadius() * 30);
+      enemies.add(enemy2);
+      
+      Gunship enemy3 = new MachineGun(40);
+      enemy3.setX(player.getX() - getRadius() * 30);
+      enemy3.setY(player.getY() + getRadius() * 30);
+      enemies.add(enemy3);
+      
+      Gunship enemy4 = new FlankGuard(40);
+      enemy4.setX(player.getX() - getRadius() * 30);
+      enemy4.setY(player.getY() - getRadius() * 30);
+      enemies.add(enemy4);
       
       // there must be a more efficient way...
       umo = createShape(GROUP);

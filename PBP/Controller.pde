@@ -25,6 +25,7 @@ class Controller {
       enemies.clear();
       setTimeSinceEnemySpawn(600);
       setGameState(PLAYING);
+      boss = null;
     }
 
     if (key == 'p') {

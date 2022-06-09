@@ -62,6 +62,11 @@ class Controller {
       if (DEBUG && key == 'y'){
         player.setInvincible(600);
       }
+      
+      //randomUpgrade
+      if (DEBUG && key == 'u') {
+        player.getShop().randomUpgrade();
+      }
 
       // Gun controls
       if (key == 'e') {

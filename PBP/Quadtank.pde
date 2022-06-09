@@ -126,12 +126,18 @@ class QuadTank extends Gunship {
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
-      // there must be a more efficient way...
+      setType("straight");
+      Gunship Enemy = new Gunship(40);
+      Enemy.setX(player.getX() + getRadius() * 3);
+      Enemy.setY(player.getY());
+      enemies.add(Enemy);
+      
+      //there must be a more efficient way...
+//Daniel, I just want to change the color of the body...
       umo = createShape(GROUP);
       ellipseMode(RADIUS);
       PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-      setType("straight");
-      body.setFill(color(0, 255, 0));
+body.setFill(color(0, 255, 0));
       rectMode(CORNER);
       PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
       gun1.setFill(color(0));
@@ -162,13 +168,15 @@ class QuadTank extends Gunship {
     
     //last phase
     if (getHealth() < getMaxHealth() / 3) {
+      setDisplay1(0); 
       setDisplay2(600); 
+      setType("predict");
+      
       // there must be a more efficient way...
       umo = createShape(GROUP);
       ellipseMode(RADIUS);
       PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-      setType("predict");
-      body.setFill(color(255, 0, 255));
+body.setFill(color(255, 0, 255));
       rectMode(CORNER);
       PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
       gun1.setFill(color(0));

@@ -69,7 +69,7 @@ class QuadTank extends Gunship {
       setType("straight");
       //spawn four gunships around you
       for (int x = 0 ; x < 4; x++){
-        Gunship Enemy = new Gunship(40);
+        Gunship Enemy = new Gunship(14);
         switch(x){
           case 0:
           Enemy.setX(player.getX() + getRadius() * 30);
@@ -131,22 +131,22 @@ body.setFill(color(0, 255, 0));
       setDisplay2(600); 
       setType("predict");
       //spawn four types of ships around you
-      Gunship enemy1 = new Twin(40);
+      Gunship enemy1 = new Twin(29);
       enemy1.setX(player.getX() + getRadius() * 30);
       enemy1.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy1);
       
-      Gunship enemy2 = new Sniper(40);
+      Gunship enemy2 = new Sniper(29);
       enemy2.setX(player.getX() + getRadius() * 30);
       enemy2.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy2);
       
-      Gunship enemy3 = new MachineGun(40);
+      Gunship enemy3 = new MachineGun(29);
       enemy3.setX(player.getX() - getRadius() * 30);
       enemy3.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy3);
       
-      Gunship enemy4 = new FlankGuard(40);
+      Gunship enemy4 = new FlankGuard(29);
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
@@ -185,6 +185,7 @@ body.setFill(color(255, 0, 255));
       textSize(unit*3.0/4);
     }
     
+    //escape mode. Sike, this is the last stage
     if (getHealth() < getMaxHealth() / 6){
       setDisplay2(0);
       textSize(unit*2);

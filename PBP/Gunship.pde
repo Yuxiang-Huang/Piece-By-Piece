@@ -202,8 +202,10 @@ class Gunship extends UMO {
         text("S", getX(), getY());
       } else if (getType().equals("random")) {
         text("R", getX(), getY());
-      } else {
+      } else if (getType().equals("predict")){
         text("P", getX(), getY());
+      } else{
+        text("E", getX(), getY());
       }
     }
 
@@ -399,7 +401,7 @@ class Gunship extends UMO {
         velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
         velocity.setMag(speedNow);
       }
-    } else {
+    } else if (getType().equals("predict")){
       //move toward the player's position after 1 sec
       PVector accelerationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelerationNow.setMag(mag(acceleration.x, acceleration.y));
@@ -407,7 +409,22 @@ class Gunship extends UMO {
         accelerationNow.mult(1.0/sqrt(2));
       }
       velocity.add(accelerationNow);
+    } else{
+      //move in reciprocal to escape
+      PVector accelerationNow = new PVector(max(1, abs(acceleration.x*player.getDY())), max(1, abs(acceleration.y* player.getDX())));
+      if (player.getX() > getX()) {
+        accelerationNow.x *= -1;
+      } 
+      if (player.getY() > getY()) {
+        accelerationNow.y *= -1;
+      }
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
+      }
+      velocity.add(accelerationNow);
     }
+    
     //don't fly
     if (velocity.mag() > flyingSpeed){
       velocity.setMag(flyingSpeed);

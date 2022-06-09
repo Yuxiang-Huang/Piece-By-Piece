@@ -29,7 +29,7 @@ class Controller {
         }
         enemies.clear();
         setTimeSinceEnemySpawn(600);
-        setGameState(PLAYING);
+        setGameState(INTRO);
       }
 
       if (key == 'p') {

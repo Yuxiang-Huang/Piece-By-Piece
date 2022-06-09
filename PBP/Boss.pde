@@ -135,12 +135,6 @@ class QuadTank extends Gunship {
       setType("predict");
       createGunship(color(255, 0, 255));
     }
-
-    //last fight
-    if (getType().equals("escape") && isCollidingWithBorderForBoss()) {
-      setType("straight");
-      createGunship(color(0));
-    }
   }
 
   boolean canEvolve() {
@@ -164,19 +158,6 @@ class QuadTank extends Gunship {
   }
   void setDisplay2(int display2) {
     this.display2 = display2;
-  }
-
-  boolean isCollidingWithBorderForBoss() {
-    if (! isWithinDisplayDistance(this)) {
-      return false;
-    }
-
-    if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
-      getY() - getRadius() < unit || getY() + getRadius() > height - unit) 
-    {
-      return true;
-    }
-    return false;
   }
 
   void createGunship(color c) {

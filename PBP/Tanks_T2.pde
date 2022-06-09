@@ -34,10 +34,25 @@ class Twin extends Gunship {
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
-    rectMode(CORNERS);
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
     PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
     gun1.setFill(color(0));
     PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
@@ -131,10 +146,25 @@ class Sniper extends Gunship {
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
-    rectMode(CORNERS);
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
     PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
     gun.setFill(color(0));
 
@@ -181,9 +211,25 @@ class MachineGun extends Gunship {
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
     PShape gun = createShape(TRIANGLE, 0, 0, -getRadius(), 1.5*getRadius(), getRadius(), 1.5*getRadius());
     gun.setFill(color(0));
 
@@ -235,9 +281,24 @@ class FlankGuard extends Gunship {
     // make shape of gunship
     umo = createShape(GROUP);
 
+    // make shape of gunship
+    umo = createShape(GROUP);
+
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
     rectMode(CORNER);
     PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
     gun1.setFill(color(0));

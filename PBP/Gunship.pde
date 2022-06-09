@@ -22,8 +22,11 @@ class Gunship extends UMO {
   private int invincible;
   private String type;
 
+<<<<<<< Updated upstream
   color LightBlue = color(1, 178, 225);
 
+=======
+>>>>>>> Stashed changes
   // player constructor
   Gunship(float x, float y) {
     setRadius(unit);

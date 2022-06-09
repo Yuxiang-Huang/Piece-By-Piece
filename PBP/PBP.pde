@@ -212,8 +212,31 @@ void spawnAnEnemy() {
     Gunship enemy = new Gunship(levelHolder);
     enemies.add(enemy);
   }
-  if (levelHolder > 15 & levelHolder < 30) {
+  if (levelHolder > 15 ){//& levelHolder < 30) {
+    int rand = (int) random(4);
+    Gunship enemy;
+    switch (rand){
+      case 0: 
+      enemy = new Twin(levelHolder);
+      enemies.add(enemy); 
+      break;
+      case 1: 
+      enemy = new Sniper(levelHolder);
+      enemies.add(enemy);
+      break;
+      case 2: 
+      enemy = new MachineGun(levelHolder);
+      enemies.add(enemy);
+      break;
+      case 3: 
+      enemy = new FlankGuard(levelHolder);
+      enemies.add(enemy);
+      break;
+    }
   }
+  //if (levelHolder > 30) {
+    
+  //}
 }
 
 // get and set methods------------------------------------------------------------------

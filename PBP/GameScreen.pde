@@ -16,12 +16,12 @@ class GameScreen {
     text("Gunship:", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*3);
 
     smallText();
-    text("1. Press the 'WASD' keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit);
+    text("1. Press the 'WASD' or Arrow keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit);
 
-    text("2. Move the Mouse to rotate to where you want look", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
+    text("2. Move the Mouse to rotate to where you want look,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
     text("    or press the 'q' key to rotate automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-2);
 
-    text("3. Press the Mouse to shoot a bullet out of your guns", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-4);
+    text("3. Press the Mouse to shoot a bullet out of your guns,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-4);
     text("    or press the 'e' key to shoot automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-5);
 
     text("4. Whenever you have a skill point to spend,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-7);
@@ -42,7 +42,14 @@ class GameScreen {
 
     text("When debug mode is active, you can do the following: ", player.getX(), player.getY()-unit*-2);
 
-    text("1. Press 'l' ", player.getX(), player.getY()-unit*-4);
+    text("1. Press 'l' to level up your player one level.", player.getX(), player.getY()-unit*-4);
+
+    text("2. Press 'k' to instantly deal 50 damage to all enemies.", player.getX(), player.getY()-unit*-6);
+    text("    You can also hold down 'k' do instantly kill all enemies.", player.getX(), player.getY()-unit*-7);
+
+    text("3. Press 'j' to instantly spawn in an enemy.", player.getX(), player.getY()-unit*-9);
+    
+    text("4. Press 'h' to instantly heal yourself.", player.getX(), player.getY()-unit*-11);
 
     resetText();
   }

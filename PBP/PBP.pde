@@ -15,6 +15,7 @@ final int PLAYING = 0;
 final int PAUSED = 1;
 final int LOST = 2;
 final int WON = 3;
+float flyingSpeed;
 
 private int gameState;
 GameScreen GameScreen = new GameScreen();
@@ -56,6 +57,8 @@ void setup() {
   setTimeSinceEnemySpawn(600);
   //cheat
   //setTimeSinceEnemySpawn(60000);
+  
+  flyingSpeed = unit;
 }
 
 void keyPressed() {
@@ -134,7 +137,6 @@ void draw() {
       displayAllEnemies();
 
       // display time till next enemy spawn
-
       if (boss == null) {
         GameScreen.mediumText(CENTER);
         textSize(unit*2);
@@ -209,7 +211,7 @@ void displayAllPolygons() {
 void updateAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
     Gunship enemy = enemies.get(e);
-    if (isWithinUpdateDistance(enemy)) { 
+    if (isWithinUpdateDistance(enemy) || enemy == boss) { 
       enemy.enemyUpdate();
     }
   }
@@ -217,7 +219,7 @@ void updateAllEnemies() {
 void displayAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
     Gunship enemy = enemies.get(e);
-    if (isWithinDisplayDistance(enemy)) {
+    if (isWithinDisplayDistance(enemy) || enemy == boss) {
       enemy.enemyDisplay();
     }
   }

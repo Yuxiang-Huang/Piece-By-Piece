@@ -41,9 +41,7 @@ class Gunship extends UMO {
 
     // set stats base on level
     setLevel(1);
-    //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-    //cheat
-    shop.maxHealth.base = 1000000;
+    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(unit * pow(1.01, getLevel()-1));
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -261,11 +259,12 @@ class Gunship extends UMO {
       ydir = 1;
     }
 
+    PVector accelerationNow = new PVector(acceleration.x*xdir, acceleration.y*ydir);
     //apply acceleration
-    velocity.add(new PVector(acceleration.x*xdir, acceleration.y*ydir));
-    if (velocity.mag() > acceleration.x * 9) {
-      velocity.setMag(acceleration.x * 9);
+    if (xdir != 0 && ydir != 0){
+      accelerationNow.mult(1.0/sqrt(2));
     }
+    velocity.add(accelerationNow);
 
     // apply velocity
     position.add(velocity);
@@ -382,13 +381,13 @@ class Gunship extends UMO {
     //botMove
     if (!getType().equals("predict")) {
       //stratight at the player
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
-      } 
+      PVector accelerationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
+      }
+      velocity.add(accelerationNow);
+      
       if (getType().equals("random")) {
         //randomness
         float speedNow = velocity.mag();
@@ -397,12 +396,12 @@ class Gunship extends UMO {
       }
     } else {
       //move toward the player using negative reciprocal
-      PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
-      accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-      velocity.add(accelearationNow);
-      if (velocity.mag() > acceleration.x * 9) {
-        velocity.setMag(acceleration.x * 9);
+      PVector accelerationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
+      accelerationNow.setMag(mag(acceleration.x, acceleration.y));
+      if (accelerationNow.x != 0 && accelerationNow.y != 0){
+        accelerationNow.mult(1.0/sqrt(2));
       }
+      velocity.add(accelerationNow);
     }
 
     // apply velocity
@@ -497,8 +496,8 @@ class Gunship extends UMO {
     if (this != player) {
       //check for collision with player
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
-        float m1 = pow(getRadius(), 3);
-        float m2 = pow(player.getRadius(), 3);
+        float m1 = unit;
+        float m2 = unit;
         float dxHolder = 3*(2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
         float dyHolder = 3*(2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
         setDX(3*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
@@ -513,17 +512,21 @@ class Gunship extends UMO {
             player.setHealth(player.getHealth() - getHealth());
           }
           setHealth(getHealth() - player.getCollisionDamageWithShip());
+          if (isDead()) {
+            player.setExp(player.getExp() + getLevel() * (getLevel() - 1) * 10 / 2) ; 
+            //half of total enemy exp, trust math
+          }
           //1 sec?
-          setInvincible(60);
-          player.setInvincible(60);
+          setInvincible(30);
+          player.setInvincible(30);
         }
       }
       //check for collision with enemies
       for (Gunship enemy : enemies) {
         if (enemy != this) {
           if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
-            float m1 = pow(getRadius(), 3);
-            float m2 = pow(enemy.getRadius(), 3);
+            float m1 = unit;
+            float m2 = unit;
             float dxHolder = 3*(2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
             float dyHolder = 3*(2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
             setDX(3*(2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));

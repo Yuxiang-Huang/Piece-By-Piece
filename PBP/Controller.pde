@@ -59,6 +59,13 @@ class Controller {
           if (key == 'l') {
             player.setExp(player.getExpRequiredForNextLevel());
           }
+          //level up to 29
+          if (key == 'L') {
+            while (player.getLevel() < 29) {
+              player.setExp(player.getExpRequiredForNextLevel());
+              player.playerUpdate();
+            }
+          }
 
           //50 damage to each enemy
           if (key == 'k') {
@@ -74,6 +81,12 @@ class Controller {
 
           //full health
           if (key == 'h') {
+            player.setHealth(player.getMaxHealth());
+          }
+          //1000000 health
+          if (key == 'H') {
+            player.getShop().maxHealth.base = 1000000;
+            player.getShop().update();
             player.setHealth(player.getMaxHealth());
           }
 

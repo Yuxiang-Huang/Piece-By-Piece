@@ -23,7 +23,7 @@ GameScreen GameScreen = new GameScreen();
 int timeSinceEnemySpawn;
 
 void setup() {
-  fullScreen(1);
+  fullScreen(2);
   frameRate(60);
 
   width = displayWidth*3;
@@ -82,19 +82,19 @@ void mousePressed() {
     player.setAutoFire(true);
   }
 }
- //<>//
+ //<>// //<>//
 void mouseReleased() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(false);
   }
-} //<>//
- //<>//
+} //<>// //<>//
+ //<>// //<>//
 void draw() {
   background(200, 200, 200, 200);
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
-  // fix mouse coordinates to be absolute rather than relative //<>//
-  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>//
+  // fix mouse coordinates to be absolute rather than relative //<>// //<>//
+  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>// //<>//
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
   if (getGameState() == INTRO) {

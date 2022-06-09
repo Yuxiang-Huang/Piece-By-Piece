@@ -113,7 +113,7 @@ void draw() { //<>//
     if (timeSinceEnemySpawn == 0) {
       spawnAnEnemy();
       setTimeSinceEnemySpawn(enemies.size() * 600);
-    } else {
+    } else if (boss == null){
       setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
     }
 
@@ -136,15 +136,17 @@ void draw() { //<>//
         }
       }
     }
-    
-    if (boss != null){
+
+    if (boss != null) {
       boss.enemyUpdate();
       boss.enemyDisplay();
     }
 
     textSize(unit*2);
     textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+    if (boss == null) {
+      text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+    }
     textAlign(LEFT);
     textSize(unit*3.0/4);    
 
@@ -173,7 +175,7 @@ void draw() { //<>//
     }
     player.getMinimap().display();
     player.playerDisplay();
-    if (boss != null){
+    if (boss != null) {
       boss.display();
     }
 
@@ -221,30 +223,30 @@ void spawnAnEnemy() {
     Gunship enemy = new Gunship(levelHolder);
     enemies.add(enemy);
   }
-  if (levelHolder > 15 ){//& levelHolder < 30) {
+  if (levelHolder > 15 ) {//& levelHolder < 30) {
     int rand = (int) random(4);
     Gunship enemy;
-    switch (rand){
-      case 0: 
+    switch (rand) {
+    case 0: 
       enemy = new Twin(levelHolder);
       enemies.add(enemy); 
       break;
-      case 1: 
+    case 1: 
       enemy = new Sniper(levelHolder);
       enemies.add(enemy);
       break;
-      case 2: 
+    case 2: 
       enemy = new MachineGun(levelHolder);
       enemies.add(enemy);
       break;
-      case 3: 
+    case 3: 
       enemy = new FlankGuard(levelHolder);
       enemies.add(enemy);
       break;
     }
   }
   //if (levelHolder > 30) {
-    
+
   //}
 }
 

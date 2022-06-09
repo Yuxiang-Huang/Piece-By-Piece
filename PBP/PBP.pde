@@ -14,6 +14,7 @@ final int LOST = 2;
 final int WON = 3;
 
 private int gameState;
+GameScreen GameScreen = new GameScreen();
 
 int timeSinceEnemySpawn;
 
@@ -174,28 +175,14 @@ void draw() {
     player.getMinimap().display();
     player.playerDisplay();
 
-    // LOST/WON GAME SCREENS
-
-    fill(128, 128, 128, 200);
-    rect(player.getX()-(displayWidth/2), player.getY()-(displayHeight/2), displayWidth, displayHeight); 
-    fill(0);
-    textSize(unit*10);
-    textAlign(CENTER);
-
-    String message = "";
+    // PAUSED/LOST/WON GAME SCREENS
     if (getGameState() == PAUSED) {
-      message = "GAME PAUSED";
+      GameScreen.displayPaused();
     } else if (getGameState() == LOST) {
-      message = "YOU LOST :(";
+      GameScreen.displayLost();
     } else if (getGameState() == WON) {
-      message = "YOU WON :)";
+      GameScreen.displayWon();
     }
-    text(message, player.getX(), player.getY());
-
-    // reset text
-    fill(0);
-    textSize(unit*3.0/4);
-    textAlign(LEFT);
   }
 }
 

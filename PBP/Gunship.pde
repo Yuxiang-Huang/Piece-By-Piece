@@ -22,10 +22,6 @@ class Gunship extends UMO {
   private int invincible;
   private String type;
 
-  //error?
-  Gunship() {
-  }
-
   color LightBlue = color(1, 178, 225);
 
   // player constructor
@@ -44,15 +40,11 @@ class Gunship extends UMO {
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
     shop.maxHealth.base = 1000000;
-    setRadius(unit * pow(1.01, getLevel()-1));
+    setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
 
     // set stats base on level
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-    //pow causes precision problem
-    for (int i = 0; i < getLevel() - 1; i ++) {
-      setRadius(getRadius() * 1.01); //confirmed from wiki
-    }
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -82,7 +74,7 @@ class Gunship extends UMO {
 
   // enemy constructor
   Gunship(int levelHolder) {
-    setRadius(unit);
+    setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
     position.set(random(width), random(height));
     while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
@@ -185,8 +177,8 @@ class Gunship extends UMO {
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("AutoFire: "+getAutoFire() + "; AutoRotate: "+getAutoRotate(), getX()+unit*2, getY()+unit*6);
-      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
-      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*7);
+      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*8);
     }
   }
 
@@ -388,7 +380,7 @@ class Gunship extends UMO {
     }
 
     //botMove
-    if (! getType().equals("predict")) {
+    if (!getType().equals("predict")) {
       //stratight at the player
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));

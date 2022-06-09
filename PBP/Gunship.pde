@@ -532,8 +532,7 @@ class Gunship extends UMO {
     textSize(unit);
     fill(0);
     text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
-    textAlign(LEFT);
-    textSize(unit*3.0/4);
+    GameScreen.resetText();
   }
 
   void displayEvolutions() {
@@ -542,7 +541,6 @@ class Gunship extends UMO {
     textAlign(CENTER);
 
     text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-
 
     fill(200, 230);
     rectMode(RADIUS);
@@ -564,9 +562,7 @@ class Gunship extends UMO {
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
     shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
-    fill(0);
-    textSize(unit*3.0/4);
-    textAlign(LEFT);
+    GameScreen.resetText();
   }
 
   void evolve(char evolution) {

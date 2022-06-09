@@ -72,9 +72,7 @@ class Twin extends Gunship {
     rect(getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
     shape(new TwinFlank().umo, getX()-(displayWidth/2)+(unit*6), getY()-(displayHeight/2)+(unit*10));
 
-    fill(0);
-    textSize(unit*3.0/4);
-    textAlign(LEFT);
+    GameScreen.resetText();
   }
 
   void evolve(char evolution) {
@@ -278,9 +276,7 @@ class FlankGuard extends Gunship {
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
     //shape(new Auto3().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
-    fill(0);
-    textSize(unit*3.0/4);
-    textAlign(LEFT);
+    GameScreen.resetText();
   }
 
   void evolve(char evolution) {

@@ -8,6 +8,8 @@ float unit;
 private float MouseX;
 private float MouseY;
 
+final int INTRO = -2;
+final int CONTROLS = -1;
 final int PLAYING = 0;
 final int PAUSED = 1;
 final int LOST = 2;
@@ -32,9 +34,7 @@ void setup() {
   player = new Gunship(width/2, height/2);
   input = new Controller();
 
-  fill(0);
-  textSize(unit*3.0/4);
-  textAlign(LEFT);
+  GameScreen.resetText();
 
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
@@ -50,7 +50,7 @@ void setup() {
   //  enemies.add(enemy);
   //}
 
-  setGameState(PLAYING);
+  setGameState(INTRO);
   setTimeSinceEnemySpawn(600);
   //cheat
   //setTimeSinceEnemySpawn(60000);
@@ -86,79 +86,89 @@ void mouseReleased() {
 
 void draw() {
   background(200, 200, 200, 200);
-
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
   // fix mouse coordinates to be absolute rather than relative
   setMouseX((player.getX() - displayWidth/2) + mouseX);
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
-  // draw border
-  fill(255);
-  rectMode(CORNERS);
-  rect(0, 0, width, height);
-  fill(0);
-
-  // draw grid lines
-  for (int row = 0; row < height; row+=unit) {
-    stroke(100);
-    line(0, row, width, row);
-  }
-  for (int col = 0; col < width; col+=unit) {
-    stroke(100);
-    line(col, 0, col, height);
-  }
-
-  if (DEBUG) {
-    fill(0);
-    text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
-  }
-
-  if (getGameState() == PLAYING) {
-    if (timeSinceEnemySpawn == 0) {
-      Gunship enemy = new Gunship();
-      enemies.add(enemy);
-      setTimeSinceEnemySpawn(enemies.size() * 600);
-    } else {
-      setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
-    }
-
-    updateAllPolygons();
-    displayAllPolygons();
-    updateAllEnemies();
-    displayAllEnemies();
-
-    // display time till next enemy spawn
-    textSize(unit*2);
-    textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-    GameScreen.resetText();  
-
-    // display & update player last so that it always appears on top 
-    // all colisions processed through player
-
-    player.playerUpdate();
-    player.playerDisplay();
-
-    player.getMinimap().update();
-    player.getMinimap().display();
-
-    if (player.getSkillPoints() > 0) {
-      player.getShop().display();
-    }
+  if (getGameState() == INTRO) {
+    GameScreen.displayIntro();
+  } else if (getGameState() == CONTROLS) {
+    GameScreen.displayControls();
   } else {
-    displayAllPolygons();
-    displayAllEnemies();
-    player.getMinimap().display();
-    player.playerDisplay();
+    // draw border
+    fill(255);
+    rectMode(CORNERS);
+    rect(0, 0, width, height);
+    fill(0);
 
-    // PAUSED/LOST/WON GAME SCREENS
-    if (getGameState() == PAUSED) {
-      GameScreen.displayPaused();
-    } else if (getGameState() == LOST) {
-      GameScreen.displayLost();
-    } else if (getGameState() == WON) {
-      GameScreen.displayWon();
+    // draw grid lines
+    for (int row = 0; row < height; row+=unit) {
+      stroke(100);
+      line(0, row, width, row);
+    }
+    for (int col = 0; col < width; col+=unit) {
+      stroke(100);
+      line(col, 0, col, height);
+    }
+
+    if (DEBUG) {
+      fill(0);
+      text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
+    }
+
+    if (getGameState() == PLAYING) {
+      if (timeSinceEnemySpawn == 0) {
+        Gunship enemy = new Gunship();
+        enemies.add(enemy);
+        setTimeSinceEnemySpawn(enemies.size() * 600);
+      } else {
+        setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
+      }
+
+      updateAllPolygons();
+      displayAllPolygons();
+      updateAllEnemies();
+      displayAllEnemies();
+
+      // display time till next enemy spawn
+      textSize(unit*2);
+      textAlign(CENTER);
+      text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();  
+
+      // display & update player last so that it always appears on top 
+      // all colisions processed through player
+
+      player.playerUpdate();
+      player.playerDisplay();
+
+      player.getMinimap().update();
+      player.getMinimap().display();
+
+      if (player.getSkillPoints() > 0) {
+        player.getShop().display();
+      }
+    } else {
+      displayAllPolygons();
+      displayAllEnemies();
+      player.getMinimap().display();
+      player.playerDisplay();
+      
+      textSize(unit*2);
+      textAlign(CENTER);
+      text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText(); 
+
+      // PAUSED/LOST/WON GAME SCREENS
+      if (getGameState() == PAUSED) {
+        GameScreen.displayPaused();
+      } else if (getGameState() == LOST) {
+        GameScreen.displayLost();
+      } else if (getGameState() == WON) {
+        GameScreen.displayWon();
+      }
     }
   }
 }

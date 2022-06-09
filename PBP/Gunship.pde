@@ -574,22 +574,22 @@ class Gunship extends UMO {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Twin(0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Twin(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Sniper(0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Sniper(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new MachineGun(0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+    shape(new MachineGun(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new FlankGuard(0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+    shape(new FlankGuard(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
     fill(0);
     textSize(unit*3.0/4);

@@ -69,7 +69,7 @@ class Controller {
         player.setAutoFire(!player.getAutoFire());
       }
       
-      if (key == 'r') {
+      if (key == 'q') { //r is restart already
         //player.setAutoRotate(!player.getAutoRotate());
       }
       

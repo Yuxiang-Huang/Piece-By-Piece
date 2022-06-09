@@ -33,7 +33,7 @@ class Bullet extends UMO {  //<>//
     ellipseMode(RADIUS);
     //color the bullets
     if (gunship != player) {
-      fill(255,0,0);
+      fill(255, 0, 0);
     }
     circle(getX(), getY(), getRadius());
     fill(0);

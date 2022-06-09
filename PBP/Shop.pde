@@ -1,7 +1,7 @@
 class Shop implements Processable {
   Gunship gunship;
   PVector position;
-  
+
   //Stat statName = new Stat(level, base, modifier)
   private Stat healthRegen = new Stat("Health Regen", 0, 0, 1); //confirmed from website
   private Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
@@ -92,48 +92,48 @@ class Shop implements Processable {
       }
     }
   }
-  
-  Stat getHealthRegen(){
+
+  Stat getHealthRegen() {
     return healthRegen;
   }
-  Stat getMaxHealth(){
+  Stat getMaxHealth() {
     return maxHealth;
   }
-  Stat getBodyDamage(){
+  Stat getBodyDamage() {
     return bodyDamage;
   }
-  Stat getBodyDamageWithShip(){
+  Stat getBodyDamageWithShip() {
     return bodyDamageWithShip;
   }
-  Stat getBulletSpeed(){
+  Stat getBulletSpeed() {
     return bulletSpeed;
   }
-  Stat getBulletPenetration(){
+  Stat getBulletPenetration() {
     return bulletPenetration;
   }
-  Stat getBulletDamage(){
+  Stat getBulletDamage() {
     return bulletDamage;
   }
-  Stat getReload(){
+  Stat getReload() {
     return reload;
   }
-  Stat getMovementSpeed(){
+  Stat getMovementSpeed() {
     return movementSpeed;
   }
-  
-    class Stat {
-      private String statName;
-      final int maxLevel = 7;
-      private int level;
-      private float base;
-      private float modifier;
 
-      Stat(String statName, int level, float base, float modifier) {
-        setStatName(statName);
-        setLevel(level);
-        setBase(base);
-        setModifier(modifier);
-      }
+  class Stat {
+    private String statName;
+    final int maxLevel = 7;
+    private int level;
+    private float base;
+    private float modifier;
+
+    Stat(String statName, int level, float base, float modifier) {
+      setStatName(statName);
+      setLevel(level);
+      setBase(base);
+      setModifier(modifier);
+    }
 
     void display(int i) {
       i = 7 - i;

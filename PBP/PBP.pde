@@ -38,7 +38,7 @@ void setup() {
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
-  for (int i = 0; i < 50; i++) {
+  for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }

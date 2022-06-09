@@ -60,6 +60,7 @@ class Twin extends Gunship {
     umo.addChild(body);
   }
 
+<<<<<<< HEAD
   //void displayEvolutions() {
   //  fill(0);
   //  textSize(unit);
@@ -108,8 +109,9 @@ class Twin extends Gunship {
   //  player = newPlayer;
   //}
 
+=======
+>>>>>>> eda1062dc959c09876e0e49b47f7307fe14498b0
   boolean canEvolve() {
-    //return getLevel() >= 30;
     return false;
   }
 }
@@ -169,10 +171,7 @@ class Sniper extends Gunship {
     umo.addChild(body);
   }
 
-  void evolve() {
-  }
   boolean canEvolve() {
-    //return getLevel() >= 30;
      return false;
   }
 }
@@ -235,10 +234,7 @@ class MachineGun extends Gunship {
     umo.addChild(body);
   }
 
-  void evolve() {
-  }
   boolean canEvolve() {
-    //return getLevel() >= 30;
      return false;
   }
 }
@@ -340,35 +336,10 @@ class FlankGuard extends Gunship {
   //  GameScreen.resetText();
   //}
 
-  //void evolve(char evolution) {
-  //  Gunship newPlayer = player;
-  //  switch(key) {
-  //  case '1': 
-  //    //newPlayer = new TripleShot(player.getX(), player.getY()); 
-  //    break;
-  //  case '2': 
-  //    newPlayer = new QuadTank(player.getX(), player.getY()); 
-  //    break;
-  //  case '3': 
-  //    newPlayer = new TwinFlank(player.getX(), player.getY()); 
-  //    break;
-  //  case '4':
-  //    //  newPlayer = new Auto3(player.getX(), player.getY());
-  //    break;
-  //  }
-  //  newPlayer.velocity = player.velocity;
-  //  newPlayer.setLevel(player.getLevel());
-  //  newPlayer.setShop(player.getShop());
-  //  newPlayer.getShop().gunship = newPlayer;
-  //  newPlayer.setSkillPoints(player.getSkillPoints());
-  //  newPlayer.setRadius(player.getRadius());
-  //  player = newPlayer;
-  //}
-
   void evolve() {
   }
+
   boolean canEvolve() {
-    //return getLevel() >= 30;
     return false;
   }
 }

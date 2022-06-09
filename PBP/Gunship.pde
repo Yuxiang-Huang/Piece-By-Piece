@@ -25,9 +25,9 @@ class Gunship extends UMO {
   color LightBlue = color(1, 178, 225);
 
   //error?
-  Gunship(){
+  Gunship() {
   }
-  
+
   // player constructor
   Gunship(float x, float y) {
     setRadius(unit);
@@ -293,7 +293,7 @@ class Gunship extends UMO {
     }
 
     // check if player has enough exp for level up
-    if (getExp() >= getExpRequiredForNextLevel()) {
+    if (getExp() >= getExpRequiredForNextLevel() && player.getLevel() < 30) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
@@ -346,7 +346,7 @@ class Gunship extends UMO {
       setShootCooldown(getShootCooldown()-1);
     }
 
-    // check if player has enough exp for level up
+    // check if enemy has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel()) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
@@ -556,11 +556,18 @@ class Gunship extends UMO {
 
   void displayExpBar() {
     rectMode(CORNER);
-    fill(200, 230); // Translucent Dark Grey for needed Exp
-    rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
-    fill(255, 255, 0); // yellow for gained Exp
-    rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
-    fill(255);
+    if (player.getLevel() < 30) {
+      fill(200, 230); // Translucent Dark Grey for needed Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
+      fill(255, 255, 0); // yellow for gained Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
+      fill(0);
+    } else{
+      //max level
+      fill(255, 255, 0); // yellow for gained Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      fill(0);
+    }
     GameScreen.smallText(CENTER);
     text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
     GameScreen.resetText();

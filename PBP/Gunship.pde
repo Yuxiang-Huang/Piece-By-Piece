@@ -34,21 +34,10 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-<<<<<<< HEAD
-    setLevel(29);
-    //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-    //cheat
-    shop.maxHealth.base = 1000000;
-    setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
-
-    // set stats base on level
-    setLevel(1);
-    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
-=======
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(unit * pow(1.01, getLevel()-1));
->>>>>>> main
+
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -392,11 +381,7 @@ class Gunship extends UMO {
     }
 
     //botMove
-<<<<<<< HEAD
-    if (!getType().equals("predict")) {
-=======
     if (!getType().equals("predict") && !getType().equals("escape")) {
->>>>>>> main
       //stratight at the player
       PVector accelerationNow = new PVector(acceleration.x*(player.getX() - getX()), acceleration.y*(player.getY() - getY()));
       accelerationNow.setMag(mag(acceleration.x, acceleration.y));

@@ -39,7 +39,7 @@ class QuadTank extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    setType("random");
+    setType("escape");
     body.setFill(color(0, 255, 255));
     rectMode(CORNER);
     PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());

@@ -330,6 +330,15 @@ class Gunship extends UMO {
       boss = new QuadTank(width/2, height/2);
       enemies.add(boss);
     }
+    
+    for (Gunship enemy : enemies) {
+      if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
+        < getRadius() + enemy.getRadius()) {
+        float angleNow = atan2(getY() - enemy.getY(), (getX() - enemy.getX()));
+        setX(cos(angleNow) * (getRadius() + enemy.getRadius()) + enemy.getX());
+        setY(sin(angleNow) * (getRadius() + enemy.getRadius()) + enemy.getY());
+      }
+    }
   }
 
   void enemyUpdate() {

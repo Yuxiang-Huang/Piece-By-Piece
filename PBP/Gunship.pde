@@ -33,11 +33,10 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(1);
+    setLevel(40);
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
     shop.maxHealth.base = 1000000;
-    //pow causes precision problem
     setRadius(unit * pow(1.01, getLevel()-1));
 
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
@@ -54,10 +53,10 @@ class Gunship extends UMO {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     body.setFill(color(165, 42, 42));
     rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -89,7 +88,7 @@ class Gunship extends UMO {
 
     // set stats base on level
     getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki
+    setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -113,7 +112,7 @@ class Gunship extends UMO {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     int rand = (int) (random(3));
     if (rand == 0) {
       setType("straight");
@@ -128,7 +127,7 @@ class Gunship extends UMO {
       body.setFill(color(255, 0, 255));
     }
     rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -176,6 +175,7 @@ class Gunship extends UMO {
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
+      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
     }
   }
 
@@ -218,6 +218,8 @@ class Gunship extends UMO {
       text("timeSinceLastHit: "+getTimeSinceLastHit(), getX()+unit*2, getY()+unit*3);
       text("maxHealth: "+getMaxHealth(), getX()+unit*2, getY()+unit*4);
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
+      text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
+      text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
     }
   }
 

@@ -123,31 +123,16 @@ void draw() {
       setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
     }
 
-    for (int p = 0; p < polygons.size(); p++) {
-      Polygon polygon = polygons.get(p);
-      if (isWithinUpdateDistance(polygon)) { 
-        polygon.update();
-        if (isWithinDisplayDistance(polygon)) {
-          polygon.display();
-        }
-      }
-    }
+    updateAllPolygons();
+    displayAllPolygons();
+    updateAllEnemies();
+    displayAllEnemies();
 
-    for (int e = 0; e < enemies.size(); e++) {
-      Gunship enemy = enemies.get(e);
-      if (isWithinUpdateDistance(enemy)) { 
-        enemy.enemyUpdate();
-        if (isWithinDisplayDistance(enemy)) {
-          enemy.enemyDisplay();
-        }
-      }
-    }
 
     textSize(unit*2);
     textAlign(CENTER);
     text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-    textAlign(LEFT);
-    textSize(unit*3.0/4);    
+    GameScreen.resetText();  
 
     // display & update player last so that it always appears on top 
     // all colisions processed through player
@@ -162,16 +147,8 @@ void draw() {
       player.getShop().display();
     }
   } else {
-    for (Polygon polygon : polygons) {
-      if (isWithinDisplayDistance(polygon)) {
-        polygon.display();
-      }
-    }
-    for (Gunship enemy : enemies) {
-      if (isWithinDisplayDistance(enemy)) {
-        enemy.enemyDisplay();
-      }
-    }
+    displayAllPolygons();
+    displayAllEnemies();
     player.getMinimap().display();
     player.playerDisplay();
 
@@ -195,6 +172,41 @@ boolean isWithinUpdateDistance(UMO umo) {
   return abs(umo.getX()-player.getX()) < (displayWidth)+umo.getRadius() &&
     abs(umo.getY()-player.getY()) < (displayHeight)+umo.getRadius();
 }
+
+void updateAllPolygons() {
+  for (int p = 0; p < polygons.size(); p++) {
+    Polygon polygon = polygons.get(p);
+    if (isWithinUpdateDistance(polygon)) { 
+      polygon.update();
+    }
+  }
+}
+void displayAllPolygons() {
+  for (int p = 0; p < polygons.size(); p++) {
+    Polygon polygon = polygons.get(p);
+    if (isWithinDisplayDistance(polygon)) {
+      polygon.display();
+    }
+  }
+}
+
+void updateAllEnemies() {
+  for (int e = 0; e < enemies.size(); e++) {
+    Gunship enemy = enemies.get(e);
+    if (isWithinUpdateDistance(enemy)) { 
+      enemy.enemyUpdate();
+    }
+  }
+}
+void displayAllEnemies() {
+  for (int e = 0; e < enemies.size(); e++) {
+    Gunship enemy = enemies.get(e);
+    if (isWithinDisplayDistance(enemy)) {
+      enemy.enemyDisplay();
+    }
+  }
+}
+
 
 // get and set methods------------------------------------------------------------------
 

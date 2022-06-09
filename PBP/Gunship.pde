@@ -19,6 +19,8 @@ class Gunship extends UMO {
   private boolean AutoFire;
   private boolean suicidal;
   private String type;
+  
+  color LightBlue = new color(1, 178, 225);
 
   // player constructor
   Gunship(float x, float y) {

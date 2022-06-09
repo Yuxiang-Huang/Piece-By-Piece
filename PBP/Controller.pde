@@ -1,7 +1,7 @@
 class Controller {
   boolean[] inputs;
 
-  public Controller() {
+  Controller() {
     inputs = new boolean[4]; // 4 valid buttons
   }
 

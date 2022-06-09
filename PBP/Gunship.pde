@@ -20,6 +20,10 @@ class Gunship extends UMO {
   private boolean suicidal;
   private int invincible;
   private String type;
+  
+  //error?
+  Gunship(){
+  }
 
   // player constructor
   Gunship(float x, float y) {
@@ -33,7 +37,7 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(40);
+    setLevel(29);
     //shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     //cheat
     shop.maxHealth.base = 1000000;
@@ -67,7 +71,7 @@ class Gunship extends UMO {
 
 
   // enemy constructor
-  Gunship() {
+  Gunship(int levelHolder) {
     setRadius(unit);
     position.set(random(width), random(height));
     while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
@@ -78,10 +82,6 @@ class Gunship extends UMO {
     acceleration.set(unit*.01, unit*.01);
     setInvincible(60);
 
-    int levelHolder = player.getLevel() + (int) random(7) - 3;
-    if (levelHolder < 1) {
-      levelHolder = 1;
-    }
     setLevel(levelHolder);
 
     setShop(new Shop(this));
@@ -145,7 +145,7 @@ class Gunship extends UMO {
     if (getInvincible() > 1) {
       if (getInvincible() % 2 == 0) {
         shape(umo, 0, 0);
-      } else{
+      } else {
         //umo.setFill(color(255));
         //shape(umo, 0, 0);
         //umo.setFill(color(165, 42, 42));
@@ -187,7 +187,7 @@ class Gunship extends UMO {
     if (getInvincible() > 1) {
       if (getInvincible() % 2 == 0) {
         shape(umo, 0, 0);
-      } else{
+      } else {
         //umo.setFill(color(255));
         //shape(umo, 0, 0);
         //umo.setFill(color(165, 42, 42));
@@ -196,12 +196,14 @@ class Gunship extends UMO {
       shape(umo, 0, 0);
     }
     popMatrix();
-    if (getType().equals("straight")) {
-      text("S", getX(), getY());
-    } else if (getType().equals("random")) {
-      text("R", getX(), getY());
-    } else {
-      text("P", getX(), getY());
+    if (!DEBUG) {
+      if (getType().equals("straight")) {
+        text("S", getX(), getY());
+      } else if (getType().equals("random")) {
+        text("R", getX(), getY());
+      } else {
+        text("P", getX(), getY());
+      }
     }
 
     if (getHealth() != getMaxHealth()) {
@@ -220,6 +222,7 @@ class Gunship extends UMO {
       text("collisionDamage: "+getCollisionDamage(), getX()+unit*2, getY()+unit*5);
       text("Invincible: "+getInvincible(), getX()+unit*2, getY()+unit*6);
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*7);
+      text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*7);
     }
   }
 
@@ -310,8 +313,9 @@ class Gunship extends UMO {
 
     if (player.getHealth() == 0) {
       setGameState(LOST);
-    } else if (player.getLevel() >= 45) {
-      setGameState(WON);
+    } else if (boss == null && player.getLevel() >= 30) {
+      boss = new QuadTank(width/2, height/2);
+      enemies.add(boss);
     }
   }
 
@@ -388,15 +392,6 @@ class Gunship extends UMO {
       //move toward the player using negative reciprocal
       PVector accelearationNow = new PVector(acceleration.x*(player.getX() + player.getDX() * 60 - getX()), acceleration.y*(player.getY() + player.getDY() * 60 - getY()));
       accelearationNow.setMag(mag(acceleration.x, acceleration.y));
-
-      //0.01 to prevent 
-      //PVector accelearationNow = new PVector(abs(acceleration.x*player.getDY()), abs(acceleration.y*player.getDX()));
-      //if (player.getX() < getX()) {
-      //  accelearationNow.x *= -1;
-      //} 
-      //if (player.getY() < getY()) {
-      //  accelearationNow.y *= -1;
-      //}
       velocity.add(accelearationNow);
       if (velocity.mag() > acceleration.x * 9) {
         velocity.setMag(acceleration.x * 9);
@@ -447,8 +442,7 @@ class Gunship extends UMO {
 
   void enemyDie() {
     enemies.remove(this);
-    Gunship enemy = new Gunship();
-    enemies.add(enemy);
+    setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 600);
   }
 
   /**
@@ -579,22 +573,22 @@ class Gunship extends UMO {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Twin().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Twin(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Sniper().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Sniper(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new MachineGun().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+    shape(new MachineGun(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new FlankGuard().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+    shape(new FlankGuard(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
     fill(0);
     textSize(unit*3.0/4);
@@ -714,8 +708,6 @@ class Gunship extends UMO {
   void setNumberOfEvolutions(int numberOfEvolutions) {
     this.numberOfEvolutions = numberOfEvolutions;
   }
-
-
 
   int getSkillPoints() {
     return skillPoints;

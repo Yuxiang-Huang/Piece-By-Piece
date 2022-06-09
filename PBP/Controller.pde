@@ -25,6 +25,7 @@ class Controller {
       enemies.clear();
       setTimeSinceEnemySpawn(600);
       setGameState(PLAYING);
+      boss = null;
     }
 
     if (key == 'p') {
@@ -50,8 +51,7 @@ class Controller {
       
       //create enemy
       if (DEBUG && key == 'j') {
-        Gunship enemy = new Gunship();
-        enemies.add(enemy);
+        spawnAnEnemy();
       }
       
       //full health
@@ -62,6 +62,11 @@ class Controller {
       //invincibility
       if (DEBUG && key == 'y'){
         player.setInvincible(600);
+      }
+      
+      //randomUpgrade
+      if (DEBUG && key == 'u') {
+        player.getShop().randomUpgrade();
       }
 
       // Gun controls

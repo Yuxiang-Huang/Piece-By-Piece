@@ -1,4 +1,5 @@
 Gunship player;
+Gunship boss;
 Controller input;
 ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
@@ -38,7 +39,7 @@ void setup() {
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
-  
+
   for (int i = 0; i < (30); i++) {
     Polygon polygon = new Polygon();
     polygons.add(polygon);
@@ -83,7 +84,7 @@ void draw() { //<>//
 
   // to center camera on player
   translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
-  // fix mouse coordinates to be absolute rather than relative
+  // fix mouse coordinates to be absolute rather than relative //<>//
   setMouseX((player.getX() - displayWidth/2) + mouseX); //<>//
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
@@ -109,11 +110,10 @@ void draw() { //<>//
   }
 
   if (getGameState() == PLAYING) {
-    if (timeSinceEnemySpawn == 0) {
-      Gunship enemy = new Gunship();
-      enemies.add(enemy);
+    if (getTimeSinceEnemySpawn() <= 0 && boss == null) {
+      spawnAnEnemy();
       setTimeSinceEnemySpawn(enemies.size() * 600);
-    } else {
+    } else if (boss == null){
       setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
     }
 
@@ -139,7 +139,9 @@ void draw() { //<>//
 
     textSize(unit*2);
     textAlign(CENTER);
-    text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+    if (boss == null) {
+      text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+    }
     textAlign(LEFT);
     textSize(unit*3.0/4);    
 
@@ -202,6 +204,42 @@ boolean isWithinDisplayDistance(UMO umo) {
 boolean isWithinUpdateDistance(UMO umo) {
   return abs(umo.getX()-player.getX()) < (displayWidth)+umo.getRadius() &&
     abs(umo.getY()-player.getY()) < (displayHeight)+umo.getRadius();
+}
+
+void spawnAnEnemy() {
+  int levelHolder = player.getLevel() + (int) random(7) - 3;
+  if (levelHolder < 15) {
+    if (levelHolder < 1) {
+      levelHolder = 1;
+    }
+    Gunship enemy = new Gunship(levelHolder);
+    enemies.add(enemy);
+  }
+  if (levelHolder > 15 ) {//& levelHolder < 30) {
+    int rand = (int) random(4);
+    Gunship enemy;
+    switch (rand) {
+    case 0: 
+      enemy = new Twin(levelHolder);
+      enemies.add(enemy); 
+      break;
+    case 1: 
+      enemy = new Sniper(levelHolder);
+      enemies.add(enemy);
+      break;
+    case 2: 
+      enemy = new MachineGun(levelHolder);
+      enemies.add(enemy);
+      break;
+    case 3: 
+      enemy = new FlankGuard(levelHolder);
+      enemies.add(enemy);
+      break;
+    }
+  }
+  //if (levelHolder > 30) {
+
+  //}
 }
 
 // get and set methods------------------------------------------------------------------

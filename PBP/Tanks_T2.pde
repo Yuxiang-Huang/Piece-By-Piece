@@ -11,7 +11,7 @@ class Twin extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(1, 178, 225));
     rectMode(CORNERS);
     PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
     gun1.setFill(color(0));
@@ -77,7 +77,7 @@ class Sniper extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(1, 178, 225));
     rectMode(CORNERS);
     PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
     gun.setFill(color(0));
@@ -90,9 +90,6 @@ class Sniper extends Gunship {
     super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
-
-    // make shape of gunship
-    umo = createShape(GROUP);
 
     // make shape of gunship
     umo = createShape(GROUP);
@@ -138,7 +135,7 @@ class MachineGun extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(1, 178, 225));
     rectMode(CORNER);
     PShape gun = createShape(TRIANGLE, 0, 0, -getRadius(), 1.5*getRadius(), getRadius(), 1.5*getRadius());
     gun.setFill(color(0));
@@ -201,7 +198,7 @@ class FlankGuard extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(1, 178, 225));
     rectMode(CORNER);
     PShape gun1 = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
     gun1.setFill(color(0));
@@ -253,39 +250,6 @@ class FlankGuard extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
-  }
-
-  //void displayEvolutions() {
-  //  fill(0);
-  //  textSize(unit);
-  //  textAlign(CENTER);
-
-  //  text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-
-  //  fill(200, 230);
-  //  rectMode(RADIUS);
-  //  rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-  //  //shape(new TripleShot().umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
-
-  //  fill(200, 230);
-  //  rectMode(RADIUS);
-  //  rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-  //  //shape(new QuadTank().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
-
-  //  fill(200, 230);
-  //  rectMode(RADIUS);
-  //  rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-  //  shape(new TwinFlank(1).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
-
-  //  fill(200, 230);
-  //  rectMode(RADIUS);
-  //  rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-  //  //shape(new Auto3().umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
-
-  //  GameScreen.resetText();
-  //}
-
-  void evolve() {
   }
 
   boolean canEvolve() {

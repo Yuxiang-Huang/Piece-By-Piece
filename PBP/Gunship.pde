@@ -53,7 +53,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(1, 178, 225));
     rectMode(CORNER);
     PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun.setFill(color(0));

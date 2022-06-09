@@ -39,7 +39,7 @@ class QuadTank extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-    setType("escape");
+    setType("random");
     body.setFill(color(0, 255, 255));
     rectMode(CORNER);
     PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
@@ -68,35 +68,35 @@ class QuadTank extends Gunship {
       setDisplay1(600); 
       setType("straight");
       //spawn four gunships around you
-      for (int x = 0 ; x < 4; x++){
+      for (int x = 0; x < 4; x++) {
         Gunship Enemy = new Gunship(14);
-        switch(x){
-          case 0:
+        switch(x) {
+        case 0:
           Enemy.setX(player.getX() + getRadius() * 30);
           Enemy.setY(player.getY());
           break;
-          case 1:
+        case 1:
           Enemy.setX(player.getX() - getRadius() * 30);
           Enemy.setY(player.getY());
           break;
-          case 2:
+        case 2:
           Enemy.setX(player.getX());
           Enemy.setY(player.getY() + getRadius() * 30);
           break;
-          case 3:
+        case 3:
           Enemy.setX(player.getX());
           Enemy.setY(player.getY() - getRadius() * 30);
           break;
         }
         enemies.add(Enemy);
       }
-      
+
       //there must be a more efficient way...
-//Daniel, I just want to change the color of the body...
+      //Daniel, I just want to change the color of the body...
       umo = createShape(GROUP);
       ellipseMode(RADIUS);
       PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-body.setFill(color(0, 255, 0));
+      body.setFill(color(0, 255, 0));
       rectMode(CORNER);
       PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
       gun1.setFill(color(0));
@@ -124,7 +124,7 @@ body.setFill(color(0, 255, 0));
       textAlign(LEFT);
       textSize(unit*3.0/4);
     }
-    
+
     //last phase
     if (getType() == "straight" && getHealth() < getMaxHealth() / 3) {
       setDisplay1(0); 
@@ -135,27 +135,27 @@ body.setFill(color(0, 255, 0));
       enemy1.setX(player.getX() + getRadius() * 30);
       enemy1.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy1);
-      
+
       Gunship enemy2 = new Sniper(29);
       enemy2.setX(player.getX() + getRadius() * 30);
       enemy2.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy2);
-      
+
       Gunship enemy3 = new MachineGun(29);
       enemy3.setX(player.getX() - getRadius() * 30);
       enemy3.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy3);
-      
+
       Gunship enemy4 = new FlankGuard(29);
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
-      
+
       // there must be a more efficient way...
       umo = createShape(GROUP);
       ellipseMode(RADIUS);
       PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-body.setFill(color(255, 0, 255));
+      body.setFill(color(255, 0, 255));
       rectMode(CORNER);
       PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
       gun1.setFill(color(0));
@@ -175,7 +175,7 @@ body.setFill(color(255, 0, 255));
       umo.addChild(gun4);
       umo.addChild(body);
     }
-    
+
     if (getDisplay2() > 0 ) {
       setDisplay2(getDisplay2() - 1);
       textSize(unit*2);
@@ -184,21 +184,75 @@ body.setFill(color(255, 0, 255));
       textAlign(LEFT);
       textSize(unit*3.0/4);
     }
-    
+
     //escape mode. Sike, this is the last stage
-    if (getHealth() < getMaxHealth() / 6){
+    if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
       textSize(unit*2);
       textAlign(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       textAlign(LEFT);
       textSize(unit*3.0/4);
-      
+
       setType("escape");
       umo = createShape(GROUP);
       ellipseMode(RADIUS);
       PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-body.setFill(color(255));
+      body.setFill(color(255));
+      rectMode(CORNER);
+      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+      gun1.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
+      gun2.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
+      gun3.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
+      gun4.setFill(color(0));
+
+      umo.addChild(gun1);
+      umo.addChild(gun2);
+      umo.addChild(gun3);
+      umo.addChild(gun4);
+      umo.addChild(body);
+    }
+
+    //do you really think there is a last stage?
+    if (getType().equals("escape") && getHealth() > getMaxHealth() / 6) {
+      setType("predict");
+      umo = createShape(GROUP);
+      ellipseMode(RADIUS);
+      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+      body.setFill(color(255, 0, 255));
+      rectMode(CORNER);
+      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+      gun1.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
+      gun2.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
+      gun3.setFill(color(0));
+      rectMode(CORNER);
+      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
+      gun4.setFill(color(0));
+
+      umo.addChild(gun1);
+      umo.addChild(gun2);
+      umo.addChild(gun3);
+      umo.addChild(gun4);
+      umo.addChild(body);
+    }
+
+    //last fight
+    if (getType().equals("escape") && isCollidingWithBorderForBoss()) {
+      setType("straight");
+      umo = createShape(GROUP);
+      ellipseMode(RADIUS);
+      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+      body.setFill(color(0));
       rectMode(CORNER);
       PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
       gun1.setFill(color(0));
@@ -241,5 +295,18 @@ body.setFill(color(255));
   }
   void setDisplay2(int display2) {
     this.display2 = display2;
+  }
+
+  boolean isCollidingWithBorderForBoss() {
+    if (! isWithinDisplayDistance(this)) {
+      return false;
+    }
+
+    if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
+      getY() - getRadius() < unit || getY() + getRadius() > height - unit) 
+    {
+      return true;
+    }
+    return false;
   }
 }

@@ -331,12 +331,13 @@ class Gunship extends UMO {
       enemies.add(boss);
     }
 
+    //prevent stuck
     for (Gunship enemy : enemies) {
       if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
         < getRadius() + enemy.getRadius()) {
         float angleNow = atan2(getY() - enemy.getY(), (getX() - enemy.getX()));
-        setX(cos(angleNow) * (getRadius() + enemy.getRadius()) + enemy.getX());
-        setY(sin(angleNow) * (getRadius() + enemy.getRadius()) + enemy.getY());
+        setX(cos(angleNow) * (getRadius() + enemy.getRadius() + unit) + enemy.getX());
+        setY(sin(angleNow) * (getRadius() + enemy.getRadius() + unit) + enemy.getY());
       }
     }
   }

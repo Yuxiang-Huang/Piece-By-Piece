@@ -35,7 +35,7 @@ class QuadTank extends Gunship {
     getGuns().add(new Gun(this, 180));
     getGuns().add(new Gun(this, 270));
 
-    setType("ghost");
+    setType("random");
     createGunship(color(0, 255, 255));
   }
 

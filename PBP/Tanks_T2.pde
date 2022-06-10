@@ -121,7 +121,7 @@ class Sniper extends Gunship {
       //magenta
       body.setFill(color(255, 0, 255));
     }
-    rectMode(CORNER);
+    rectMode(CORNERS);
     PShape gun = createShape(RECT, -unit/3, 0, unit/3, unit*2);
     gun.setFill(color(0));
 

@@ -67,8 +67,8 @@ class Twin extends Gunship {
 
   void updateStats() {
     // stat changes:
-    getShop().getBulletDamage().setBase(3);
-    getShop().getReload().setBase(18);
+    getShop().getBulletPenetration().setBase(getShop().getBulletPenetration().getBase()*0.9);
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*0.65);
   }
 }
 

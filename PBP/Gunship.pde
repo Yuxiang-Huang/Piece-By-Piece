@@ -45,6 +45,7 @@ class Gunship extends UMO {
     setSkillPoints(getLevel() - 1);
 
     getShop().update();
+    println(getReloadSpeed());
     setHealth(getMaxHealth());
 
     setGuns(new ArrayList<Gun>());
@@ -661,13 +662,13 @@ class Gunship extends UMO {
       break;
     }
     newPlayer.velocity = player.velocity;
-    newPlayer.setLevel(player.getLevel());
     newPlayer.setShop(player.getShop());
     newPlayer.getShop().gunship = newPlayer;
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
     player = newPlayer;
     player.updateStats();
+    shop.update();
   }
 
   void heal() {

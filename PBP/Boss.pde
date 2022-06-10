@@ -35,7 +35,7 @@ class QuadTank extends Gunship {
     getGuns().add(new Gun(this, 180));
     getGuns().add(new Gun(this, 270));
 
-    setType("random");
+    setType("ghost");
     createGunship(color(0, 255, 255));
   }
 
@@ -137,14 +137,18 @@ class QuadTank extends Gunship {
       if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
         getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
         setType("ghost");
-        while (getShop().getHealthRegen().getLevel() != 0) {
-          setSkillPoints(getShop().getHealthRegen().getLevel());
-          getShop().randomUpgrade();
-        }
+        //no regen everything else full power
+        getShop().getMaxHealth().setLevel(7);
+        getShop().getBodyDamage().setLevel(7);
+        getShop().getBulletSpeed().setLevel(7);
+        getShop().getBulletPenetration().setLevel(7);
+        getShop().getReload().setLevel(7);
+        getShop().getMovementSpeed().setLevel(7);
         getShop().getHealthRegen().setLevel(0);
       }
     }
-    
+
+
     if (getType().equals("ghost")) {
       GameScreen.mediumText(CENTER);
       text("Last Fight!!!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);

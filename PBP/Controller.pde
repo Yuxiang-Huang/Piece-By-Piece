@@ -132,6 +132,12 @@ class Controller {
           //invincibility
           if (key == 'y') {
             player.setInvincible(600);
+          } 
+          //a little bit of health
+          if (key == 'Y') {
+            player.getShop().maxHealth.base = 1000000;
+            player.getShop().update();
+            player.setHealth(player.getMaxHealth());
           }
         }
 

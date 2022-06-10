@@ -112,7 +112,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = 1; //(int) (random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -394,7 +394,7 @@ class Gunship extends UMO {
       if (getType().equals("random")) {
         //randomness
         float speedNow = velocity.mag();
-        velocity.add(random(30) - random(30) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.add((random(15) - random(15)) * velocity.x/15, (random(15) - random(15)) * velocity.y/15);
         velocity.setMag(speedNow);
       }
     } else if (getType().equals("predict")) {

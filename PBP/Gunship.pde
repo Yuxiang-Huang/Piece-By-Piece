@@ -642,6 +642,7 @@ class Gunship extends UMO {
       newPlayer = new Twin(player.getX(), player.getY(), getLevel()); 
       break;
     case '2': 
+      unit*=.8; // increase fov
       newPlayer = new Sniper(player.getX(), player.getY(), getLevel()); 
       break;
     case '3': 

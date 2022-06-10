@@ -21,6 +21,7 @@ class Controller {
       }
 
       if (key == 'r' || key == 'R') {
+        unit = min(displayWidth/70, displayHeight/35);
         player = new Gunship(width/2, height/2, player.getLevel() / 2 + 1);
         polygons.clear();
         for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons

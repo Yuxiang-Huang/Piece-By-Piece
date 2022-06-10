@@ -23,7 +23,7 @@ class Gunship extends UMO {
   private String type;
   
   // player constructor
-  Gunship(float x, float y) {
+  Gunship(float x, float y, int level) {
     setRadius(unit);
     position.set(x, y);
     setAngle(0);
@@ -34,7 +34,7 @@ class Gunship extends UMO {
     setMinimap(new Minimap(this));
 
     // set stats base on level
-    setLevel(1);
+    setLevel(level);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(unit * pow(1.01, getLevel()-1));
 
@@ -616,22 +616,22 @@ class Gunship extends UMO {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Twin(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Twin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5), getLevel(), getLevel());
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Sniper(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+    shape(new Sniper(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new MachineGun(0, 0).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+    shape(new MachineGun(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
 
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new FlankGuard(0, 0).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+    shape(new FlankGuard(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
 
     GameScreen.resetText();
   }
@@ -640,16 +640,16 @@ class Gunship extends UMO {
     Gunship newPlayer = player;
     switch(key) {
     case '1': 
-      newPlayer = new Twin(player.getX(), player.getY()); 
+      newPlayer = new Twin(player.getX(), player.getY(), getLevel()); 
       break;
     case '2': 
-      newPlayer = new Sniper(player.getX(), player.getY()); 
+      newPlayer = new Sniper(player.getX(), player.getY(), getLevel()); 
       break;
     case '3': 
-      newPlayer = new MachineGun(player.getX(), player.getY()); 
+      newPlayer = new MachineGun(player.getX(), player.getY(), getLevel()); 
       break;
     case '4': 
-      newPlayer = new FlankGuard(player.getX(), player.getY()); 
+      newPlayer = new FlankGuard(player.getX(), player.getY(), getLevel()); 
       break;
     }
     newPlayer.velocity = player.velocity;

@@ -1,7 +1,7 @@
 class Twin extends Gunship {
   // player constructor 
-  Twin(float x, float y) {
-    super(x, y);
+  Twin(float x, float y, int level) {
+    super(x, y, level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
     getGuns().add(new Gun(this, -3));
@@ -67,8 +67,8 @@ class Twin extends Gunship {
 
 class Sniper extends Gunship {
   // player constructor 
-  Sniper(float x, float y) {
-    super(x, y);
+  Sniper(float x, float y, int level) {
+    super(x, y, level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
@@ -124,8 +124,8 @@ class Sniper extends Gunship {
 
 class MachineGun extends Gunship {
   // player constructor
-  MachineGun(float x, float y) {
-    super(x, y);
+  MachineGun(float x, float y, int level) {
+    super(x, y, level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
@@ -187,8 +187,8 @@ class MachineGun extends Gunship {
 
 class FlankGuard extends Gunship {
   // player constructor
-  FlankGuard(float x, float y) {
-    super(x, y);
+  FlankGuard(float x, float y, int level) {
+    super(x, y, level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 180));

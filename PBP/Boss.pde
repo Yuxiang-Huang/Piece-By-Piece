@@ -116,11 +116,14 @@ class QuadTank extends Gunship {
     //escape mode. Sike, this is the last stage
     if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
+      setType("escape");
+      createGunship(color(255));
+    }
+    
+    if (getType().equals("escape")){
       GameScreen.mediumText(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       GameScreen.resetText();
-      setType("escape");
-      createGunship(color(255));
     }
 
     //do you really think there is a last stage?

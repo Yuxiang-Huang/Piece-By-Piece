@@ -21,6 +21,7 @@ private int gameState;
 GameScreen GameScreen = new GameScreen();
 
 int timeSinceEnemySpawn;
+int timeUntilBossSpawn;
 
 void setup() {
   fullScreen(1);
@@ -55,9 +56,10 @@ void setup() {
 
   setGameState(INTRO);
   setTimeSinceEnemySpawn(600);
+  setTimeUntilBossSpawn(600);
   //cheat
   //setTimeSinceEnemySpawn(60000);
-  
+
   flyingSpeed = unit;
 }
 
@@ -80,21 +82,21 @@ void mouseClicked() {
 void mousePressed() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(true);
-  }
+  }  //<>//
 }
- //<>//
+
 void mouseReleased() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(false);
-  }
-} //<>//
- //<>//
+    player.setAutoFire(false);  //<>//
+  }  //<>//
+} 
+
 void draw() {
   background(200, 200, 200, 200);
-  // to center camera on player
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
-  // fix mouse coordinates to be absolute rather than relative //<>//
-  setMouseX((player.getX() - displayWidth/2) + mouseX); //<>//
+  // to center camera on player //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>//
+  // fix mouse coordinates to be absolute rather than relative 
+  setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
   if (getGameState() == INTRO) {
@@ -124,30 +126,38 @@ void draw() {
     }
 
     if (getGameState() == PLAYING) {
-      if (getTimeSinceEnemySpawn() <= 0 && boss == null) {
-        spawnAnEnemy();
-        setTimeSinceEnemySpawn(enemies.size() * 600);
-      } else if (boss == null) {
-        setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 1);
-      }
-
       updateAllPolygons();
       displayAllPolygons();
       updateAllEnemies();
       displayAllEnemies();
+      if (boss != null) {
+        boss.enemyDisplay();
+        boss.enemyUpdate();
+      }
 
-      // display time till next enemy spawn
-      if (boss == null) {
-        GameScreen.mediumText(CENTER);
-        textSize(unit*2);
-        textAlign(CENTER);
-        text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-        GameScreen.resetText();
+      if (player.getLevel() < 30) {
+        if (getTimeSinceEnemySpawn() == 0) {
+          spawnAnEnemy();
+          setTimeSinceEnemySpawn(enemies.size() * 600);
+        } else { 
+          setTimeSinceEnemySpawn(getTimeSinceEnemySpawn()-1);
+          GameScreen.mediumText(CENTER);
+          text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+          GameScreen.resetText();
+        }
+      } else if (player.getLevel() >= 30 && boss == null) {
+        if (getTimeUntilBossSpawn() == 0) {
+          boss = new QuadTank(width/2, height/2);
+        } else {
+          setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);
+          GameScreen.mediumText(CENTER);
+          text("BOSS will spawn at the center in " + timeUntilBossSpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+          GameScreen.resetText();
+        }
       }
 
       // display & update player last so that it always appears on top 
       // all colisions processed through player
-
       player.playerUpdate();
       player.playerDisplay();
 
@@ -162,11 +172,9 @@ void draw() {
       displayAllEnemies();
       player.getMinimap().display();
       player.playerDisplay();
-
-      textSize(unit*2);
-      textAlign(CENTER);
-      //text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText(); 
+      if (boss != null) {
+        boss.enemyDisplay();
+      }
 
       // PAUSED/LOST/WON GAME SCREENS
       if (getGameState() == PAUSED) {
@@ -179,6 +187,7 @@ void draw() {
     }
   }
 }
+
 
 boolean isWithinDisplayDistance(UMO umo) {
   return abs(umo.getX()-player.getX()) < (displayWidth/2)+umo.getRadius() &&
@@ -290,4 +299,11 @@ int getTimeSinceEnemySpawn() {
 }
 void setTimeSinceEnemySpawn(int timeSinceEnemySpawn) {
   this.timeSinceEnemySpawn = timeSinceEnemySpawn;
+}
+
+int getTimeUntilBossSpawn() {
+  return timeUntilBossSpawn;
+}
+void setTimeUntilBossSpawn(int timeUntilBossSpawn) {
+  this.timeUntilBossSpawn = timeUntilBossSpawn;
 }

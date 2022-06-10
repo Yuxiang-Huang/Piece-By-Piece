@@ -29,5 +29,11 @@ class Minimap implements Processable {
       fill(255, 0, 0);
       circle(x, y, 5);
     }
+    if (boss != null) {
+      x = (position.x - l) + l*((float)boss.getX()/width);
+      y = (position.y - h) + h*((float)boss.getY()/height);
+      fill(255,192,203);
+      circle(x, y, 5);
+    }
   }
 } 

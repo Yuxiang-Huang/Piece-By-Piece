@@ -21,13 +21,7 @@ class Gunship extends UMO {
   private boolean suicidal;
   private int invincible;
   private String type;
-
-  color LightBlue = color(1, 178, 225);
-
-  //error?
-  Gunship() {
-  }
-
+  
   // player constructor
   Gunship(float x, float y) {
     setRadius(unit);
@@ -43,6 +37,7 @@ class Gunship extends UMO {
     setLevel(1);
     shop.maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(unit * pow(1.01, getLevel()-1));
+
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
@@ -58,7 +53,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    body.setFill(color(165, 42, 42));
+    body.setFill(color(1, 178, 225));
     rectMode(CORNER);
     PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun.setFill(color(0));
@@ -72,7 +67,7 @@ class Gunship extends UMO {
 
   // enemy constructor
   Gunship(int levelHolder) {
-    setRadius(unit);
+    setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
     position.set(random(width), random(height));
     while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
@@ -326,9 +321,6 @@ class Gunship extends UMO {
 
     if (player.getHealth() == 0) {
       setGameState(LOST);
-    } else if (boss == null && player.getLevel() >= 30) {
-      boss = new QuadTank(width/2, height/2);
-      enemies.add(boss);
     }
 
     ////prevent stuck

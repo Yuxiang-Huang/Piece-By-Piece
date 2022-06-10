@@ -142,6 +142,10 @@ class Shop implements Processable {
       rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
       fill(color(0, 255, 0)); // GREEN
       rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
+      stroke(color(100, 200));
+      for (int j = 0; j < maxLevel; j++) {
+        line(getX()+ ((unit*10)/7)*j, getY()-(unit*(3.0/2)*i), getX() + ((unit*10)/7)*j, getY()-(unit*(3.0/2)*i)+unit);
+      }
       fill(0);
       text(getStatName(), getX()+(unit/10), getY()-((unit*(3.0/2))*i) + unit*3/4);
       text("["+(8-i)+"]", getX()+(unit*10)-unit, getY()-((unit*(3.0/2))*i) + (unit*.7));

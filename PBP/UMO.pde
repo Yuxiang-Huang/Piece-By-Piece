@@ -74,7 +74,7 @@ abstract class UMO implements Processable {
 
   boolean isCollidingWithPolygon(Polygon polygon) {
     //distance formula
-    float Radius = 0 ;
+    float Radius = 0;
     //trust math to fix collision detection
     if (polygon.getShape().equals("square")) {
       Radius = polygon.getRadius() / sqrt(2);

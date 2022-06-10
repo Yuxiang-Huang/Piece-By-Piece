@@ -4,14 +4,12 @@ class QuadTank extends Gunship {
 
   // boss constructor
   QuadTank(float x, float y) {
-    super(x, y);
+    super(x, y, 30);
     setRadius(unit);
     position.set(x, y);
     setAngle(0);
     acceleration.set(unit*.01, unit*.01);
     setInvincible(60);
-
-    setLevel(30);
 
     setShop(new Shop(this));
 

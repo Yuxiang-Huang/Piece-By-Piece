@@ -103,14 +103,12 @@ class Controller {
             }
           }
 
-          //full health
+          // 50 health
           if (key == 'h') {
-            player.setHealth(player.getMaxHealth());
+            player.setHealth(player.getHealth() + 50);
           }
-          //1000000 health
+          // full health
           if (key == 'H') {
-            player.getShop().maxHealth.base = 1000000;
-            player.getShop().update();
             player.setHealth(player.getMaxHealth());
           }
 
@@ -118,16 +116,17 @@ class Controller {
           if (key == 'u') {
             player.getShop().randomUpgrade();
           }
-          // upgrade everything
+          // upgrade everything to max
           if (key == 'U') {
-            player.getShop().getHealthRegen().setLevel(7);
-            player.getShop().getMaxHealth().setLevel(7);
-            player.getShop().getBodyDamage().setLevel(7);
-            player.getShop().getBulletSpeed().setLevel(7);
-            player.getShop().getBulletPenetration().setLevel(7);
-            player.getShop().getBulletDamage().setLevel(7);
-            player.getShop().getReload().setLevel(7);
-            player.getShop().getMovementSpeed().setLevel(7);
+            int maxLevel = 7;
+            player.getShop().getHealthRegen().setLevel(maxLevel);
+            player.getShop().getMaxHealth().setLevel(maxLevel);
+            player.getShop().getBodyDamage().setLevel(maxLevel);
+            player.getShop().getBulletSpeed().setLevel(maxLevel);
+            player.getShop().getBulletPenetration().setLevel(maxLevel);
+            player.getShop().getBulletDamage().setLevel(maxLevel);
+            player.getShop().getReload().setLevel(maxLevel);
+            player.getShop().getMovementSpeed().setLevel(maxLevel);
           }
 
           //invincibility

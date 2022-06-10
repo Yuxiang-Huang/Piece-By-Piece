@@ -135,23 +135,22 @@ void draw() {
         }
       } else if (player.getLevel() >= 30 && boss == null) {
         if (getTimeUntilBossSpawn() == 0) {
-          if (bossMode == 1){
+          if (bossMode == 1) {
             boss = new QuadTank(width/2, height/2);
             enemies.add(boss);
-          } else{
+          } else {
             boss = new TwinFlank(width/2, height/2);
             enemies.add(boss);
           }
         } else {
           setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);
           GameScreen.mediumText(CENTER);
-          if (getBossMode() == 1){
+          if (getBossMode() == 1) {
             text("BOSS will spawn at the center in " + timeUntilBossSpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-          } else{
+          } else {
             text("Did you think you won? Final BOSS will spawn at the center in " + timeUntilBossSpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
           }
           GameScreen.resetText();
-          }
         }
       }
 

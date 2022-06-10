@@ -207,8 +207,10 @@ class Gunship extends UMO {
         text("R", getX(), getY());
       } else if (getType().equals("predict")) {
         text("P", getX(), getY());
-      } else {
+      } else if (getType().equals("escape")){
         text("E", getX(), getY());
+      } else{
+        text("G", getX(), getY());
       }
     }
 

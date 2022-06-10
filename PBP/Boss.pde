@@ -141,7 +141,7 @@ class QuadTank extends Gunship {
     
     setBossMode(2);
     player.setLevel(45);
-    shop.maxHealth.base = 50 + 2*(getLevel() - 1);
+    getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
     setRadius(unit * pow(1.01, getLevel()-1));
 
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
@@ -149,7 +149,6 @@ class QuadTank extends Gunship {
 
     getShop().update();
     setHealth(getMaxHealth());
-    PBP.setDisplayTime(600);
   }
 
   int getDisplay1() {

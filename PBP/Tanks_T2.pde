@@ -59,6 +59,9 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+    
+    updateStats();
+    getShop().update();
   }
 
   boolean canEvolve() {
@@ -124,6 +127,8 @@ class Sniper extends Gunship {
 
     umo.addChild(gun);
     umo.addChild(body);
+    updateStats();
+    getShop().update();
   }
 
   boolean canEvolve() {
@@ -195,6 +200,8 @@ class MachineGun extends Gunship {
 
     umo.addChild(gun);
     umo.addChild(body);
+    updateStats();
+    getShop().update();
   }
 
   boolean canEvolve() {
@@ -279,6 +286,8 @@ class FlankGuard extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+    updateStats();
+    getShop().update();
   }
 
   boolean canEvolve() {

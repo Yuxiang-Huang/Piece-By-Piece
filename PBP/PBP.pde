@@ -58,7 +58,7 @@ void setup() {
   setTimeSinceEnemySpawn(600);
   setTimeUntilBossSpawn(600);
   //cheat
-  //setTimeSinceEnemySpawn(60000);
+  setTimeSinceEnemySpawn(60000);
 
   flyingSpeed = unit;
 }

@@ -530,11 +530,10 @@ class Gunship extends UMO {
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         float m1 = unit;
         float m2 = unit;
-        float dxHolder = 3*(2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
-        float dyHolder = 3*(2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
-        setDX(3*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2));
-        setDY(3*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
-        player.velocity.set(dxHolder, dyHolder);
+        float dxHolder = (2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
+        float dyHolder = (2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
+        velocity.add(-1*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2), -1*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+        player.velocity.add(dxHolder, dyHolder);
 
         //only do damage part if not invincible
         if (getInvincible() == 0 && player.getInvincible() == 0) {
@@ -559,11 +558,10 @@ class Gunship extends UMO {
           if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
             float m1 = unit;
             float m2 = unit;
-            float dxHolder = 3*(2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
-            float dyHolder = 3*(2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
-            setDX(3*(2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2));
-            setDY(3*(2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
-            enemy.velocity.set(dxHolder, dyHolder);
+            float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
+            float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
+            velocity.add(-1*(2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2), -1*(2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+            enemy.velocity.add(dxHolder, dyHolder);
           }
         }
       }

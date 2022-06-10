@@ -24,7 +24,7 @@ int timeSinceEnemySpawn;
 int timeUntilBossSpawn;
 
 void setup() {
-  fullScreen(2);
+  fullScreen(1);
   frameRate(60);
 
   width = displayWidth*3;
@@ -82,19 +82,19 @@ void mouseClicked() {
 void mousePressed() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(true);
-  } //<>//
+  } //<>// //<>//
 }
 
 void mouseReleased() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(false); //<>//
-  } //<>//
+    player.setAutoFire(false); //<>// //<>//
+  } //<>// //<>//
 } 
 
 void draw() {
   background(200, 200, 200, 200);
-  // to center camera on player //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>//
+  // to center camera on player //<>// //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>// //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
@@ -125,16 +125,16 @@ void draw() {
       text(frameRate, player.getX() - displayWidth/2 + unit, player.getY() - displayHeight/2 + unit);
     }
 
-    updateAllPolygons();
-    displayAllPolygons();
-    updateAllEnemies();
-    displayAllEnemies();
-    if (boss != null) {
-      boss.enemyDisplay();
-      boss.enemyUpdate();
-    }
-
     if (getGameState() == PLAYING) {
+      updateAllPolygons();
+      displayAllPolygons();
+      updateAllEnemies();
+      displayAllEnemies();
+      if (boss != null) {
+        boss.enemyDisplay();
+        boss.enemyUpdate();
+      }
+
       if (player.getLevel() < 30) {
         if (getTimeSinceEnemySpawn() == 0) {
           spawnAnEnemy();
@@ -172,6 +172,9 @@ void draw() {
       displayAllEnemies();
       player.getMinimap().display();
       player.playerDisplay();
+      if (boss != null) {
+        boss.enemyDisplay();
+      }
 
       // PAUSED/LOST/WON GAME SCREENS
       if (getGameState() == PAUSED) {

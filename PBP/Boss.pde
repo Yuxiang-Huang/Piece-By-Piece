@@ -181,11 +181,11 @@ class QuadTank extends Gunship {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-class QuadTank extends Gunship {  
+class TwinFlank extends Gunship {  
   private int display1;
 
   // boss constructor
-  QuadTank(float x, float y) {
+  TwinFlank(float x, float y) {
     super(x, y, 57);
     setRecoilMode("none");
     setRadius(unit);
@@ -228,7 +228,7 @@ class QuadTank extends Gunship {
       setType("predict");
       //spawn eight gunships around you
       for (int x = 0; x < 4; x++) {
-        Gunship Enemy = new Gunship(14);
+        Gunship Enemy = new Gunship(45);
         switch(x) {
         case 0:
           Enemy.setX(player.getX() + getRadius() * 30);
@@ -250,22 +250,22 @@ class QuadTank extends Gunship {
         enemies.add(Enemy);
       }
       
-      Gunship enemy1 = new Twin(29);
+      Gunship enemy1 = new Twin(45);
       enemy1.setX(player.getX() + getRadius() * 30);
       enemy1.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy1);
 
-      Gunship enemy2 = new Sniper(29);
+      Gunship enemy2 = new Sniper(45);
       enemy2.setX(player.getX() + getRadius() * 30);
       enemy2.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy2);
 
-      Gunship enemy3 = new MachineGun(29);
+      Gunship enemy3 = new MachineGun(45);
       enemy3.setX(player.getX() - getRadius() * 30);
       enemy3.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy3);
 
-      Gunship enemy4 = new FlankGuard(29);
+      Gunship enemy4 = new FlankGuard(45);
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
@@ -281,7 +281,7 @@ class QuadTank extends Gunship {
 
     //escape mode.
     if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
-      setDisplay2(0);
+      setDisplay1(0);
       GameScreen.mediumText(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       GameScreen.resetText();

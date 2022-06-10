@@ -24,7 +24,11 @@ class Gunship extends UMO {
   private String type;
 
   private String recoilMode = "";
-
+  
+  //error?
+  Gunship(){
+  }
+  
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);
@@ -396,6 +400,9 @@ class Gunship extends UMO {
         float speedNow = velocity.mag();
         velocity.add((random(15) - random(15)) * velocity.x/15, (random(15) - random(15)) * velocity.y/15);
         velocity.setMag(speedNow);
+      } else if (getType().equals("ghost")){
+        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.setMag(acceleration.x * 9);
       }
     } else if (getType().equals("predict")) {
       //move toward the player's position after 1 sec

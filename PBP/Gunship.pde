@@ -442,7 +442,7 @@ class Gunship extends UMO {
     velocity.mult(getFriction());
 
     float angle = 0;
-    if (this != boss && bossMode() == 1) {
+    if (this != boss) {
       if (getType().equals("predict")) {
         //shoot at the direction player is moving in
         angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));

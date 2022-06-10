@@ -64,6 +64,12 @@ class Twin extends Gunship {
   boolean canEvolve() {
     return false;
   }
+
+  void updateStats() {
+    // stat changes:
+    getShop().getBulletDamage().setBase(3);
+    getShop().getReload().setBase(18);
+  }
 }
 
 class Sniper extends Gunship {
@@ -120,6 +126,13 @@ class Sniper extends Gunship {
 
   boolean canEvolve() {
     return false;
+  }
+  
+  void updateStats() {
+    // stat changes:
+    getShop().getBulletDamage().setBase(12);
+    getShop().getBulletSpeed().setBase((int)unit/2);
+    getShop().getReload().setBase(60);
   }
 }
 
@@ -183,6 +196,13 @@ class MachineGun extends Gunship {
 
   boolean canEvolve() {
     return false;
+  }
+
+  void updateStats() {
+    // stat changes:
+    getShop().getBulletDamage().setBase(5);
+    getShop().getReload().setBase(18);
+    setSpread(.5);
   }
 }
 

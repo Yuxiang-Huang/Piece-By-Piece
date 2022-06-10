@@ -10,6 +10,7 @@ class Gunship extends UMO {
 
   private float angle;
   private ArrayList<Gun> guns;
+  private float spread;
 
   private int healthRegen;
   private int timeSinceLastHit;
@@ -63,6 +64,7 @@ class Gunship extends UMO {
     umo.addChild(gun);
     umo.addChild(body);
 
+    setSpread(.03*getShop().getReload().getLevel()); // bullet spread scales with reload speed 
     setTimeSinceLastHit(0);
   }
 
@@ -485,6 +487,9 @@ class Gunship extends UMO {
   void enemyDie() {
     enemies.remove(this);
     setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 600);
+    if (getTimeSinceEnemySpawn() < 0) {
+      setTimeSinceEnemySpawn(0);
+    }
   }
 
   /**
@@ -645,6 +650,7 @@ class Gunship extends UMO {
       newPlayer = new Twin(player.getX(), player.getY(), getLevel()); 
       break;
     case '2': 
+      unit*=.8; // increase fov
       newPlayer = new Sniper(player.getX(), player.getY(), getLevel()); 
       break;
     case '3': 
@@ -661,6 +667,7 @@ class Gunship extends UMO {
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
     player = newPlayer;
+    player.updateStats();
   }
 
   void heal() {
@@ -689,9 +696,11 @@ class Gunship extends UMO {
     }
   }
 
-
   void autoRotate() {
     setAngle(getAngle()+radians(2));
+  }
+
+  void updateStats() {
   }
 
   //get and set methods------------------------------------------------------------------
@@ -836,5 +845,12 @@ class Gunship extends UMO {
 
   void setRecoilMode (String recoilMode) {
     this.recoilMode = recoilMode;
+  }
+
+  float getSpread() {
+    return spread;
+  }
+  void setSpread(float spread) {
+    this.spread = spread;
   }
 }

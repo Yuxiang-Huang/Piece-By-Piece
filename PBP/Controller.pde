@@ -24,7 +24,8 @@ class Controller {
         DEBUG = !DEBUG;
       }
 
-      if (key == 'r') {
+      if (key == 'r' || key == 'R') {
+        unit = min(displayWidth/70, displayHeight/35);
         player = new Gunship(width/2, height/2, player.getLevel() / 2 + 1);
         polygons.clear();
         for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
@@ -34,7 +35,11 @@ class Controller {
         enemies.clear();
         setTimeSinceEnemySpawn(600);
         setTimeUntilBossSpawn(600);
-        setGameState(INTRO);
+        if (key  == 'r') {
+          setGameState(PLAYING);
+        } else if (key == 'R') {
+          setGameState(INTRO);
+        }
         boss = null;
       }
 
@@ -54,10 +59,16 @@ class Controller {
           }
           //level up to 29
           if (key == 'L') {
-            while (player.getLevel() < 29) {
-              player.setExp(player.getExpRequiredForNextLevel());
-              player.playerUpdate();
-            }
+            if (player.getLevel() < 15-1) {
+              while (player.getLevel() < 15-1) {
+                player.setExp(player.getExpRequiredForNextLevel());
+                player.playerUpdate();
+              }
+            } else if (player.getLevel() < 30-1)
+              while (player.getLevel() < 30-1) {
+                player.setExp(player.getExpRequiredForNextLevel());
+                player.playerUpdate();
+              }
           }
 
           //50 damage to each enemy

@@ -20,6 +20,9 @@ class QuadTank extends Gunship {
     setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
+    
+    getShop().getReload().setBase(getShop().getReload().getBase()/1.5);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()/1.5);
 
     getShop().randomUpgrade();
 
@@ -41,6 +44,7 @@ class QuadTank extends Gunship {
 
   void enemyUpdate() {
     super.enemyUpdate();
+    
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
@@ -71,15 +75,8 @@ class QuadTank extends Gunship {
 
       createGunship(color(0, 255, 0));
     } 
-    if (getDisplay1() > 0 ) {
-      setDisplay1(getDisplay1() - 1);
-      GameScreen.mediumText(CENTER);
-      text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
-
     //last phase
-    if (getType() == "straight" && getHealth() < getMaxHealth() / 3) {
+    else if (getType() == "straight" && getHealth() < getMaxHealth() / 3) {
       setDisplay1(0); 
       setDisplay2(600); 
       setType("predict");
@@ -103,61 +100,68 @@ class QuadTank extends Gunship {
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
+      
+      if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy3.getType().equals("predict")){
+        enemy4.setType("predict");
+      }
 
       createGunship(color(255, 0, 255));
     }
 
-    if (getDisplay2() > 0 ) {
-      setDisplay2(getDisplay2() - 1);
-      GameScreen.mediumText(CENTER);
-      text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
-
     //escape mode. Sike, this is the last stage
-    if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
+    else if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
       setType("escape");
       createGunship(color(255));
     }
-
-    if (getType().equals("escape")) {
-      GameScreen.mediumText(CENTER);
-      text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
-
+    
     //do you really think there is a last stage?
-    if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
+    else if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
       setType("predict");
       createGunship(color(255, 0, 255));
     }
-
-    if (getType().equals("escape")) {
-      if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
-        getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
-        setType("ghost");
-        //no regen everything else full power
-        getShop().getMaxHealth().setLevel(7);
-        getShop().getBodyDamage().setLevel(7);
-        getShop().getBulletSpeed().setLevel(7);
-        getShop().getBulletPenetration().setLevel(7);
-        getShop().getReload().setLevel(7);
-        getShop().getMovementSpeed().setLevel(7);
-        getShop().getHealthRegen().setLevel(0);
-      }
-    }
-
-
-    if (getType().equals("ghost")) {
-      GameScreen.mediumText(CENTER);
-      text("Last Fight!!!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
+    
+    //if (getType().equals("escape")) {
+    //  if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
+    //    getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
+    //    setType("ghost");
+    //    //no regen everything else full power
+    //    getShop().getMaxHealth().setLevel(7);
+    //    getShop().getBodyDamage().setLevel(7);
+    //    getShop().getBulletSpeed().setLevel(7);
+    //    getShop().getBulletPenetration().setLevel(7);
+    //    getShop().getReload().setLevel(7);
+    //    getShop().getMovementSpeed().setLevel(7);
+    //    getShop().getHealthRegen().setLevel(0);
+    //  }
+    //}
   }
 
   boolean canEvolve() {
     return false;
+  }
+  
+  void enemyDisplay(){
+    super.enemyDisplay();
+    if (getDisplay1() > 0 ) {
+      setDisplay1(getDisplay1() - 1);
+      GameScreen.mediumText(CENTER);
+      text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    } else if (getDisplay2() > 0 ) {
+      setDisplay2(getDisplay2() - 1);
+      GameScreen.mediumText(CENTER);
+      text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    } else if (getType().equals("escape")) {
+      GameScreen.mediumText(CENTER);
+      text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    } else if (getType().equals("ghost")) {
+      GameScreen.mediumText(CENTER);
+      text("Last Fight!!!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    }
   }
 
   void enemyDie() {

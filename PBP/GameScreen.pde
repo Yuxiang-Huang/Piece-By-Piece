@@ -61,6 +61,9 @@ class GameScreen {
 
     text("6. Press 'y' to instantly give yourself invincibility for 10s.", player.getX(), player.getY()-unit*-15);
 
+    smallText(CENTER);
+    text("Press any key to continue...", player.getX(), player.getY() + displayHeight/2 - unit*2);
+   
     resetText();
   }
 

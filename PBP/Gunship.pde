@@ -23,7 +23,7 @@ class Gunship extends UMO {
   private int invincible;
   private String type;
 
-  private boolean noBulletPush;
+  private String recoilMode = "";
 
   // player constructor
   Gunship(float x, float y, int level) {
@@ -443,26 +443,28 @@ class Gunship extends UMO {
     velocity.mult(getFriction());
 
     float angle = 0;
-    if (getType().equals("predict")) {
-      //shoot at the direction player is moving in
-      angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));
-    } else if (! getType().equals("escape")) {
-      //straight at player  
-      angle = atan2((player.getY() - getY()), (player.getX() - getX()));
-      if (angle < 0) {
-        angle = TWO_PI + angle;
-      }
+    if (this != boss) {
+      if (getType().equals("predict")) {
+        //shoot at the direction player is moving in
+        angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));
+      } else {
+        //straight at player  
+        angle = atan2((player.getY() - getY()), (player.getX() - getX()));
+        if (angle < 0) {
+          angle = TWO_PI + angle;
+        }
 
-      //randomize facing angle
-      if (getType().equals("random")) {
-        angle += (random(1) - random(1)) * PI/16;
+        //randomize facing angle
+        if (getType().equals("random")) {
+          angle += (random(1) - random(1)) * PI/16;
+        }
       }
     } else {
       autoRotate();
     }
 
     //rotate toward gunship if more stats on bullet, else use bullet to accelerate
-    if ( !getType().equals("escape")) {
+    if (this != boss) {
       if (isSuicidal()) {
         setAngle(angle + PI);
       } else {
@@ -837,12 +839,21 @@ class Gunship extends UMO {
     this.invincible = invincible;
   }
 
+<<<<<<< HEAD
   boolean getNoBulletPush() {
     return noBulletPush;
   }
 
   void setNoBulletPush (boolean noBulletPush) {
     this.noBulletPush = noBulletPush;
+=======
+  String getRecoilMode() {
+    return recoilMode;
+  }
+
+  void setRecoilMode (String recoilMode) {
+    this.recoilMode = recoilMode;
+>>>>>>> main
   }
 
   float getSpread() {

@@ -22,6 +22,9 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+
+    // stat changes:
+    getShop().getReload().setBase(18);
   }
 
   // enemy constructor
@@ -58,6 +61,9 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
+
+    // stat changes:
+    getShop().getReload().setBase(18);
   }
 
   boolean canEvolve() {

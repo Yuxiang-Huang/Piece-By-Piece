@@ -129,7 +129,7 @@ void draw() {
       updateAllPolygons();
       displayAllPolygons();
       updateAllEnemies();
-      displayAllEnemies();
+      displayAllEnemies(); 
 
       if (player.getLevel() < 30) {
         if (getTimeSinceEnemySpawn() <= 0) {

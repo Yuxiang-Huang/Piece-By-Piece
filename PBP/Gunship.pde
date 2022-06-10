@@ -22,6 +22,8 @@ class Gunship extends UMO {
   private int invincible;
   private String type;
   
+  private boolean noBulletPush;
+  
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);
@@ -614,7 +616,7 @@ class Gunship extends UMO {
     fill(200, 230);
     rectMode(RADIUS);
     rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Twin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5), getLevel(), getLevel());
+    shape(new Twin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
 
     fill(200, 230);
     rectMode(RADIUS);
@@ -824,5 +826,13 @@ class Gunship extends UMO {
   }
   void setInvincible(int invincible) {
     this.invincible = invincible;
+  }
+  
+  boolean getNoBulletPush(){
+    return noBulletPush;
+  }
+  
+  void setNoBulletPush (boolean noBulletPush){
+    this.noBulletPush = noBulletPush;
   }
 }

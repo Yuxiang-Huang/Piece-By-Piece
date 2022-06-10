@@ -189,6 +189,7 @@ class FlankGuard extends Gunship {
   // player constructor
   FlankGuard(float x, float y, int level) {
     super(x, y, level);
+    setNoBulletPush(true);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 180));
@@ -215,6 +216,7 @@ class FlankGuard extends Gunship {
   // enemy constructor
   FlankGuard(int levelHolder) {
     super(levelHolder);
+    setNoBulletPush(true);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 180));

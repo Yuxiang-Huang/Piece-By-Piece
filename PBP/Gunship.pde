@@ -839,21 +839,12 @@ class Gunship extends UMO {
     this.invincible = invincible;
   }
 
-<<<<<<< HEAD
-  boolean getNoBulletPush() {
-    return noBulletPush;
-  }
-
-  void setNoBulletPush (boolean noBulletPush) {
-    this.noBulletPush = noBulletPush;
-=======
   String getRecoilMode() {
     return recoilMode;
   }
 
   void setRecoilMode (String recoilMode) {
     this.recoilMode = recoilMode;
->>>>>>> main
   }
 
   float getSpread() {

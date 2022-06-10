@@ -27,8 +27,8 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  width = displayWidth*3;
-  height = displayHeight*3;
+  width = displayWidth*1;
+  height = displayHeight*1;
 
   setMouseX(0);
   setMouseY(0);
@@ -43,16 +43,10 @@ void setup() {
   polygons = new ArrayList<Polygon>();
   enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
 
-  for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
+  for (int i = 0; i < (1 * ((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
     Polygon polygon = new Polygon();
     polygons.add(polygon);
   }
-
-  //please don't delete just comment
-  //for (int i = 0; i < 10; i++) {
-  //  Gunship enemy = new Gunship();
-  //  enemies.add(enemy);
-  //}
 
   setGameState(INTRO);
   setTimeSinceEnemySpawn(600);

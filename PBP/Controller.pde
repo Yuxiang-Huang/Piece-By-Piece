@@ -29,6 +29,7 @@ class Controller {
         }
         enemies.clear();
         setTimeSinceEnemySpawn(600);
+        setTimeUntilBossSpawn(600);
         setGameState(INTRO);
         boss = null;
       }

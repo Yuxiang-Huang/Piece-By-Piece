@@ -14,7 +14,7 @@ class Polygon extends UMO {
     stroke(0);
     umo = createShape();
     float rand = random(1);
-    if (rand < .5) { // 50%
+    if (rand < 0) { // 50%
       setShape("square"); 
       setExp(10); 
       setRadius(unit); 
@@ -26,7 +26,7 @@ class Polygon extends UMO {
       setMaxHealth(10);
       setHealth(getMaxHealth());
       setCollisionDamage(8);
-    } else if (rand < .83) { // 33%
+    } else if (rand < 0) { // 33%
       setShape("triangle");
       setExp(25);
       setRadius(unit*1.5);
@@ -160,6 +160,28 @@ class Polygon extends UMO {
       acceleration.y = -1 * unit/500;
       setRotationCW(! getRotationCW());
     }
+  }
+  
+  boolean isCollidingWithPolygon(Polygon polygon) {
+    //distance formula
+    float Radius = 0;
+    float Radius2 = 0;
+    //trust math to fix collision detection
+    if (getShape().equals("square")) {
+      Radius = getRadius() / sqrt(2);
+    } else if (getShape().equals("triangle")) {
+      Radius = getRadius() / 2;
+    } else if (getShape().equals("pentagon")) {
+      Radius = getRadius() * sin(54 / 180.0 * PI);
+    }
+    if (polygon.getShape().equals("square")) {
+      Radius2 = polygon.getRadius() / sqrt(2);
+    } else if (polygon.getShape().equals("triangle")) {
+      Radius2 = polygon.getRadius() / 2;
+    } else if (polygon.getShape().equals("pentagon")) {
+      Radius2 = polygon.getRadius() * sin(54 / 180.0 * PI);
+    }
+    return dist(getX(), getY(), polygon.getX(), polygon.getY()) < Radius + Radius2;
   }
 
   //get and set methods------------------------------------------------------------------

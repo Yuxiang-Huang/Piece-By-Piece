@@ -45,7 +45,6 @@ class Gunship extends UMO {
     setSkillPoints(getLevel() - 1);
 
     getShop().update();
-    println(getReloadSpeed());
     setHealth(getMaxHealth());
 
     setGuns(new ArrayList<Gun>());
@@ -327,16 +326,6 @@ class Gunship extends UMO {
     if (player.getHealth() == 0) {
       setGameState(LOST);
     }
-
-    ////prevent stuck
-    //for (Gunship enemy : enemies) {
-    //  if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
-    //    < getRadius() + enemy.getRadius()) {
-    //    float angleNow = atan2(getY() - enemy.getY(), (getX() - enemy.getX()));
-    //    setX(cos(angleNow) * (getRadius() + enemy.getRadius() + unit) + enemy.getX());
-    //    setY(sin(angleNow) * (getRadius() + enemy.getRadius() + unit) + enemy.getY());
-    //  }
-    //}
   }
 
   void enemyUpdate() {
@@ -405,7 +394,7 @@ class Gunship extends UMO {
       if (getType().equals("random")) {
         //randomness
         float speedNow = velocity.mag();
-        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.add(random(30) - random(30) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
         velocity.setMag(speedNow);
       }
     } else if (getType().equals("predict")) {

@@ -43,6 +43,7 @@ class Shop implements Processable {
     gunship.setHealth(percentHealth * gunship.getMaxHealth());
     gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
     gunship.setCollisionDamageWithShip((int)(bodyDamageWithShip.getBase() + (bodyDamageWithShip.getModifier()*bodyDamage.getLevel())));
+    if (player != null)
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setSpread(.03*gunship.getShop().getReload().getLevel()); // bullet spread scales with reload speed 
     gunship.acceleration = new PVector(movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()), movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()));

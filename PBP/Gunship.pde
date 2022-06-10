@@ -21,9 +21,9 @@ class Gunship extends UMO {
   private boolean suicidal;
   private int invincible;
   private String type;
-  
+
   private boolean noBulletPush;
-  
+
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);
@@ -482,7 +482,6 @@ class Gunship extends UMO {
 
   void enemyDie() {
     enemies.remove(this);
-    setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 600);
   }
 
   /**
@@ -827,12 +826,12 @@ class Gunship extends UMO {
   void setInvincible(int invincible) {
     this.invincible = invincible;
   }
-  
-  boolean getNoBulletPush(){
+
+  boolean getNoBulletPush() {
     return noBulletPush;
   }
-  
-  void setNoBulletPush (boolean noBulletPush){
+
+  void setNoBulletPush (boolean noBulletPush) {
     this.noBulletPush = noBulletPush;
   }
 }

@@ -41,18 +41,6 @@ class Controller {
         }
       }
 
-      if (key == 'r') {
-        player = new Gunship(width/2, height/2);
-        polygons.clear();
-        for (int i = 0; i < 100; i++) {
-          Polygon polygon = new Polygon();
-          polygons.add(polygon);
-        }
-        enemies.clear();
-        setTimeSinceEnemySpawn(600);
-        setGameState(INTRO);
-      }
-
       if (getGameState() == PLAYING) {
         if (DEBUG) {
           //level up

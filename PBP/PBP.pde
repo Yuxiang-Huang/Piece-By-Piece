@@ -130,10 +130,6 @@ void draw() {
       displayAllPolygons();
       updateAllEnemies();
       displayAllEnemies();
-      if (boss != null) {
-        boss.enemyDisplay();
-        boss.enemyUpdate();
-      }
 
       if (player.getLevel() < 30) {
         if (getTimeSinceEnemySpawn() <= 0) {
@@ -148,6 +144,7 @@ void draw() {
       } else if (player.getLevel() >= 30 && boss == null) {
         if (getTimeUntilBossSpawn() == 0) {
           boss = new QuadTank(width/2, height/2);
+          enemies.add(boss);
         } else {
           setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);
           GameScreen.mediumText(CENTER);
@@ -172,9 +169,6 @@ void draw() {
       displayAllEnemies();
       player.getMinimap().display();
       player.playerDisplay();
-      if (boss != null) {
-        boss.enemyDisplay();
-      }
 
       // PAUSED/LOST/WON GAME SCREENS
       if (getGameState() == PAUSED) {

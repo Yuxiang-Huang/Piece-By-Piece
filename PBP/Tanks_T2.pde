@@ -66,9 +66,11 @@ class Twin extends Gunship {
   }
 
   void updateStats() {
-    // stat changes:
-    getShop().getBulletDamage().setBase(3);
-    getShop().getReload().setBase(18); 
+    getShop().getBulletPenetration().setBase(getShop().getBulletPenetration().getBase()*0.9);
+    getShop().getBulletPenetration().setModifier(getShop().getBulletPenetration().getModifier()*0.9);
+
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*0.65);
+    getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*0.65);
   }
 }
 
@@ -127,12 +129,13 @@ class Sniper extends Gunship {
   boolean canEvolve() {
     return false;
   }
-  
+
   void updateStats() {
-    // stat changes:
-    getShop().getBulletDamage().setBase(12);
-    getShop().getBulletSpeed().setBase((int)unit/2);
-    getShop().getReload().setBase(60);
+    getShop().getBulletSpeed().setBase(getShop().getBulletSpeed().getBase()*1.5);
+    getShop().getBulletSpeed().setModifier(getShop().getBulletSpeed().getModifier()*1.5);
+
+    getShop().getReload().setBase(getShop().getReload().getBase()/2.0);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()/2.0);
   }
 }
 
@@ -199,9 +202,12 @@ class MachineGun extends Gunship {
   }
 
   void updateStats() {
-    // stat changes:
-    getShop().getBulletDamage().setBase(5);
-    getShop().getReload().setBase(18);
+    getShop().getReload().setBase(getShop().getReload().getBase()/2.0);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()/2.0);
+
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*.7);
+    getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*.7);
+
     setSpread(.5);
   }
 }

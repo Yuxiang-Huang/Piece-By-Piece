@@ -7,7 +7,7 @@ class Shop implements Processable {
   private Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
   private Stat bodyDamage = new Stat("Body Damage", 0, 20, 4); //confirmed from wiki
   private Stat bodyDamageWithShip = new Stat("Body Damage", 0, 30, 6); //confirmed from wiki
-  private Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/3, (int) unit/14); 
+  private Stat bulletSpeed = new Stat("Bullet Speed", 0, unit/3, unit/14); 
   private Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess since level one would go through a square
   private Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
   private Stat reload = new Stat("Reload", 0, 36, -2.4); //confirmed from wiki
@@ -43,7 +43,6 @@ class Shop implements Processable {
     gunship.setHealth(percentHealth * gunship.getMaxHealth());
     gunship.setCollisionDamage((int)(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
     gunship.setCollisionDamageWithShip((int)(bodyDamageWithShip.getBase() + (bodyDamageWithShip.getModifier()*bodyDamage.getLevel())));
-    if (player != null)
     gunship.setReloadSpeed((int)(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setSpread(.03*gunship.getShop().getReload().getLevel()); // bullet spread scales with reload speed 
     gunship.acceleration = new PVector(movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()), movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()));

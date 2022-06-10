@@ -34,7 +34,7 @@ void setup() {
   setMouseY(0);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new Gunship(width/2, height/2);
+  player = new Gunship(width/2, height/2, 1);
   input = new Controller();
 
   GameScreen.resetText();
@@ -48,19 +48,13 @@ void setup() {
     polygons.add(polygon);
   }
 
-  //please don't delete just comment
-  //for (int i = 0; i < 10; i++) {
-  //  Gunship enemy = new Gunship();
-  //  enemies.add(enemy);
-  //}
-
   setGameState(INTRO);
   setTimeSinceEnemySpawn(600);
   setTimeUntilBossSpawn(600);
   //cheat
-  //setTimeSinceEnemySpawn(60000);
+  setTimeSinceEnemySpawn(60000);
 
-  flyingSpeed = unit;
+  flyingSpeed = unit/2;
 }
 
 void keyPressed() {
@@ -129,14 +123,10 @@ void draw() {
       updateAllPolygons();
       displayAllPolygons();
       updateAllEnemies();
-      displayAllEnemies();
-      if (boss != null) {
-        boss.enemyDisplay();
-        boss.enemyUpdate();
-      }
+      displayAllEnemies(); 
 
       if (player.getLevel() < 30) {
-        if (getTimeSinceEnemySpawn() == 0) {
+        if (getTimeSinceEnemySpawn() <= 0) {
           spawnAnEnemy();
           setTimeSinceEnemySpawn(enemies.size() * 600);
         } else { 
@@ -148,6 +138,7 @@ void draw() {
       } else if (player.getLevel() >= 30 && boss == null) {
         if (getTimeUntilBossSpawn() == 0) {
           boss = new QuadTank(width/2, height/2);
+          enemies.add(boss);
         } else {
           setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);
           GameScreen.mediumText(CENTER);
@@ -172,9 +163,6 @@ void draw() {
       displayAllEnemies();
       player.getMinimap().display();
       player.playerDisplay();
-      if (boss != null) {
-        boss.enemyDisplay();
-      }
 
       // PAUSED/LOST/WON GAME SCREENS
       if (getGameState() == PAUSED) {

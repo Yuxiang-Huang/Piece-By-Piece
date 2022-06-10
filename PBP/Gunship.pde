@@ -701,6 +701,9 @@ class Gunship extends UMO {
     setAngle(getAngle()+radians(2));
   }
 
+  /**
+   * updates stat base and modifier 
+  */
   void updateStats() {
   }
 

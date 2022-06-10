@@ -35,31 +35,8 @@ class QuadTank extends Gunship {
     getGuns().add(new Gun(this, 180));
     getGuns().add(new Gun(this, 270));
 
-    // make shape of gunship
-    umo = createShape(GROUP);
-
-    ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
     setType("random");
-    body.setFill(color(0, 255, 255));
-    rectMode(CORNER);
-    PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
-    gun1.setFill(color(0));
-    rectMode(CORNER);
-    PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
-    gun2.setFill(color(0));
-    rectMode(CORNER);
-    PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
-    gun3.setFill(color(0));
-    rectMode(CORNER);
-    PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
-    gun4.setFill(color(0));
-
-    umo.addChild(gun1);
-    umo.addChild(gun2);
-    umo.addChild(gun3);
-    umo.addChild(gun4);
-    umo.addChild(body);
+    createGunship(color(0, 255, 255));
   }
 
   void enemyUpdate() {
@@ -69,7 +46,6 @@ class QuadTank extends Gunship {
       setDisplay1(600); 
       setType("straight");
       //spawn four gunships around you
-
       for (int x = 0; x < 4; x++) {
         Gunship Enemy = new Gunship(14);
         switch(x) {
@@ -93,31 +69,7 @@ class QuadTank extends Gunship {
         enemies.add(Enemy);
       }
 
-      //there must be a more efficient way...
-      //Daniel, I just want to change the color of the body...
-      umo = createShape(GROUP);
-      ellipseMode(RADIUS);
-      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-      body.setFill(color(0, 255, 0));
-
-      rectMode(CORNER);
-      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
-      gun1.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
-      gun2.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
-      gun3.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
-      gun4.setFill(color(0));
-
-      umo.addChild(gun1);
-      umo.addChild(gun2);
-      umo.addChild(gun3);
-      umo.addChild(gun4);
-      umo.addChild(body);
+      createGunship(color(0, 255, 0));
     } 
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);
@@ -152,29 +104,7 @@ class QuadTank extends Gunship {
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
 
-      // there must be a more efficient way...
-      umo = createShape(GROUP);
-      ellipseMode(RADIUS);
-      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-      body.setFill(color(255, 0, 255));
-      rectMode(CORNER);
-      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
-      gun1.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
-      gun2.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
-      gun3.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
-      gun4.setFill(color(0));
-
-      umo.addChild(gun1);
-      umo.addChild(gun2);
-      umo.addChild(gun3);
-      umo.addChild(gun4);
-      umo.addChild(body);
+      createGunship(color(255, 0, 255));
     }
 
     if (getDisplay2() > 0 ) {
@@ -183,36 +113,21 @@ class QuadTank extends Gunship {
       text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       GameScreen.resetText();
     }
+
     //escape mode. Sike, this is the last stage
-    if (getHealth() < getMaxHealth() / 6) {
+    if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
       GameScreen.mediumText(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       GameScreen.resetText();
-
       setType("escape");
-      umo = createShape(GROUP);
-      ellipseMode(RADIUS);
-      PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
-      body.setFill(color(255));
-      rectMode(CORNER);
-      PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
-      gun1.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
-      gun2.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
-      gun3.setFill(color(0));
-      rectMode(CORNER);
-      PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
-      gun4.setFill(color(0));
+      createGunship(color(255));
+    }
 
-      umo.addChild(gun1);
-      umo.addChild(gun2);
-      umo.addChild(gun3);
-      umo.addChild(gun4);
-      umo.addChild(body);
+    //do you really think there is a last stage?
+    if (getType().equals("escape") && getHealth() > getMaxHealth() / 6) {
+      setType("predict");
+      createGunship(color(255, 0, 255));
     }
   }
 
@@ -237,5 +152,30 @@ class QuadTank extends Gunship {
   }
   void setDisplay2(int display2) {
     this.display2 = display2;
+  }
+
+  void createGunship(color c) {
+    umo = createShape(GROUP);
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    body.setFill(c);
+    rectMode(CORNER);
+    PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+    gun1.setFill(color(0));
+    rectMode(CORNER);
+    PShape gun2 = createShape(RECT, 0, getRadius()/3, 1.5*getRadius(), -2*getRadius()/3);
+    gun2.setFill(color(0));
+    rectMode(CORNER);
+    PShape gun3 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.5*getRadius());
+    gun3.setFill(color(0));
+    rectMode(CORNER);
+    PShape gun4 = createShape(RECT, 0, getRadius()/3, -1.5*getRadius(), -2*getRadius()/3);
+    gun4.setFill(color(0));
+
+    umo.addChild(gun1);
+    umo.addChild(gun2);
+    umo.addChild(gun3);
+    umo.addChild(gun4);
+    umo.addChild(body);
   }
 }

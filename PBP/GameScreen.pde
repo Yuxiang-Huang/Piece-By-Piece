@@ -24,7 +24,7 @@ class GameScreen {
     smallText(LEFT);
     text("1. Press the 'WASD' or Arrow keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit);
 
-    text("2. Move the Mouse to rotate to where you want look,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
+    text("2. Move the Mouse to rotate to where you want aim,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
     text("    or press the 'q' key to rotate automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-2);
 
     text("3. Press the Mouse to shoot a bullet out of your guns,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-4);

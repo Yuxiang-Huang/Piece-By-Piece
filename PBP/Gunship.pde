@@ -24,7 +24,11 @@ class Gunship extends UMO {
   private String type;
 
   private String recoilMode = "";
-
+  
+  //error?
+  Gunship(){
+  }
+  
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);
@@ -45,7 +49,6 @@ class Gunship extends UMO {
     setSkillPoints(getLevel() - 1);
 
     getShop().update();
-    println(getReloadSpeed());
     setHealth(getMaxHealth());
 
     setGuns(new ArrayList<Gun>());
@@ -113,7 +116,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = 1; //(int) (random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -204,8 +207,10 @@ class Gunship extends UMO {
         text("R", getX(), getY());
       } else if (getType().equals("predict")) {
         text("P", getX(), getY());
-      } else {
+      } else if (getType().equals("escape")){
         text("E", getX(), getY());
+      } else{
+        text("G", getX(), getY());
       }
     }
 
@@ -269,8 +274,8 @@ class Gunship extends UMO {
     velocity.add(accelerationNow);
 
     //don't fly
-    if (velocity.mag() > flyingSpeed) {
-      velocity.setMag(flyingSpeed);
+    if (velocity.mag() > unit/2) {
+      velocity.setMag(unit/2);
     }
 
     // apply velocity
@@ -327,16 +332,6 @@ class Gunship extends UMO {
     if (player.getHealth() == 0) {
       setGameState(LOST);
     }
-
-    ////prevent stuck
-    //for (Gunship enemy : enemies) {
-    //  if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
-    //    < getRadius() + enemy.getRadius()) {
-    //    float angleNow = atan2(getY() - enemy.getY(), (getX() - enemy.getX()));
-    //    setX(cos(angleNow) * (getRadius() + enemy.getRadius() + unit) + enemy.getX());
-    //    setY(sin(angleNow) * (getRadius() + enemy.getRadius() + unit) + enemy.getY());
-    //  }
-    //}
   }
 
   void enemyUpdate() {
@@ -405,8 +400,11 @@ class Gunship extends UMO {
       if (getType().equals("random")) {
         //randomness
         float speedNow = velocity.mag();
-        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.add((random(15) - random(15)) * velocity.x/15, (random(15) - random(15)) * velocity.y/15);
         velocity.setMag(speedNow);
+      } else if (getType().equals("ghost")){
+        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.setMag(acceleration.x * 9);
       }
     } else if (getType().equals("predict")) {
       //move toward the player's position after 1 sec
@@ -433,8 +431,8 @@ class Gunship extends UMO {
     }
 
     //don't fly
-    if (velocity.mag() > flyingSpeed) {
-      velocity.setMag(flyingSpeed);
+    if (velocity.mag() > unit/2) {
+      velocity.setMag(unit/2);
     }
 
     // apply velocity

@@ -136,7 +136,7 @@ void draw() {
       }
 
       if (player.getLevel() < 30) {
-        if (getTimeSinceEnemySpawn() == 0) {
+        if (getTimeSinceEnemySpawn() <= 0) {
           spawnAnEnemy();
           setTimeSinceEnemySpawn(enemies.size() * 600);
         } else { 

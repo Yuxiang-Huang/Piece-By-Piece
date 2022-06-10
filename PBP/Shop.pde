@@ -7,8 +7,8 @@ class Shop implements Processable {
   private Stat maxHealth = new Stat("Max Health", 0, 50, 20); //confirmed from wiki
   private Stat bodyDamage = new Stat("Body Damage", 0, 20, 4); //confirmed from wiki
   private Stat bodyDamageWithShip = new Stat("Body Damage", 0, 30, 6); //confirmed from wiki
-  private Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/2, (int) unit/14); 
-  private Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess same as damage???
+  private Stat bulletSpeed = new Stat("Bullet Speed", 0, (int)unit/3, (int) unit/14); 
+  private Stat bulletPenetration = new Stat("Bullet Penetration", 0, 7, 5); //I guess since level one would go through a square
   private Stat bulletDamage = new Stat("Bullet Damage", 0, 7, 3); //confirmed from wiki
   private Stat reload = new Stat("Reload", 0, 36, -2.4); //confirmed from wiki
   private Stat movementSpeed = new Stat("Movement Speed", 0, 0.05 * unit/2, 1.07); //confirmed from website

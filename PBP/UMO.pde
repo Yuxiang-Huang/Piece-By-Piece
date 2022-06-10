@@ -76,14 +76,14 @@ abstract class UMO implements Processable {
     //distance formula
     float Radius = 0;
     //trust math to fix collision detection
-    if (getShape().equals("square")) {
-      Radius = getRadius() / sqrt(2);
-    } else if (getShape().equals("triangle")) {
-      Radius = getRadius() / 2;
-    } else if (getShape().equals("pentagon")) {
-      Radius = getRadius() * sin(54 / 180.0 * PI);
+    if (polygon.getShape().equals("square")) {
+      Radius = polygon.getRadius() / sqrt(2);
+    } else if (polygon.getShape().equals("triangle")) {
+      Radius = polygon.getRadius() / 2;
+    } else if (polygon.getShape().equals("pentagon")) {
+      Radius = polygon.getRadius() * sin(54 / 180.0 * PI);
     }
-    return dist(getX(), getY(), polygon.getX(), polygon.getY()) < Radius + Radius2;
+    return dist(getX(), getY(), polygon.getX(), polygon.getY()) < getRadius() + Radius;
   }
 
   boolean isCollidingWithPolygonSpawning(Polygon polygon) {

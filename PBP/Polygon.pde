@@ -124,11 +124,11 @@ class Polygon extends UMO {
           setDX(3 * (2*m2*polygon.getDX() + (m1-m2) * getDX()) / (float)(m1 + m2));
           setDY(3 * (2*m2*polygon.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
           polygon.velocity.set(new PVector(dxHolder, dyHolder));
-          if (polygon.velocity.mag() > unit/20){
-            polygon.velocity.setMag(unit/20);
+          if (polygon.velocity.mag() > unit/100){
+            polygon.velocity.setMag(unit/100);
           }
-          if (velocity.mag() > unit/20){
-            polygon.velocity.setMag(unit/20);
+          if (velocity.mag() > unit/100){
+            polygon.velocity.setMag(unit/100);
           }
 
           setRotationCW(! getRotationCW());

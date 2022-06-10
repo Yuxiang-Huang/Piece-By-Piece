@@ -22,7 +22,7 @@ class Gunship extends UMO {
   private int invincible;
   private String type;
   
-  private String recoilMode;
+  private String recoilMode = "";
  
   // player constructor
   Gunship(float x, float y, int level) {
@@ -832,7 +832,7 @@ class Gunship extends UMO {
     return recoilMode;
   }
   
-  void setRecoilMode (boolean recoilMode){
+  void setRecoilMode (String recoilMode){
     this.recoilMode = recoilMode;
   }
 }

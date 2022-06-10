@@ -24,7 +24,7 @@ class Bullet extends UMO {  //<>//
       float m2 = pow(gunship.getRadius(), 3);
       float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2);
       float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
-      if (gunship.getRecoilMode().equals("lower"){
+      if (gunship.getRecoilMode().equals("lower")){
         dxHolder *= 0.25;
         dyHolder *= 0.25;
       }

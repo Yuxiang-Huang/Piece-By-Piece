@@ -120,8 +120,8 @@ class QuadTank extends Gunship {
       setType("escape");
       createGunship(color(255));
     }
-    
-    if (getType().equals("escape")){
+
+    if (getType().equals("escape")) {
       GameScreen.mediumText(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
       GameScreen.resetText();
@@ -131,6 +131,24 @@ class QuadTank extends Gunship {
     if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
       setType("predict");
       createGunship(color(255, 0, 255));
+    }
+
+    if (getType().equals("escape")) {
+      if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
+        getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
+        setType("ghost");
+        while (getShop().getHealthRegen().getLevel() != 0) {
+          setSkillPoints(getShop().getHealthRegen().getLevel());
+          getShop().randomUpgrade();
+        }
+        getShop().getHealthRegen().setLevel(0);
+      }
+    }
+    
+    if (getType().equals("ghost")) {
+      GameScreen.mediumText(CENTER);
+      text("Last Fight!!!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
     }
   }
 

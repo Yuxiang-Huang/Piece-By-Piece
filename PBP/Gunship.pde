@@ -10,6 +10,7 @@ class Gunship extends UMO {
 
   private float angle;
   private ArrayList<Gun> guns;
+  private float spread;
 
   private int healthRegen;
   private int timeSinceLastHit;
@@ -63,6 +64,7 @@ class Gunship extends UMO {
     umo.addChild(gun);
     umo.addChild(body);
 
+    setSpread(.03*getShop().getReload().getLevel()); // bullet spread scales with reload speed 
     setTimeSinceLastHit(0);
   }
 
@@ -663,6 +665,7 @@ class Gunship extends UMO {
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
     player = newPlayer;
+    player.updateStats();
   }
 
   void heal() {
@@ -691,9 +694,11 @@ class Gunship extends UMO {
     }
   }
 
-
   void autoRotate() {
     setAngle(getAngle()+radians(2));
+  }
+
+  void updateStats() {
   }
 
   //get and set methods------------------------------------------------------------------
@@ -838,5 +843,12 @@ class Gunship extends UMO {
 
   void setNoBulletPush (boolean noBulletPush) {
     this.noBulletPush = noBulletPush;
+  }
+
+  float getSpread() {
+    return spread;
+  }
+  void setSpread(float spread) {
+    this.spread = spread;
   }
 }

@@ -22,9 +22,6 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
-
-    // stat changes:
-    getShop().getReload().setBase(18);
   }
 
   // enemy constructor
@@ -61,13 +58,16 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
-
-    // stat changes:
-    getShop().getReload().setBase(18);
   }
 
   boolean canEvolve() {
     return false;
+  }
+
+  void updateStats() {
+    // stat changes:
+    getShop().getBulletDamage().setBase(3);
+    getShop().getReload().setBase(18);
   }
 }
 
@@ -125,6 +125,13 @@ class Sniper extends Gunship {
 
   boolean canEvolve() {
     return false;
+  }
+  
+  void updateStats() {
+    // stat changes:
+    getShop().getBulletDamage().setBase(12);
+    getShop().getBulletSpeed().setBase((int)unit/2);
+    getShop().getReload().setBase(60);
   }
 }
 
@@ -188,6 +195,13 @@ class MachineGun extends Gunship {
 
   boolean canEvolve() {
     return false;
+  }
+
+  void updateStats() {
+    // stat changes:
+    getShop().getBulletDamage().setBase(5);
+    getShop().getReload().setBase(18);
+    setSpread(.5);
   }
 }
 

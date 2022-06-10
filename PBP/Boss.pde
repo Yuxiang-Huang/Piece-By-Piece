@@ -15,7 +15,7 @@ class QuadTank extends Gunship {
     setShop(new Shop(this));
 
     // set stats base on level
-    getShop().maxHealth.base = 600; //why not
+    getShop().maxHealth.base = 900; //why not
     setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
@@ -127,7 +127,7 @@ class QuadTank extends Gunship {
     }
 
     //do you really think there is a last stage?
-    if (getType().equals("escape") && getHealth() > getMaxHealth() / 6) {
+    if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
       setType("predict");
       createGunship(color(255, 0, 255));
     }

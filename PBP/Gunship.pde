@@ -116,7 +116,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = 1; //(int) (random(3));
+    int rand = (int) (random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -442,7 +442,7 @@ class Gunship extends UMO {
     velocity.mult(getFriction());
 
     float angle = 0;
-    if (this != boss) {
+    if (this != boss && bossMode() == 1) {
       if (getType().equals("predict")) {
         //shoot at the direction player is moving in
         angle = atan2((player.getY() + player.getDY() * 60 - getY()), (player.getX() + player.getDX() * 60 - getX()));
@@ -454,7 +454,7 @@ class Gunship extends UMO {
         }
 
         //randomize facing angle
-        if (getType().equals("random")) {
+        if (getType().equals("random") || getType().equals("ghost")) {
           angle += (random(1) - random(1)) * PI/16;
         }
       }

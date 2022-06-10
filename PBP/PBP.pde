@@ -82,19 +82,19 @@ void mouseClicked() {
 void mousePressed() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(true);
-  } //<>// //<>//
+  }  //<>//
 }
 
 void mouseReleased() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(false); //<>// //<>//
-  } //<>// //<>//
+    player.setAutoFire(false);  //<>//
+  }  //<>//
 } 
 
 void draw() {
   background(200, 200, 200, 200);
-  // to center camera on player //<>// //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>// //<>//
+  // to center camera on player //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);

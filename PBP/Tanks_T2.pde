@@ -10,13 +10,13 @@ class Twin extends Gunship {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     body.setFill(color(1, 178, 225));
     rectMode(CORNERS);
-    PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
+    PShape gun1 = createShape(RECT, -1, 0, -unit*2/3, unit*2);
     gun1.setFill(color(0));
     rectMode(CORNERS);
-    PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
+    PShape gun2 = createShape(RECT, 1, 0, unit*2/3, unit*2);
     gun2.setFill(color(0));
 
     umo.addChild(gun1);
@@ -50,9 +50,9 @@ class Twin extends Gunship {
       body.setFill(color(255, 0, 255));
     }
     rectMode(CORNER);
-    PShape gun1 = createShape(RECT, -1, 0, -getRadius()*2/3, getRadius()*2);
+    PShape gun1 = createShape(RECT, -1, 0, -unit*2/3, unit*2);
     gun1.setFill(color(0));
-    PShape gun2 = createShape(RECT, 1, 0, getRadius()*2/3, getRadius()*2);
+    PShape gun2 = createShape(RECT, 1, 0, unit*2/3, unit*2);
     gun2.setFill(color(0));
 
     umo.addChild(gun1);
@@ -76,10 +76,10 @@ class Sniper extends Gunship {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     body.setFill(color(1, 178, 225));
     rectMode(CORNERS);
-    PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
+    PShape gun = createShape(RECT, -unit/3, 0, unit/3, unit*2);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -110,7 +110,7 @@ class Sniper extends Gunship {
       body.setFill(color(255, 0, 255));
     }
     rectMode(CORNER);
-    PShape gun = createShape(RECT, -getRadius()/3, 0, getRadius()/3, getRadius()*2);
+    PShape gun = createShape(RECT, -unit/3, 0, unit/3, unit*2);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -134,10 +134,10 @@ class MachineGun extends Gunship {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     body.setFill(color(1, 178, 225));
     rectMode(CORNER);
-    PShape gun = createShape(TRIANGLE, 0, 0, -getRadius(), 1.5*getRadius(), getRadius(), 1.5*getRadius());
+    PShape gun = createShape(TRIANGLE, 0, 0, -unit, 1.5*unit, unit, 1.5*unit);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -173,7 +173,7 @@ class MachineGun extends Gunship {
       body.setFill(color(255, 0, 255));
     }
     rectMode(CORNER);
-    PShape gun = createShape(TRIANGLE, 0, 0, -getRadius(), 1.5*getRadius(), getRadius(), 1.5*getRadius());
+    PShape gun = createShape(TRIANGLE, 0, 0, -unit, 1.5*unit, unit, 1.5*unit);
     gun.setFill(color(0));
 
     umo.addChild(gun);
@@ -197,13 +197,13 @@ class FlankGuard extends Gunship {
     umo = createShape(GROUP);
 
     ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, getRadius(), getRadius());
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
     body.setFill(color(1, 178, 225));
     rectMode(CORNER);
-    PShape gun1 = createShape(RECT, -getRadius()/3, getRadius()/3, 2*getRadius()/3, 1.3*getRadius());
+    PShape gun1 = createShape(RECT, -unit/3, unit/3, 2*unit/3, 1.3*unit);
     gun1.setFill(color(0));
     rectMode(CORNER);
-    PShape gun2 = createShape(RECT, getRadius()/3, -getRadius()/3, -2*getRadius()/3, -1*getRadius());
+    PShape gun2 = createShape(RECT, unit/3, -unit/3, -2*unit/3, -1*unit);
     gun2.setFill(color(0));
 
     umo.addChild(gun1);
@@ -241,10 +241,10 @@ class FlankGuard extends Gunship {
       body.setFill(color(255, 0, 255));
     }
     rectMode(CORNER);
-    PShape gun1 = createShape(RECT, -getRadius()/3, 0, 2*getRadius()/3, 1.5*getRadius());
+    PShape gun1 = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
     gun1.setFill(color(0));
     rectMode(CORNER);
-    PShape gun2 = createShape(RECT, getRadius()/3, 0, -2*getRadius()/3, -1.3*getRadius());
+    PShape gun2 = createShape(RECT, unit/3, 0, -2*unit/3, -1.3*unit);
     gun2.setFill(color(0));
 
     umo.addChild(gun1);

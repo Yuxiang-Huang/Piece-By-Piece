@@ -4,7 +4,7 @@ class QuadTank extends Gunship {
 
   // boss constructor
   QuadTank(float x, float y) {
-    super(x,y);
+    super(x, y);
     setRadius(unit);
     position.set(x, y);
     setAngle(0);
@@ -70,22 +70,22 @@ class QuadTank extends Gunship {
       setType("straight");
       //spawn four gunships around you
 
-      for (int x = 0 ; x < 4; x++){
+      for (int x = 0; x < 4; x++) {
         Gunship Enemy = new Gunship(14);
-        switch(x){
-          case 0:
+        switch(x) {
+        case 0:
           Enemy.setX(player.getX() + getRadius() * 30);
           Enemy.setY(player.getY());
           break;
-          case 1:
+        case 1:
           Enemy.setX(player.getX() - getRadius() * 30);
           Enemy.setY(player.getY());
           break;
-          case 2:
+        case 2:
           Enemy.setX(player.getX());
           Enemy.setY(player.getY() + getRadius() * 30);
           break;
-          case 3:
+        case 3:
           Enemy.setX(player.getX());
           Enemy.setY(player.getY() - getRadius() * 30);
           break;
@@ -121,11 +121,9 @@ class QuadTank extends Gunship {
     } 
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      textAlign(LEFT);
-      textSize(unit*3.0/4);
+      GameScreen.resetText();
     }
 
     //last phase
@@ -181,20 +179,16 @@ class QuadTank extends Gunship {
 
     if (getDisplay2() > 0 ) {
       setDisplay2(getDisplay2() - 1);
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      textAlign(LEFT);
-      textSize(unit*3.0/4);
+      GameScreen.resetText();
     }
     //escape mode. Sike, this is the last stage
     if (getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      textAlign(LEFT);
-      textSize(unit*3.0/4);
+      GameScreen.resetText();
 
       setType("escape");
       umo = createShape(GROUP);

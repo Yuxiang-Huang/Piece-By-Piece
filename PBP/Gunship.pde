@@ -268,8 +268,8 @@ class Gunship extends UMO {
     velocity.add(accelerationNow);
 
     //don't fly
-    if (velocity.mag() > flyingSpeed) {
-      velocity.setMag(flyingSpeed);
+    if (velocity.mag() > unit/2) {
+      velocity.setMag(unit/2);
     }
 
     // apply velocity
@@ -432,8 +432,8 @@ class Gunship extends UMO {
     }
 
     //don't fly
-    if (velocity.mag() > flyingSpeed) {
-      velocity.setMag(flyingSpeed);
+    if (velocity.mag() > unit/2) {
+      velocity.setMag(unit/2);
     }
 
     // apply velocity

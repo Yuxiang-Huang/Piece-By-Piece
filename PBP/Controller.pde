@@ -55,10 +55,16 @@ class Controller {
           }
           //level up to 29
           if (key == 'L') {
-            while (player.getLevel() < 29) {
-              player.setExp(player.getExpRequiredForNextLevel());
-              player.playerUpdate();
-            }
+            if (player.getLevel() < 15-1) {
+              while (player.getLevel() < 15-1) {
+                player.setExp(player.getExpRequiredForNextLevel());
+                player.playerUpdate();
+              }
+            } else if (player.getLevel() < 30-1)
+              while (player.getLevel() < 30-1) {
+                player.setExp(player.getExpRequiredForNextLevel());
+                player.playerUpdate();
+              }
           }
 
           //50 damage to each enemy

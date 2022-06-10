@@ -52,7 +52,7 @@ void setup() {
   setTimeSinceEnemySpawn(600);
   setTimeUntilBossSpawn(600);
   //cheat
-  setTimeSinceEnemySpawn(60000);
+  //setTimeSinceEnemySpawn(60000);
 
   flyingSpeed = unit/2;
 }
@@ -82,19 +82,19 @@ void mousePressed() {
 void mouseReleased() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(false);  //<>//
-  }  //<>//
+  }  //<>// //<>//
 } 
 
 void draw() {
   background(200, 200, 200, 200);
-  // to center camera on player //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>//
+  // to center camera on player //<>// //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>// //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
 
-  if (getGameState() == INTRO) {
-    GameScreen.displayIntro();
+  if (getGameState() == INTRO) { //<>//
+    GameScreen.displayIntro(); //<>//
   } else if (getGameState() == INFO) {
     GameScreen.displayInfo();
   } else {

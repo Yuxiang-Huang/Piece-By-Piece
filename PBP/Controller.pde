@@ -23,13 +23,13 @@ class Controller {
       if (key == 'r') {
         player = new Gunship(width/2, height/2);
         polygons.clear();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
           Polygon polygon = new Polygon();
           polygons.add(polygon);
         }
         enemies.clear();
         setTimeSinceEnemySpawn(600);
-        setGameState(PLAYING);
+        setGameState(INTRO);
         boss = null;
       }
 
@@ -39,18 +39,6 @@ class Controller {
         } else if (getGameState() == PAUSED) {
           setGameState(PLAYING);
         }
-      }
-
-      if (key == 'r') {
-        player = new Gunship(width/2, height/2);
-        polygons.clear();
-        for (int i = 0; i < 100; i++) {
-          Polygon polygon = new Polygon();
-          polygons.add(polygon);
-        }
-        enemies.clear();
-        setTimeSinceEnemySpawn(600);
-        setGameState(INTRO);
       }
 
       if (getGameState() == PLAYING) {

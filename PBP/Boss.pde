@@ -4,6 +4,7 @@ class QuadTank extends Gunship {
 
   // boss constructor
   QuadTank(float x, float y) {
+    super(x, y);
     setRadius(unit);
     position.set(x, y);
     setAngle(0);
@@ -72,11 +73,9 @@ class QuadTank extends Gunship {
     } 
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      textAlign(LEFT);
-      textSize(unit*3.0/4);
+      GameScreen.resetText();
     }
 
     //last phase
@@ -110,22 +109,17 @@ class QuadTank extends Gunship {
 
     if (getDisplay2() > 0 ) {
       setDisplay2(getDisplay2() - 1);
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      textAlign(LEFT);
-      textSize(unit*3.0/4);
+      GameScreen.resetText();
     }
 
     //escape mode. Sike, this is the last stage
     if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
-      textSize(unit*2);
-      textAlign(CENTER);
+      GameScreen.mediumText(CENTER);
       text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      textAlign(LEFT);
-      textSize(unit*3.0/4);
-
+      GameScreen.resetText();
       setType("escape");
       createGunship(color(255));
     }

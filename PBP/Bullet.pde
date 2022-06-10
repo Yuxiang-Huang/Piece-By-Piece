@@ -16,7 +16,7 @@ class Bullet extends UMO {  //<>//
     velocity = PVector.fromAngle(angle);
 
     setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
-    
+
     //threshold m1 for correct direction
     float m1 = pow(getRadius(), 3.5);
     float m2 = pow(gunship.getRadius(), 3);
@@ -100,8 +100,7 @@ class Bullet extends UMO {  //<>//
 
     //ship bullet collision
     if (gunship != player) {
-      if (sqrt(pow((getX() - player.getX()), 2) + pow((getY() - player.getY()), 2))
-        < getRadius() + player.getRadius()) {
+      if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         //only do damage part if not invincible
         if (player.getInvincible() == 0) {
           setHealth(getHealth() - player.getCollisionDamage());
@@ -111,8 +110,7 @@ class Bullet extends UMO {  //<>//
       }
     } else {
       for (Gunship enemy : enemies) {
-        if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2))
-          < getRadius() + enemy.getRadius()) {
+        if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());
           } else {
@@ -127,25 +125,36 @@ class Bullet extends UMO {  //<>//
           return;
         }
       }
-    }
-    //bullet bullet collision
-    if (gunship != player) {
-      for (Gun gun : player.getGuns()) {
-        for (int b = 0; b < gun.getBullets().size(); b++) {
-          Bullet bullet = gun.getBullets().get(b);
-          if (sqrt(pow((getX() - bullet.getX()), 2) + pow((getY() - bullet.getY()), 2))
-            < getRadius() + bullet.getRadius()) {
-            //take collision damage or remaining health
-            float healthBefore = getHealth();
-            if (bullet.getHealth() >  bullet.getCollisionDamage()) {
-              setHealth(getHealth() - bullet.getCollisionDamage());
-            } else {
-              setHealth(getHealth() - bullet.getHealth());
-            }
-            if (healthBefore >  getCollisionDamage()) {
-              bullet.setHealth(bullet.getHealth() - getCollisionDamage());
-            } else {
-              bullet.setHealth(bullet.getHealth() - healthBefore);
+      if (boss != null) {
+        if (dist(getX(), getY(), boss.getX(), boss.getY()) < getRadius() + player.getRadius()) {
+          if (boss.getHealth() >  boss.getCollisionDamage()) {
+            setHealth(getHealth() - boss.getCollisionDamage());
+          } else {
+            setHealth(getHealth() - boss.getHealth());
+          }
+          boss.setHealth(boss.getHealth() - getCollisionDamage());
+        }
+      }
+
+      //bullet bullet collision
+      if (gunship != player) {
+        for (Gun gun : player.getGuns()) {
+          for (int b = 0; b < gun.getBullets().size(); b++) {
+            Bullet bullet = gun.getBullets().get(b);
+            if (sqrt(pow((getX() - bullet.getX()), 2) + pow((getY() - bullet.getY()), 2))
+              < getRadius() + bullet.getRadius()) {
+              //take collision damage or remaining health
+              float healthBefore = getHealth();
+              if (bullet.getHealth() >  bullet.getCollisionDamage()) {
+                setHealth(getHealth() - bullet.getCollisionDamage());
+              } else {
+                setHealth(getHealth() - bullet.getHealth());
+              }
+              if (healthBefore >  getCollisionDamage()) {
+                bullet.setHealth(bullet.getHealth() - getCollisionDamage());
+              } else {
+                bullet.setHealth(bullet.getHealth() - healthBefore);
+              }
             }
           }
         }

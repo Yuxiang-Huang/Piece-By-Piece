@@ -2,6 +2,7 @@ class Twin extends Gunship {
   // player constructor 
   Twin(float x, float y, int level) {
     super(x, y, level);
+    setRecoilMode("lower");
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
     getGuns().add(new Gun(this, -3));
@@ -189,7 +190,7 @@ class FlankGuard extends Gunship {
   // player constructor
   FlankGuard(float x, float y, int level) {
     super(x, y, level);
-    setNoBulletPush(true);
+    setRecoilMode("none");
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 180));

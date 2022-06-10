@@ -138,9 +138,12 @@ class Sniper extends Gunship {
   void updateStats() {
     getShop().getBulletSpeed().setBase(getShop().getBulletSpeed().getBase()*1.5);
     getShop().getBulletSpeed().setModifier(getShop().getBulletSpeed().getModifier()*1.5);
+    
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*1.5);
+    getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*1.5);
 
-    getShop().getReload().setBase(getShop().getReload().getBase()/2.0);
-    getShop().getReload().setModifier(getShop().getReload().getModifier()/2.0);
+    getShop().getReload().setBase(getShop().getReload().getBase()*2.0);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()*2.0);
   }
 }
 

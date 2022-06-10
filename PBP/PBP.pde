@@ -15,7 +15,6 @@ final int PLAYING = 0;
 final int PAUSED = 1;
 final int LOST = 2;
 final int WON = 3;
-int bossMode = 1;
 
 private int gameState;
 GameScreen GameScreen = new GameScreen();
@@ -74,25 +73,25 @@ void mouseClicked() {
 void mousePressed() {
   if (getGameState() == PLAYING) {
     player.setAutoFire(true); //<>//
-  }  //<>//
+  }  //<>// //<>//
 }
 
 void mouseReleased() {
   if (getGameState() == PLAYING) { //<>//
-    player.setAutoFire(false);  //<>// //<>//
-  }  //<>// //<>//
+    player.setAutoFire(false);  //<>// //<>// //<>//
+  }  //<>// //<>// //<>//
 } 
 
 void draw() {
   background(200, 200, 200, 200); //<>//
-  // to center camera on player //<>// //<>// //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>// //<>//
+  // to center camera on player //<>// //<>// //<>// //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>// //<>// //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
- //<>//
-  if (getGameState() == INTRO) { //<>// //<>//
-    GameScreen.displayIntro(); //<>//
+  //<>//
+  if (getGameState() == INTRO) { //<>// //<>// //<>//
+    GameScreen.displayIntro(); //<>// //<>//
   } else if (getGameState() == INFO) {
     GameScreen.displayInfo();
   } else {
@@ -135,21 +134,12 @@ void draw() {
         }
       } else if (player.getLevel() >= 30 && boss == null) {
         if (getTimeUntilBossSpawn() == 0) {
-          if (bossMode == 1) {
-            boss = new QuadTank(width/2, height/2);
-            enemies.add(boss);
-          } else {
-            boss = new TwinFlank(width/2, height/2);
-            enemies.add(boss);
-          }
+          boss = new QuadTank(width/2, height/2);
+          enemies.add(boss);
         } else {
           setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);
           GameScreen.mediumText(CENTER);
-          if (getBossMode() == 1) {
-            text("BOSS will spawn at the center in " + timeUntilBossSpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-          } else {
-            text("Did you think you won? Final BOSS will spawn at the center in " + timeUntilBossSpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
-          }
+          text("BOSS will spawn at the center in " + timeUntilBossSpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
           GameScreen.resetText();
         }
       }
@@ -262,7 +252,6 @@ void spawnAnEnemy() {
   }
 }
 
-
 // get and set methods------------------------------------------------------------------
 
 int getGameState() {
@@ -298,11 +287,4 @@ int getTimeUntilBossSpawn() {
 }
 void setTimeUntilBossSpawn(int timeUntilBossSpawn) {
   this.timeUntilBossSpawn = timeUntilBossSpawn;
-}
-
-int getBossMode() {
-  return bossMode;
-}
-void setBossMode(int bossMode) {
-  this.bossMode = bossMode;
 }

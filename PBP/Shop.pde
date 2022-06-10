@@ -21,7 +21,7 @@ class Shop implements Processable {
   void display() {
     position.set(player.getX()-(displayWidth/2)+unit, player.getY()+(displayHeight/2)-(unit*2));
     fill(0);
-    text("skill Points: " + gunship.getSkillPoints(), position.x, position.y-(unit*(3.0/2))*7.5);
+    text("Skill Points: " + gunship.getSkillPoints(), position.x, position.y-(unit*(3.0/2))*7.5);
     healthRegen.display(0);
     maxHealth.display(1);
     bodyDamage.display(2);

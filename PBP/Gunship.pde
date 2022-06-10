@@ -45,6 +45,7 @@ class Gunship extends UMO {
     setSkillPoints(getLevel() - 1);
 
     getShop().update();
+    println(getReloadSpeed());
     setHealth(getMaxHealth());
 
     setGuns(new ArrayList<Gun>());

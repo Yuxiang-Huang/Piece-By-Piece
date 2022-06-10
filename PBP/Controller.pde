@@ -16,6 +16,10 @@ class Controller {
       setGameState(PLAYING);
     } else {
       // Game info
+      if (key == 'i'){
+        setGameState(INFO);
+      }
+      
       if (key == '`') {
         DEBUG = !DEBUG;
       }

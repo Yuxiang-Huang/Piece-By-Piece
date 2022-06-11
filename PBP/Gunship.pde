@@ -25,10 +25,6 @@ class Gunship extends UMO {
 
   private String recoilMode = "";
   
-  //error?
-  Gunship(){
-  }
-  
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);

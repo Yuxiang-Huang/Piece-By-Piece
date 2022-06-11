@@ -1,6 +1,6 @@
 class GameScreen {
   void displayIntro() {
-    displayWhiteRect();
+    displayLightGreyRect();
 
     largeText(CENTER);
     text("Piece-By-Piece", player.getX(), player.getY() - displayHeight/2 + unit*9);
@@ -14,7 +14,7 @@ class GameScreen {
   }
 
   void displayInfo() {
-    displayWhiteRect();
+    displayLightGreyRect();
     largeText(CENTER);
     text("INFORMATION", player.getX(), player.getY() - displayHeight/2 + 9*unit);
 
@@ -73,28 +73,28 @@ class GameScreen {
   }
 
   void displayPaused() {
-    displayWhiteRect();
+    displayLightGreyRect();
     largeText(CENTER);
     text("GAME PAUSED", player.getX(), player.getY());
     resetText();
   }
 
   void displayLost() {
-    displayWhiteRect();
+    displayLightGreyRect();
     largeText(CENTER);
     text("GAME LOST", player.getX(), player.getY());
     resetText();
   }
 
   void displayWon() {
-    displayWhiteRect();
+    displayLightGreyRect();
     largeText(CENTER);
     text("GAME WON", player.getX(), player.getY());
     resetText();
   }
 
-  void displayWhiteRect() {
-    fill(255);
+  void displayLightGreyRect() {
+    fill(128, 128, 128, 200);
     rect(player.getX()-(displayWidth/2), player.getY()-(displayHeight/2), displayWidth, displayHeight);
   }
 

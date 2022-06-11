@@ -116,7 +116,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = 1; //(int) (random(3));
+    int rand = (int) (random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -399,11 +399,12 @@ class Gunship extends UMO {
 
       if (getType().equals("random")) {
         //randomness
-        float speedNow = velocity.mag();
+        //float speedNow = velocity.mag();
         velocity.add((random(15) - random(15)) * velocity.x/15, (random(15) - random(15)) * velocity.y/15);
-        velocity.setMag(speedNow);
+        //velocity.setMag(speedNow);
+        velocity.setMag(acceleration.x * 9);
       } else if (getType().equals("ghost")){
-        velocity.add((random(30) - random(30)) * velocity.x/30, (random(30) - random(30)) * velocity.y/30);
+        velocity.add((random(30) - random(30)) * velocity.x/15, (random(30) - random(30)) * velocity.y/15);
         velocity.setMag(acceleration.x * 9);
       }
     } else if (getType().equals("predict")) {
@@ -454,7 +455,7 @@ class Gunship extends UMO {
         }
 
         //randomize facing angle
-        if (getType().equals("random")) {
+        if (getType().equals("random") || getType().equals("ghost")) {
           angle += (random(1) - random(1)) * PI/16;
         }
       }

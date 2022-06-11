@@ -1,4 +1,4 @@
-class QuadTank extends Gunship {  
+class QuadTank extends Gunship {   //<>//
   private int display1;
   private int display2;
 
@@ -20,7 +20,7 @@ class QuadTank extends Gunship {
     setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
-    
+
     getShop().getReload().setBase(getShop().getReload().getBase()/1.5);
     getShop().getReload().setModifier(getShop().getReload().getModifier()/1.5);
 
@@ -42,9 +42,9 @@ class QuadTank extends Gunship {
     createGunship(color(0, 255, 255));
   }
 
-  void enemyUpdate() {
+  void enemyUpdate() { //<>//
     super.enemyUpdate();
-    
+
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
@@ -100,8 +100,8 @@ class QuadTank extends Gunship {
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
-      
-      if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy4.getType().equals("predict")){
+
+      if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy4.getType().equals("predict")) {
         enemy3.setType("predict");
       }
 
@@ -114,34 +114,34 @@ class QuadTank extends Gunship {
       setType("escape");
       createGunship(color(255));
     }
-    
+
     //do you really think there is a last stage?
     else if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
       setType("predict");
       createGunship(color(255, 0, 255));
     }
-    
-    //if (getType().equals("escape")) {
-    //  if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
-    //    getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
-    //    setType("ghost");
-    //    //no regen everything else full power
-    //    getShop().getMaxHealth().setLevel(7);
-    //    getShop().getBodyDamage().setLevel(7);
-    //    getShop().getBulletSpeed().setLevel(7);
-    //    getShop().getBulletPenetration().setLevel(7);
-    //    getShop().getReload().setLevel(7);
-    //    getShop().getMovementSpeed().setLevel(7);
-    //    getShop().getHealthRegen().setLevel(0);
-    //  }
-    //}
+
+    if (getType().equals("escape")) {
+      if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
+        getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
+        setType("ghost");
+        //no regen everything else full power
+        getShop().getMaxHealth().setLevel(7);
+        getShop().getBodyDamage().setLevel(7);
+        getShop().getBulletSpeed().setLevel(7);
+        getShop().getBulletPenetration().setLevel(7);
+        getShop().getReload().setLevel(7);
+        getShop().getMovementSpeed().setLevel(7);
+        getShop().getHealthRegen().setLevel(0);
+      }
+    }
   }
 
   boolean canEvolve() {
     return false;
   }
-  
-  void enemyDisplay(){
+
+  void enemyDisplay() {
     super.enemyDisplay();
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);

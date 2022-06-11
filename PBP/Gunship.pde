@@ -355,7 +355,7 @@ class Gunship extends UMO {
     }
 
     // check if enemy has enough exp for level up
-    if (getExp() >= getExpRequiredForNextLevel()) {
+    if (getExp() >= getExpRequiredForNextLevel() && getLevel() < 57) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);

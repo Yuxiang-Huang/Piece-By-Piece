@@ -93,10 +93,15 @@ class Gunship extends UMO {
 
     shop.randomUpgrade();
     //compare gun stats to gunship stats to determine if suicidal
-    if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+    //if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+    //  getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+    //  getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+    //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+    //  setSuicidal(true);
+    //}
+    if (getShop().getMaxHealth().getLevel() + getShop().getReload().getLevel() + getShop().getBulletSpeed().getLevel() +
       getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-      getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
-      getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2.5) {
       setSuicidal(true);
     }
 
@@ -362,10 +367,13 @@ class Gunship extends UMO {
       getShop().update(); // to update maxHealth;
       shop.randomUpgrade();
       //update suicidal
-      if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
-        getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-        getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
-        getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+      //if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
+      //  getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      //  getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
+      //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
+      if (getShop().getMaxHealth().getLevel() + getShop().getReload().getLevel() + getShop().getBulletSpeed().getLevel() +
+      getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2.5) {
         setSuicidal(true);
       } else {
         setSuicidal(false);

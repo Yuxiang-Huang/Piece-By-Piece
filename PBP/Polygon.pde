@@ -5,9 +5,9 @@ class Polygon extends UMO {
   final color RED = color(255, 0, 0);
   final color BLUE = color(0, 0, 255);
 
-  float radian;
-  float angularChange;
-  boolean rotationCW;
+  private float radian;
+  private float angularChange;
+  private boolean rotationCW;
 
   Polygon() { //all stats confirmed from wiki except radius, which is confirmed from playing
     // So that all polygons are not concentrated on (0,0)
@@ -73,7 +73,7 @@ class Polygon extends UMO {
       setRotationCW(true);
     }
     setRadian(2*PI*random(1));
-    setAngularChange(radians(random(1)/10.0)); //not done
+    setAngularChange(radians(random(1)/10.0));
   }
 
   void display() {

@@ -12,8 +12,8 @@ class Gunship extends UMO {
   private ArrayList<Gun> guns;
   private float spread;
 
-  private int healthRegen;
   private int timeSinceLastHit;
+  private float healthRegen;
   private float heal10percent;
   private int collisionDamageWithShip;
 
@@ -680,7 +680,7 @@ class Gunship extends UMO {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds
       if (getHealth() < getMaxHealth()) {
-        setHealth(getHealth() + (float) getHealthRegen() / 7 * getMaxHealth() / 1800);
+        setHealth(getHealth() + getHealthRegen() / 7 * getMaxHealth() / 1800);
       }
       if (getTimeSinceLastHit() == 1) {
         setHeal10percent((getMaxHealth() - getHealth())/10/60);
@@ -785,10 +785,10 @@ class Gunship extends UMO {
     this.angle = angle;
   }
 
-  int getHealthRegen() {
+  float getHealthRegen() {
     return healthRegen;
   }
-  void setHealthRegen(int healthRegen) {
+  void setHealthRegen(float healthRegen) {
     this.healthRegen = healthRegen;
   }
 

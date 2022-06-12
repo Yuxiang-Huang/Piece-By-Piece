@@ -57,6 +57,35 @@ class PlayerGunship extends Gunship {
     GameScreen.resetText();
   }
 
+  void displayEvolutions() {
+    GameScreen.smallText(CENTER);
+
+    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new PlayerTwin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new PlayerSniper(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new PlayerMachineGun(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new PlayerFlankGuard(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+
+    GameScreen.resetText();
+  }
+
+
   /**
    Loops over all bullets, updates and displays them,
    Decrements shoot cooldown by 1,
@@ -131,34 +160,6 @@ class PlayerGunship extends Gunship {
     setInvincible(0);
     setGameState(LOST);
   }  
-
-  void displayEvolutions() {
-    GameScreen.smallText(CENTER);
-
-    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new PlayerTwin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new PlayerSniper(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new PlayerMachineGun(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new PlayerFlankGuard(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
-
-    GameScreen.resetText();
-  }
 
   void evolve(char evolution) {
     PlayerGunship newPlayer = player;

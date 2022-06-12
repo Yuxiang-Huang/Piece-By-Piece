@@ -37,13 +37,13 @@ class Shop implements Processable {
    Health Regen, Max Health, Body Damage, Reload Speed, and Movement Speed
    */
   void update() {
-    gunship.setHealthRegen(int((healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel()))));
+    gunship.setHealthRegen(int(healthRegen.getBase() + (healthRegen.getModifier()*healthRegen.getLevel())));
     float percentHealth = gunship.getHealth() / gunship.getMaxHealth();
-    gunship.setMaxHealth(int((maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel())))); 
+    gunship.setMaxHealth(int(maxHealth.getBase() + (maxHealth.getModifier()*maxHealth.getLevel()))); 
     gunship.setHealth(percentHealth * gunship.getMaxHealth());
-    gunship.setCollisionDamage(int((bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel()))));
-    gunship.setCollisionDamageWithShip(int((bodyDamageWithShip.getBase() + (bodyDamageWithShip.getModifier()*bodyDamage.getLevel())));
-    gunship.setReloadSpeed(int((reload.getBase() + (reload.getModifier()*reload.getLevel()))));
+    gunship.setCollisionDamage(int(bodyDamage.getBase() + (bodyDamage.getModifier()*bodyDamage.getLevel())));
+    gunship.setCollisionDamageWithShip(int(bodyDamageWithShip.getBase() + (bodyDamageWithShip.getModifier()*bodyDamage.getLevel())));
+    gunship.setReloadSpeed(int(reload.getBase() + (reload.getModifier()*reload.getLevel())));
     gunship.setSpread(.03*gunship.getShop().getReload().getLevel()); // bullet spread scales with reload speed 
     gunship.acceleration = new PVector(movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()), movementSpeed.getBase() * pow(movementSpeed.getModifier(), movementSpeed.getLevel()));
   }

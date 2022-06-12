@@ -24,7 +24,7 @@ private int timeUntilBossSpawn;
 private boolean enemySpawn;
 
 void setup() {
-  fullScreen(1);
+  fullScreen(2);
   frameRate(60);
 
   width = displayWidth*3;

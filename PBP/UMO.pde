@@ -44,7 +44,7 @@ abstract class UMO implements Processable {
   }
 
   boolean isDead() {
-    return int(getHealth() == 0);
+    return int(getHealth()) == 0;
   }
 
   boolean isCollidingWithBorder() {

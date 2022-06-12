@@ -1,4 +1,4 @@
-class QuadTank extends EnemyGunship {    //<>// //<>// //<>//
+class QuadTank extends EnemyGunship {      //<>//
   private int display1;
   private int display2;
 

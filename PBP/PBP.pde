@@ -35,6 +35,7 @@ void setup() {
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new PlayerGunship(1);
+  player.setMinimap(new Minimap()); 
   input = new Controller();
 
   GameScreen.resetText();

@@ -7,7 +7,7 @@ class Bullet extends UMO {   //<>//
   Bullet(Gunship gunship, Gun gun) {
     this.gunship = gunship;
     this.gun = gun;
-    setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); // base confirmed from playing, modifier confirmed from wiki
+    setRadius(unit/2 * pow (1.01, getGunship().getLevel() - 1)); // base confirmed from playing, modifier confirmed from wiki
     float angle = gunship.getAngle() + gun.getAngle() + (random(gunship.getSpread()*2)-gunship.getSpread());
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
@@ -37,7 +37,7 @@ class Bullet extends UMO {   //<>//
   void display() {
     ellipseMode(RADIUS);
     //color the bullets
-    if (gunship != player) {
+    if (getGunship() != player) {
       fill(255, 0, 0);
     }
     circle(getX(), getY(), getRadius());
@@ -70,7 +70,7 @@ class Bullet extends UMO {   //<>//
    Removes the bullet from its gunship's list of bullets
    */
   void die() {
-    gun.bullets.remove(this);
+    getGun().getBullets().remove(this);
   }
 
   /**
@@ -102,7 +102,7 @@ class Bullet extends UMO {   //<>//
     }
 
     //ship bullet collision
-    if (gunship != player) {
+    if (getGunship() != player) {
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         //only do damage part if not invincible
         if (player.getInvincible() == 0) {
@@ -112,7 +112,7 @@ class Bullet extends UMO {   //<>//
         }
       }
     } else {
-      for (Gunship enemy : enemies) {
+      for (EnemyGunship enemy : enemies) {
         if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());
@@ -135,7 +135,7 @@ class Bullet extends UMO {   //<>//
     }
 
     //bullet bullet collision
-    if (gunship != player) {
+    if (getGunship() != player) {
       for (Gun gun : player.getGuns()) {
         for (int b = 0; b < gun.getBullets().size(); b++) {
           Bullet bullet = gun.getBullets().get(b);

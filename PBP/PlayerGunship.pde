@@ -6,7 +6,6 @@ class PlayerGunship extends Gunship {
   PlayerGunship(int level) { //level for respawn mechanic
     super(level);
     position.set(width/2, height/2);
-    setMinimap(new Minimap(this)); 
     setNumberOfEvolutions(4);
   }
   

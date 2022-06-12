@@ -79,12 +79,12 @@ class Controller {
 
           //50 damage to each enemy
           if (key == 'k') {
-            for (Gunship enemy : enemies) {
+            for (EnemyGunship enemy : enemies) {
               enemy.setHealth(enemy.getHealth() - 50);
             }
           }
           if (key == 'K') {
-            for (Gunship enemy : enemies) {
+            for (EnemyGunship enemy : enemies) {
               enemy.setHealth(0);
             }
           }

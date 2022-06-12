@@ -178,7 +178,7 @@ abstract class Gunship extends UMO {
         }
       }
       //check for collision with enemies
-      for (Gunship enemy : enemies) {
+      for (EnemyGunship enemy : enemies) {
         if (enemy != this) {
           if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
             float m1 = unit;

@@ -57,7 +57,7 @@ abstract class UMO implements Processable {
   }
 
   void collisionWithBorder() {
-    if (getX() - getRadius() < 0 ) {
+    if (getX() - getRadius() < 0) {
       setX(getRadius());
     }
     if (getX() + getRadius() > width) {

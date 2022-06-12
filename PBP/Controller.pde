@@ -1,9 +1,5 @@
 class Controller {
-  boolean[] inputs;
-
-  Controller() {
-    inputs = new boolean[4]; // 4 valid buttons
-  }
+  boolean[] inputs = new boolean[4]; // 4 valid buttons
 
   boolean isPressed(int code) {
     return inputs[code];

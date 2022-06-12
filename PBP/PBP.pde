@@ -136,7 +136,7 @@ void draw() {
         }
       } else if (player.getLevel() >= 30 && boss == null) {
         if (getTimeUntilBossSpawn() == 0) {
-          boss = new QuadTank(width/2, height/2);
+          boss = new QuadTank();
           enemies.add(boss);
         } else {
           setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);

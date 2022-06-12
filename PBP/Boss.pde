@@ -3,12 +3,12 @@ class QuadTank extends EnemyGunship {      //<>//
   private int display2;
 
   // boss constructor
-  QuadTank(float x, float y) {
+  QuadTank() {
     super(30);
     //!hard mode!
     //super(x, y, 45);;
     setRecoilMode("none");
-    position.set(x, y);
+    position.set(width/2, height/2);
 
     // set stats base on level
     getShop().getMaxHealth().setBase(900); //why not

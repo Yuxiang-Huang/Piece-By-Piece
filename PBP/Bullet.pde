@@ -1,6 +1,6 @@
 class Bullet extends UMO {   //<>//
-  Gunship gunship;
-  Gun gun;
+  private Gunship gunship;
+  private Gun gun;
   private int timeTillDeath;
   private final float frictionForBullet = .99;
 
@@ -72,7 +72,6 @@ class Bullet extends UMO {   //<>//
   void die() {
     gun.bullets.remove(this);
   }
-
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it
@@ -172,4 +171,18 @@ class Bullet extends UMO {   //<>//
   float getFriction() {
     return frictionForBullet;
   }
+  
+  Gunship getGunship() {
+    return gunship;
+  }
+  void setGunship(Gunship gunship) {
+    this.gunship = gunship;
+  } 
+  
+  Gun getGun() {
+    return gun;
+  }
+  void setGun(Gun gun) {
+    this.gun = gun;
+  } 
 }

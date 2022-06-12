@@ -205,7 +205,7 @@ void displayAllPolygons() {
 
 void updateAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
-    Gunship enemy = enemies.get(e);
+    EnemyGunship enemy = enemies.get(e);
     if (isWithinUpdateDistance(enemy) || enemy == boss) { 
       enemy.update();
     }
@@ -213,7 +213,7 @@ void updateAllEnemies() {
 }
 void displayAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
-    Gunship enemy = enemies.get(e);
+    EnemyGunship enemy = enemies.get(e);
     if (isWithinDisplayDistance(enemy) || enemy == boss) {
       enemy.display();
     }

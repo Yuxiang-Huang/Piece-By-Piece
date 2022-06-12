@@ -27,8 +27,8 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  width = displayWidth*5;
-  height = displayHeight*5;
+  width = displayWidth*3;
+  height = displayHeight*3;
 
   setMouseX(0);
   setMouseY(0);

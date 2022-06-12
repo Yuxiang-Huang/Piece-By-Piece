@@ -1,4 +1,4 @@
-class QuadTank extends EnemyGunship { //<>// //<>//
+class QuadTank extends EnemyGunship { //<>// //<>// //<>//
   private int display1;
   private int display2;
 
@@ -44,7 +44,7 @@ class QuadTank extends EnemyGunship { //<>// //<>//
     createGunship(color(0, 255, 255));
   }
 
-  void enemyUpdate() { //<>//
+  void update() { //<>// //<>//
     super.update();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
@@ -148,7 +148,7 @@ class QuadTank extends EnemyGunship { //<>// //<>//
     return false;
   }
 
-  void enemyDisplay() {
+  void display() {
     super.display();
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);
@@ -171,7 +171,7 @@ class QuadTank extends EnemyGunship { //<>// //<>//
     }
   }
 
-  void enemyDie() {
+  void die() {
     enemies.remove(this);
     setGameState(WON);
   }

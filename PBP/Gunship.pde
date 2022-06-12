@@ -30,8 +30,6 @@ class Gunship extends UMO {
     setRadius(unit * pow(1.01, getLevel()-1));
     setSkillPoints(getLevel() - 1);
     
-    //!!!!!
-    setAngle(0);
     acceleration.set(unit*.025, unit*.025);
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     

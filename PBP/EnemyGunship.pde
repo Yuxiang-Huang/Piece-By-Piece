@@ -13,6 +13,30 @@ class EnemyGunship extends Gunship {
       (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
       setSuicidal(true);
     }
+    // make shape of gunship
+    umo = createShape(GROUP);
+
+    ellipseMode(RADIUS);
+    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
+    int rand = (int) (random(3));
+    if (rand == 0) {
+      setType("straight");
+      body.setFill(color(0, 255, 0));
+    } else if (rand == 1) {
+      setType("random");
+      //cyan
+      body.setFill(color(0, 255, 255));
+    } else {
+      setType("predict");
+      //magenta
+      body.setFill(color(255, 0, 255));
+    }
+    rectMode(CORNER);
+    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
+    gun.setFill(color(0));
+
+    umo.addChild(gun);
+    umo.addChild(body);
   }
   
   void display() {

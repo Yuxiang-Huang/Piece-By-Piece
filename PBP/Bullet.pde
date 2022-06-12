@@ -1,4 +1,4 @@
-class Bullet extends UMO {  //<>// //<>// //<>// //<>//
+class Bullet extends UMO {  //<>// //<>// //<>// //<>// //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;
@@ -122,6 +122,7 @@ class Bullet extends UMO {  //<>// //<>// //<>// //<>//
             setHealth(getHealth() - enemy.getHealth());
           }
           enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+          enemy.setTimeSinceLastHit(1800);
 
           if (enemy.isDead()) {
             player.setExp(player.getExp() + enemy.getLevel() * (enemy.getLevel() - 1) * 10 / 2) ; 

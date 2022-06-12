@@ -25,10 +25,6 @@ class Gunship extends UMO {
 
   private String recoilMode = "";
   
-  //error?
-  Gunship(){
-  }
-  
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);
@@ -355,7 +351,7 @@ class Gunship extends UMO {
     }
 
     // check if enemy has enough exp for level up
-    if (getExp() >= getExpRequiredForNextLevel()) {
+    if (getExp() >= getExpRequiredForNextLevel() && getLevel() < 57) {
       setExp(getExp()-getExpRequiredForNextLevel());
       setLevel(getLevel()+1);
       setSkillPoints(getSkillPoints()+1);
@@ -481,6 +477,7 @@ class Gunship extends UMO {
   } // need to have becuase Gunship extends UMO
 
   void playerDie() {
+    setInvincible(0);
     setGameState(LOST);
   }  
 

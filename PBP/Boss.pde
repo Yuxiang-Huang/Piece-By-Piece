@@ -1,4 +1,4 @@
-class QuadTank extends Gunship {  
+class QuadTank extends Gunship {   //<>// //<>//
   private int display1;
   private int display2;
 
@@ -21,6 +21,9 @@ class QuadTank extends Gunship {
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
     setSkillPoints(getLevel() - 1);
 
+    getShop().getReload().setBase(getShop().getReload().getBase()/1.5);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()/1.5);
+
     getShop().randomUpgrade();
 
     getShop().update();
@@ -35,11 +38,11 @@ class QuadTank extends Gunship {
     getGuns().add(new Gun(this, 180));
     getGuns().add(new Gun(this, 270));
 
-    setType("ghost");
+    setType("random");
     createGunship(color(0, 255, 255));
   }
 
-  void enemyUpdate() {
+  void enemyUpdate() { //<>//
     super.enemyUpdate();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
@@ -71,15 +74,8 @@ class QuadTank extends Gunship {
 
       createGunship(color(0, 255, 0));
     } 
-    if (getDisplay1() > 0 ) {
-      setDisplay1(getDisplay1() - 1);
-      GameScreen.mediumText(CENTER);
-      text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
-
     //last phase
-    if (getType() == "straight" && getHealth() < getMaxHealth() / 3) {
+    else if (getType() == "straight" && getHealth() < getMaxHealth() / 3) {
       setDisplay1(0); 
       setDisplay2(600); 
       setType("predict");
@@ -90,13 +86,13 @@ class QuadTank extends Gunship {
       enemies.add(enemy1);
 
       Gunship enemy2 = new Sniper(29);
-      enemy2.setX(player.getX() + getRadius() * 30);
-      enemy2.setY(player.getY() - getRadius() * 30);
+      enemy2.setX(player.getX() - getRadius() * 30);
+      enemy2.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy2);
 
       Gunship enemy3 = new MachineGun(29);
-      enemy3.setX(player.getX() - getRadius() * 30);
-      enemy3.setY(player.getY() + getRadius() * 30);
+      enemy3.setX(player.getX() + getRadius() * 30);
+      enemy3.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy3);
 
       Gunship enemy4 = new FlankGuard(29);
@@ -104,27 +100,18 @@ class QuadTank extends Gunship {
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
 
+      if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy4.getType().equals("predict")) {
+        enemy3.setType("predict");
+      }
+
       createGunship(color(255, 0, 255));
     }
 
-    if (getDisplay2() > 0 ) {
-      setDisplay2(getDisplay2() - 1);
-      GameScreen.mediumText(CENTER);
-      text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
-
     //escape mode. Sike, this is the last stage
-    if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
+    else if (getType().equals("predict") && getHealth() < getMaxHealth() / 6) {
       setDisplay2(0);
       setType("escape");
       createGunship(color(255));
-    }
-
-    if (getType().equals("escape")) {
-      GameScreen.mediumText(CENTER);
-      text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
     }
 
     //do you really think there is a last stage?
@@ -137,6 +124,7 @@ class QuadTank extends Gunship {
       if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
         getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
         setType("ghost");
+        createGunship(color(0));
         //no regen everything else full power
         getShop().getMaxHealth().setLevel(7);
         getShop().getBodyDamage().setLevel(7);
@@ -148,17 +136,33 @@ class QuadTank extends Gunship {
         getShop().getHealthRegen().setBase(0);
       }
     }
-
-
-    if (getType().equals("ghost")) {
-      GameScreen.mediumText(CENTER);
-      text("Last Fight!!!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
-      GameScreen.resetText();
-    }
   }
 
   boolean canEvolve() {
     return false;
+  }
+
+  void enemyDisplay() {
+    super.enemyDisplay();
+    if (getDisplay1() > 0 ) {
+      setDisplay1(getDisplay1() - 1);
+      GameScreen.mediumText(CENTER);
+      text("Boss is ANGRY!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    } else if (getDisplay2() > 0 ) {
+      setDisplay2(getDisplay2() - 1);
+      GameScreen.mediumText(CENTER);
+      text("Boss is ENRAGED!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    } else if (getType().equals("escape")) {
+      GameScreen.mediumText(CENTER);
+      text("Boss is Escaping...", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    } else if (getType().equals("ghost")) {
+      GameScreen.mediumText(CENTER);
+      text("Last Fight!!!!!", player.getX(), player.getY() - displayHeight/2 + 2*unit);
+      GameScreen.resetText();
+    }
   }
 
   void enemyDie() {

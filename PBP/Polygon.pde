@@ -73,7 +73,7 @@ class Polygon extends UMO {
       setRotationCW(true);
     }
     setRadian(2*PI*random(1));
-    setAngularChange(radians(random(1)/10.0)); //not done
+    setAngularChange(radians(random(1)/10.0));
   }
 
   void display() {

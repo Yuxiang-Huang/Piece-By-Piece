@@ -1,4 +1,4 @@
-class Gunship extends UMO {
+abstract class Gunship extends UMO {
   private Shop shop;
   private Minimap minimap; 
   private int level;

@@ -99,9 +99,8 @@ class Gunship extends UMO {
     //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
     //  setSuicidal(true);
     //}
-    if (getShop().getMaxHealth().getLevel() + getShop().getReload().getLevel() + getShop().getBulletSpeed().getLevel() +
-      getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2.5) {
+    if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
       setSuicidal(true);
     }
 
@@ -371,9 +370,8 @@ class Gunship extends UMO {
       //  getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
       //  getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
       //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
-      if (getShop().getMaxHealth().getLevel() + getShop().getReload().getLevel() + getShop().getBulletSpeed().getLevel() +
-      getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2.5) {
+      if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
+      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
         setSuicidal(true);
       } else {
         setSuicidal(false);

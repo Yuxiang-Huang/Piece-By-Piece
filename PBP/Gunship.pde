@@ -662,6 +662,7 @@ class Gunship extends UMO {
     newPlayer.getShop().gunship = newPlayer;
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
+    newPlayer.setHealth(player.getHealth());
     player = newPlayer;
     player.updateStats();
     shop.update();

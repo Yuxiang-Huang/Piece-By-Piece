@@ -122,7 +122,7 @@ class Bullet extends UMO {  //<>// //<>// //<>// //<>// //<>// //<>//
             setHealth(getHealth() - enemy.getHealth());
           }
           //only do damage part if not invincible
-          if (getInvincible() == 0) {
+          if (enemy.getInvincible() == 0) {
             enemy.setHealth(enemy.getHealth() - getCollisionDamage());
             enemy.setTimeSinceLastHit(1800);
           }

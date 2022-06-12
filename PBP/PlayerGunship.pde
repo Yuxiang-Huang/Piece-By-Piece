@@ -155,12 +155,13 @@ class PlayerGunship extends Gunship {
     }
     newPlayer.velocity = player.velocity;
     newPlayer.setShop(player.getShop());
-    newPlayer.getShop().gunship = newPlayer;
+    newPlayer.getShop().setGunship(newPlayer);
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
     newPlayer.setHealth(player.getHealth());
     newPlayer.setShootCooldown(player.getShootCooldown());
     newPlayer.setTimeSinceLastHit(player.getTimeSinceLastHit());
+    newPlayer.setMinimap(player.getMinimap());
     player = newPlayer;
     player.updateStats();
     getShop().update();

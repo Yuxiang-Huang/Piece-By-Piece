@@ -44,7 +44,7 @@ class QuadTank extends Gunship { //<>//
     createGunship(color(0, 255, 255));
   }
 
-  void enemyUpdate() { //<>//
+  void enemyUpdate() {
     super.enemyUpdate();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {

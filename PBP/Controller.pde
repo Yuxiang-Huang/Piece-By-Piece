@@ -1,9 +1,5 @@
 class Controller {
-  boolean[] inputs;
-
-  Controller() {
-    inputs = new boolean[4]; // 4 valid buttons
-  }
+  boolean[] inputs = new boolean[4]; // 4 valid buttons
 
   boolean isPressed(int code) {
     return inputs[code];
@@ -43,7 +39,7 @@ class Controller {
           polygons.add(polygon);
         }
         enemies.clear();
-        setTimeSinceEnemySpawn(600);
+        setTimeUntilEnemySpawn(600);
         setTimeUntilBossSpawn(600);
         if (key  == 'r') {
           setGameState(PLAYING);
@@ -111,7 +107,7 @@ class Controller {
             player.setHealth(player.getMaxHealth());
           }
 
-          // randomUpgrade
+          // random upgrade
           if (key == 'u') {
             player.getShop().randomUpgrade();
           }

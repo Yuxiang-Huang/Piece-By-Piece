@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>//
+class Bullet extends UMO {  //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;
@@ -13,8 +13,7 @@ class Bullet extends UMO { //<>//
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(angle)), gunship.getY()+(gunship.getRadius()*sin(angle)));
     velocity = PVector.fromAngle(angle);
-
-    setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
+    velocity.setMag(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
 
     //for flankguard
     if (! gunship.getRecoilMode().equals("none")) {
@@ -30,9 +29,9 @@ class Bullet extends UMO { //<>//
       gunship.velocity.add(new PVector(dxHolder/2, dyHolder/2));
     }
     setTimeTillDeath(180); //confirmed from wiki
-    setMaxHealth((int)(gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel())));
+    setMaxHealth(int((gunship.shop.bulletPenetration.getBase() + (gunship.shop.bulletPenetration.getModifier()*gunship.shop.bulletPenetration.getLevel()))));
     setHealth(getMaxHealth()); //bullet penetration
-    setCollisionDamage((int)(gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel())));
+    setCollisionDamage(int((gunship.shop.bulletDamage.getBase() + (gunship.shop.bulletDamage.getModifier()*gunship.shop.bulletDamage.getLevel()))));
   }
 
   void display() {
@@ -45,7 +44,7 @@ class Bullet extends UMO { //<>//
     fill(0);
     if (DEBUG && getX() - player.getX() < displayWidth / 2 && getY() - player.getY() < displayHeight / 2 ) {
       fill(0);
-      text(""+ (int) getHealth(), getX(), getY() + unit);
+      text(""+ int(getHealth()), getX(), getY() + unit);
       text("x: "+round(getX()) + "; y: "+round(getY()), getX()+unit, getY()-unit);
       text("dx: "+round(getDX()) + "; dy: "+round(getDY()), getX()+unit, getY());
     }

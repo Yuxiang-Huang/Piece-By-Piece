@@ -23,7 +23,7 @@ class Gunship extends UMO {
   private String type;
   private String recoilMode = "";
   private int invincible;
-  
+
   // player constructor
   Gunship(float x, float y, int level) {
     setRadius(unit);
@@ -115,7 +115,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = int((random(3)));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -206,9 +206,9 @@ class Gunship extends UMO {
         text("R", getX(), getY());
       } else if (getType().equals("predict")) {
         text("P", getX(), getY());
-      } else if (getType().equals("escape")){
+      } else if (getType().equals("escape")) {
         text("E", getX(), getY());
-      } else{
+      } else {
         text("G", getX(), getY());
       }
     }
@@ -370,7 +370,7 @@ class Gunship extends UMO {
       //  getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
       //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
       if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-      (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
+        (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
         setSuicidal(true);
       } else {
         setSuicidal(false);
@@ -404,7 +404,7 @@ class Gunship extends UMO {
         velocity.add((random(15) - random(15)) * velocity.x/15, (random(15) - random(15)) * velocity.y/15);
         //velocity.setMag(speedNow);
         velocity.setMag(acceleration.x * 9);
-      } else if (getType().equals("ghost")){
+      } else if (getType().equals("ghost")) {
         velocity.add((random(30) - random(30)) * velocity.x/15, (random(30) - random(30)) * velocity.y/15);
         velocity.setMag(acceleration.x * 9);
       }
@@ -488,9 +488,9 @@ class Gunship extends UMO {
 
   void enemyDie() {
     enemies.remove(this);
-    setTimeSinceEnemySpawn(getTimeSinceEnemySpawn() - 600);
-    if (getTimeSinceEnemySpawn() < 0) {
-      setTimeSinceEnemySpawn(0);
+    setTimeUntilEnemySpawn(getTimeUntilEnemySpawn() - 600);
+    if (getTimeUntilEnemySpawn() < 0) {
+      setTimeUntilEnemySpawn(0);
     }
   }
 
@@ -604,7 +604,12 @@ class Gunship extends UMO {
       fill(200, 230); // Translucent Dark Grey for needed Exp
       rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
       fill(255, 255, 0); // yellow for gained Exp
-      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*((float)(getExp())/getExpRequiredForNextLevel()), unit);
+      if (float(getExp())/getExpRequiredForNextLevel() <= 1) {
+        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*(float(getExp())/getExpRequiredForNextLevel()), unit);
+      } else { 
+        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      }
+
       fill(0);
     } else {
       //max level
@@ -707,7 +712,7 @@ class Gunship extends UMO {
 
   /**
    * updates stat base and modifier 
-  */
+   */
   void updateStats() {
   }
 

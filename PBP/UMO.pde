@@ -9,7 +9,6 @@ abstract class UMO implements Processable {
 
   private int maxHealth;
   private float health; 
-  private float speed;
   private int collisionDamage;
 
   /**
@@ -29,10 +28,6 @@ abstract class UMO implements Processable {
     shape(umo, getX(), getY());
   }
 
-  boolean isDead() {
-    return (int) getHealth() == 0;
-  }
-
   void displayHealthBar() {
     int d;
     if (getY() <= height/2) {
@@ -48,6 +43,10 @@ abstract class UMO implements Processable {
     fill(0);
   }
 
+  boolean isDead() {
+    return int(getHealth()) == 0;
+  }
+
   boolean isCollidingWithBorder() {
     if (getX() - getRadius() < 0 || getX() + getRadius() > width || 
       getY() - getRadius() < 0 || getY() + getRadius() > height) 
@@ -58,7 +57,7 @@ abstract class UMO implements Processable {
   }
 
   void collisionWithBorder() {
-    if (getX() - getRadius() < 0 ) {
+    if (getX() - getRadius() < 0) {
       setX(getRadius());
     }
     if (getX() + getRadius() > width) {
@@ -182,13 +181,6 @@ abstract class UMO implements Processable {
   }
   void setDY(float dy) {
     this.velocity.y = dy;
-  }
-
-  float getSpeed() {
-    return velocity.mag();
-  }
-  void setSpeed(float speed) {
-    this.velocity.setMag(speed);
   }
 
   float getDDX() {

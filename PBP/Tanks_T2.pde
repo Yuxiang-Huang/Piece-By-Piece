@@ -37,7 +37,7 @@ class Twin extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = int(random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -108,7 +108,7 @@ class Sniper extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = int(random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -184,7 +184,7 @@ class MachineGun extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = int(random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));
@@ -266,7 +266,7 @@ class FlankGuard extends Gunship {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = int(random(3));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));

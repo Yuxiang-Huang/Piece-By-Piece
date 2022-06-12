@@ -1,4 +1,4 @@
-class GameScreen {
+ class GameScreen {
   
   void displayIntro() {
     displayLightGreyRect();
@@ -66,6 +66,7 @@ class GameScreen {
     text("    or press 'U' to instantly buy all upgrades from the shop.", player.getX(), player.getY()-unit*-14);
 
     text("6. Press 'y' to instantly give yourself invincibility for 10s.", player.getX(), player.getY()-unit*-16);
+    text("    Press 'Y' to instantly give yourself a little bit of health.", player.getX(), player.getY()-unit*-17);
 
     smallText(CENTER);
     text("Press any key to continue...", player.getX(), player.getY() + displayHeight/2 - unit*2);

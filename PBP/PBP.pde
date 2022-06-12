@@ -1,5 +1,5 @@
-Gunship player;
-Gunship boss;
+PlayerGunship player;
+EnemyGunship boss;
 Controller input;
 ArrayList<Polygon> polygons;
 ArrayList<Gunship> enemies;
@@ -34,7 +34,7 @@ void setup() {
   setMouseY(0);
 
   unit = min(displayWidth/70, displayHeight/35);
-  player = new Gunship(width/2, height/2, 1);
+  player = new PlayerGunship(width/2, height/2, 1);
   input = new Controller();
 
   GameScreen.resetText();
@@ -72,26 +72,26 @@ void mouseClicked() {
 
 void mousePressed() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(true);  //<>//
-  }  //<>// //<>//
+    player.setAutoFire(true);  //<>// //<>//
+  }  //<>// //<>// //<>//
 }
 
 void mouseReleased() {
-  if (getGameState() == PLAYING) {   //<>//
-    player.setAutoFire(false);   //<>//
-  }    //<>//
+  if (getGameState() == PLAYING) {   //<>// //<>//
+    player.setAutoFire(false);   //<>// //<>//
+  }    //<>// //<>//
 } 
 
 void draw() {
-  background(200, 200, 200, 200);   //<>//
-  // to center camera on player    //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());   //<>//
+  background(200, 200, 200, 200);   //<>// //<>//
+  // to center camera on player    //<>// //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());   //<>// //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
-  if (getGameState() == INTRO) {   //<>//
-    GameScreen.displayIntro();    //<>//
-  } else if (getGameState() == INFO) {  //<>//
+  if (getGameState() == INTRO) {   //<>// //<>//
+    GameScreen.displayIntro();    //<>// //<>//
+  } else if (getGameState() == INFO) {  //<>// //<>//
     GameScreen.displayInfo();
   } else {
     // draw border
@@ -147,8 +147,8 @@ void draw() {
 
       // display & update player last so that it always appears on top 
       // all colisions processed through player
-      player.playerUpdate();
-      player.playerDisplay();
+      player.update();
+      player.display();
 
       player.getMinimap().update();
       player.getMinimap().display();
@@ -160,7 +160,7 @@ void draw() {
       displayAllPolygons();
       displayAllEnemies();
       player.getMinimap().display();
-      player.playerDisplay();
+      player.display();
 
       // PAUSED/LOST/WON GAME SCREENS
       if (getGameState() == PAUSED) {
@@ -207,7 +207,7 @@ void updateAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
     Gunship enemy = enemies.get(e);
     if (isWithinUpdateDistance(enemy) || enemy == boss) { 
-      enemy.enemyUpdate();
+      enemy.update();
     }
   }
 }
@@ -215,7 +215,7 @@ void displayAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
     Gunship enemy = enemies.get(e);
     if (isWithinDisplayDistance(enemy) || enemy == boss) {
-      enemy.enemyDisplay();
+      enemy.display();
     }
   }
 }
@@ -226,7 +226,7 @@ void spawnAnEnemy() {
     if (levelHolder < 1) {
       levelHolder = 1;
     }
-    Gunship enemy = new Gunship(levelHolder);
+    Gunship enemy = new EnemyGunship(levelHolder);
     enemies.add(enemy);
   }
   if (levelHolder > 15 ) {//& levelHolder < 30) {
@@ -234,19 +234,19 @@ void spawnAnEnemy() {
     Gunship enemy;
     switch (rand) {
     case 0: 
-      enemy = new Twin(levelHolder);
+      enemy = new EnemyTwin(levelHolder);
       enemies.add(enemy); 
       break;
     case 1: 
-      enemy = new Sniper(levelHolder);
+      enemy = new EnemySniper(levelHolder);
       enemies.add(enemy);
       break;
     case 2: 
-      enemy = new MachineGun(levelHolder);
+      enemy = new EnemyMachineGun(levelHolder);
       enemies.add(enemy);
       break;
     case 3: 
-      enemy = new FlankGuard(levelHolder);
+      enemy = new EnemyFlankGuard(levelHolder);
       enemies.add(enemy);
       break;
     }

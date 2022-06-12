@@ -1,17 +1,17 @@
-class QuadTank extends Gunship { //<>//
+class QuadTank extends EnemyGunship { //<>// //<>//
   private int display1;
   private int display2;
 
   // boss constructor
   QuadTank(float x, float y) {
-    super(x, y, 30);
+    super(30);
     //!hard mode!
-    //super(x, y, 45);
+    //super(x, y, 45);;
     setRecoilMode("none");
     setRadius(unit);
     position.set(x, y);
     setAngle(0);
-    acceleration.set(unit*.01, unit*.01);
+    acceleration.set(unit*.025, unit*.025);
     setInvincible(60);
 
     setShop(new Shop(this));
@@ -44,15 +44,15 @@ class QuadTank extends Gunship { //<>//
     createGunship(color(0, 255, 255));
   }
 
-  void enemyUpdate() {
-    super.enemyUpdate();
+  void enemyUpdate() { //<>//
+    super.update();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
       setType("straight");
       //spawn four gunships around you
       for (int x = 0; x < 4; x++) {
-        Gunship Enemy = new Gunship(14);
+        Gunship Enemy = new EnemyGunship(14);
         switch(x) {
         case 0:
           Enemy.setX(player.getX() + getRadius() * 30);
@@ -82,22 +82,22 @@ class QuadTank extends Gunship { //<>//
       setDisplay2(600); 
       setType("predict");
       //spawn four types of ships around you
-      Gunship enemy1 = new Twin(29);
+      Gunship enemy1 = new EnemyTwin(29);
       enemy1.setX(player.getX() + getRadius() * 30);
       enemy1.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy1);
 
-      Gunship enemy2 = new Sniper(29);
+      Gunship enemy2 = new EnemySniper(29);
       enemy2.setX(player.getX() - getRadius() * 30);
       enemy2.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy2);
 
-      Gunship enemy3 = new MachineGun(29);
+      Gunship enemy3 = new EnemyMachineGun(29);
       enemy3.setX(player.getX() + getRadius() * 30);
       enemy3.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy3);
 
-      Gunship enemy4 = new FlankGuard(29);
+      Gunship enemy4 = new EnemyFlankGuard(29);
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);
@@ -149,7 +149,7 @@ class QuadTank extends Gunship { //<>//
   }
 
   void enemyDisplay() {
-    super.enemyDisplay();
+    super.display();
     if (getDisplay1() > 0 ) {
       setDisplay1(getDisplay1() - 1);
       GameScreen.mediumText(CENTER);

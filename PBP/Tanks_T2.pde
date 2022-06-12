@@ -1,6 +1,6 @@
-class Twin extends Gunship {
+class PlayerTwin extends PlayerGunship {
   // player constructor 
-  Twin(float x, float y, int level) {
+  PlayerTwin(float x, float y, int level) {
     super(x, y, level);
     setRecoilMode("lower");
     setGuns(new ArrayList<Gun>());
@@ -25,8 +25,22 @@ class Twin extends Gunship {
     umo.addChild(body);
   }
 
+  boolean canEvolve() {
+    return false;
+  }
+
+  void updateStats() {
+    getShop().getBulletPenetration().setBase(getShop().getBulletPenetration().getBase()*0.9);
+    getShop().getBulletPenetration().setModifier(getShop().getBulletPenetration().getModifier()*0.9);
+
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*0.65);
+    getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*0.65);
+  }
+}
+
+class EnemyTwin extends EnemyGunship {
   // enemy constructor
-  Twin(int levelHolder) {
+  EnemyTwin(int levelHolder) {
     super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
@@ -59,7 +73,7 @@ class Twin extends Gunship {
     umo.addChild(gun1);
     umo.addChild(gun2);
     umo.addChild(body);
-    
+
     updateStats();
     getShop().update();
   }
@@ -77,9 +91,9 @@ class Twin extends Gunship {
   }
 }
 
-class Sniper extends Gunship {
+class PlayerSniper extends PlayerGunship {
   // player constructor 
-  Sniper(float x, float y, int level) {
+  PlayerSniper(float x, float y, int level) {
     super(x, y, level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
@@ -97,8 +111,26 @@ class Sniper extends Gunship {
     umo.addChild(gun);
     umo.addChild(body);
   }
+
+  boolean canEvolve() {
+    return false;
+  }
+
+  void updateStats() {
+    getShop().getBulletSpeed().setBase(getShop().getBulletSpeed().getBase()*1.5);
+    getShop().getBulletSpeed().setModifier(getShop().getBulletSpeed().getModifier()*1.5);
+
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*1.5);
+    getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*1.5);
+
+    getShop().getReload().setBase(getShop().getReload().getBase()*2.0);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()*2.0);
+  }
+}
+
+class EnemySniper extends EnemyGunship {
   // enemy constructor
-  Sniper(int levelHolder) {
+  EnemySniper(int levelHolder) {
     super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
@@ -138,7 +170,7 @@ class Sniper extends Gunship {
   void updateStats() {
     getShop().getBulletSpeed().setBase(getShop().getBulletSpeed().getBase()*1.5);
     getShop().getBulletSpeed().setModifier(getShop().getBulletSpeed().getModifier()*1.5);
-    
+
     getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*1.5);
     getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*1.5);
 
@@ -147,9 +179,9 @@ class Sniper extends Gunship {
   }
 }
 
-class MachineGun extends Gunship {
+class PlayerMachineGun extends PlayerGunship {
   // player constructor
-  MachineGun(float x, float y, int level) {
+  PlayerMachineGun(float x, float y, int level) {
     super(x, y, level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
@@ -169,9 +201,24 @@ class MachineGun extends Gunship {
     umo.addChild(body);
   }
 
+  boolean canEvolve() {
+    return false;
+  }
 
+  void updateStats() {
+    getShop().getReload().setBase(getShop().getReload().getBase()/2.0);
+    getShop().getReload().setModifier(getShop().getReload().getModifier()/2.0);
+
+    getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*.7);
+    getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*.7);
+
+    setSpread(.5);
+  }
+}
+
+class EnemyMachineGun extends EnemyGunship{
   // enemy constructor
-  MachineGun(int levelHolder) {
+  EnemyMachineGun(int levelHolder) {
     super(levelHolder);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
@@ -222,9 +269,9 @@ class MachineGun extends Gunship {
   }
 }
 
-class FlankGuard extends Gunship {
+class PlayerFlankGuard extends PlayerGunship {
   // player constructor
-  FlankGuard(float x, float y, int level) {
+  PlayerFlankGuard(float x, float y, int level) {
     super(x, y, level);
     setRecoilMode("none");
     setGuns(new ArrayList<Gun>());
@@ -248,10 +295,14 @@ class FlankGuard extends Gunship {
     umo.addChild(gun2);
     umo.addChild(body);
   }
+  boolean canEvolve() {
+    return false;
+  }
+}
 
-
+class EnemyFlankGuard extends EnemyGunship {
   // enemy constructor
-  FlankGuard(int levelHolder) {
+  EnemyFlankGuard(int levelHolder) {
     super(levelHolder);
     setRecoilMode("none");
     setGuns(new ArrayList<Gun>());

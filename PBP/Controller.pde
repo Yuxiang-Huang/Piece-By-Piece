@@ -29,9 +29,9 @@ class Controller {
           } else {
             newLevel = (player.getLevel()/2)+1;
           }
-          player = new Gunship(width/2, height/2, newLevel);
+          player = new PlayerGunship(width/2, height/2, newLevel);
         } else if (key == 'R') {
-          player = new Gunship(width/2, height/2, 1);
+          player = new PlayerGunship(width/2, height/2, 1);
         }
         polygons.clear();
         for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
@@ -68,12 +68,12 @@ class Controller {
             if (player.getLevel() < 15-1) {
               while (player.getLevel() < 15-1) {
                 player.setExp(player.getExpRequiredForNextLevel());
-                player.playerUpdate();
+                player.update();
               }
             } else if (player.getLevel() < 30-1)
               while (player.getLevel() < 30-1) {
                 player.setExp(player.getExpRequiredForNextLevel());
-                player.playerUpdate();
+                player.update();
               }
           }
 

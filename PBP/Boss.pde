@@ -121,7 +121,7 @@ class QuadTank extends Gunship { //<>//
     }
 
     if (getType().equals("escape")) {
-      if (isWithinDisplayDistance(this)) {
+      if (abs(getX()-player.getX()) < (displayWidth/2)-getRadius() && abs(getY()-player.getY()) < (displayHeight/2)-getRadius()) {
         if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
           getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
           setType("ghost");

@@ -20,10 +20,9 @@ class Gunship extends UMO {
   private boolean autoFire;
   private boolean autoRotate;
   private boolean suicidal;
-  private int invincible;
   private String type;
-
   private String recoilMode = "";
+  private int invincible;
   
   // player constructor
   Gunship(float x, float y, int level) {

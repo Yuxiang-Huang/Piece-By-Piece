@@ -49,7 +49,7 @@ class Shop implements Processable {
   }
 
   void randomUpgrade() {
-    while (gunship.getSkillPoints() > 0) {
+    while (gunship.getSkillPoints() > 0 && gunship.getLevel() < 58) {
       int rand = (int)(random(8) + 1);
       if (rand == 1 && ! healthRegen.isMaxLevel()) {
         healthRegen.upgrade();

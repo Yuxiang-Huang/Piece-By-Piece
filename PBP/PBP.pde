@@ -21,6 +21,7 @@ GameScreen GameScreen = new GameScreen();
 
 private int timeSinceEnemySpawn;
 private int timeUntilBossSpawn;
+boolean enemySpawn;
 
 void setup() {
   fullScreen(1);
@@ -50,8 +51,7 @@ void setup() {
   setGameState(INTRO);
   setTimeSinceEnemySpawn(600);
   setTimeUntilBossSpawn(600);
-  //cheat
-  //setTimeSinceEnemySpawn(60000);
+  setEnemySpawn(true);
 }
 
 void keyPressed() {
@@ -72,26 +72,26 @@ void mouseClicked() {
 
 void mousePressed() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(true);
-  }  
+    player.setAutoFire(true); //<>//
+  } //<>//
 }
 
 void mouseReleased() {
-  if (getGameState() == PLAYING) {
-    player.setAutoFire(false);  
-  }  
+  if (getGameState() == PLAYING) { //<>//
+    player.setAutoFire(false); //<>//
+  } //<>//
 } 
 
 void draw() {
-  background(200, 200, 200, 200);
-  // to center camera on player 
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());
+  background(200, 200, 200, 200); //<>//
+  // to center camera on player  //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
- 
-  if (getGameState() == INTRO) { 
-    GameScreen.displayIntro(); 
+ //<>//
+  if (getGameState() == INTRO) {  //<>//
+    GameScreen.displayIntro(); //<>//
   } else if (getGameState() == INFO) {
     GameScreen.displayInfo();
   } else {
@@ -127,7 +127,9 @@ void draw() {
           spawnAnEnemy();
           setTimeSinceEnemySpawn(enemies.size() * 600);
         } else { 
-          setTimeSinceEnemySpawn(getTimeSinceEnemySpawn()-1);
+          if (getEnemySpawn()) {
+            setTimeSinceEnemySpawn(getTimeSinceEnemySpawn()-1);
+          }
           GameScreen.mediumText(CENTER);
           text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
           GameScreen.resetText();
@@ -287,4 +289,11 @@ int getTimeUntilBossSpawn() {
 }
 void setTimeUntilBossSpawn(int timeUntilBossSpawn) {
   this.timeUntilBossSpawn = timeUntilBossSpawn;
+}
+
+boolean getEnemySpawn() {
+  return enemySpawn;
+}
+void setEnemySpawn(boolean enemySpawn) {
+  this.enemySpawn = enemySpawn;
 }

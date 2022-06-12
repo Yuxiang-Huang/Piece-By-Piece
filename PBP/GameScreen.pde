@@ -1,5 +1,4 @@
- class GameScreen {
-  
+class GameScreen {
   void displayIntro() {
     displayLightGreyRect();
 

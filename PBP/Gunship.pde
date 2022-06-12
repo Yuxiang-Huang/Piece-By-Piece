@@ -728,7 +728,7 @@ class Gunship extends UMO {
   }
 
   int getExpRequiredForNextLevel() {
-    return 10*getLevel();
+    return 10*int(pow(getLevel(), 1.5));
   }
 
   int getReloadSpeed() {

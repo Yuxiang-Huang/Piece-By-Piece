@@ -20,20 +20,20 @@ abstract class Gunship extends UMO {
   private String recoilMode = "";
   private int invincible;
 
-  Gunship(int level){
+  Gunship(int level) {
     //set stats base on level
     setLevel(level);
     setRadius(unit * pow(1.01, getLevel()-1));
     setSkillPoints(getLevel() - 1);
-    
+
     acceleration.set(unit*.025, unit*.025);
     acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
-    
+
     setShop(new Shop(this));
     getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
     getShop().update();
     setHealth(getMaxHealth());
-    
+
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     setShootCooldown(0);
@@ -54,7 +54,7 @@ abstract class Gunship extends UMO {
     setSpread(.03*getShop().getReload().getLevel()); // bullet spread scales with reload speed 
     setTimeSinceLastHit(0);
   }
-  
+
   void display() {
     //rotate
     pushMatrix();
@@ -64,7 +64,7 @@ abstract class Gunship extends UMO {
     if (getInvincible() > 1) {
       if (getInvincible() % 2 == 0) {
         shape(umo, 0, 0);
-      } 
+      }
     } else {
       shape(umo, 0, 0);
     }
@@ -79,34 +79,32 @@ abstract class Gunship extends UMO {
     if (getInvincible() > 0) {
       setInvincible(getInvincible() - 1);
     }
-    
-    // update and display all guns
-    for (Gun gun : getGuns()) {
-      gun.update();
-    }
 
     // decrement shoot cooldown by 1
     if (getShootCooldown() > 0) {
       setShootCooldown(getShootCooldown()-1);
     }
-    
-    heal();
 
     if (getTimeSinceLastHit() > 0) {
       setTimeSinceLastHit(getTimeSinceLastHit() - 1);
     }
 
+    // update and display all guns
+    for (Gun gun : getGuns()) {
+      gun.update();
+    }
+
+    heal();
+
+    // check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
+    
     //should be in UMO.update
     if (int(getHealth()) == 0) {
       die();
     }
-    
-    // check for collisions
-    collisionWithBorder();
-    collisionWithUMO();
   }
-
-  abstract void die();
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it

@@ -18,7 +18,6 @@ class QuadTank extends EnemyGunship {    //<>// //<>// //<>//
     getShop().getHealthRegen().setBase(getShop().getHealthRegen().getBase()/2);
     getShop().getHealthRegen().setModifier(getShop().getHealthRegen().getModifier()/2);
     getShop().update();
-    //setHealth(getMaxHealth());
 
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
@@ -44,8 +43,8 @@ class QuadTank extends EnemyGunship {    //<>// //<>// //<>//
           Enemy.setX(player.getX() + getRadius() * 30);
           Enemy.setY(player.getY());
           break;
-        case 1: //<>//
-          Enemy.setX(player.getX() - getRadius() * 30);
+        case 1:
+          Enemy.setX(player.getX() - getRadius() * 30); //<>//
           Enemy.setY(player.getY());
           break;
         case 2:

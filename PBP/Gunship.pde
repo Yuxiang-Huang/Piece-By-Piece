@@ -56,13 +56,57 @@ abstract class Gunship extends UMO {
   }
   
   void display() {
+    //rotate
+    pushMatrix();
+    translate(getX(), getY());
+    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+    scale(getRadius()/unit);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } 
+    } else {
+      shape(umo, 0, 0);
+    }
+    popMatrix();
+
+    if (getHealth() != getMaxHealth()) {
+      displayHealthBar();
+    }
   }
 
   void update() {
+    if (getInvincible() > 0) {
+      setInvincible(getInvincible() - 1);
+    }
+    
+    // update and display all guns
+    for (Gun gun : getGuns()) {
+      gun.update();
+    }
+
+    // decrement shoot cooldown by 1
+    if (getShootCooldown() > 0) {
+      setShootCooldown(getShootCooldown()-1);
+    }
+    
+    heal();
+
+    if (getTimeSinceLastHit() > 0) {
+      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    }
+
+    //should be in UMO.update
+    if (int(getHealth()) == 0) {
+      die();
+    }
+    
+    // check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
   }
 
-  void die() {
-  } 
+  abstract void die();
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it

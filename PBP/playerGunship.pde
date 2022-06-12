@@ -11,27 +11,7 @@ class PlayerGunship extends Gunship {
   }
   
   void display() {
-    //rotate
-    pushMatrix();
-    translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
-    scale(getRadius()/unit);
-    if (getInvincible() > 1) {
-      if (getInvincible() % 2 == 0) {
-        shape(umo, 0, 0);
-      } else {
-        //umo.setFill(color(255));
-        //shape(umo, 0, 0);
-        //umo.setFill(color(165, 42, 42));
-      }
-    } else {
-      shape(umo, 0, 0);
-    }
-    popMatrix();
-
-    if (getHealth() != getMaxHealth()) {
-      displayHealthBar();
-    }
+    super.display();
 
     displayExpBar();
     if (canEvolve()) {
@@ -65,9 +45,7 @@ class PlayerGunship extends Gunship {
    checks for collisions with Polygons and Borders
    */
   void update() {
-    if (getInvincible() > 0) {
-      setInvincible(getInvincible() - 1);
-    }
+    super.update();
 
     // check for what directions are being pressed
     float xdir = 0;
@@ -112,15 +90,6 @@ class PlayerGunship extends Gunship {
     if (getAutoFire()) {
       autoFire();
     }
-    // update all guns
-    for (Gun gun : getGuns()) {
-      gun.update();
-    }
-
-    // decrement shoot cooldown by 1
-    if (getShootCooldown() > 0) {
-      setShootCooldown(getShootCooldown()-1);
-    }
 
     // check if player has enough exp for level up
     if (getExp() >= getExpRequiredForNextLevel() && player.getLevel() < 30) {
@@ -133,24 +102,6 @@ class PlayerGunship extends Gunship {
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
     }   
-
-    heal();
-
-    // check for collisions
-    collisionWithBorder();
-    collisionWithUMO();
-
-    if (getTimeSinceLastHit() > 0) {
-      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
-    }
-
-    if (int(getHealth()) == 0) {
-      die();
-    }
-
-    if (player.getHealth() == 0) {
-      setGameState(LOST);
-    }
   }
   
   void die() {

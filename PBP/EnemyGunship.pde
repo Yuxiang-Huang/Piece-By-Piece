@@ -43,22 +43,8 @@ class EnemyGunship extends Gunship {
   }
   
   void display() {
-    pushMatrix();
-    translate(getX(), getY());
-    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
-    scale(getRadius()/unit);
-    if (getInvincible() > 1) {
-      if (getInvincible() % 2 == 0) {
-        shape(umo, 0, 0);
-      } else {
-        //umo.setFill(color(255));
-        //shape(umo, 0, 0);
-        //umo.setFill(color(165, 42, 42));
-      }
-    } else {
-      shape(umo, 0, 0);
-    }
-    popMatrix();
+    super.display();
+
     if (!DEBUG) {
       if (getType().equals("straight")) {
         text("S", getX(), getY());
@@ -71,10 +57,6 @@ class EnemyGunship extends Gunship {
       } else {
         text("G", getX(), getY());
       }
-    }
-
-    if (getHealth() != getMaxHealth()) {
-      displayHealthBar();
     }
 
     if (DEBUG && getX() - player.getX() < displayWidth / 2 && getY() - player.getY() < displayHeight / 2 ) {
@@ -94,23 +76,12 @@ class EnemyGunship extends Gunship {
   }
   
   void update() {
-    if (getInvincible() > 0) {
-      setInvincible(getInvincible() - 1);
-    }
-
+    super.update();
+    
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
       autoFire();
-    }
-    // update and display all guns
-    for (Gun gun : getGuns()) {
-      gun.update();
-    }
-
-    // decrement shoot cooldown by 1
-    if (getShootCooldown() > 0) {
-      setShootCooldown(getShootCooldown()-1);
     }
 
     // check if enemy has enough exp for level up
@@ -132,17 +103,6 @@ class EnemyGunship extends Gunship {
         setSuicidal(false);
       }
     }   
-
-    heal();
-
-    if (getTimeSinceLastHit() > 0) {
-      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
-    }
-
-    //should be in UMO.update
-    if (int(getHealth()) == 0) {
-      die();
-    }
 
     //botMove
     if (!getType().equals("predict") && !getType().equals("escape")) {
@@ -228,10 +188,6 @@ class EnemyGunship extends Gunship {
         setAngle(angle);
       }
     }
-
-    // check for collisions
-    collisionWithBorder();
-    collisionWithUMO();
   }
   
   void die() {

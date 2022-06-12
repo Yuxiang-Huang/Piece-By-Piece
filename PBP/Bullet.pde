@@ -1,4 +1,4 @@
-class Bullet extends UMO {  //<>// //<>// //<>// //<>// //<>//
+class Bullet extends UMO {  //<>// //<>// //<>// //<>// //<>// //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;
@@ -23,7 +23,7 @@ class Bullet extends UMO {  //<>// //<>// //<>// //<>// //<>//
       float m2 = pow(gunship.getRadius(), 3);
       float dxHolder = -1 * (2*m1*getDX() + (m2-m1) * gunship.getDX()) / (float)(m1 + m2);
       float dyHolder = -1 * (2*m1*getDY() + (m2-m1) * gunship.getDY()) / (float)(m1 + m2);
-      if (gunship.getRecoilMode().equals("lower")){
+      if (gunship.getRecoilMode().equals("lower")) {
         dxHolder *= 0.25;
         dyHolder *= 0.25;
       }
@@ -121,8 +121,11 @@ class Bullet extends UMO {  //<>// //<>// //<>// //<>// //<>//
           } else {
             setHealth(getHealth() - enemy.getHealth());
           }
-          enemy.setHealth(enemy.getHealth() - getCollisionDamage());
-          enemy.setTimeSinceLastHit(1800);
+          //only do damage part if not invincible
+          if (getInvincible() == 0) {
+            enemy.setHealth(enemy.getHealth() - getCollisionDamage());
+            enemy.setTimeSinceLastHit(1800);
+          }
 
           if (enemy.isDead()) {
             player.setExp(player.getExp() + enemy.getLevel() * (enemy.getLevel() - 1) * 10 / 2) ; 

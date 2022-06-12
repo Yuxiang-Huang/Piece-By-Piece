@@ -97,10 +97,9 @@ class Controller {
           if (key == 'j') {
             spawnAnEnemy();
           }
+          //stop enemy spawn
           if (key == 'J') {
-            for (int i = 0; i < 10; i++) {
-              spawnAnEnemy();
-            }
+            setEnemySpawn(! getEnemySpawn());
           }
 
           // 50 health

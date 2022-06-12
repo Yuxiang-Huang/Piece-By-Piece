@@ -193,6 +193,14 @@ class PlayerGunship extends Gunship {
 
   //get and set methods------------------------------------------------------------------
 
+  float getAngleToMouse() {
+    float angle = atan2(getMouseY()-getY(), getMouseX()-getX());
+    if (angle < 0) {
+      angle = TWO_PI + angle;
+    }
+    return angle;
+  }
+
   Minimap getMinimap() {
     return minimap;
   }

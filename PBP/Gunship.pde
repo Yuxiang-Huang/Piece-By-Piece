@@ -191,14 +191,6 @@ abstract class Gunship extends UMO {
     }
   }
 
-  float getAngleToMouse() {
-    float angle = atan2(getMouseY()-getY(), getMouseX()-getX());
-    if (angle < 0) {
-      angle = TWO_PI + angle;
-    }
-    return angle;
-  }
-
   boolean canShoot() {
     return (getShootCooldown() == 0);
   }

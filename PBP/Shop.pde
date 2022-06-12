@@ -71,122 +71,122 @@ class Shop implements Processable {
     if (! reload.isMaxLevel()) {
       possibleUpgrades.add(reload);
     }
-    if (! reload.movementSpeed()) {
+    if (! movementSpeed.isMaxLevel()) {
       possibleUpgrades.add(movementSpeed);
     }
-    while (gunship.getSkillPoints() > 0 && gunship.getLevel() < 58) {
+    while (gunship.getSkillPoints() > 0 && gunship.getLevel() < 58 && possibleUpgrades.size() > 0) {
       int rand = (int)(random(possibleUpgrades.size()));
       possibleUpgrades.get(rand).upgrade();
       update();
       gunship.setSkillPoints(gunship.getSkillPoints()-1);
     }
   }
-}
 
-Stat getHealthRegen() {
-  return healthRegen;
-}
-Stat getMaxHealth() {
-  return maxHealth;
-}
-Stat getBodyDamage() {
-  return bodyDamage;
-}
-Stat getBodyDamageWithShip() {
-  return bodyDamageWithShip;
-}
-Stat getBulletSpeed() {
-  return bulletSpeed;
-}
-Stat getBulletPenetration() {
-  return bulletPenetration;
-}
-Stat getBulletDamage() {
-  return bulletDamage;
-}
-Stat getReload() {
-  return reload;
-}
-Stat getMovementSpeed() {
-  return movementSpeed;
-}
-
-class Stat {
-  private String statName;
-  final int maxLevel = 7;
-  private int level;
-  private float base;
-  private float modifier;
-
-  Stat(String statName, int level, float base, float modifier) {
-    setStatName(statName);
-    setLevel(level);
-    setBase(base);
-    setModifier(modifier);
+  Stat getHealthRegen() {
+    return healthRegen;
+  }
+  Stat getMaxHealth() {
+    return maxHealth;
+  }
+  Stat getBodyDamage() {
+    return bodyDamage;
+  }
+  Stat getBodyDamageWithShip() {
+    return bodyDamageWithShip;
+  }
+  Stat getBulletSpeed() {
+    return bulletSpeed;
+  }
+  Stat getBulletPenetration() {
+    return bulletPenetration;
+  }
+  Stat getBulletDamage() {
+    return bulletDamage;
+  }
+  Stat getReload() {
+    return reload;
+  }
+  Stat getMovementSpeed() {
+    return movementSpeed;
   }
 
-  void display(int i) {
-    i = 7 - i;
-    rectMode(CORNER);
-    fill(200, 200); // Translucent Light Grey
-    rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
-    fill(color(0, 255, 0)); // GREEN
-    rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
-    stroke(color(100, 200));
-    for (int j = 0; j < maxLevel; j++) {
-      line(getX()+ ((unit*10)/7)*j, getY()-(unit*(3.0/2)*i), getX() + ((unit*10)/7)*j, getY()-(unit*(3.0/2)*i)+unit);
+
+  class Stat {
+    private String statName;
+    final int maxLevel = 7;
+    private int level;
+    private float base;
+    private float modifier;
+
+    Stat(String statName, int level, float base, float modifier) {
+      setStatName(statName);
+      setLevel(level);
+      setBase(base);
+      setModifier(modifier);
     }
-    fill(0);
-    text(getStatName(), getX()+(unit/10), getY()-((unit*(3.0/2))*i) + unit*3/4);
-    text("["+(8-i)+"]", getX()+(unit*10)-unit, getY()-((unit*(3.0/2))*i) + (unit*.7));
-  }
 
-  /**
-   Increments level of stat by 1.
-   */
-  void upgrade() {
-    setLevel(getLevel()+1);
-  }
+    void display(int i) {
+      i = 7 - i;
+      rectMode(CORNER);
+      fill(200, 200); // Translucent Light Grey
+      rect(getX(), getY()-(unit*(3.0/2)*i), unit*10, unit, unit/4);
+      fill(color(0, 255, 0)); // GREEN
+      rect(getX(), getY()-(unit*(3.0/2)*i), unit*10*(float(getLevel())/maxLevel), unit, unit/4);
+      stroke(color(100, 200));
+      for (int j = 0; j < maxLevel; j++) {
+        line(getX()+ ((unit*10)/7)*j, getY()-(unit*(3.0/2)*i), getX() + ((unit*10)/7)*j, getY()-(unit*(3.0/2)*i)+unit);
+      }
+      fill(0);
+      text(getStatName(), getX()+(unit/10), getY()-((unit*(3.0/2))*i) + unit*3/4);
+      text("["+(8-i)+"]", getX()+(unit*10)-unit, getY()-((unit*(3.0/2))*i) + (unit*.7));
+    }
 
-  //get and set methods------------------------------------------------------------------
+    /**
+     Increments level of stat by 1.
+     */
+    void upgrade() {
+      setLevel(getLevel()+1);
+    }
 
-  float getX() {
-    return position.x;
-  }
-  float getY() {
-    return position.y;
-  }
+    //get and set methods------------------------------------------------------------------
 
-  int getLevel() {
-    return level;
-  }
-  void setLevel(int level) {
-    this.level = level;
-  }
+    float getX() {
+      return position.x;
+    }
+    float getY() {
+      return position.y;
+    }
 
-  boolean isMaxLevel() {
-    return getLevel() == maxLevel;
-  }
+    int getLevel() {
+      return level;
+    }
+    void setLevel(int level) {
+      this.level = level;
+    }
 
-  float getBase() {
-    return base;
-  }
-  void setBase(float base) {
-    this.base = base;
-  }    
+    boolean isMaxLevel() {
+      return getLevel() == maxLevel;
+    }
 
-  float getModifier() {
-    return modifier;
-  }
-  void setModifier(float modifier) {
-    this.modifier = modifier;
-  }
+    float getBase() {
+      return base;
+    }
+    void setBase(float base) {
+      this.base = base;
+    }    
 
-  String getStatName() {
-    return statName;
+    float getModifier() {
+      return modifier;
+    }
+    void setModifier(float modifier) {
+      this.modifier = modifier;
+    }
+
+    String getStatName() {
+      return statName;
+    }
+    void setStatName(String statName) {
+      this.statName = statName;
+    }
   }
-  void setStatName(String statName) {
-    this.statName = statName;
-  }
-}
 }

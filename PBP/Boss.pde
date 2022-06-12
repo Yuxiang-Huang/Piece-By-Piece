@@ -115,7 +115,7 @@ class QuadTank extends Gunship {   //<>// //<>//
     }
 
     //do you really think there is a last stage?
-    if (getType().equals("escape") && getHealth() > getMaxHealth() / 6) {
+    if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
       setType("predict");
       createGunship(color(255, 0, 255));
     }

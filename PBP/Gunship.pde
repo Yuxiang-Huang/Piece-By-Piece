@@ -1,9 +1,7 @@
 abstract class Gunship extends UMO {
   private Shop shop;
-  private Minimap minimap; 
   private int level;
   private int skillPoints;
-  private int numberOfEvolutions;
 
   private int reloadSpeed;
   private float shootCooldown;
@@ -19,8 +17,6 @@ abstract class Gunship extends UMO {
 
   private boolean autoFire;
   private boolean autoRotate;
-  private boolean suicidal;
-  private String type;
   private String recoilMode = "";
   private int invincible;
 
@@ -241,13 +237,6 @@ abstract class Gunship extends UMO {
     this.shop = shop;
   }
 
-  Minimap getMinimap() {
-    return minimap;
-  }
-  void setMinimap(Minimap minimap) {
-    this.minimap = minimap;
-  }
-
   ArrayList<Gun> getGuns() {
     return guns;
   }
@@ -282,13 +271,6 @@ abstract class Gunship extends UMO {
 
   boolean canEvolve() {
     return getLevel() >= 15;
-  }
-
-  int getNumberOfEvolutions() {
-    return numberOfEvolutions;
-  }
-  void setNumberOfEvolutions(int numberOfEvolutions) {
-    this.numberOfEvolutions = numberOfEvolutions;
   }
 
   int getSkillPoints() {
@@ -347,20 +329,6 @@ abstract class Gunship extends UMO {
     this.collisionDamageWithShip = collisionDamageWithShip;
   }
 
-  boolean isSuicidal() {
-    return suicidal;
-  }
-  void setSuicidal(boolean suicidal) {
-    this.suicidal = suicidal;
-  }
-
-  String getType() {
-    return type;
-  }
-  void setType(String type) {
-    this.type = type;
-  }
-
   int getInvincible() {
     return invincible;
   }
@@ -371,7 +339,6 @@ abstract class Gunship extends UMO {
   String getRecoilMode() {
     return recoilMode;
   }
-
   void setRecoilMode (String recoilMode) {
     this.recoilMode = recoilMode;
   }

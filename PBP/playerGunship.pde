@@ -1,4 +1,7 @@
 class PlayerGunship extends Gunship { 
+  private Minimap minimap; 
+  private int numberOfEvolutions;
+  
   // player constructor
   PlayerGunship(int level) { //level for respawn mechanic
     super(level);
@@ -212,6 +215,22 @@ class PlayerGunship extends Gunship {
     player.updateStats();
     getShop().update();
   }
+  
+  //get and set methods------------------------------------------------------------------
+  
+  Minimap getMinimap() {
+    return minimap;
+  }
+  void setMinimap(Minimap minimap) {
+    this.minimap = minimap;
+  }
+  
+  int getNumberOfEvolutions() {
+    return numberOfEvolutions;
+  }
+  void setNumberOfEvolutions(int numberOfEvolutions) {
+    this.numberOfEvolutions = numberOfEvolutions;
+  } 
 }
   
   

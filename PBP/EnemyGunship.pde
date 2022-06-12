@@ -1,4 +1,7 @@
 class EnemyGunship extends Gunship { 
+  private boolean suicidal;
+  private String type;
+  
   // enemy constructor
   EnemyGunship(int level) {
     super(level);
@@ -237,5 +240,21 @@ class EnemyGunship extends Gunship {
     if (getTimeUntilEnemySpawn() < 0) {
       setTimeUntilEnemySpawn(0);
     }
+  }
+  
+  //get and set methods------------------------------------------------------------------
+  
+  boolean isSuicidal() {
+    return suicidal;
+  }
+  void setSuicidal(boolean suicidal) {
+    this.suicidal = suicidal;
+  }
+
+  String getType() {
+    return type;
+  }
+  void setType(String type) {
+    this.type = type;
   }
 }

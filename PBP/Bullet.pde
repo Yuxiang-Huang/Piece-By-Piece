@@ -7,7 +7,7 @@ class Bullet extends UMO {   //<>//
   Bullet(Gunship gunship, Gun gun) {
     this.gunship = gunship;
     this.gun = gun;
-    setRadius(unit/2 * pow (1.01, getGunship().getLevel() - 1)); // base confirmed from playing, modifier confirmed from wiki
+    setRadius(unit/2 * pow (1.01, gunship.getLevel() - 1)); // base confirmed from playing, modifier confirmed from wiki
     float angle = gunship.getAngle() + gun.getAngle() + (random(gunship.getSpread()*2)-gunship.getSpread());
 
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
@@ -95,7 +95,7 @@ class Bullet extends UMO {   //<>//
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         if (polygon.isDead()) {
-          gunship.setExp(gunship.getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
+          getGunship().setExp(getGunship().getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
         }
         return;
       }
@@ -136,9 +136,9 @@ class Bullet extends UMO {   //<>//
 
     //bullet bullet collision
     if (getGunship() != player) {
-      for (Gun gun : player.getGuns()) {
-        for (int b = 0; b < gun.getBullets().size(); b++) {
-          Bullet bullet = gun.getBullets().get(b);
+      for (Gun playerGun : player.getGuns()) {
+        for (int b = 0; b < playerGun.getBullets().size(); b++) {
+          Bullet bullet = playerGun.getBullets().get(b);
           if (sqrt(pow((getX() - bullet.getX()), 2) + pow((getY() - bullet.getY()), 2))
             < getRadius() + bullet.getRadius()) {
             //take collision damage or remaining health

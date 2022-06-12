@@ -43,7 +43,7 @@ class Controller {
           polygons.add(polygon);
         }
         enemies.clear();
-        setTimeSinceEnemySpawn(600);
+        setTimeUntilEnemySpawn(600);
         setTimeUntilBossSpawn(600);
         if (key  == 'r') {
           setGameState(PLAYING);

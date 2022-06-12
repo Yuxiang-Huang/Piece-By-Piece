@@ -19,7 +19,7 @@ final int WON = 3;
 private int gameState;
 GameScreen GameScreen = new GameScreen();
 
-private int timeSinceEnemySpawn;
+private int timeUntilEnemySpawn;
 private int timeUntilBossSpawn;
 private boolean enemySpawn;
 
@@ -49,7 +49,7 @@ void setup() {
   }
 
   setGameState(INTRO);
-  setTimeSinceEnemySpawn(600);
+  setTimeUntilEnemySpawn(600);
   setTimeUntilBossSpawn(600);
   setEnemySpawn(true);
 }
@@ -122,15 +122,15 @@ void draw() {
       displayAllEnemies(); 
 
       if (player.getLevel() < 30) {
-        if (getTimeSinceEnemySpawn() <= 0) {
+        if (getTimeUntilEnemySpawn() <= 0) {
           spawnAnEnemy();
-          setTimeSinceEnemySpawn(enemies.size() * 600);
+          setTimeUntilEnemySpawn(enemies.size() * 600);
         } else { 
           if (getEnemySpawn()) {
-            setTimeSinceEnemySpawn(getTimeSinceEnemySpawn()-1);
+            setTimeUntilEnemySpawn(getTimeUntilEnemySpawn()-1);
           }
           GameScreen.mediumText(CENTER);
-          text("Enemy spawning in " + timeSinceEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
+          text("Enemy spawning in " + timeUntilEnemySpawn / 60, player.getX(), player.getY() - displayHeight/2 + 2*unit);
           GameScreen.resetText();
         }
       } else if (player.getLevel() >= 30 && boss == null) {
@@ -276,11 +276,11 @@ void setMouseY(float MouseY) {
   this.MouseY = MouseY;
 }
 
-int getTimeSinceEnemySpawn() {
-  return timeSinceEnemySpawn;
+int getTimeUntilEnemySpawn() {
+  return timeUntilEnemySpawn;
 }
-void setTimeSinceEnemySpawn(int timeSinceEnemySpawn) {
-  this.timeSinceEnemySpawn = timeSinceEnemySpawn;
+void setTimeUntilEnemySpawn(int timeUntilEnemySpawn) {
+  this.timeUntilEnemySpawn = timeUntilEnemySpawn;
 }
 
 int getTimeUntilBossSpawn() {

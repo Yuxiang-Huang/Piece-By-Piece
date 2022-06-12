@@ -2,7 +2,7 @@ PlayerGunship player;
 EnemyGunship boss;
 Controller input;
 ArrayList<Polygon> polygons;
-ArrayList<Gunship> enemies;
+ArrayList<EnemyGunship> enemies;
 boolean DEBUG = false;
 float unit;
 
@@ -27,8 +27,8 @@ void setup() {
   fullScreen(1);
   frameRate(60);
 
-  width = displayWidth*3;
-  height = displayHeight*3;
+  width = displayWidth*5;
+  height = displayHeight*5;
 
   setMouseX(0);
   setMouseY(0);
@@ -41,7 +41,7 @@ void setup() {
 
   // creating polygons and enemies
   polygons = new ArrayList<Polygon>();
-  enemies = new ArrayList<Gunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
+  enemies = new ArrayList<EnemyGunship>(); // has to be initlized before polygons are made becuase of check in isCollidingWithAnyUMO() in UMO
 
   for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
     Polygon polygon = new Polygon();
@@ -72,26 +72,26 @@ void mouseClicked() {
 
 void mousePressed() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(true);     //<>// //<>//
-  }      //<>// //<>//
+    player.setAutoFire(true);     //<>// //<>// //<>//
+  }      //<>// //<>// //<>//
 }
 
 void mouseReleased() {
-  if (getGameState() == PLAYING) {      //<>// //<>//
-    player.setAutoFire(false);      //<>// //<>//
-  }       //<>// //<>//
+  if (getGameState() == PLAYING) {      //<>// //<>// //<>//
+    player.setAutoFire(false);      //<>// //<>// //<>//
+  }       //<>// //<>// //<>//
 } 
 
 void draw() {
-  background(200, 200, 200, 200);      //<>// //<>//
-  // to center camera on player       //<>// //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());      //<>// //<>//
+  background(200, 200, 200, 200);      //<>// //<>// //<>//
+  // to center camera on player       //<>// //<>// //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());      //<>// //<>// //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
-  if (getGameState() == INTRO) {      //<>// //<>//
-    GameScreen.displayIntro();       //<>// //<>//
-  } else if (getGameState() == INFO) {     //<>// //<>//
+  if (getGameState() == INTRO) {      //<>// //<>// //<>//
+    GameScreen.displayIntro();       //<>// //<>// //<>//
+  } else if (getGameState() == INFO) {     //<>// //<>// //<>//
     GameScreen.displayInfo();
   } else {
     // draw border
@@ -226,12 +226,12 @@ void spawnAnEnemy() {
     if (levelHolder < 1) {
       levelHolder = 1;
     }
-    Gunship enemy = new EnemyGunship(levelHolder);
+    EnemyGunship enemy = new EnemyGunship(levelHolder);
     enemies.add(enemy);
   }
   if (levelHolder > 15 ) {//& levelHolder < 30) {
     int rand = int(random(4));
-    Gunship enemy;
+    EnemyGunship enemy;
     switch (rand) {
     case 0: 
       enemy = new EnemyTwin(levelHolder);

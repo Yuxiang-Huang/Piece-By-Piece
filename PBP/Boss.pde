@@ -1,4 +1,4 @@
-class QuadTank extends EnemyGunship {    //<>// //<>//
+class QuadTank extends EnemyGunship {    //<>// //<>// //<>//
   private int display1;
   private int display2;
 
@@ -10,26 +10,15 @@ class QuadTank extends EnemyGunship {    //<>// //<>//
     setRecoilMode("none");
     position.set(x, y);
 
-    setShop(new Shop(this));
-
     // set stats base on level
-    getShop().maxHealth.base = 900; //why not
+    getShop().getMaxHealth().setBase(900); //why not
     getShop().getMaxHealth().setModifier(50);
-    setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
-    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
-    setSkillPoints(getLevel() - 1);
-
     getShop().getReload().setBase(getShop().getReload().getBase()/1.5);
     getShop().getReload().setModifier(getShop().getReload().getModifier()/1.5);
-
-    getShop().randomUpgrade();
-
+    getShop().getHealthRegen().setBase(getShop().getHealthRegen().getBase()/2);
+    getShop().getHealthRegen().setModifier(getShop().getHealthRegen().getModifier()/2);
     getShop().update();
-    setHealth(getMaxHealth());
 
-    setShootCooldown(0);
-
-    setTimeSinceLastHit(0);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
     getGuns().add(new Gun(this, 90));
@@ -48,14 +37,14 @@ class QuadTank extends EnemyGunship {    //<>// //<>//
       setType("straight");
       //spawn four gunships around you
       for (int x = 0; x < 4; x++) {
-        Gunship Enemy = new EnemyGunship(14);
+        EnemyGunship Enemy = new EnemyGunship(14);
         switch(x) {
         case 0:
           Enemy.setX(player.getX() + getRadius() * 30);
           Enemy.setY(player.getY());
           break;
         case 1:
-          Enemy.setX(player.getX() - getRadius() * 30);
+          Enemy.setX(player.getX() - getRadius() * 30); //<>//
           Enemy.setY(player.getY());
           break;
         case 2:
@@ -78,22 +67,22 @@ class QuadTank extends EnemyGunship {    //<>// //<>//
       setDisplay2(600); 
       setType("predict");
       //spawn four types of ships around you
-      Gunship enemy1 = new EnemyTwin(29);
+      EnemyGunship enemy1 = new EnemyTwin(29);
       enemy1.setX(player.getX() + getRadius() * 30);
       enemy1.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy1);
 
-      Gunship enemy2 = new EnemySniper(29);
+      EnemyGunship enemy2 = new EnemySniper(29);
       enemy2.setX(player.getX() - getRadius() * 30);
       enemy2.setY(player.getY() + getRadius() * 30);
       enemies.add(enemy2);
 
-      Gunship enemy3 = new EnemyMachineGun(29);
+      EnemyGunship enemy3 = new EnemyMachineGun(29);
       enemy3.setX(player.getX() + getRadius() * 30);
       enemy3.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy3);
 
-      Gunship enemy4 = new EnemyFlankGuard(29);
+      EnemyGunship enemy4 = new EnemyFlankGuard(29);
       enemy4.setX(player.getX() - getRadius() * 30);
       enemy4.setY(player.getY() - getRadius() * 30);
       enemies.add(enemy4);

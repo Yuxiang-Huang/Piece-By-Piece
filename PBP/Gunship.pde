@@ -1,9 +1,7 @@
-class Gunship extends UMO {
+abstract class Gunship extends UMO {
   private Shop shop;
-  private Minimap minimap; 
   private int level;
   private int skillPoints;
-  private int numberOfEvolutions;
 
   private int reloadSpeed;
   private float shootCooldown;
@@ -19,8 +17,6 @@ class Gunship extends UMO {
 
   private boolean autoFire;
   private boolean autoRotate;
-  private boolean suicidal;
-  private String type;
   private String recoilMode = "";
   private int invincible;
 
@@ -60,13 +56,57 @@ class Gunship extends UMO {
   }
   
   void display() {
+    //rotate
+    pushMatrix();
+    translate(getX(), getY());
+    rotate(getAngle()-HALF_PI); // dont know why HALF_PI is necesassary. But if not present, rotation is of by 90 degrees.
+    scale(getRadius()/unit);
+    if (getInvincible() > 1) {
+      if (getInvincible() % 2 == 0) {
+        shape(umo, 0, 0);
+      } 
+    } else {
+      shape(umo, 0, 0);
+    }
+    popMatrix();
+
+    if (getHealth() != getMaxHealth()) {
+      displayHealthBar();
+    }
   }
 
   void update() {
+    if (getInvincible() > 0) {
+      setInvincible(getInvincible() - 1);
+    }
+    
+    // update and display all guns
+    for (Gun gun : getGuns()) {
+      gun.update();
+    }
+
+    // decrement shoot cooldown by 1
+    if (getShootCooldown() > 0) {
+      setShootCooldown(getShootCooldown()-1);
+    }
+    
+    heal();
+
+    if (getTimeSinceLastHit() > 0) {
+      setTimeSinceLastHit(getTimeSinceLastHit() - 1);
+    }
+
+    //should be in UMO.update
+    if (int(getHealth()) == 0) {
+      die();
+    }
+    
+    // check for collisions
+    collisionWithBorder();
+    collisionWithUMO();
   }
 
-  void die() {
-  } 
+  abstract void die();
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it
@@ -241,13 +281,6 @@ class Gunship extends UMO {
     this.shop = shop;
   }
 
-  Minimap getMinimap() {
-    return minimap;
-  }
-  void setMinimap(Minimap minimap) {
-    this.minimap = minimap;
-  }
-
   ArrayList<Gun> getGuns() {
     return guns;
   }
@@ -282,13 +315,6 @@ class Gunship extends UMO {
 
   boolean canEvolve() {
     return getLevel() >= 15;
-  }
-
-  int getNumberOfEvolutions() {
-    return numberOfEvolutions;
-  }
-  void setNumberOfEvolutions(int numberOfEvolutions) {
-    this.numberOfEvolutions = numberOfEvolutions;
   }
 
   int getSkillPoints() {
@@ -347,20 +373,6 @@ class Gunship extends UMO {
     this.collisionDamageWithShip = collisionDamageWithShip;
   }
 
-  boolean isSuicidal() {
-    return suicidal;
-  }
-  void setSuicidal(boolean suicidal) {
-    this.suicidal = suicidal;
-  }
-
-  String getType() {
-    return type;
-  }
-  void setType(String type) {
-    this.type = type;
-  }
-
   int getInvincible() {
     return invincible;
   }
@@ -371,7 +383,6 @@ class Gunship extends UMO {
   String getRecoilMode() {
     return recoilMode;
   }
-
   void setRecoilMode (String recoilMode) {
     this.recoilMode = recoilMode;
   }

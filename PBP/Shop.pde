@@ -49,48 +49,36 @@ class Shop implements Processable {
   }
 
   void randomUpgrade() {
-    while (gunship.getSkillPoints() > 0 && gunship.getLevel() < 58) {
-      int rand = (int)(random(8) + 1);
-      if (rand == 1 && ! healthRegen.isMaxLevel()) {
-        healthRegen.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 2 && ! maxHealth.isMaxLevel()) {
-        maxHealth.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 3 && ! bodyDamage.isMaxLevel()) {
-        bodyDamage.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 4 && ! bulletSpeed.isMaxLevel()) {
-        bulletSpeed.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 5 && ! bulletPenetration.isMaxLevel()) {
-        bulletPenetration.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 6 && ! bulletDamage.isMaxLevel()) {
-        bulletDamage.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 7 && ! reload.isMaxLevel()) {
-        reload.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
-      if (rand == 8 && ! movementSpeed.isMaxLevel()) {
-        movementSpeed.upgrade();
-        update();
-        gunship.setSkillPoints(gunship.getSkillPoints()-1);
-      }
+    ArrayList<Stat> possibleUpgrades= new ArrayList<Stat>();
+    if (! healthRegen.isMaxLevel()) {
+      possibleUpgrades.add(healthRegen);
+    } 
+    if (! maxHealth.isMaxLevel()) {
+      possibleUpgrades.add(maxHealth);
+    }
+    if (! bodyDamage.isMaxLevel()) {
+      possibleUpgrades.add(bodyDamage);
+    }
+    if (! bulletSpeed.isMaxLevel()) {
+      possibleUpgrades.add(bulletSpeed);
+    }
+    if (! bulletPenetration.isMaxLevel()) {
+      possibleUpgrades.add(bulletPenetration);
+    }
+    if (! bulletDamage.isMaxLevel()) {
+      possibleUpgrades.add(bulletDamage);
+    }
+    if (! reload.isMaxLevel()) {
+      possibleUpgrades.add(reload);
+    }
+    if (! movementSpeed.isMaxLevel()) {
+      possibleUpgrades.add(movementSpeed);
+    }
+    while (gunship.getSkillPoints() > 0 && gunship.getLevel() < 58 && possibleUpgrades.size() > 0) {
+      int rand = (int)(random(possibleUpgrades.size()));
+      possibleUpgrades.get(rand).upgrade();
+      update();
+      gunship.setSkillPoints(gunship.getSkillPoints()-1);
     }
   }
 
@@ -121,6 +109,7 @@ class Shop implements Processable {
   Stat getMovementSpeed() {
     return movementSpeed;
   }
+
 
   class Stat {
     private String statName;

@@ -44,7 +44,6 @@ class QuadTank extends Gunship { //<>//
 
   void enemyUpdate() { //<>//
     super.enemyUpdate();
-
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
       setDisplay1(600); 
@@ -116,23 +115,29 @@ class QuadTank extends Gunship { //<>//
     }
 
     //do you really think there is a last stage?
-    else if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
+    if (getType().equals("escape") && getHealth() > getMaxHealth() / 3) {
       setType("predict");
       createGunship(color(255, 0, 255));
     }
 
     if (getType().equals("escape")) {
-      if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
-        getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
-        setType("ghost");
-        //no regen everything else full power
-        getShop().getMaxHealth().setLevel(7);
-        getShop().getBodyDamage().setLevel(7);
-        getShop().getBulletSpeed().setLevel(7);
-        getShop().getBulletPenetration().setLevel(7);
-        getShop().getReload().setLevel(7);
-        getShop().getMovementSpeed().setLevel(7);
-        getShop().getHealthRegen().setLevel(0);
+      if (isWithinDisplayDistance(this)) {
+        if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
+          getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
+          setType("ghost");
+          getShop().getReload().setBase(getShop().getReload().getBase()*1.5/2);
+          getShop().getReload().setModifier(getShop().getReload().getModifier()*1.5/2);
+          createGunship(color(0));
+          //no regen everything else full power
+          getShop().getMaxHealth().setLevel(7);
+          getShop().getBodyDamage().setLevel(7);
+          getShop().getBulletSpeed().setLevel(7);
+          getShop().getBulletPenetration().setLevel(7);
+          getShop().getReload().setLevel(7);
+          getShop().getMovementSpeed().setLevel(7);
+          getShop().getHealthRegen().setModifier(0);
+          getShop().getHealthRegen().setBase(0);
+        }
       }
     }
   }

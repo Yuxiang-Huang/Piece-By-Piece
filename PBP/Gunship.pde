@@ -477,6 +477,7 @@ class Gunship extends UMO {
   } // need to have becuase Gunship extends UMO
 
   void playerDie() {
+    setInvincible(0);
     setGameState(LOST);
   }  
 
@@ -552,7 +553,7 @@ class Gunship extends UMO {
             player.setExp(player.getExp() + getLevel() * (getLevel() - 1) * 10 / 2) ; 
             //half of total enemy exp, trust math
           }
-          //1 sec?
+          //0.5 sec?
           setInvincible(30);
           player.setInvincible(30);
         }
@@ -661,6 +662,9 @@ class Gunship extends UMO {
     newPlayer.getShop().gunship = newPlayer;
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
+    newPlayer.setHealth(player.getHealth());
+    newPlayer.setShootCooldown(player.getShootCooldown());
+    newPlayer.setTimeSinceLastHit(player.getTimeSinceLastHit());
     player = newPlayer;
     player.updateStats();
     shop.update();
@@ -726,7 +730,7 @@ class Gunship extends UMO {
   }
 
   int getExpRequiredForNextLevel() {
-    return 10*int(pow(getLevel(),2)); 
+    return 10*int(pow(getLevel(), 1.5));
   }
 
   int getReloadSpeed() {

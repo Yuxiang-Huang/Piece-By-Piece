@@ -221,7 +221,7 @@ void displayAllEnemies() {
 }
 
 void spawnAnEnemy() {
-  int levelHolder = player.getLevel() + (int) random(7) - 3;
+  int levelHolder = player.getLevel() + int(random(7)-3);
   if (levelHolder < 15) {
     if (levelHolder < 1) {
       levelHolder = 1;
@@ -230,7 +230,7 @@ void spawnAnEnemy() {
     enemies.add(enemy);
   }
   if (levelHolder > 15 ) {//& levelHolder < 30) {
-    int rand = (int) random(4);
+    int rand = int(random(4));
     Gunship enemy;
     switch (rand) {
     case 0: 

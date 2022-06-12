@@ -28,10 +28,6 @@ abstract class UMO implements Processable {
     shape(umo, getX(), getY());
   }
 
-  boolean isDead() {
-    return (int) getHealth() == 0;
-  }
-
   void displayHealthBar() {
     int d;
     if (getY() <= height/2) {
@@ -45,6 +41,10 @@ abstract class UMO implements Processable {
     fill(color(0, 255, 0)); // green for current health
     rect(getX()-getRadius(), getY()+(d*(getRadius()+unit*3.0/4)), getRadius()*2*((getHealth())/getMaxHealth()), unit/2);
     fill(0);
+  }
+
+  boolean isDead() {
+    return int(getHealth() == 0);
   }
 
   boolean isCollidingWithBorder() {

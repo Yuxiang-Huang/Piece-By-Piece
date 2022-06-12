@@ -115,7 +115,7 @@ class Gunship extends UMO {
 
     ellipseMode(RADIUS);
     PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = (int) (random(3));
+    int rand = int((random(3)));
     if (rand == 0) {
       setType("straight");
       body.setFill(color(0, 255, 0));

@@ -1,7 +1,7 @@
 class EnemyGunship extends Gunship { 
   private boolean suicidal;
   private String type;
-  
+
   // enemy constructor
   EnemyGunship(int level) {
     super(level);
@@ -41,7 +41,7 @@ class EnemyGunship extends Gunship {
     umo.addChild(gun);
     umo.addChild(body);
   }
-  
+
   void display() {
     super.display();
 
@@ -74,10 +74,10 @@ class EnemyGunship extends Gunship {
       text("regen points: "+getShop().getHealthRegen().getLevel(), getX()+unit*2, getY()+unit*8);
     }
   }
-  
+
   void update() {
     super.update();
-    
+
     //in shooting distance, 90 is just a random number I chose for now after few testing
     if (isSuicidal() || dist(getX(), getY(), player.getX(), player.getY()) < 
       (getShop().getBulletSpeed().getBase() + (getShop().getBulletSpeed().getModifier()*getShop().getBulletSpeed().getLevel())) * 90) {
@@ -189,7 +189,7 @@ class EnemyGunship extends Gunship {
       }
     }
   }
-  
+
   void die() {
     enemies.remove(this);
     setTimeUntilEnemySpawn(getTimeUntilEnemySpawn() - 600);
@@ -197,9 +197,52 @@ class EnemyGunship extends Gunship {
       setTimeUntilEnemySpawn(0);
     }
   }
-  
+
+  void collisionWithUMO() {
+    super.collisionWithUMO();
+    //check for collision with player
+    if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
+      float m1 = unit;
+      float m2 = unit;
+      float dxHolder = (2*m1*getDX() + (m2-m1) * player.getDX()) / (float)(m1 + m2);
+      float dyHolder = (2*m1*getDY() + (m2-m1) * player.getDY()) / (float)(m1 + m2);
+      velocity.add(-1*(2*m2*player.getDX() + (m1-m2) * getDX()) / (m1 + m2), -1*(2*m2*player.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+      player.velocity.add(dxHolder, dyHolder);
+
+      //only do damage part if not invincible
+      if (getInvincible() == 0 && player.getInvincible() == 0) {
+        if (getHealth() >  getCollisionDamage()) {
+          player.setHealth(player.getHealth() - getCollisionDamageWithShip());
+        } else {
+          player.setHealth(player.getHealth() - getHealth());
+        }
+        setHealth(getHealth() - player.getCollisionDamageWithShip());
+        if (isDead()) {
+          player.setExp(player.getExp() + getLevel() * (getLevel() - 1) * 10 / 2) ; 
+          //half of total enemy exp, trust math
+        }
+        //0.5 sec?
+        setInvincible(30);
+        player.setInvincible(30);
+      }
+    }
+    //check for collision with enemies
+    for (EnemyGunship enemy : enemies) {
+      if (enemy != this) {
+        if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
+          float m1 = unit;
+          float m2 = unit;
+          float dxHolder = (2*m1*getDX() + (m2-m1) * enemy.getDX()) / (float)(m1 + m2);
+          float dyHolder = (2*m1*getDY() + (m2-m1) * enemy.getDY()) / (float)(m1 + m2);
+          velocity.add(-1*(2*m2*enemy.getDX() + (m1-m2) * getDX()) / (m1 + m2), -1*(2*m2*enemy.getDY() + (m1-m2) * getDY()) / (float)(m1 + m2));
+          enemy.velocity.add(dxHolder, dyHolder);
+        }
+      }
+    }
+  }
+
   //get and set methods------------------------------------------------------------------
-  
+
   boolean isSuicidal() {
     return suicidal;
   }

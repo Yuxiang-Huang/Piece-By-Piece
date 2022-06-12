@@ -83,16 +83,15 @@ void mouseReleased() {
 } 
 
 void draw() {
-  background(200, 200, 200, 200); //<>// //<>// //<>//
-  // to center camera on player  //<>// //<>// //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY()); //<>// //<>// //<>//
+  background(200, 200, 200, 200);  //<>//
+  // to center camera on player   //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());  //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
-  //<>// //<>// //<>//
-  if (getGameState() == INTRO) {  //<>// //<>// //<>//
-    GameScreen.displayIntro();  //<>// //<>// //<>//
-  } else if (getGameState() == INFO) {
+  if (getGameState() == INTRO) {  //<>//
+    GameScreen.displayIntro();   //<>//
+  } else if (getGameState() == INFO) { //<>//
     GameScreen.displayInfo();
   } else {
     // draw border

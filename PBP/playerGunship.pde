@@ -1,45 +1,10 @@
 class PlayerGunship extends Gunship { 
   // player constructor
-  PlayerGunship(float x, float y, int level) {
-    setRadius(unit);
-    position.set(x, y);
-    setAngle(0);
-    acceleration.set(unit*.025, unit*.025);
-
+  PlayerGunship(int level) { //level for respawn mechanic
+    super(level);
+    position.set(width/2, height/2);
+    setMinimap(new Minimap(this)); 
     setNumberOfEvolutions(4);
-    setShop(new Shop(this));
-    setMinimap(new Minimap(this));
-
-    // set stats base on level
-    setLevel(level);
-    getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(unit * pow(1.01, getLevel()-1));
-
-    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
-    setSkillPoints(getLevel() - 1);
-
-    getShop().update();
-    setHealth(getMaxHealth());
-
-    setGuns(new ArrayList<Gun>());
-    getGuns().add(new Gun(this, 0));
-    setShootCooldown(0);
-
-    // make shape of gunship
-    umo = createShape(GROUP);
-
-    ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    body.setFill(color(1, 178, 225));
-    rectMode(CORNER);
-    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
-    gun.setFill(color(0));
-
-    umo.addChild(gun);
-    umo.addChild(body);
-
-    setSpread(.03*getShop().getReload().getLevel()); // bullet spread scales with reload speed 
-    setTimeSinceLastHit(0);
   }
   
   void display() {

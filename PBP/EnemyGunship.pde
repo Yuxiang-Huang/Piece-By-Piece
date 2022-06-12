@@ -1,73 +1,18 @@
 class EnemyGunship extends Gunship { 
   // enemy constructor
-  EnemyGunship(int levelHolder) {
-    setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
+  EnemyGunship(int level) {
+    super(level);
     position.set(random(width), random(height));
     while (isCollidingWithAnyUMOSpawning()) { // cant spawn ship on top of UMO or too close to player
       setX(random(width));
       setY(random(height));
     }
-    setAngle(0);
-    acceleration.set(unit*.025, unit*.025);
-    setInvincible(60);
-
-    setLevel(levelHolder);
-
-    setShop(new Shop(this));
-
-    // set stats base on level
-    getShop().maxHealth.base = 50 + 2*(getLevel() - 1);
-    setRadius(unit * pow(1.01, getLevel() - 1)); //confirmed from wiki  
-    acceleration.mult(pow(0.985, (getLevel() - 1))); //confirmed from website
-    setSkillPoints(getLevel() - 1);
-
     getShop().randomUpgrade();
     //compare gun stats to gunship stats to determine if suicidal
-    //if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
-    //  getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-    //  getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
-    //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
-    //  setSuicidal(true);
-    //}
     if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
       (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
       setSuicidal(true);
     }
-
-    getShop().update();
-    setHealth(getMaxHealth());
-
-    ArrayList<Gun> gunsNow = new ArrayList<Gun>();
-    gunsNow.add(new Gun(this, 0));
-    setGuns(gunsNow);
-    setShootCooldown(0);
-
-    // make shape of gunship
-    umo = createShape(GROUP);
-
-    ellipseMode(RADIUS);
-    PShape body = createShape(ELLIPSE, 0, 0, unit, unit);
-    int rand = int((random(3)));
-    if (rand == 0) {
-      setType("straight");
-      body.setFill(color(0, 255, 0));
-    } else if (rand == 1) {
-      setType("random");
-      //cyan
-      body.setFill(color(0, 255, 255));
-    } else {
-      setType("predict");
-      //magenta
-      body.setFill(color(255, 0, 255));
-    }
-    rectMode(CORNER);
-    PShape gun = createShape(RECT, -unit/3, 0, 2*unit/3, 1.5*unit);
-    gun.setFill(color(0));
-
-    umo.addChild(gun);
-    umo.addChild(body);
-
-    setTimeSinceLastHit(0);
   }
   
   void display() {
@@ -153,10 +98,6 @@ class EnemyGunship extends Gunship {
       getShop().update(); // to update maxHealth;
       getShop().randomUpgrade();
       //update suicidal
-      //if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + 
-      //  getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
-      //  getShop().getBulletSpeed().getLevel() + getShop().getBulletPenetration().getLevel() +
-      //  getShop().getBulletDamage().getLevel() + getShop().getReload().getLevel()) {
       if (getShop().getHealthRegen().getLevel() + getShop().getMaxHealth().getLevel() + getShop().getBodyDamage().getLevel() + getShop().getMovementSpeed().getLevel() > 
         (getShop().getBulletPenetration().getLevel() + getShop().getBulletDamage().getLevel()) * 2) {
         setSuicidal(true);

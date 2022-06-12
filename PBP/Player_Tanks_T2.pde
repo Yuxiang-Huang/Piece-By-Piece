@@ -1,7 +1,8 @@
 class PlayerTwin extends PlayerGunship {
   // player constructor 
   PlayerTwin(float x, float y, int level) {
-    super(x, y, level);
+    super(level);
+    position.set(x, y);
     setRecoilMode("lower");
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
@@ -41,7 +42,8 @@ class PlayerTwin extends PlayerGunship {
 class PlayerSniper extends PlayerGunship {
   // player constructor 
   PlayerSniper(float x, float y, int level) {
-    super(x, y, level);
+    super(level);
+    position.set(x, y);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
@@ -78,7 +80,8 @@ class PlayerSniper extends PlayerGunship {
 class PlayerMachineGun extends PlayerGunship {
   // player constructor
   PlayerMachineGun(float x, float y, int level) {
-    super(x, y, level);
+    super(level);
+    position.set(x, y);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));
 
@@ -115,7 +118,8 @@ class PlayerMachineGun extends PlayerGunship {
 class PlayerFlankGuard extends PlayerGunship {
   // player constructor
   PlayerFlankGuard(float x, float y, int level) {
-    super(x, y, level);
+    super(level);
+    position.set(x, y);
     setRecoilMode("none");
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 0));

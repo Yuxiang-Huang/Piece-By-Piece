@@ -1,4 +1,4 @@
-class QuadTank extends EnemyGunship {    //<>//
+class QuadTank extends EnemyGunship {    //<>// //<>//
   private int display1;
   private int display2;
 
@@ -8,11 +8,7 @@ class QuadTank extends EnemyGunship {    //<>//
     //!hard mode!
     //super(x, y, 45);;
     setRecoilMode("none");
-    setRadius(unit);
     position.set(x, y);
-    setAngle(0);
-    acceleration.set(unit*.025, unit*.025);
-    setInvincible(60);
 
     setShop(new Shop(this));
 
@@ -48,7 +44,7 @@ class QuadTank extends EnemyGunship {    //<>//
     super.update();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {
-      setDisplay1(600); 
+      setDisplay1(600);  //<>//
       setType("straight");
       //spawn four gunships around you
       for (int x = 0; x < 4; x++) {

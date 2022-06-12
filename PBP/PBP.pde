@@ -229,28 +229,28 @@ void spawnAnEnemy() {
     Gunship enemy = new EnemyGunship(levelHolder);
     enemies.add(enemy);
   }
-  //if (levelHolder > 15 ) {//& levelHolder < 30) {
-  //  int rand = int(random(4));
-  //  Gunship enemy;
-  //  switch (rand) {
-  //  case 0: 
-  //    enemy = new Twin(levelHolder);
-  //    enemies.add(enemy); 
-  //    break;
-  //  case 1: 
-  //    enemy = new Sniper(levelHolder);
-  //    enemies.add(enemy);
-  //    break;
-  //  case 2: 
-  //    enemy = new MachineGun(levelHolder);
-  //    enemies.add(enemy);
-  //    break;
-  //  case 3: 
-  //    enemy = new FlankGuard(levelHolder);
-  //    enemies.add(enemy);
-  //    break;
-  //  }
-  //}
+  if (levelHolder > 15 ) {//& levelHolder < 30) {
+    int rand = int(random(4));
+    Gunship enemy;
+    switch (rand) {
+    case 0: 
+      enemy = new EnemyTwin(levelHolder);
+      enemies.add(enemy); 
+      break;
+    case 1: 
+      enemy = new EnemySniper(levelHolder);
+      enemies.add(enemy);
+      break;
+    case 2: 
+      enemy = new EnemyMachineGun(levelHolder);
+      enemies.add(enemy);
+      break;
+    case 3: 
+      enemy = new EnemyFlankGuard(levelHolder);
+      enemies.add(enemy);
+      break;
+    }
+  }
 }
 
 // get and set methods------------------------------------------------------------------

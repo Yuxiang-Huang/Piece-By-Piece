@@ -82,29 +82,29 @@ class QuadTank extends EnemyGunship { //<>// //<>//
       setDisplay2(600); 
       setType("predict");
       //spawn four types of ships around you
-      //Gunship enemy1 = new Twin(29);
-      //enemy1.setX(player.getX() + getRadius() * 30);
-      //enemy1.setY(player.getY() + getRadius() * 30);
-      //enemies.add(enemy1);
+      Gunship enemy1 = new EnemyTwin(29);
+      enemy1.setX(player.getX() + getRadius() * 30);
+      enemy1.setY(player.getY() + getRadius() * 30);
+      enemies.add(enemy1);
 
-      //Gunship enemy2 = new Sniper(29);
-      //enemy2.setX(player.getX() - getRadius() * 30);
-      //enemy2.setY(player.getY() + getRadius() * 30);
-      //enemies.add(enemy2);
+      Gunship enemy2 = new EnemySniper(29);
+      enemy2.setX(player.getX() - getRadius() * 30);
+      enemy2.setY(player.getY() + getRadius() * 30);
+      enemies.add(enemy2);
 
-      //Gunship enemy3 = new MachineGun(29);
-      //enemy3.setX(player.getX() + getRadius() * 30);
-      //enemy3.setY(player.getY() - getRadius() * 30);
-      //enemies.add(enemy3);
+      Gunship enemy3 = new EnemyMachineGun(29);
+      enemy3.setX(player.getX() + getRadius() * 30);
+      enemy3.setY(player.getY() - getRadius() * 30);
+      enemies.add(enemy3);
 
-      //Gunship enemy4 = new FlankGuard(29);
-      //enemy4.setX(player.getX() - getRadius() * 30);
-      //enemy4.setY(player.getY() - getRadius() * 30);
-      //enemies.add(enemy4);
+      Gunship enemy4 = new EnemyFlankGuard(29);
+      enemy4.setX(player.getX() - getRadius() * 30);
+      enemy4.setY(player.getY() - getRadius() * 30);
+      enemies.add(enemy4);
 
-      //if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy4.getType().equals("predict")) {
-      //  enemy3.setType("predict");
-      //}
+      if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy4.getType().equals("predict")) {
+        enemy3.setType("predict");
+      }
 
       createGunship(color(255, 0, 255));
     }

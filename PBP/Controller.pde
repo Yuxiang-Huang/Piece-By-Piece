@@ -33,6 +33,7 @@ class Controller {
         } else if (key == 'R') {
           player = new PlayerGunship(1);
         }
+        player.setMinimap(new Minimap()); 
         polygons.clear();
         for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons
           Polygon polygon = new Polygon();

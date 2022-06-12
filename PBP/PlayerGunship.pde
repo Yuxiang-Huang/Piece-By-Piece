@@ -1,14 +1,14 @@
 class PlayerGunship extends Gunship { 
   private Minimap minimap; 
   private int numberOfEvolutions;
-  
+
   // player constructor
   PlayerGunship(int level) { //level for respawn mechanic
     super(level);
     position.set(width/2, height/2);
     setNumberOfEvolutions(4);
   }
-  
+
   void display() {
     super.display();
 
@@ -32,7 +32,31 @@ class PlayerGunship extends Gunship {
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*8);
     }
   }
-  
+
+  void displayExpBar() {
+    rectMode(CORNER);
+    if (player.getLevel() < 30) {
+      fill(200, 230); // Translucent Dark Grey for needed Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
+      fill(255, 255, 0); // yellow for gained Exp
+      if (float(getExp())/getExpRequiredForNextLevel() <= 1) {
+        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*(float(getExp())/getExpRequiredForNextLevel()), unit);
+      } else { 
+        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      }
+
+      fill(0);
+    } else {
+      //max level
+      fill(255, 255, 0); // yellow for gained Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      fill(0);
+    }
+    GameScreen.smallText(CENTER);
+    text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
+    GameScreen.resetText();
+  }
+
   /**
    Loops over all bullets, updates and displays them,
    Decrements shoot cooldown by 1,
@@ -100,14 +124,14 @@ class PlayerGunship extends Gunship {
       setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
-    }   
+    }
   }
-  
+
   void die() {
     setInvincible(0);
     setGameState(LOST);
   }  
-  
+
   void displayEvolutions() {
     GameScreen.smallText(CENTER);
 
@@ -166,22 +190,20 @@ class PlayerGunship extends Gunship {
     player.updateStats();
     getShop().update();
   }
-  
+
   //get and set methods------------------------------------------------------------------
-  
+
   Minimap getMinimap() {
     return minimap;
   }
   void setMinimap(Minimap minimap) {
     this.minimap = minimap;
   }
-  
+
   int getNumberOfEvolutions() {
     return numberOfEvolutions;
   }
   void setNumberOfEvolutions(int numberOfEvolutions) {
     this.numberOfEvolutions = numberOfEvolutions;
-  } 
+  }
 }
-  
-  

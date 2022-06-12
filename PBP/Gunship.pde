@@ -210,30 +210,6 @@ abstract class Gunship extends UMO {
     }
   }
 
-  void displayExpBar() {
-    rectMode(CORNER);
-    if (player.getLevel() < 30) {
-      fill(200, 230); // Translucent Dark Grey for needed Exp
-      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
-      fill(255, 255, 0); // yellow for gained Exp
-      if (float(getExp())/getExpRequiredForNextLevel() <= 1) {
-        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*(float(getExp())/getExpRequiredForNextLevel()), unit);
-      } else { 
-        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
-      }
-
-      fill(0);
-    } else {
-      //max level
-      fill(255, 255, 0); // yellow for gained Exp
-      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
-      fill(0);
-    }
-    GameScreen.smallText(CENTER);
-    text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
-    GameScreen.resetText();
-  }
-
   void heal() {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds

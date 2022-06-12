@@ -1,4 +1,4 @@
-class QuadTank extends EnemyGunship { //<>// //<>// //<>//
+class QuadTank extends EnemyGunship {    //<>//
   private int display1;
   private int display2;
 
@@ -44,7 +44,7 @@ class QuadTank extends EnemyGunship { //<>// //<>// //<>//
     createGunship(color(0, 255, 255));
   }
 
-  void update() { //<>// //<>//
+  void update() {   //<>//
     super.update();
     //second phase
     if (getType() == "random" && getHealth() < getMaxHealth() / 3 * 2) {

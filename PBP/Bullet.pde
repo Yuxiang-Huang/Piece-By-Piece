@@ -1,4 +1,4 @@
-class Bullet extends UMO {  //<>//
+class Bullet extends UMO {   //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;

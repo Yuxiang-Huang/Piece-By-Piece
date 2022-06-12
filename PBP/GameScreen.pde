@@ -1,4 +1,5 @@
 class GameScreen {
+  
   void displayIntro() {
     displayLightGreyRect();
 
@@ -22,12 +23,12 @@ class GameScreen {
     text("Gunship:", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*6);
 
     smallText(LEFT);
-    text("1. Press the 'WASD' or Arrow keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*4);
+    text("1. Press the 'wasd' or the arrow keys to move in all 8 directions!", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*4);
 
-    text("2. Move the Mouse to rotate to where you want aim,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*2);
+    text("2. Move the mouse to rotate to where you want aim,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*2);
     text("    or press the 'q' key to rotate automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*1);
 
-    text("3. Press the Mouse to shoot a bullet out of your guns,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
+    text("3. Press the mouse to shoot a bullet out of your guns,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-1);
     text("    or press the 'e' key to shoot automatically.", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-2);
 
     text("4. Whenever you have a skill point to spend,", player.getX() - displayWidth/2 + unit*2, player.getY()-unit*-4);

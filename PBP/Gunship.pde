@@ -99,7 +99,7 @@ abstract class Gunship extends UMO {
     // check for collisions
     collisionWithBorder();
     collisionWithUMO();
-    
+
     //should be in UMO.update
     if (int(getHealth()) == 0) {
       die();

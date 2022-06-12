@@ -121,19 +121,23 @@ class QuadTank extends Gunship {   //<>// //<>//
     }
 
     if (getType().equals("escape")) {
-      if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
-        getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
-        setType("ghost");
-        createGunship(color(0));
-        //no regen everything else full power
-        getShop().getMaxHealth().setLevel(7);
-        getShop().getBodyDamage().setLevel(7);
-        getShop().getBulletSpeed().setLevel(7);
-        getShop().getBulletPenetration().setLevel(7);
-        getShop().getReload().setLevel(7);
-        getShop().getMovementSpeed().setLevel(7);
-        getShop().getHealthRegen().setModifier(0);
-        getShop().getHealthRegen().setBase(0);
+      if (isWithinDisplayDistance(this)) {
+        if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
+          getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
+          setType("ghost");
+          getShop().getReload().setBase(getShop().getReload().getBase()*1.5/2);
+          getShop().getReload().setModifier(getShop().getReload().getModifier()*1.5/2);
+          createGunship(color(0));
+          //no regen everything else full power
+          getShop().getMaxHealth().setLevel(7);
+          getShop().getBodyDamage().setLevel(7);
+          getShop().getBulletSpeed().setLevel(7);
+          getShop().getBulletPenetration().setLevel(7);
+          getShop().getReload().setLevel(7);
+          getShop().getMovementSpeed().setLevel(7);
+          getShop().getHealthRegen().setModifier(0);
+          getShop().getHealthRegen().setBase(0);
+        }
       }
     }
   }

@@ -111,7 +111,7 @@ class Controller {
             player.setHealth(player.getMaxHealth());
           }
 
-          // randomUpgrade
+          // random upgrade
           if (key == 'u') {
             player.getShop().randomUpgrade();
           }

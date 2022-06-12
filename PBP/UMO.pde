@@ -9,7 +9,6 @@ abstract class UMO implements Processable {
 
   private int maxHealth;
   private float health; 
-  private float speed;
   private int collisionDamage;
 
   /**
@@ -182,13 +181,6 @@ abstract class UMO implements Processable {
   }
   void setDY(float dy) {
     this.velocity.y = dy;
-  }
-
-  float getSpeed() {
-    return velocity.mag();
-  }
-  void setSpeed(float speed) {
-    this.velocity.setMag(speed);
   }
 
   float getDDX() {

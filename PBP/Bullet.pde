@@ -1,4 +1,4 @@
-class Bullet extends UMO { //<>//
+class Bullet extends UMO {  //<>//
   Gunship gunship;
   Gun gun;
   private int timeTillDeath;
@@ -13,8 +13,7 @@ class Bullet extends UMO { //<>//
     //for spawning the bullet on the gun rather then the middle of the gunship, could probably be written better.
     position.set(gunship.getX()+(gunship.getRadius()*cos(angle)), gunship.getY()+(gunship.getRadius()*sin(angle)));
     velocity = PVector.fromAngle(angle);
-
-    setSpeed(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
+    velocity.setMag(gunship.shop.bulletSpeed.getBase() + (gunship.shop.bulletSpeed.getModifier()*gunship.shop.bulletSpeed.getLevel()));
 
     //for flankguard
     if (! gunship.getRecoilMode().equals("none")) {

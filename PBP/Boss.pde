@@ -139,7 +139,7 @@ class QuadTank extends Gunship { //<>//
           getShop().getMovementSpeed().setLevel(7);
           getShop().getHealthRegen().setModifier(0);
           getShop().getHealthRegen().setBase(0);
-          }
+        }
       }
     }
   }

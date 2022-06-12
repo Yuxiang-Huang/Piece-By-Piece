@@ -49,7 +49,7 @@ class Shop implements Processable {
   }
 
   void randomUpgrade() {
-    ArrayList<Stat> possibleUpgrades= new ArrayList<Stat>();
+    ArrayList<Stat> possibleUpgrades = new ArrayList<Stat>();
     if (! healthRegen.isMaxLevel()) {
       possibleUpgrades.add(healthRegen);
     } 
@@ -75,6 +75,31 @@ class Shop implements Processable {
       possibleUpgrades.add(movementSpeed);
     }
     while (gunship.getSkillPoints() > 0 && gunship.getLevel() < 58 && possibleUpgrades.size() > 0) {
+      possibleUpgrades = new ArrayList<Stat>();
+      if (! healthRegen.isMaxLevel()) {
+        possibleUpgrades.add(healthRegen);
+      } 
+      if (! maxHealth.isMaxLevel()) {
+        possibleUpgrades.add(maxHealth);
+      }
+      if (! bodyDamage.isMaxLevel()) {
+        possibleUpgrades.add(bodyDamage);
+      }
+      if (! bulletSpeed.isMaxLevel()) {
+        possibleUpgrades.add(bulletSpeed);
+      }
+      if (! bulletPenetration.isMaxLevel()) {
+        possibleUpgrades.add(bulletPenetration);
+      }
+      if (! bulletDamage.isMaxLevel()) {
+        possibleUpgrades.add(bulletDamage);
+      }
+      if (! reload.isMaxLevel()) {
+        possibleUpgrades.add(reload);
+      }
+      if (! movementSpeed.isMaxLevel()) {
+        possibleUpgrades.add(movementSpeed);
+      }
       int rand = (int)(random(possibleUpgrades.size()));
       possibleUpgrades.get(rand).upgrade();
       update();

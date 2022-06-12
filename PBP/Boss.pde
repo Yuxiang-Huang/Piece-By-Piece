@@ -5,6 +5,8 @@ class QuadTank extends Gunship { //<>//
   // boss constructor
   QuadTank(float x, float y) {
     super(x, y, 30);
+    //!hard mode!
+    //super(x, y, 45);
     setRecoilMode("none");
     setRadius(unit);
     position.set(x, y);
@@ -121,7 +123,7 @@ class QuadTank extends Gunship { //<>//
     }
 
     if (getType().equals("escape")) {
-      if (isWithinDisplayDistance(this)) {
+      if (abs(getX()-player.getX()) < (displayWidth/2)-getRadius() && abs(getY()-player.getY()) < (displayHeight/2)-getRadius()) {
         if (getX() - getRadius() < unit || getX() + getRadius() > width - unit || 
           getY() - getRadius() < unit || getY() + getRadius() > height - unit) {
           setType("ghost");

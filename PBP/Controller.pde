@@ -29,9 +29,9 @@ class Controller {
           } else {
             newLevel = (player.getLevel()/2)+1;
           }
-          player = new PlayerGunship(width/2, height/2, newLevel);
+          player = new PlayerGunship(newLevel);
         } else if (key == 'R') {
-          player = new PlayerGunship(width/2, height/2, 1);
+          player = new PlayerGunship(1);
         }
         polygons.clear();
         for (int i = 0; i < (((width/unit)*(height/unit)*.2)/(unit*1.77)); i++) { // ~20% of screen should be polygons

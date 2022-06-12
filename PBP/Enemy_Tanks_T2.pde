@@ -1,7 +1,7 @@
 class EnemyTwin extends EnemyGunship {
   // enemy constructor
-  EnemyTwin(int levelHolder) {
-    super(levelHolder);
+  EnemyTwin(int level) {
+    super(level);
     setGuns(new ArrayList<Gun>());
     getGuns().add(new Gun(this, 3));
     getGuns().add(new Gun(this, -3));

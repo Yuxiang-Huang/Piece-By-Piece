@@ -164,64 +164,6 @@ class Gunship extends UMO {
     GameScreen.resetText();
   }
 
-  void displayEvolutions() {
-    GameScreen.smallText(CENTER);
-
-    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Twin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new Sniper(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new MachineGun(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new FlankGuard(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
-
-    GameScreen.resetText();
-  }
-
-  void evolve(char evolution) {
-    Gunship newPlayer = player;
-    switch(key) {
-    case '1': 
-      newPlayer = new Twin(player.getX(), player.getY(), getLevel()); 
-      break;
-    case '2': 
-      unit*=.8; // increase fov
-      newPlayer = new Sniper(player.getX(), player.getY(), getLevel()); 
-      break;
-    case '3': 
-      newPlayer = new MachineGun(player.getX(), player.getY(), getLevel()); 
-      break;
-    case '4': 
-      newPlayer = new FlankGuard(player.getX(), player.getY(), getLevel()); 
-      break;
-    }
-    newPlayer.velocity = player.velocity;
-    newPlayer.setShop(player.getShop());
-    newPlayer.getShop().gunship = newPlayer;
-    newPlayer.setSkillPoints(player.getSkillPoints());
-    newPlayer.setRadius(player.getRadius());
-    newPlayer.setHealth(player.getHealth());
-    newPlayer.setShootCooldown(player.getShootCooldown());
-    newPlayer.setTimeSinceLastHit(player.getTimeSinceLastHit());
-    player = newPlayer;
-    player.updateStats();
-    shop.update();
-  }
-
   void heal() {
     if (getTimeSinceLastHit() != 0) {
       //healing within 30 seconds

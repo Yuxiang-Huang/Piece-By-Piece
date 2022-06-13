@@ -40,20 +40,20 @@ class QuadTank extends EnemyGunship {      //<>//
         EnemyGunship Enemy = new EnemyGunship(14);
         switch(x) {
         case 0:
-          Enemy.setX(player.getX() + getRadius() * 30);
+          Enemy.setX(player.getX() + getRadius() * 20);
           Enemy.setY(player.getY());
           break;
         case 1:
-          Enemy.setX(player.getX() - getRadius() * 30); //<>//
+          Enemy.setX(player.getX() - getRadius() * 20); //<>//
           Enemy.setY(player.getY());
           break;
         case 2:
           Enemy.setX(player.getX());
-          Enemy.setY(player.getY() + getRadius() * 30);
+          Enemy.setY(player.getY() + getRadius() * 20);
           break;
         case 3:
           Enemy.setX(player.getX());
-          Enemy.setY(player.getY() - getRadius() * 30);
+          Enemy.setY(player.getY() - getRadius() * 20);
           break;
         }
         enemies.add(Enemy);
@@ -68,23 +68,23 @@ class QuadTank extends EnemyGunship {      //<>//
       setType("predict");
       //spawn four types of ships around you
       EnemyGunship enemy1 = new EnemyTwin(29);
-      enemy1.setX(player.getX() + getRadius() * 30);
-      enemy1.setY(player.getY() + getRadius() * 30);
+      enemy1.setX(player.getX() + getRadius() * 20);
+      enemy1.setY(player.getY() + getRadius() * 20);
       enemies.add(enemy1);
 
       EnemyGunship enemy2 = new EnemySniper(29);
-      enemy2.setX(player.getX() - getRadius() * 30);
-      enemy2.setY(player.getY() + getRadius() * 30);
+      enemy2.setX(player.getX() - getRadius() * 20);
+      enemy2.setY(player.getY() + getRadius() * 20);
       enemies.add(enemy2);
 
       EnemyGunship enemy3 = new EnemyMachineGun(29);
-      enemy3.setX(player.getX() + getRadius() * 30);
-      enemy3.setY(player.getY() - getRadius() * 30);
+      enemy3.setX(player.getX() + getRadius() * 20);
+      enemy3.setY(player.getY() - getRadius() * 20);
       enemies.add(enemy3);
 
       EnemyGunship enemy4 = new EnemyFlankGuard(29);
-      enemy4.setX(player.getX() - getRadius() * 30);
-      enemy4.setY(player.getY() - getRadius() * 30);
+      enemy4.setX(player.getX() - getRadius() * 20);
+      enemy4.setY(player.getY() - getRadius() * 20);
       enemies.add(enemy4);
 
       if (! enemy1.getType().equals("predict") && ! enemy2.getType().equals("predict") && ! enemy4.getType().equals("predict")) {

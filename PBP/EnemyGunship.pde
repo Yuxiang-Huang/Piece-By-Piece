@@ -40,6 +40,8 @@ class EnemyGunship extends Gunship {
 
     umo.addChild(gun);
     umo.addChild(body);
+    
+    setInvincible(60);
   }
 
   void display() {

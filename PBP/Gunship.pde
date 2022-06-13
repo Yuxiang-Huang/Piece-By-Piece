@@ -137,13 +137,13 @@ abstract class Gunship extends UMO {
             setHealth(getHealth() - polygon.getHealth());
           }
           polygon.setHealth(polygon.getHealth() - getCollisionDamage());
+          //for health regen after 30 sec
+          setTimeSinceLastHit(1800);
         }
 
         if (polygon.isDead()) {
           setExp(getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
         }
-        //for health regen after 30 sec
-        setTimeSinceLastHit(1800);
         return;
       }
     }

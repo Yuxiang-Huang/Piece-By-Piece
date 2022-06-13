@@ -45,17 +45,17 @@ class EnemyGunship extends Gunship {
   void display() {
     super.display();
 
-    if (!DEBUG) {
+    if (DEBUG) {
       if (getType().equals("straight")) {
-        text("S", getX(), getY());
+        text("S", getX(), getY()+20);
       } else if (getType().equals("random")) {
-        text("R", getX(), getY());
+        text("R", getX(), getY()+20);
       } else if (getType().equals("predict")) {
-        text("P", getX(), getY());
+        text("P", getX(), getY()+20);
       } else if (getType().equals("escape")) {
-        text("E", getX(), getY());
+        text("E", getX(), getY()+20);
       } else {
-        text("G", getX(), getY());
+        text("G", getX(), getY()+20);
       }
     }
 

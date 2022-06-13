@@ -174,8 +174,8 @@ class Shop implements Processable {
     }
 
     /**
-     Increments level of stat by 1.
-     */
+    * Increments level of stat by 1.
+    */
     void upgrade() {
       setLevel(getLevel()+1);
     }

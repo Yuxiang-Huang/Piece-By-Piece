@@ -1,11 +1,10 @@
 class Gun {
   private Gunship gunship;
-  private ArrayList<Bullet> bullets;
+  private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   private float angle;
 
   Gun(Gunship gunship, float angle) {
     this.gunship = gunship;
-    setBullets(new ArrayList<Bullet>());
     setAngle(radians(angle));
   }
 

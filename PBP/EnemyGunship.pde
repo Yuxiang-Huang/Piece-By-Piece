@@ -224,6 +224,7 @@ class EnemyGunship extends Gunship {
         //0.5 sec?
         setInvincible(30);
         player.setInvincible(30);
+        player.setTimeSinceLastHit(1800);
       }
     }
     //check for collision with enemies

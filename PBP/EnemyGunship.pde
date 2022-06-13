@@ -230,7 +230,8 @@ class EnemyGunship extends Gunship {
       }
     }
     //check for collision with enemies
-    for (EnemyGunship enemy : enemies) {
+    for (int e = enemies.indexOf(this); e < enemies.size(); e ++) {
+      EnemyGunship enemy = enemies.get(e);
       if (enemy != this) {
         if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
           float m1 = unit;

@@ -3,14 +3,14 @@ class QuadTank extends EnemyGunship {      //<>//
   private int display2;
 
   // boss constructor
-  QuadTank(float x, float y) {
+  QuadTank() {
     super(30);
     //!hard mode!
     //super(x, y, 45);;
     setRecoilMode("none");
-    position.set(x, y);
+    position.set(width/2, height/2);
 
-    // set stats base on level
+    // set stats 
     getShop().getMaxHealth().setBase(900); //why not
     getShop().getMaxHealth().setModifier(50);
     getShop().getReload().setBase(getShop().getReload().getBase()/1.5);
@@ -157,7 +157,6 @@ class QuadTank extends EnemyGunship {      //<>//
   }
 
   void die() {
-    enemies.remove(this);
     setGameState(WON);
   }
 

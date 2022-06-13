@@ -111,7 +111,7 @@ class PlayerMachineGun extends PlayerGunship {
     getShop().getBulletDamage().setBase(getShop().getBulletDamage().getBase()*.7);
     getShop().getBulletDamage().setModifier(getShop().getBulletDamage().getModifier()*.7);
 
-    setSpread(.5);
+    setSpread(.21);
   }
 }
 

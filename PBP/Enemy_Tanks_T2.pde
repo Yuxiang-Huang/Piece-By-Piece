@@ -84,6 +84,7 @@ class EnemySniper extends EnemyGunship {
     umo.addChild(body);
     updateStats();
     getShop().update();
+    setSpread(0);
   }
 
   boolean canEvolve() {

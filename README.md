@@ -7,7 +7,6 @@
 * No command line arguments needed.
 * To activate debug mode press the \` key (the one bellow the esc button)
 * **!Requirement!** Make sure to have fun!
-*
 ---
 
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
@@ -62,7 +61,12 @@ Once we are done with the MVP (~1 week) we can start working on the actual final
     *  (06-04-2022): "Today I started work on preparing us for implementing evolution by implementing the Gun class so that we can have diffrent gunships with diffrent amounts of guns. I gave Gun an angle so that a Gun could be at any rotation. I also playtested the game and fixed some values for better gameplay."
     *  (06-05-2022): "Today I added a pause button 'p' that pauses the game. I also started work on implementing the evolution mechanic and the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. The base tank can evolve when it reaches level 15"
     *  (06-06-2022): "Today I finished the display for the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. I also started work on some tier 3 evolutions. A tier 2 tanks can evolve when it reaches level 30."
-    *  (06-07-2022): ""
+    *  (06-07-2022): "Today I continued working on implementing T3 evolutions. I first finished off making the Quad Tank, and then worked on the Twin Flank tank. "
+    *  (06-08-2022): "Today I implemented alot of little things. I began by changing the number of polygons that spawn at the start form a set number (100) to be a variable determined by the width and height of the game. I also made a new class, GameScreen, to hold all the diffrent types of screens for all the diffrent gamestates (PAUSED, LOST, WON). I also condensed the code for displaying and updating all the polygons and enemies into functions for cleaner code. I also implmented auto rotate, which is toggleable with the 'q' key, and lets you automatically rotate at a medium pace. With GameScreen made, I started to work on the Intro and Control screens. The Intro screen shows the name of the game and our names, and the Control screen which would show all the controls and debug controls."
+    *  (06-09-2022): ""
+    *  (06-10-2022): "Today me an Yuixang decided that adding T3 evolutions would have been too much to do, and would be very unbalanced as the easiest ones to implement would not be evenly split across all the T2 tanks. As such we decided to scrap the idea and use one of the T3 tanks already amde, the Quad Tank, as a final boss, which Yuxiang would implement the AI for."
+    *  (06-11-2022): "Today me and Yuxiang playtested the game and added the final features that we wanted. A big change I made was changed the previously linear function that we used to determine the exp required for the next level to a quadratic one."
+    *  (06-12-2022): "Today me and Yuxiang worked hard on updating the prototype and UML document to match what we have in our code. We also refactored alot of code to make it more efficent by spliting the enemy and player classes and fixing any bugs that that caused."
 
 ---
 

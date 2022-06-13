@@ -105,7 +105,7 @@ abstract class UMO implements Processable {
       return true;
     }
 
-    for (Gunship enemy : enemies) {
+    for (EnemyGunship enemy : enemies) {
       if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
         < getRadius() + enemy.getRadius()) {
         return true;
@@ -128,7 +128,7 @@ abstract class UMO implements Processable {
       return true;
     }
 
-    for (Gunship enemy : enemies) {
+    for (EnemyGunship enemy : enemies) {
       if (sqrt(pow((getX() - enemy.getX()), 2) + pow((getY() - enemy.getY()), 2)) 
         < (getRadius() + enemy.getRadius()) * k) {
         return true;

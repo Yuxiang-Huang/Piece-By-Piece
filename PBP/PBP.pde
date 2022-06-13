@@ -35,6 +35,7 @@ void setup() {
 
   unit = min(displayWidth/70, displayHeight/35);
   player = new PlayerGunship(1);
+  player.setMinimap(new Minimap()); 
   input = new Controller();
 
   GameScreen.resetText();
@@ -72,26 +73,26 @@ void mouseClicked() {
 
 void mousePressed() {
   if (getGameState() == PLAYING) {
-    player.setAutoFire(true);     //<>// //<>// //<>//
-  }      //<>// //<>// //<>//
+    player.setAutoFire(true);       //<>//
+  }        //<>//
 }
 
 void mouseReleased() {
-  if (getGameState() == PLAYING) {      //<>// //<>// //<>//
-    player.setAutoFire(false);      //<>// //<>// //<>//
-  }       //<>// //<>// //<>//
+  if (getGameState() == PLAYING) {        //<>//
+    player.setAutoFire(false);        //<>//
+  }         //<>//
 } 
 
 void draw() {
-  background(200, 200, 200, 200);      //<>// //<>// //<>//
-  // to center camera on player       //<>// //<>// //<>//
-  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());      //<>// //<>// //<>//
+  background(200, 200, 200, 200);        //<>//
+  // to center camera on player         //<>//
+  translate(displayWidth/2 - player.getX(), displayHeight/2 - player.getY());        //<>//
   // fix mouse coordinates to be absolute rather than relative 
   setMouseX((player.getX() - displayWidth/2) + mouseX); 
   setMouseY((player.getY() - displayHeight/2) + mouseY);
-  if (getGameState() == INTRO) {      //<>// //<>// //<>//
-    GameScreen.displayIntro();       //<>// //<>// //<>//
-  } else if (getGameState() == INFO) {     //<>// //<>// //<>//
+  if (getGameState() == INTRO) {        //<>//
+    GameScreen.displayIntro();         //<>//
+  } else if (getGameState() == INFO) {       //<>//
     GameScreen.displayInfo();
   } else {
     // draw border
@@ -135,7 +136,7 @@ void draw() {
         }
       } else if (player.getLevel() >= 30 && boss == null) {
         if (getTimeUntilBossSpawn() == 0) {
-          boss = new QuadTank(width/2, height/2);
+          boss = new QuadTank();
           enemies.add(boss);
         } else {
           setTimeUntilBossSpawn(getTimeUntilBossSpawn() - 1);
@@ -205,7 +206,7 @@ void displayAllPolygons() {
 
 void updateAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
-    Gunship enemy = enemies.get(e);
+    EnemyGunship enemy = enemies.get(e);
     if (isWithinUpdateDistance(enemy) || enemy == boss) { 
       enemy.update();
     }
@@ -213,7 +214,7 @@ void updateAllEnemies() {
 }
 void displayAllEnemies() {
   for (int e = 0; e < enemies.size(); e++) {
-    Gunship enemy = enemies.get(e);
+    EnemyGunship enemy = enemies.get(e);
     if (isWithinDisplayDistance(enemy) || enemy == boss) {
       enemy.display();
     }

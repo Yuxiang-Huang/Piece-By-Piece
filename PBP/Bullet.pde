@@ -1,6 +1,6 @@
 class Bullet extends UMO {   //<>//
-  Gunship gunship;
-  Gun gun;
+  private Gunship gunship;
+  private Gun gun;
   private int timeTillDeath;
   private final float frictionForBullet = .99;
 
@@ -37,7 +37,7 @@ class Bullet extends UMO {   //<>//
   void display() {
     ellipseMode(RADIUS);
     //color the bullets
-    if (gunship != player) {
+    if (getGunship() != player) {
       fill(255, 0, 0);
     }
     circle(getX(), getY(), getRadius());
@@ -70,9 +70,8 @@ class Bullet extends UMO {   //<>//
    Removes the bullet from its gunship's list of bullets
    */
   void die() {
-    gun.bullets.remove(this);
+    getGun().getBullets().remove(this);
   }
-
 
   /**
    Loops over all Polygons and if currently colliding with one, applies its damage and force to it
@@ -96,14 +95,14 @@ class Bullet extends UMO {   //<>//
         }
         polygon.setHealth(polygon.getHealth() - getCollisionDamage());
         if (polygon.isDead()) {
-          gunship.setExp(gunship.getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
+          getGunship().setExp(getGunship().getExp() + polygon.getExp()); // Fixed: shouldn't always give it to the player
         }
         return;
       }
     }
 
     //ship bullet collision
-    if (gunship != player) {
+    if (getGunship() != player) {
       if (dist(getX(), getY(), player.getX(), player.getY()) < getRadius() + player.getRadius()) {
         //only do damage part if not invincible
         if (player.getInvincible() == 0) {
@@ -113,7 +112,7 @@ class Bullet extends UMO {   //<>//
         }
       }
     } else {
-      for (Gunship enemy : enemies) {
+      for (EnemyGunship enemy : enemies) {
         if (dist(getX(), getY(), enemy.getX(), enemy.getY()) < getRadius() + enemy.getRadius()) {
           if (enemy.getHealth() >  enemy.getCollisionDamage()) {
             setHealth(getHealth() - enemy.getCollisionDamage());
@@ -136,10 +135,10 @@ class Bullet extends UMO {   //<>//
     }
 
     //bullet bullet collision
-    if (gunship != player) {
-      for (Gun gun : player.getGuns()) {
-        for (int b = 0; b < gun.getBullets().size(); b++) {
-          Bullet bullet = gun.getBullets().get(b);
+    if (getGunship() != player) {
+      for (Gun playerGun : player.getGuns()) {
+        for (int b = 0; b < playerGun.getBullets().size(); b++) {
+          Bullet bullet = playerGun.getBullets().get(b);
           if (sqrt(pow((getX() - bullet.getX()), 2) + pow((getY() - bullet.getY()), 2))
             < getRadius() + bullet.getRadius()) {
             //take collision damage or remaining health
@@ -172,4 +171,18 @@ class Bullet extends UMO {   //<>//
   float getFriction() {
     return frictionForBullet;
   }
+  
+  Gunship getGunship() {
+    return gunship;
+  }
+  void setGunship(Gunship gunship) {
+    this.gunship = gunship;
+  } 
+  
+  Gun getGun() {
+    return gun;
+  }
+  void setGun(Gun gun) {
+    this.gun = gun;
+  } 
 }

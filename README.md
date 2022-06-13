@@ -7,7 +7,6 @@
 * No command line arguments needed.
 * To activate debug mode press the \` key (the one bellow the esc button)
 * **!Requirement!** Make sure to have fun!
-*
 ---
 
 ### [Design Document](https://docs.google.com/document/d/1VgnokkQJ6dlN8ZGiPio2rf950HojZwHc50P1fpkQ91U/edit?usp=sharing)
@@ -45,6 +44,7 @@ Once we are done with the MVP (~1 week) we can start working on the actual final
     *  (06-09-2022): "Today I start my day by solving merge issues... Then I cap player level to 30 and create 2 more cheat keys: H for 1 million health, and L for leveling up to 29. Next, I successfully rework movement this time and solved collision with higher level ships. Lastly, I adjust values while play testing the game and created one more escaping stage for the boss. I realized that I need to solve the problem of ships stuck together tomorrow.
     *  (06-10-2022): "Last night, I fixed few more issues with enemy spawn and size before I go to sleep. Today, I fixed bullet collision, varies recoil for different types of tanks, and cap polygon velocity so it doesn't fly. I fix few more things about the boss and started a boss 2 under the request of Daniel because he did Twin Flankguard already... However, we decided to delete it later. Lastly, I asked my math classmates and my friends to play test my game and created a list of things we are going to fix tomorrow."
     *  (06-11-2022): "Today, we fixed bugs and improved the game with the advices my friends gave us yesterday. I make J key able to stop and continue enemy spawn timer. Also, tanks in invincible frame don't take bullet damage now. I fixed the constructors for tier 2 tanks, so all the trait from the previous tier are retained. I reworked random upgrade since it was very slow for high level tanks when there are few available stats to upgrade. Lastly, I balanced the last fight stage of the boss by not letting it regen health and shoot even faster."
+    *  (06-12-2022): "Today, we grind on the prototype and play test the game. Also, I separated the enemies from the player gunship by making them two different classes that extend from the Gunship class. We generalize codes for the methods of the Gunship class and cleaned up codes for the whole game."
 
 * #### Daniel Yentin:
     *  (05-23-2022): "Today I began coding the project. I worked on the PBP (main) class as well as the Gunship class. I was able to create a circle that can move smoothly in all 8 directions."
@@ -62,7 +62,12 @@ Once we are done with the MVP (~1 week) we can start working on the actual final
     *  (06-04-2022): "Today I started work on preparing us for implementing evolution by implementing the Gun class so that we can have diffrent gunships with diffrent amounts of guns. I gave Gun an angle so that a Gun could be at any rotation. I also playtested the game and fixed some values for better gameplay."
     *  (06-05-2022): "Today I added a pause button 'p' that pauses the game. I also started work on implementing the evolution mechanic and the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. The base tank can evolve when it reaches level 15"
     *  (06-06-2022): "Today I finished the display for the tier 2 evolutions: Twin, Machine gun, Sniper, and Flank Guard. I also started work on some tier 3 evolutions. A tier 2 tanks can evolve when it reaches level 30."
-    *  (06-07-2022): ""
+    *  (06-07-2022): "Today I continued working on implementing T3 evolutions. I first finished off making the Quad Tank, and then worked on the Twin Flank tank. "
+    *  (06-08-2022): "Today I implemented alot of little things. I began by changing the number of polygons that spawn at the start form a set number (100) to be a variable determined by the width and height of the game. I also made a new class, GameScreen, to hold all the diffrent types of screens for all the diffrent gamestates (PAUSED, LOST, WON). I also condensed the code for displaying and updating all the polygons and enemies into functions for cleaner code. I also implmented auto rotate, which is toggleable with the 'q' key, and lets you automatically rotate at a medium pace. With GameScreen made, I started to work on the Intro and Control screens. The Intro screen shows the name of the game and our names, and the Control screen which would show all the controls and debug controls."
+    *  (06-09-2022): ""
+    *  (06-10-2022): "Today me an Yuixang decided that adding T3 evolutions would have been too much to do, and would be very unbalanced as the easiest ones to implement would not be evenly split across all the T2 tanks. As such we decided to scrap the idea and use one of the T3 tanks already amde, the Quad Tank, as a final boss, which Yuxiang would implement the AI for."
+    *  (06-11-2022): "Today me and Yuxiang playtested the game and added the final features that we wanted. A big change I made was changed the previously linear function that we used to determine the exp required for the next level to a quadratic one."
+    *  (06-12-2022): "Today me and Yuxiang worked hard on updating the prototype and UML document to match what we have in our code. We also refactored alot of code to make it more efficent by spliting the enemy and player classes and fixing any bugs that that caused."
 
 ---
 

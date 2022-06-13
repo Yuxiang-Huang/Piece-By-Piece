@@ -1,15 +1,14 @@
 class PlayerGunship extends Gunship { 
   private Minimap minimap; 
   private int numberOfEvolutions;
-  
+
   // player constructor
   PlayerGunship(int level) { //level for respawn mechanic
     super(level);
     position.set(width/2, height/2);
-    setMinimap(new Minimap(this)); 
     setNumberOfEvolutions(4);
   }
-  
+
   void display() {
     super.display();
 
@@ -33,7 +32,60 @@ class PlayerGunship extends Gunship {
       text("radius: "+getRadius(), getX()+unit*2, getY()+unit*8);
     }
   }
-  
+
+  void displayExpBar() {
+    rectMode(CORNER);
+    if (player.getLevel() < 30) {
+      fill(200, 230); // Translucent Dark Grey for needed Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit); //confirmed from playing
+      fill(255, 255, 0); // yellow for gained Exp
+      if (float(getExp())/getExpRequiredForNextLevel() <= 1) {
+        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit*(float(getExp())/getExpRequiredForNextLevel()), unit);
+      } else { 
+        rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      }
+
+      fill(0);
+    } else {
+      //max level
+      fill(255, 255, 0); // yellow for gained Exp
+      rect(getX() - 7*unit, getY() + displayHeight/2 - 2*unit, 15*unit, unit);
+      fill(0);
+    }
+    GameScreen.smallText(CENTER);
+    text("Lvl " + getLevel(), getX(), getY() + displayHeight/2 - 1.1*unit);
+    GameScreen.resetText();
+  }
+
+  void displayEvolutions() {
+    GameScreen.smallText(CENTER);
+
+    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new PlayerTwin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
+    shape(new PlayerSniper(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new PlayerMachineGun(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
+
+    fill(200, 230);
+    rectMode(RADIUS);
+    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
+    shape(new PlayerFlankGuard(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
+
+    GameScreen.resetText();
+  }
+
+
   /**
    Loops over all bullets, updates and displays them,
    Decrements shoot cooldown by 1,
@@ -101,41 +153,13 @@ class PlayerGunship extends Gunship {
       setRadius(unit * pow(1.01, getLevel()-1)); //confirmed from wiki
       acceleration.mult(0.985); //confirmed from website
       getShop().update(); // to update maxHealth;
-    }   
+    }
   }
-  
+
   void die() {
     setInvincible(0);
     setGameState(LOST);
   }  
-  
-  void displayEvolutions() {
-    GameScreen.smallText(CENTER);
-
-    text("EVOLVE", getX()-(displayWidth/2)+(unit*5.5), getY()-(displayHeight/2)+(unit*2));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new PlayerTwin(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*4.5));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*5), unit*2, unit*2);
-    shape(new PlayerSniper(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*4.5));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new PlayerMachineGun(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*3), getY()-(displayHeight/2)+(unit*10));
-
-    fill(200, 230);
-    rectMode(RADIUS);
-    rect(getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10), unit*2, unit*2);
-    shape(new PlayerFlankGuard(0, 0, getLevel()).umo, getX()-(displayWidth/2)+(unit*8), getY()-(displayHeight/2)+(unit*10));
-
-    GameScreen.resetText();
-  }
 
   void evolve(char evolution) {
     PlayerGunship newPlayer = player;
@@ -156,32 +180,39 @@ class PlayerGunship extends Gunship {
     }
     newPlayer.velocity = player.velocity;
     newPlayer.setShop(player.getShop());
-    newPlayer.getShop().gunship = newPlayer;
+    newPlayer.getShop().setGunship(newPlayer);
     newPlayer.setSkillPoints(player.getSkillPoints());
     newPlayer.setRadius(player.getRadius());
     newPlayer.setHealth(player.getHealth());
     newPlayer.setShootCooldown(player.getShootCooldown());
     newPlayer.setTimeSinceLastHit(player.getTimeSinceLastHit());
+    newPlayer.setMinimap(player.getMinimap());
     player = newPlayer;
     player.updateStats();
     getShop().update();
   }
-  
+
   //get and set methods------------------------------------------------------------------
-  
+
+  float getAngleToMouse() {
+    float angle = atan2(getMouseY()-getY(), getMouseX()-getX());
+    if (angle < 0) {
+      angle = TWO_PI + angle;
+    }
+    return angle;
+  }
+
   Minimap getMinimap() {
     return minimap;
   }
   void setMinimap(Minimap minimap) {
     this.minimap = minimap;
   }
-  
+
   int getNumberOfEvolutions() {
     return numberOfEvolutions;
   }
   void setNumberOfEvolutions(int numberOfEvolutions) {
     this.numberOfEvolutions = numberOfEvolutions;
-  } 
+  }
 }
-  
-  

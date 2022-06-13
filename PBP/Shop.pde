@@ -1,5 +1,5 @@
 class Shop implements Processable {
-  Gunship gunship;
+  private Gunship gunship;
   PVector position;
 
   //Stat statName = new Stat(level, base, modifier)
@@ -105,6 +105,13 @@ class Shop implements Processable {
       update();
       gunship.setSkillPoints(gunship.getSkillPoints()-1);
     }
+  }
+  
+  Gunship getGunship(){
+    return gunship;
+  }
+  void setGunship(Gunship gunship){
+    this.gunship = gunship;
   }
 
   Stat getHealthRegen() {

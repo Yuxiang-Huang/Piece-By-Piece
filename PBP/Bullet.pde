@@ -1,8 +1,8 @@
-class Bullet extends UMO {   //<>//
+class Bullet extends UMO {   //<>// //<>//
   private Gunship gunship;
   private Gun gun;
   private int timeTillDeath;
-  private final float frictionForBullet = .99;
+  private final float friction = .99;
 
   Bullet(Gunship gunship, Gun gun) {
     this.gunship = gunship;
@@ -169,7 +169,7 @@ class Bullet extends UMO {   //<>//
   }
 
   float getFriction() {
-    return frictionForBullet;
+    return friction;
   }
   
   Gunship getGunship() {

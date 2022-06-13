@@ -10,7 +10,7 @@ class QuadTank extends EnemyGunship {      //<>//
     setRecoilMode("none");
     position.set(width/2, height/2);
 
-    // set stats base on level
+    // set stats 
     getShop().getMaxHealth().setBase(900); //why not
     getShop().getMaxHealth().setModifier(50);
     getShop().getReload().setBase(getShop().getReload().getBase()/1.5);
@@ -157,7 +157,6 @@ class QuadTank extends EnemyGunship {      //<>//
   }
 
   void die() {
-    enemies.remove(this);
     setGameState(WON);
   }
 
